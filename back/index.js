@@ -80,7 +80,7 @@ app.put('/api/dashboard/product/image/:id', (req, res) => {
 
 
 //___________________________________________________________________________________________________
-///////////////////////////////////////order stats (PA) parametres possibles: year / month / quarter / week/////////////////////////////////////////////
+///////////////////////////////////////order stats (PA) parametres possibles: year / month / quarter / week / day /////////////////////////////////////////////
 const orderRoute = '/api/dashboard/order/stats/'
 app.route([`${orderRoute}:request`,orderRoute])
   .get(function (req, res) {
