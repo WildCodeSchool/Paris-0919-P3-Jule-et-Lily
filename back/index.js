@@ -194,33 +194,24 @@ app.put(`${alertRoute}/validation/:id`, (req, res) => {
     }
   })
 });
-
-
-//___________________________________________________________________________________________________
-/////////////////////////////////////// Autres requetes /////////////////////////////////////////////
-
 //__________________________________________________________________________________________________________________________________________
 /////////////////////////////////////// Get les orders depuis le début du mois / les orders en cours ou expédiées ////////////////////////////////////////
-
-
-  app.get("/api/dashboard/order/current-month", (req, res) => {
-    // connection à la base de données, et sélection des employés
-    connection.query(
-      `SELECT * FROM orders
+app.get("/api/dashboard/order/current-month", (req, res) => {
+  // connection à la base de données, et sélection des employés
+  connection.query(
+    `SELECT * FROM orders
       WHERE MONTH(order_date) = MONTH(CURRENT_DATE)
       AND YEAR(order_date) = YEAR(CURRENT_DATE)`,
-      (err, results) => {
-        if (err) {
-          res.status(500).send('Erreur lors de la récupération des commandes du mois');
-        } else {
-          res.json(results);
-        }
-      });
-  });
-
-  
-  app.get(`/api/dashboard/order/status/:number`, (req, res) => {
-    connection.query(
+    (err, results) => {
+      if (err) {
+        res.status(500).send('Erreur lors de la récupération des commandes du mois');
+      } else {
+        res.json(results);
+      }
+    });
+});
+app.get(`/api/dashboard/order/status/:number`, (req, res) => {
+  connection.query(
     `SELECT o.order_ref, st.order_status_name
     FROM orders AS o
     JOIN order_status AS st 
@@ -234,10 +225,6 @@ app.put(`${alertRoute}/validation/:id`, (req, res) => {
         res.json(results);
       }
     });
-  });
-
-  
-
-
+});
 
 app.listen(port, (err) => console.log(`Server is listening on ${port}`))
