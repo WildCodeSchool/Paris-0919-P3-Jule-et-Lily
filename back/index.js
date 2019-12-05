@@ -152,6 +152,45 @@ app.route([`${codePromoRoute}:id`, codePromoRoute])
       }
     });
   });
+
+/////////////////////////////////////// Alert-order /////////////////////////////////////////////
+const alertRoute = '/api/dashboard/account/order'
+app.post(`${alertRoute}`, (req, res) => {
+  // Le user ajoute une commande dans le panier OK
+  const formData = req.body;
+  connection.query('INSERT INTO orders SET ?', formData, err => {
+    if (err) {
+      res.status(500).send("Erreur lors de l'ajout du produit.");
+    } else {
+      res.sendStatus(200);
+    }
+  })
+})
+
+// Ajoute l'order item correspondant OK
+app.post(`${alertRoute}/validation`, (req, res) => {
+  const formData = req.body;
+  connection.query('INSERT INTO order_items SET ?', formData, err => {
+    if (err) {
+      res.status(500).send("Erreur lors de l'ajout du numéro de la commande et de celui du produit.");
+    } else {
+      res.sendStatus(200);
+    }
+  })
+  //Mettre à jour le stock en retirant le ou les pdt commander
+  app.put(`${alertRoute}/validation/:id`, (req, res) => {
+    const requestStock = req.params.request;
+    connection.query('UPDATE stock SET stock_quantity= stock_quantity - 1 WHERE stock_product_id= ?', [requestStock], err => {
+      if (err) {
+        res.status(500).send("Erreur lors de la suppression du produit");
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  });
+})
+
 //___________________________________________________________________________________________________
 /////////////////////////////////////// Autres requetes /////////////////////////////////////////////
+
 app.listen(port, (err) => console.log(`Server is listening on ${port}`))
