@@ -85,7 +85,7 @@ app.put('/api/dashboard/product/image/:id', (req, res) => {
 //___________________________________________________________________________________________________
 ///////////////////////////////////////order stats (PA) parametres possibles: year / month / quarter / week / day /////////////////////////////////////////////
 const orderRoute = '/api/dashboard/order/stats/'
-app.route([`${orderRoute}:request`,orderRoute])
+app.route([`${orderRoute}:request`, orderRoute])
   .get(function (req, res) {
     connection.query(`SELECT SUM(p.product_price) as total_price, COUNT(i.order_item_product_id) as number_of_products, o.* FROM product as p JOIN order_items as i ON p.product_id = i.order_item_product_id JOIN orders as o ON o.order_id = i.order_item_order_id WHERE ${req.params.request}(o.order_date) = ${req.params.request}(CURRENT_DATE) AND YEAR(o.order_date) = YEAR(CURRENT_DATE) GROUP BY o.order_id;`, (err, results) => {
       if (err) {
@@ -123,7 +123,7 @@ app.route([`${statusRoute}:id`, statusRoute])
       }
     });
   });
-  
+
 //___________________________________________________________________________________________________
 /////////////////////////////////////// Gestion des codes promo /////////////////////////////////////
 const codePromoRoute = '/api/dashboard/code-promo/'
@@ -242,5 +242,110 @@ app.get(`/api/dashboard/order/status/:number`, (req, res) => {
       }
     });
 });
+
+//___________________________________________________________________________________________________
+/////////////////////////////////////// Gestion des Header collection Menu /////////////////////////////////////////////
+
+
+const collectionHeaderRoute = '/api/dashboard/header/collection/menu/'  // http://localhost:3000/api/dashboard/header/collection/menu/asc
+app.route([`${collectionHeaderRoute}:request`, collectionHeaderRoute])
+  .get(function (req, res) {
+    connection.query(`SELECT * FROM header_collection_menu ORDER BY collection_menu_id ${req.params.request}`, (err, results) => {
+      if (err) {
+        res.status(500).send('Erreur lors de la récupération des menu header collection');
+      } else {
+        res.json(results);
+      }
+    });
+  })
+  .post(function (req, res) {      //http://localhost:3000/api/dashboard/header/collection/menu/ 
+    const formData = req.body;
+    connection.query('INSERT INTO header_collection_menu SET ?', formData, (err, results) => {
+      if (err) {
+        res.status(500).send("Erreur lors de l'ajout d'un header collection menu");
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  })
+  .delete(function (req, res) {    // http://localhost:3000/api/dashboard/header/collection/menu/6
+    const requestProduct = req.params.request;
+    connection.query('DELETE FROM header_collection_menu  WHERE collection_menu_id=?', [requestProduct], err => {
+      if (err) {
+        res.status(500).send("Erreur lors de la suppression d'un header collection menu");
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  })
+  .put(function (req, res) {   //http://localhost:3000/api/dashboard/header/collection/menu/5
+    const requestProduct = req.params.request;
+    const formData = req.body;
+    connection.query('UPDATE header_collection_menu  SET ? WHERE collection_menu_id=?', [formData, requestProduct], err => {
+      if (err) {
+        res.status(500).send("Erreur lors de la modification d'un header collection menu");
+      } else {
+        res.sendStatus(200);
+      }
+    })
+  });
+//___________________________________________________________________________________________________
+/////////////////////////////////////// Gestion des images pour le slider /////////////////////////////////////////////
+// voir les images du slider
+const seeImgSliderRoute = '/api/dashboard/header/imgslider/:slider' //http://localhost:3000/api/dashboard/header/imgslider/1
+app.route([`${seeImgSliderRoute}:request`, seeImgSliderRoute])
+  .get(function (req, res) {
+    connection.query(`SELECT * FROM image WHERE is_slider_image=${req.params.slider}`, (err, results) => {
+      if (err) {
+        res.status(500).send('Erreur lors de la récupération des images du slider');
+      } else {
+        res.json(results);
+      }
+    })
+  });
+
+// ajouter / supprimer une image au slider
+const imgSliderRoute = '/api/dashboard/header/imgslider/' //http://localhost:3000/api/dashboard/header/imgslider
+app.route([`${imgSliderRoute}:request`, imgSliderRoute])
+  .get(function (req, res) {
+    connection.query(`SELECT * FROM image ${req.params.request}`, (err, results) => {
+      if (err) {
+        res.status(500).send('Erreur lors de la récupération des images du slider');
+      } else {
+        res.json(results);
+      }
+    })
+  })
+  .post(function (req, res) {   //http://localhost:3000/api/dashboard/header/imgslider 
+    const formData = req.body;
+    connection.query('INSERT INTO image SET ?', formData, (err, results) => {
+      if (err) {
+        res.status(500).send("Erreur lors de l'ajout d'une image dans le slider");
+      } else {
+        res.sendStatus(200);
+      }
+    })
+  })
+  .put(function (req, res) {  // http://localhost:3000/api/dashboard/header/imgslider/4
+    const requestProduct = req.params.request;
+    const formData = req.body;
+    connection.query('UPDATE image SET ? WHERE image_id=?', [formData, requestProduct], err => {
+      if (err) {
+        res.status(500).send("Erreur lors de la modification d'une image dans le slider");
+      } else {
+        res.sendStatus(200);
+      }
+    })
+  })
+  .delete(function (req, res) {    // http://localhost:3000/api/dashboard/header/imgslider/4
+    const requestProduct = req.params.request;
+    connection.query('DELETE FROM image WHERE image_id=?', [requestProduct], err => {
+      if (err) {
+        res.status(500).send("Erreur lors de la suppression d'une image");
+      } else {
+        res.sendStatus(200);
+      }
+    })
+  })
 
 app.listen(port, (err) => console.log(`Server is listening on ${port}`))
