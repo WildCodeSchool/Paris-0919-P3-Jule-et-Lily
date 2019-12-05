@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 //___________________________________________________________________________________________________
 ////////////////////////////////////// Selection des utilisateurs ///////////////////////////////////
 app.get('/api/dashboard/account/:role', (req, res) => {
-  connection.query(`SELECT * FROM user WHERE user_role=${req.params.role}`, (err, results) => {
+  connection.query(`SELECT * FROM user WHERE user_role=${req.params.role} ORDER BY user_lastname, user_firstname ASC`, (err, results) => {
     if (err) {
       res.status(500).send('Erreur lors de la récupération des utilisateurs');
     } else {
@@ -22,8 +22,17 @@ app.get('/api/dashboard/account/:role', (req, res) => {
     }
   });
 });
-
-
+//
+//////////////////////////////////// Sélectionner tout l'historique des commandes d'un client//////////////////////
+app.get('/api/dashboard/customers/orders/:id', (req, res) => {
+  connection.query(`SELECT * FROM orders WHERE order_user_id=${req.params.id} ORDER BY order_date DESC`, (err, results) => {
+    if (err) {
+      res.status(500).send("Erreur lors de la récupération de l'historique du client");
+    } else {
+      res.json(results);
+    }
+  });
+});
 //___________________________________________________________________________________________________
 /////////////////////////////////////// Gestion des produits ////////////////////////////////////////
 const productRoute = '/api/dashboard/product/'
