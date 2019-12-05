@@ -81,6 +81,22 @@ app.put('/api/dashboard/product/image/:id', (req, res) => {
     }
   });
 });
+
+
+//___________________________________________________________________________________________________
+///////////////////////////////////////order stats (PA) parametres possibles: year / month / quarter / week / day /////////////////////////////////////////////
+const orderRoute = '/api/dashboard/order/stats/'
+app.route([`${orderRoute}:request`,orderRoute])
+  .get(function (req, res) {
+    connection.query(`SELECT SUM(p.product_price) as total_price, COUNT(i.order_item_product_id) as number_of_products, o.* FROM product as p JOIN order_items as i ON p.product_id = i.order_item_product_id JOIN orders as o ON o.order_id = i.order_item_order_id WHERE ${req.params.request}(o.order_date) = ${req.params.request}(CURRENT_DATE) AND YEAR(o.order_date) = YEAR(CURRENT_DATE) GROUP BY o.order_id;`, (err, results) => {
+      if (err) {
+        res.status(500).send('Erreur lors de la récupération des order');
+      } else {
+        res.json(results);
+      }
+    });
+  })
+
 //___________________________________________________________________________________________________
 /////////////////////////////////////// Gestion du status des commandes /////////////////////////////
 const statusRoute = '/api/dashboard/order/status/'
