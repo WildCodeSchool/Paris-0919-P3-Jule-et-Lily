@@ -152,7 +152,7 @@ app.route([`${codePromoRoute}:id`, codePromoRoute])
       }
     });
   });
-
+//_______________________________________________________________________________________________
 /////////////////////////////////////// Alert-order /////////////////////////////////////////////
 const alertRoute = '/api/dashboard/account/order'
 app.post(`${alertRoute}`, (req, res) => {
@@ -177,18 +177,19 @@ app.post(`${alertRoute}/validation`, (req, res) => {
       res.sendStatus(200);
     }
   })
-  //Mettre à jour le stock en retirant le ou les pdt commander
-  app.put(`${alertRoute}/validation/:id`, (req, res) => {
-    const requestStock = req.params.request;
-    connection.query('UPDATE stock SET stock_quantity= stock_quantity - 1 WHERE stock_product_id= ?', [requestStock], err => {
-      if (err) {
-        res.status(500).send("Erreur lors de la suppression du produit");
-      } else {
-        res.sendStatus(200);
-      }
-    });
-  });
-})
+});
+
+//Mettre à jour le stock en retirant le ou les pdt commander
+app.put(`${alertRoute}/validation/:id`, (req, res) => {
+  const requestStock = req.params.request;
+  connection.query('UPDATE stock SET stock_quantity= stock_quantity - 1 WHERE stock_product_id= ?', [requestStock], err => {
+    if (err) {
+      res.status(500).send("Erreur lors de la suppression du produit");
+    } else {
+      res.sendStatus(200);
+    }
+  })
+});
 
 //___________________________________________________________________________________________________
 /////////////////////////////////////// Autres requetes /////////////////////////////////////////////
