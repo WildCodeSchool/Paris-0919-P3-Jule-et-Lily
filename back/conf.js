@@ -10,5 +10,4 @@ const connection = mysql.createConnection({
     database: 'jule_et_lily_bdd', // le nom de la base de données
 });
 
-
 module.exports = connection;    
