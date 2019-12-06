@@ -17,10 +17,9 @@ app.use(bodyParser.urlencoded({
 
 app.use("/category", route.category)
 app.use("/collection", route.collection)
-app.use("/headerCategory", route.headerCategory)
-app.use("/headerCollection", route.headerCollection)
-app.use("/imageSlider", route.imageSlider)
-app.use("/order", route.order)
+app.use("/header-collection", route.headerCollection)
+app.use("/image-slider", route.imageSlider)
+// app.use("/order", route.order)
 app.use("/product", route.product)
 app.use("/code-promo", route.codePromo)
 app.use("/promo", route.promo)
