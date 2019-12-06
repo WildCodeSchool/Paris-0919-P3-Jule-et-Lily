@@ -22,8 +22,8 @@ app.use(bodyParser.urlencoded({
 // app.use("/imageSlider", route.imageSlider)
 // app.use("/order", route.order)
 // app.use("/product", route.product)
-// app.use("/codePromo", route.codePromo)
-// app.use("/promo", route.promo)
+app.use("/code-promo", route.codePromo)
+app.use("/promo", route.promo)
 app.use("/user", route.user)
 
 app.get('/', (req, res) => {
