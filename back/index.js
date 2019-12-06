@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
 // app.use("/headerCollection", route.headerCollection)
 // app.use("/imageSlider", route.imageSlider)
 // app.use("/order", route.order)
-// app.use("/product", route.product)
+app.use("/product", route.product)
 // app.use("/codePromo", route.codePromo)
 // app.use("/promo", route.promo)
 app.use("/user", route.user)
