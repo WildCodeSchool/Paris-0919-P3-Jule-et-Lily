@@ -17,4 +17,14 @@ router.route('/role/:role')
   });
 });
 
+router.get('/:id', (req, res) => {
+  connection.query(`SELECT * FROM orders WHERE order_user_id=${req.params.id} ORDER BY order_date DESC`, (err, results) => {
+    if (err) {
+      res.status(500).send("Erreur lors de la récupération de l'historique du client");
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 module.exports = router
