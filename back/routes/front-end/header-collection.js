@@ -4,7 +4,10 @@ const router = express.Router()
 router.get('/', (req, res) => {
     res.send("je suis sur la route /header-collection ").status(200)
 })
-router.route(['/:request', '/',':id' ])  //http://localhost:3000/headerCollection/asc
+router.route(['/:request', '/',':id' ])  //
+
+
+
     .get(function (req, res, next) {
         connection.query(`SELECT * FROM header_collection_menu ORDER BY collection_menu_id ${req.params.request}`, (err, results) => {
             if (err) {
