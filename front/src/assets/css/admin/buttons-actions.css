@@ -1,0 +1,10 @@
+.btn-action {
+    margin:5px;
+    color:white;
+    width:36px;
+}
+
+.btn-action:hover {
+    color:gray;
+}
+

@@ -1,25 +1,36 @@
 import React from "react";
-import "./sb-admin-2.min.css";
+// import "../../../assets/css/sb-admin-2.min.css";
 import "../../../assets/css/admin/global.css";
-import "../../../assets/css/admin/ButtonsActions.css";
-import See from "../../../assets/icons/IconSee.svg";
-import Modify from "../../../assets/icons/IconModify.svg";
-import Delete from "../../../assets/icons/IconDelete.svg";
+import "../../../assets/css/admin/buttons-actions.css";
 
 
 
 const ButtonsActions = () => {
   return (
     <>
-      <a href="#" className="btn bg-grey btn-lg btn-See">
-      <img className="btn-icon" src = {See} alt="icon"/>
+    {/* Buttons see/modify/delete  */}
+
+    <div>
+    <a href="#" className="btn bg-gray btn-sm btn-action">
+      <i class="fas fa-eye fa-fw"></i>
       </a>
-      <a href="#" className="btn bg-grey btn-lg btn-Modify">
-      <img className="btn-icon" src = {Modify} alt="icon"/>
+
+      <a href="#" className="btn bg-gray btn-sm btn-action">
+      <i class="fas fa-pen"></i>
       </a>
-      <a href="#" className="btn bg-grey btn-lg btn-Delete">
-      <img className="btn-icon" src = {Delete} alt="icon"/>
+
+      <a href="#" className="btn bg-gray btn-sm btn-action">
+      <i class="fas fa-trash-alt"></i>
       </a>
+    </div>
+
+    {/* Button Add */}
+    <div>
+    <a href="#" className="btn bg-gray btn-sm btn-action">
+      <i class="fas fa-plus"></i>
+      </a>
+    </div>
+      
     </>
   );
 };
