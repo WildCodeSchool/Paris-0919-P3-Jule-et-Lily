@@ -48,7 +48,9 @@
     background: linear-gradient(#390a93, #160254);
 }
 
-
+.bg-gray {
+    background-color:#595160;
+}
 
 
 /* ///////////////// COLORS //////////////// */
