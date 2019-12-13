@@ -1,0 +1,20 @@
+.btn-icon {
+    width:1.5em;
+}   
+
+.btn-See, .btn-Delete, .btn-Modify {
+    margin:5px;
+    height:35px;
+}
+
+.btn-See::before {
+    content: url("../../icons/IconSee.svg");
+}
+
+.btn-Delete::before {
+    content: url("../../icons/IconDelete.svg");
+}
+
+.btn-Modify::before{
+    content: url("../../icons/IconModify.svg");
+}
