@@ -1,19 +1,17 @@
 import React from 'react';
-import Cards from './components/admin/common/Cards';
-import Encards from './components/admin/common/Encarts';
+import { Cards, Encarts, ButtonAdd, ButtonSuppr } from './components/admin/common/';
 
-
-function App() {
+export default () => {
   return (
     <div className="App">
       <h1 className='col-md-12 col-md-offset-5'>Hello ici le front Jule et Lily</h1>
-      <Encards>
+      <Encarts>
         <Cards />
         <Cards />
         <Cards />
-      </Encards>
+      </Encarts>
+      <ButtonAdd />
+      <ButtonSuppr />
     </div>
   );
 }
-
-export default App;
