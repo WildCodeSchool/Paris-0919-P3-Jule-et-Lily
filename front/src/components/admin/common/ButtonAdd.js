@@ -5,7 +5,7 @@ import '../../../assets/css/admin/global.css'
 export default () => {
   return (
     <>
-<button type="button" className="btn btn-success">Confirmer</button>
+      <button type="button" className="btn btn-success">Confirmer</button>
     </>
   );
 }
