@@ -1,8 +1,8 @@
 import React from 'react';
-import ButtonsAdd  from  './components/admin/common/ButtonsAdd'
-import ButtonsModify  from  './components/admin/common/ButtonsModify'
-import ButtonsSee  from  './components/admin/common/ButtonsSee'
-import ButtonsDelete  from  './components/admin/common/ButtonsDelete'
+import ButtonAdd  from  './components/admin/common/ButtonAdd'
+import ButtonModify  from  './components/admin/common/ButtonModify'
+import ButtonSee  from  './components/admin/common/ButtonSee'
+import ButtonDelete  from  './components/admin/common/ButtonDelete'
 
 
 const App = () => {
@@ -10,10 +10,10 @@ const App = () => {
     <div className="App">
 
       <h1 className='col-md-12 col-md-offset-5'>Hello ici le front Jule et Lily</h1>
-      <ButtonsAdd/>
-      <ButtonsModify/>
-      <ButtonsSee/>
-      <ButtonsDelete/>
+      <ButtonAdd/>
+      <ButtonModify/>
+      <ButtonSee/>
+      <ButtonDelete/>
     </div>
   );
 }
