@@ -9928,7 +9928,7 @@ a:focus {
   margin-top: -.25rem;
 }
 
-.nav-item .nav-link .img-profile,
+.sidebar .nav-item .nav-link .img-profile,
 .topbar .nav-item .nav-link .img-profile {
   height: 2rem;
   width: 2rem;
@@ -10074,7 +10074,7 @@ a:focus {
   color: #858796;
 }
 
-. {
+.sidebar {
   width: 6.5rem;
   min-height: 100vh;
 }
