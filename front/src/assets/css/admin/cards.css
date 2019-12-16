@@ -1,3 +1,10 @@
-.card h6{
+.card h6 {
   margin: 0px;
+}
+
+.bg-iconorders {
+  background-image: url("../../images/IconOrders.svg");
+  background-size: 80px;
+  background-position: right 35% bottom 45%;
+  background-repeat: no-repeat;
 }
