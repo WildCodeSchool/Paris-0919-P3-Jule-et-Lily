@@ -1,13 +1,15 @@
 import React from 'react'
-import '../../../assets/css/admin/sb-admin-2.min.css'
 import '../../../assets/css/admin/sb-admin-2.css'
+import '../../../assets/css/admin/sb-admin-2.min.css'
+import '../../../assets/css/admin/global.css'
+import '../../../assets/css/admin/LoginBar.css'
 
 const LoginBar = () => {
 
   return (
     <nav className='nav'>
 
-      <li className="list-group-item dropdown no-arrow border-0 right">
+      <li className="list-group-item dropdown no-arrow border-0 right gray">
 
         <button type="button" class="btn btn-mg btn-link-light border-right-5 align-baseline ">Se deconnecter  </button>
         <span className=' text-decoration-none text-muted mr-2 align-baseline '> | Admin</span>
