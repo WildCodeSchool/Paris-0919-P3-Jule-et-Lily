@@ -5,7 +5,7 @@ import '../../../assets/css/admin/global.css'
 export default () => {
   return (
     <>
-      <button type="button" class="btn btn-outline-danger">Supprimer</button>
+      <button type="button" class="btn btn-outline-danger m-2">Annuler</button>
     </>
   );
 }
