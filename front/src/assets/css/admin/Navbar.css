@@ -1,9 +1,11 @@
 .logoJuleLily{
-    width: 150px;
+    max-width: 150px;
+    width:100%;
     height: auto;
 }
 
 .icons{
-    width: 30px;
+    width: 21px;
     height: auto;
 }
+

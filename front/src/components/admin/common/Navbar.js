@@ -8,14 +8,16 @@ import IconProducts from '../../../assets/icons/IconProducts.svg'
 import IconPromos from '../../../assets/icons/IconPromos.svg'
 import IconUsers from '../../../assets/icons/IconUsers.svg'
 // import { Link } from 'react-router-dom'   !!!! replace a by Link after !!!!
-import './sb-admin-2.css'
-import './sb-admin-2.min.css'
-import './Navbar.css'
+import '../../../assets/css/admin/sb-admin-2.css'
+import '../../../assets/css/admin/sb-admin-2.min.css'
+import '../../../assets/css/admin/global.css'
+import '../../../assets/css/admin/Navbar.css'
+
 
 const Navbar = () => {
         return (
             <div>
-                <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                <ul className="navbar-nav bg-gradient-purple sidebar cssNavbar sidebar-dark accordion" id="accordionSidebar">
 
                     <a className="sidebar-brand d-flex align-items-center justify-content-center">
                             <img className='logoJuleLily' src={IconJL} alt='Jule + Lily' />
@@ -23,7 +25,7 @@ const Navbar = () => {
 
                     <li className="nav-item active">
                         <a className="nav-link">
-                            <img className='icons' src={IconDash} alt='' />
+                            <img className='icons mr-2' src={IconDash} alt='' />
                             <span>Dashboard</span>
                         </a>
                     </li>
@@ -32,37 +34,37 @@ const Navbar = () => {
 
                     <div className="sidebar-heading">Boutique</div>
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                        <img className='icons' src={IconOrders} alt='' />
+                        <a className="nav-link collapsed" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <img className='icons mr-2' src={IconOrders} alt='' />
                             <span>Commandes</span>
                         </a>
                     </li>
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                        <img className='icons' src={IconUsers} alt='' />
-                            <span>Clients</span>
+                        <a className="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        <img className='icons mr-2' src={IconUsers} alt='' />
+                            <span className='align-bottom'>Clients</span>
                         </a>
                     </li>
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                        <img className='icons' src={IconProducts} alt='' />
+                        <a className="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        <img className='icons mr-2' src={IconProducts} alt='' />
                             <span>Produits</span>
                         </a>
                     </li>
 
                     <li className="nav-item">
-                        <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                        <img className='icons' src={IconCollections} alt='' />
-                            <span>Collections + catégories</span>
+                        <a class="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        <img className='icons mr-2' src={IconCollections} alt='' />
+                            <span>Collections + Catégories</span>
                         </a>
                     </li>
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                        <img className='icons' src={IconPromos} alt='' />
-                            <span>Promos + codes promo</span>
+                        <a className="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        <img className='icons mr-2' src={IconPromos} alt='' />
+                            <span>Promos + Codes promo</span>
                         </a>
                     </li>
 
@@ -71,9 +73,9 @@ const Navbar = () => {
                     <div className="sidebar-heading">Site</div>
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                            <img className='icons' src={IconHome} alt='' />
-                            <span>Page d'accueil</span>
+                        <a className="nav-link collapsed" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                            <img className='icons mr-2' src={IconHome} alt='' />
+                            <span className='align-bottom'>Page d'Accueil</span>
                         </a>
                     </li>
                 </ul>
