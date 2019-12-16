@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 
-import './sb-admin-2.css'
-import './sb-admin-2.min.css'
-
+import '../../../assets/css/admin/sb-admin-2.css'
+import '../../../assets/css/admin/sb-admin-2.min.css'
+import '../../../assets/css/admin/global.css'
+import '../../../assets/css/admin/Tables.css'
 const Tables = () => {
 
     const [commandes, setCommandes] = useState();
@@ -12,16 +13,16 @@ const Tables = () => {
         <div>
 
             <div className="table-responsive">
-                <h1 className="text-center text-uppercase text-dark"> Liste des commandes </h1>
+              
                 <table className="table table-bordered text-center " id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Ref.</th>
-                            <th>Nom</th>
-                            <th>Date</th>
-                            <th>Prix Total</th>
-                            <th>Statut</th>
-                            <th> <strong>Action  </strong></th>
+                            <th className='th-order pink bg-lightpink '>Ref.</th>
+                            <th className='th-order pink bg-lightpink '>Nom</th>
+                            <th className='th-order pink bg-lightpink '>Date</th>
+                            <th className='pink bg-lightpink'>Prix Total</th>
+                            <th className='pink bg-lightpink'>Statut</th>
+                            <th className='gray bg-lightpink'> <strong>Action  </strong></th>
                         </tr>
                     </thead>
 

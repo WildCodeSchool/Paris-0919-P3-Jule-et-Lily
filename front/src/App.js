@@ -1,5 +1,5 @@
 import React from 'react';
-import Tables from '../../front/src/components/admin/common/tables/Tables'
+import Tables from '../../front/src/components/admin/common/Tables'
 
 function App() {
   return (
