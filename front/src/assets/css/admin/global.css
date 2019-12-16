@@ -1,47 +1,39 @@
-/* ///////////////// RESET GLOBAL //////////////// */
-
-* {
-    padding :0;
-    margin:0;
-    box-sizing: border-box;
-}
-
-
-
-
 /* ///////////////// FONTS //////////////// */
 
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+/* ///////////////// RESET GLOBAL //////////////// */
 
-/* font-family: 'Montserrat', sans-serif; */
-
-
-
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
 
 /* ///////////////// BG COLORS //////////////// */
 
 .bg-lightpink {
-    background-color:#fef0ff;
+    background-color: #fef0ff;
 }
 
 .bg-lightpurple {
-    background-color:#e8e4f7;
+    background-color: #e8e4f7;
 }
 
 .bg-lightblue {
-    background-color:#e3eaf8;
+    background-color: #e3eaf8;
 }
 
 .bg-lightgray {
-    background-color:#f4f4f4;
+    background-color: #f4f4f4;
 }
 
 .bg-middlegray {
-    background-color:#e5e5e5;
+    background-color: #e5e5e5;
 }
 
 .bg-red {
-    background-color:#fc0808;
+    background-color: #fc0808;
 }
 
 .bg-gradient-purple {
@@ -49,55 +41,53 @@
 }
 
 .bg-gray {
-    background-color:#595160;
+    background-color: #595160;
 }
-
 
 /* ///////////////// COLORS //////////////// */
 
 .pink {
-    color:#dd73da;
+    color: #dd73da;
 }
 
 .darkpurple {
-    color:#390a93;
+    color: #390a93;
 }
 
 .middlepurple {
-    color:#b992f4;
+    color: #b992f4;
 }
 
 .blue {
-    color:#234eb7;
+    color: #234eb7;
 }
 
 .gray {
-    color:#595160;
+    color: #595160;
 }
 
 .middlegray {
-    color:#d3d3d3;
+    color: #d3d3d3;
 }
 
 .lightgray {
-    color:#f4f4f4;
+    color: #f4f4f4;
 }
-
 
 /* ///////////////// COLORS BLUE  STATS VENTE + PAGINATION //////////////// */
 
 .blue1 {
-    color:#94b3f7;
+    color: #94b3f7;
 }
 
 .blue2 {
-    color:#4e73df;
+    color: #4e73df;
 }
 
 .blue3 {
-    color:#234eb7;
+    color: #234eb7;
 }
 
 .blue4 {
-    color:#002b82;
+    color: #002b82;
 }
