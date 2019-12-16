@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../../assets/css/admin/sb-admin-2.min.css'
 import '../../../assets/css/admin/global.css'
 
-const Cards = () => {
-
+export default () => {
   return (
     <>
       <div class="col-xl-3 col-md-6 mb-4">
@@ -24,6 +23,3 @@ const Cards = () => {
     </>
   );
 }
-
-
-export default Cards

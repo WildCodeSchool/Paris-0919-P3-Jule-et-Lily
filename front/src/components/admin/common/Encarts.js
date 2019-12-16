@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import '../../../assets/css/admin/sb-admin-2.min.css'
 import '../../../assets/css/admin/global.css'
 
-const Encards = (props) => {
+export default (props) => {
 
-  var divStyle = {
+  const divStyle = {
     position: 'absolute',
     transform: 'translate3d(-156px, 19px, 0px)',
     top: '0px',
     left: '0px'
   }
+
   return (
     <>
       <div class="card shadow mb-4">
@@ -37,5 +38,3 @@ const Encards = (props) => {
     </>
   );
 }
-
-export default Encards
