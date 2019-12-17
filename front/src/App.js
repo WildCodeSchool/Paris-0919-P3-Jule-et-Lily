@@ -8,6 +8,7 @@ import ButtonSee  from  './components/admin/common/ButtonSee'
 import ButtonDelete  from  './components/admin/common/ButtonDelete'
 import LoginBar from '../src/components/admin/common/LoginBar'
 import Navbar from './components/admin/common/Navbar.js'
+import SearchBar from './components/admin/common/SearchBar'
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
       <ButtonDelete/>
       <Navbar />
       <LoginBar/>
+      <SearchBar />
     </div>
   );
 }
