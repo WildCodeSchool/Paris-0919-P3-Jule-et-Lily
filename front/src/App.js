@@ -6,9 +6,11 @@ export default () => {
   return (
     <div id="wrapper">
       {/* mettre la navbar/sidebar ici */}
+      <Navbar />
       <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
           {/* Mettre la login bar ici  */}
+          <LoginBar />
           <div id="container-fluid">
             <h1 className="col-md-12 col-md-offset-5">
               Hello ici le front Jule et Lily
@@ -21,8 +23,6 @@ export default () => {
             <ButtonModify />
             <ButtonSee />
             <ButtonDelete />
-            <Navbar />
-            <LoginBar />
             <SearchBar />
             <Encarts>
               <Cards title="Ventes de la semaine" benefits="6,740€" />
