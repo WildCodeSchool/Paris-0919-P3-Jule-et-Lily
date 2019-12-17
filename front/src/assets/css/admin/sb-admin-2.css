@@ -9897,6 +9897,45 @@ a:focus {
   display: none;
 }
 
+<<<<<<< HEAD
+=======
+.sidebar .nav-item.dropdown .dropdown-toggle::after,
+.topbar .nav-item.dropdown .dropdown-toggle::after {
+  width: 1rem;
+  text-align: center;
+  float: right;
+  vertical-align: 0;
+  border: 0;
+  font-weight: 900;
+  content: '\f105';
+  font-family: 'Font Awesome 5 Free';
+}
+
+.sidebar .nav-item.dropdown.show .dropdown-toggle::after,
+.topbar .nav-item.dropdown.show .dropdown-toggle::after {
+  content: '\f107';
+}
+
+.sidebar .nav-item .nav-link,
+.topbar .nav-item .nav-link {
+  position: relative;
+}
+
+.sidebar .nav-item .nav-link .badge-counter,
+.topbar .nav-item .nav-link .badge-counter {
+  position: absolute;
+  transform: scale(0.7);
+  transform-origin: top right;
+  right: .25rem;
+  margin-top: -.25rem;
+}
+
+.sidebar .nav-item .nav-link .img-profile,
+.topbar .nav-item .nav-link .img-profile {
+  height: 2rem;
+  width: 2rem;
+}
+>>>>>>> origin/feat/bootstrap/loginBar
 
 .topbar {
   height: 4.375rem;
