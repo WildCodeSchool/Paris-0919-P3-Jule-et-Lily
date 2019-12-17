@@ -1,6 +1,6 @@
 import React from 'react';
-import '../../../assets/css/admin/sb-admin-2.min.css'
-import '../../../assets/css/admin/global.css'
+// import '../../../assets/css/admin/sb-admin-2.min.css'
+// import '../../../assets/css/admin/global.css'
 import '../../../assets/css/admin/buttons-actions.css';
 
 export default () => {

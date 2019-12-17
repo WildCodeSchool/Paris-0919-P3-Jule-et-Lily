@@ -1,6 +1,6 @@
 import React from 'react';
 import { ButtonAdd, ButtonConfirm, ButtonDelete, ButtonModify, ButtonSee, ButtonCancel, Cards, Encarts, LoginBar, Navbar, Pagination, ReturnButton, SearchBar, Tables } from './components/admin/common/';
-import '../src/assets/css/admin/sb-admin-2.min.css'
+// import '../src/assets/css/admin/sb-admin-2.min.css'
 
 export default () => {
   return (
