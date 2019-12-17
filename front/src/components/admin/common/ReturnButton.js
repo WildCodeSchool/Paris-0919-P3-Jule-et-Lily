@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import '../../../assets/css/admin/global.css'
 
  const ReturnButton = (props) => {
     return (

@@ -8,8 +8,6 @@ import IconProducts from '../../../assets/icons/IconProducts.svg'
 import IconPromos from '../../../assets/icons/IconPromos.svg'
 import IconUsers from '../../../assets/icons/IconUsers.svg'
 // import { Link } from 'react-router-dom'   !!!! replace a by Link after !!!!
-import '../../../assets/css/admin/sb-admin-2.css'
-import '../../../assets/css/admin/sb-admin-2.min.css'
 import '../../../assets/css/admin/global.css'
 import '../../../assets/css/admin/Navbar.css'
 

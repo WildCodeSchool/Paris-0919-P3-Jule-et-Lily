@@ -1,7 +1,5 @@
 import React from 'react'
 
-import '../../../assets/css/admin/sb-admin-2.css'
-import '../../../assets/css/admin/sb-admin-2.min.css'
 import '../../../assets/css/admin/global.css'
 
 const SearchBar = () => {
