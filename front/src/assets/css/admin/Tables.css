@@ -1,0 +1,24 @@
+.th-order{
+    cursor: pointer;
+    position:relative;
+
+}
+.th-order::after{
+    content:"\2193";
+    bottom: 0.9em;
+    display: block;
+    position: absolute;
+    right:0.5em;
+}
+
+.th-order::before{
+    content:"\2191";
+    bottom: 0.9em;
+    display: block;
+    position: absolute;
+    right:1em;
+
+}
+.th{
+    font-weight: 800;
+}
