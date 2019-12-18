@@ -2,13 +2,14 @@ import React from 'react'
 import '../../../assets/css/admin/global.css'
 import '../../../assets/css/admin/LoginBar.css'
 
-const LoginBar = () => {
+const LoginBar = (props) => {
 
   return (
 
-
-    <li className="list-group-item dropdown no-arrow border-0 right gray ">
-
+    <div className="dropdown no-arrow border-0 right gray loginBar"> 
+      
+      {props.children}
+      <div>
       <button type="button" class="btn btn-mg btn-link-light border-right-5 align-baseline justify-content-end ">Se deconnecter  </button>
       <span className=' text-decoration-none text-muted mr-2 align-baseline '> | Admin</span>
       <a className="list-item dropdown-toggle" href="" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -26,9 +27,8 @@ const LoginBar = () => {
 
 
       </div>
-
-    </li>
-
+      </div>
+    </div>
 
 
 

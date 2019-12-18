@@ -22,3 +22,7 @@
 .th{
     font-weight: 800;
 }
+
+#dataTable {
+    margin-bottom: 1.25rem
+}

@@ -1,9 +1,32 @@
 .btn-action {
-    margin:5px;
-    color:white;
-    width:36px;
+  margin: 5px;
+  color: white;
+  width: 36px;
 }
 
 .btn-action:hover {
-    color:gray;
+  color: gray;
+}
+
+.addDiv {
+  align-self: flex-end;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  height:38px;
+  padding-left:1rem;
+  align-items: center;
+  display: flex;
+  margin-left:20px;
+}
+
+.tableActions {
+  align-self: flex-end;
+  display: flex;
+  margin-bottom: 1.25rem;
+}
+
+.searchEnd {
+    align-self: flex-end;
+    height:38px;
+    padding-left:1rem;
 }

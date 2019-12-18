@@ -8,3 +8,8 @@
   background-position: right 35% bottom 45%;
   background-repeat: no-repeat;
 }
+
+.encartContent {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../../assets/css/admin/global.css'
+import '../../../assets/css/admin/cards.css'
 
 export default (props) => {
 
@@ -10,7 +11,7 @@ export default (props) => {
           <h6 className="font-weight-bold text-uppercase gray">Statistiques des ventes</h6>
         </div>
         <div className="card-body">
-          <div className="row">
+          <div className="column encartContent">
             {props.children}
           </div>
         </div>

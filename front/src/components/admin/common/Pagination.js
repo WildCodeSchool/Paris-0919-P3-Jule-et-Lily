@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import '../../../assets/css/admin/pagination.css'
 
 const Pagination = () => {
   const [pagesNb, setPagesNb] = useState(5);
@@ -31,8 +32,8 @@ const Pagination = () => {
 
   return (
     console.log(activePage),
-    <div>
-      <nav aria-label="Page navigation example">
+
+      <nav aria-label="Page navigation example" className="paginationEnd">
         <ul className="pagination">
           <li className={activePage === 1 ? "page-item disabled" : "page-item"}>
             <a className="page-link" href="#" aria-label="Next" onClick={previousPage}>
@@ -50,7 +51,6 @@ const Pagination = () => {
           </li>
         </ul>
       </nav>
-    </div>
   );
 }
 
