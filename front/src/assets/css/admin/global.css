@@ -92,3 +92,7 @@
 .blue4 {
     color: #002b82;
 }
+
+#wrapper {
+    height: 100vh;
+}

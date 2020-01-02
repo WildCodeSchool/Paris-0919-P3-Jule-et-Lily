@@ -18,6 +18,7 @@ import {
 } from "./components/admin/common/";
 import "../src/assets/css/admin/sb-admin-2.min.css";
 import "../src/assets/css/admin/buttons-actions.css";
+import "../src/assets/css/admin/global.css";
 import Form from "./components/admin/common/Form";
 
 export default () => {
