@@ -7,6 +7,16 @@ const router = express.Router()
 router.get('/', (req, res) => {
   res.send("je suis sur la route /product").status(200)
 })
+router.route(['/all'])
+  .get(function (req, res) { //récup un produit
+    connection.query('SELECT * FROM product ', req.body, (err, results) => {
+      if (err) {
+        res.send('Erreur lors de la récupération des produits').status(500);
+      } else {
+        res.json(results);
+      }
+    });  
+  })
 
 router.route([`/:id`, `/`])
   .get(function (req, res) { //récup un produit
