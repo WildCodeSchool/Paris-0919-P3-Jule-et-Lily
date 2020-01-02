@@ -6,3 +6,8 @@
   align-items: center;
   padding: 0 20px;
 }
+
+.loginItems{
+  position: fixed;
+  right: 40px;
+}

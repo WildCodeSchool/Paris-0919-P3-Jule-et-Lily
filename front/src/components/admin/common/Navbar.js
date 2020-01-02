@@ -7,9 +7,9 @@ import IconOrders from '../../../assets/icons/IconOrders.svg'
 import IconProducts from '../../../assets/icons/IconProducts.svg'
 import IconPromos from '../../../assets/icons/IconPromos.svg'
 import IconUsers from '../../../assets/icons/IconUsers.svg'
-// import { Link } from 'react-router-dom'   !!!! replace a by Link after !!!!
 import '../../../assets/css/admin/global.css'
 import '../../../assets/css/admin/Navbar.css'
+import {Switch, NavLink, Route} from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -22,48 +22,48 @@ const Navbar = () => {
                     </a>
 
                     <li className="nav-item active">
-                        <a className="nav-link">
+                        <NavLink to="/" className="nav-link">
                             <img className='icons mr-2' src={IconDash} alt='' />
                             <span>Dashboard</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <hr className="sidebar-divider" />
 
                     <div className="sidebar-heading">Boutique</div>
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <NavLink to="/orders" className="nav-link collapsed" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                         <img className='icons mr-2' src={IconOrders} alt='' />
                             <span>Commandes</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        <NavLink to="/clients"  className="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                         <img className='icons mr-2' src={IconUsers} alt='' />
                             <span className='align-bottom'>Clients</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        <NavLink to="/products"  className="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                         <img className='icons mr-2' src={IconProducts} alt='' />
                             <span>Produits</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li className="nav-item">
-                        <a class="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        <NavLink to="/collections" className="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                         <img className='icons mr-2' src={IconCollections} alt='' />
                             <span>Collections + Catégories</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        <NavLink to="/promo"  className="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                         <img className='icons mr-2' src={IconPromos} alt='' />
                             <span>Promos + Codes promo</span>
-                        </a>
+                        </NavLink>
                     </li>
 
                     <hr className="sidebar-divider" />
@@ -71,10 +71,10 @@ const Navbar = () => {
                     <div className="sidebar-heading">Site</div>
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                        <NavLink to="/frontcustom"  className="nav-link collapsed" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                             <img className='icons mr-2' src={IconHome} alt='' />
                             <span className='align-bottom'>Page d'Accueil</span>
-                        </a>
+                        </NavLink>
                     </li>
                 </ul>
             </div>
