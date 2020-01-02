@@ -27,7 +27,7 @@
 
 #dataTable th,
 #dataTable td {
-  min-width: 100px;
+  min-width: 120px;
   max-width: 400px;
   vertical-align: middle;
 }
@@ -35,4 +35,12 @@
 #dataTable td p {
  max-height:50px;
  overflow:auto;
+}
+
+.table .actionButtons, .table .actionButtons div{
+  padding: 2px;
+}
+
+.table .actionButtons a  {
+  margin:0;
 }

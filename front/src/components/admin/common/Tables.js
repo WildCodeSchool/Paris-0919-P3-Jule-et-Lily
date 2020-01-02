@@ -44,7 +44,7 @@ const Tables = (props) => {
               {/* {props.price} */}
               {/* <td>En cours</td> */}
               {/* {props.status} */}
-              <td>
+              <td className="actionButtons">
                 <ButtonModify />
                 <ButtonSee />
                 <ButtonDelete />
