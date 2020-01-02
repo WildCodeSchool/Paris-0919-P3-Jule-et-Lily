@@ -10,9 +10,9 @@ router.get('/', (req, res) => {
 
 router.route([`/:id`, `/`])
   .get(function (req, res) { //récup un produit
-    connection.query(`SELECT * FROM product ORDER BY product_name ${req.params.id}`, (err, results) => {
+    connection.query('SELECT * FROM product WHERE product_id = ?', req.params.id, (err, results) => {
       if (err) {
-        res.status(500).send('Erreur lors de la récupération des produits');
+        res.send('Erreur lors de la récupération des produits').status(500);
       } else {
         res.json(results);
       }

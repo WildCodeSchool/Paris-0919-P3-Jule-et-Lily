@@ -31,7 +31,6 @@ const Pagination = () => {
 
 
   return (
-    console.log(activePage),
 
       <nav aria-label="Page navigation example" className="paginationEnd">
         <ul className="pagination">

@@ -12,7 +12,7 @@ router.get('/all/:request', (req, res) => {
       if (err) {
         res.status(500).send('Erreur lors de la récupération des categories');
       } else {
-        res.json(results);
+        res.json(results).status(200);
       }
     });
 })
@@ -24,7 +24,7 @@ router.route(['/:id', '/'])
     if (err) {
       res.status(500).send("Erreur lors de la récupération d'une catégorie");
     } else {
-      res.json(results);
+      res.json(results).status(200);
     }
   });
 })

@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import axios from 'axios';
 import {
   ButtonAdd,
   ButtonConfirm,
@@ -17,10 +18,26 @@ import {
 } from "./components/admin/common/";
 import "../src/assets/css/admin/sb-admin-2.min.css";
 import "../src/assets/css/admin/buttons-actions.css";
+import Form from "./components/admin/common/Form";
 
 export default () => {
+
+  const [data, setData] = useState([]);
+
+  const fetchData = () => {
+    const id = 1
+    axios.get('/product/' +id)
+    //  .then(res => console.log(res.data[0]))
+    .then(res => setData({ data: res.data[0] })) ;
+  }  
+  
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   return (
     <div id="wrapper">
+      {console.log("product data : ", data.data)}
       {/* mettre la navbar/sidebar ici */}
       <Navbar />
       <div id="content-wrapper" class="d-flex flex-column">
@@ -49,8 +66,11 @@ export default () => {
                 <SearchBar />
                 <div className="addDiv">Ajouter <ButtonAdd /></div>
               </div>
-              <Tables />
+              <Tables data={data.data ? data.data : 'loading'}/>
               <Pagination />
+            </Encarts>
+            <Encarts>
+              <Form />
             </Encarts>
           </div>
         </div>
