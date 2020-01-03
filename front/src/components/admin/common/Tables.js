@@ -36,7 +36,6 @@ const Tables = props => {
           <thead>
             {props.page === "order" ? (
               <tr>
-                <th className="th-order pink bg-lightpink "> Id </th>
                 <th className="th-order pink bg-lightpink "> Ref </th>
                 <th className="th-order pink bg-lightpink ">
                   {" "}
@@ -56,10 +55,11 @@ const Tables = props => {
               </tr>
             ) : props.page === "products" ? (
               <tr>
-                <th className="th-order pink bg-lightpink "> Id </th>
-                <th className="th-order pink bg-lightpink "> Nom </th>
+                <th className="th-order pink bg-lightpink "> Désignation</th>
                 <th className="th-order pink bg-lightpink "> Prix </th>
                 <th className="pink bg-lightpink"> Description </th>
+                <th className="pink bg-lightpink"> Collection </th>
+                <th className="pink bg-lightpink"> Catégorie </th>
                 <th className="pink bg-lightpink"> Stock </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
@@ -67,16 +67,15 @@ const Tables = props => {
               </tr>
             ) : props.page === "categories" ? (
               <tr>
-                <th className="th-order pink bg-lightpink "> Id </th>
-                <th className="th-order pink bg-lightpink "> Nom </th>
+                <th className="th-order pink bg-lightpink "> Désignation </th>
+                <th className="th-order pink bg-lightpink "> Nombre de références </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
                 </th>
               </tr>
             ) : props.page === "collections" ? (
               <tr>
-                <th className="th-order pink bg-lightpink "> Id </th>
-                <th className="th-order pink bg-lightpink "> Nom </th>
+                <th className="th-order pink bg-lightpink "> Désignation </th>
                 <th className="th-order pink bg-lightpink "> Image de couverture </th>
                 <th className="th-order pink bg-lightpink "> Image de la collection </th>
                 <th className="th-order pink bg-lightpink "> Nombre de références </th>
@@ -84,7 +83,32 @@ const Tables = props => {
                   <strong>Action </strong>
                 </th>
               </tr>
-            ) : (
+            ) : props.page === "promo" ? (
+              <tr>
+                <th className="th-order pink bg-lightpink "> Nom de la promo </th>
+                <th className="th-order pink bg-lightpink "> Réduction </th>
+                <th className="gray bg-lightpink">
+                  <strong>Action </strong>
+                </th>
+              </tr> 
+              ) : props.page === "code-promo" ? (
+              <tr>
+                <th className="th-order pink bg-lightpink "> Nom du code promo </th>
+                <th className="th-order pink bg-lightpink "> Réduction </th>
+                <th className="gray bg-lightpink">
+                  <strong>Action </strong>
+                </th>
+              </tr>
+               ) : props.page === "clients" ? (
+                <tr>
+                  <th className="th-order pink bg-lightpink "> Nom</th>
+                  <th className="th-order pink bg-lightpink "> Prénom </th>
+                  <th className="th-order pink bg-lightpink "> Email </th>
+                  <th className="gray bg-lightpink">
+                    <strong>Action </strong>
+                  </th>
+                </tr>
+                 ) : (
               <></>
             )}
           </thead>
@@ -100,10 +124,6 @@ const Tables = props => {
                     const shipped_date = new Date(data.shipped_date);
                     return (
                       <tr key={data.order_id}>
-                        <td>
-                          {" "}
-                          <p>{data.order_id}</p>
-                        </td>
                         <td>
                           {" "}
                           <p>{data.order_ref}</p>
@@ -151,10 +171,6 @@ const Tables = props => {
                       <tr key={data.product_id}>
                         <td>
                           {" "}
-                          <p>{data.product_id}</p>
-                        </td>
-                        <td>
-                          {" "}
                           <p>{data.product_name}</p>
                         </td>
                         <td>
@@ -163,6 +179,12 @@ const Tables = props => {
                         </td>
                         <td>
                           <p>{data.product_description}</p>
+                        </td>
+                        <td>
+                          <p>{data.collection_name}</p>
+                        </td>
+                        <td>
+                          <p>{data.category_name}</p>
                         </td>
                         <td>
                           <p>{data.product_stock}</p>
@@ -178,10 +200,6 @@ const Tables = props => {
                     console.log(data);
                     return (
                       <tr key={data.collection_id}>
-                        <td>
-                          {" "}
-                          <p>{data.collection_id}</p>
-                        </td>
                         <td>
                           {" "}
                           <p>{data.collection_name}</p>
@@ -205,21 +223,13 @@ const Tables = props => {
                     );
                   case "categories":
                     return (
-                      <tr key={data.order_id}>
+                      <tr key={data.category_id}>
                         <td>
                           {" "}
-                          <p>{data.order_id}</p>
+                          <p>{data.category_name}</p>
                         </td>
                         <td>
-                          {" "}
-                          <p>{data.product_name}</p>
-                        </td>
-                        <td>
-                          {" "}
-                          <p>{data.product_price}</p>
-                        </td>
-                        <td>
-                          <p>{data.product_description}</p>
+                          <p>{data.nb_items}</p>
                         </td>
                         <td>
                           <ButtonModify />
@@ -230,21 +240,18 @@ const Tables = props => {
                     );
                   case "clients":
                     return (
-                      <tr key={data.order_id}>
+                      <tr key={data.user_id}>
                         <td>
                           {" "}
-                          <p>{data.order_id}</p>
+                          <p>{data.user_lastname}</p>
                         </td>
                         <td>
                           {" "}
-                          <p>{data.product_name}</p>
+                          <p>{data.user_firstname}</p>
                         </td>
                         <td>
                           {" "}
-                          <p>{data.product_price}</p>
-                        </td>
-                        <td>
-                          <p>{data.product_description}</p>
+                          <p>{data.user_email}</p>
                         </td>
                         <td>
                           <ButtonModify />
@@ -255,21 +262,14 @@ const Tables = props => {
                     );
                   case "promo":
                     return (
-                      <tr key={data.order_id}>
+                      <tr key={data.promo_id}>
                         <td>
                           {" "}
-                          <p>{data.order_id}</p>
+                          <p>{data.promo_name}</p>
                         </td>
                         <td>
                           {" "}
-                          <p>{data.product_name}</p>
-                        </td>
-                        <td>
-                          {" "}
-                          <p>{data.product_price}</p>
-                        </td>
-                        <td>
-                          <p>{data.product_description}</p>
+                          <p>{data.promo_value}</p>
                         </td>
                         <td>
                           <ButtonModify />
@@ -280,21 +280,13 @@ const Tables = props => {
                     );
                   case "code-promo":
                     return (
-                      <tr key={data.order_id}>
+                      <tr key={data.code_promo_id}>
                         <td>
                           {" "}
-                          <p>{data.order_id}</p>
+                          <p>{data.code_promo_name}</p>
                         </td>
                         <td>
-                          {" "}
-                          <p>{data.product_name}</p>
-                        </td>
-                        <td>
-                          {" "}
-                          <p>{data.product_price}</p>
-                        </td>
-                        <td>
-                          <p>{data.product_description}</p>
+                          <p>{data.code_promo_value}</p>
                         </td>
                         <td>
                           <ButtonModify />
