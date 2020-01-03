@@ -44,7 +44,7 @@ const Tables = props => {
                 <th className="pink bg-lightpink"> Status </th>
                 <th className="th-order pink bg-lightpink "> Date d'envoi </th>
                 <th className="th-order pink bg-lightpink "> N° de suivi </th>
-                <th className="th-order pink bg-lightpink "> Utitlisateur </th>
+                <th className="th-order pink bg-lightpink "> Id Client </th>
                 <th className="th-order pink bg-lightpink ">
                   {" "}
                   Méthode d'envoi{" "}
@@ -121,7 +121,7 @@ const Tables = props => {
                 switch (props.page) {
                   case "order":
                     const order_date = new Date(data.order_date);
-                    const shipped_date = new Date(data.shipped_date);
+                    const shipped_date = new Date(data.order_shipped_date);
                     return (
                       <tr key={data.order_id}>
                         <td>
@@ -133,7 +133,7 @@ const Tables = props => {
                           <p>{order_date.toLocaleDateString()}</p>
                         </td>
                         <td>
-                          <p>{data.order_status}</p>
+                          <p>{data.order_status_name}</p>
                         </td>
                         <td>
                           <p>
@@ -206,10 +206,10 @@ const Tables = props => {
                         </td>
                         <td>
                           {" "}
-                          <p><img src={data.collection_cover_image_url} alt="cover image"/></p>
+                          <p><img src={data.collection_cover_image_url} alt="cover image" width="80" height="80"/></p>
                         </td>
                         <td>
-                          <p><img src={data.image_url} alt="collection image" width="50" height="50"/></p>
+                          <p><img src={data.image_url} alt="collection image" width="80" height="80"/></p>
                         </td>
                         <td>
                           <p>{data.nb_items}</p>

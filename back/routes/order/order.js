@@ -70,7 +70,7 @@ router.route(['/stats/:request', '/stats/'])
 router.get("/", (req, res) => {
     // connection à la base de données, et sélection des employés
     connection.query(
-      `SELECT * FROM orders
+      `SELECT *, s.order_status_name FROM orders JOIN order_status as s ON s.order_status_id = orders.order_status
         WHERE MONTH(order_date) = MONTH(CURRENT_DATE)
         AND YEAR(order_date) = YEAR(CURRENT_DATE)`,
       (err, results) => {
@@ -81,6 +81,20 @@ router.get("/", (req, res) => {
         }
       });
   });
+
+  router.get("/all", (req, res) => {
+    // connection à la base de données, et sélection des employés
+    connection.query(
+      `SELECT *, s.order_status_name FROM orders JOIN order_status as s ON s.order_status_id = orders.order_status`,
+      (err, results) => {
+        if (err) {
+          res.status(500).send('Erreur lors de la récupération des commandes du mois');
+        } else {
+          res.json(results);
+        }
+      });
+  });
+
   // TESTER OK
 router.get('/:number', (req, res) => {
     connection.query(

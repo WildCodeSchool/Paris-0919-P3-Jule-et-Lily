@@ -22,9 +22,9 @@ export default function Dashboard() {
 
     const fetchData = () => {
       const id = 1
-      axios.get('/collection/all/ASC') //liste les collections
+      // axios.get('/collection/all/ASC') //liste les collections
       // axios.get('/product/all') //liste les produits 
-      // axios.get('/order/') //liste les commandes
+      axios.get('/order/all') //liste les commandes
       // axios.get('/category/all/ASC') //liste les categories
       // axios.get('/promo/all') //liste les promos
       // axios.get('/code-promo/all') //liste les codes promo
@@ -55,7 +55,7 @@ export default function Dashboard() {
                 <SearchBar />
                 <div className="addDiv">Ajouter <ButtonAdd /></div>
               </div>
-              <Tables page="collections" donnees={data.data ? data : 'loading'}/>
+              <Tables page="order" donnees={data.data ? data : 'loading'}/>
               <Pagination />
             </Encarts>
             <Encarts>
