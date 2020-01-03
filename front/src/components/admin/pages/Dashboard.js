@@ -22,9 +22,11 @@ export default function Dashboard() {
 
     const fetchData = () => {
       const id = 1
-      axios.get('/product/' +id)
+      // axios.get('/collection/all/ASC') //liste les collections
+      axios.get('/product/all') //liste les produits 
+      // axios.get('/order/') //liste les commandes
       //  .then(res => console.log(res.data[0]))
-      .then(res => setData({ data: res.data[0] })) ;
+      .then(res => setData({ data: res.data})) ;
     }  
     
     useEffect(() => {
@@ -49,7 +51,7 @@ export default function Dashboard() {
                 <SearchBar />
                 <div className="addDiv">Ajouter <ButtonAdd /></div>
               </div>
-              <Tables data={data.data ? data.data : 'loading'}/>
+              <Tables page="products" donnees={data.data ? data : 'loading'}/>
               <Pagination />
             </Encarts>
             <Encarts>
