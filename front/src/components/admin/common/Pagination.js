@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import '../../../assets/css/admin/pagination.css'
 
-const Pagination = () => {
-  const [pagesNb, setPagesNb] = useState(5);
+const Pagination = (props) => {
+  const [pagesNb, setPagesNb] = useState(props.nbPages);
   const [activePage, setActivePage] = useState(1);
 
   const createPagination = () => {
+    console.log(pagesNb)
     let pages = []
     for (let i = 1; i <= pagesNb; i++) {
      pages.push(i);
@@ -15,17 +16,25 @@ const Pagination = () => {
 
   const itemClick = (e) => {
     setActivePage(parseInt(e.target.text))
+    props.setActivePage(parseInt(e.target.text));
   }
+
+  useEffect(() => {
+    setPagesNb(props.nbPages)
+  }, [props.nbPages])
+ 
 
   const nextPage = () => {
     if (activePage < pagesNb) {
       setActivePage(activePage+1)
+      props.changePagePlus();
     }
   }
 
   const previousPage = () => {
     if (activePage > 1) {
       setActivePage(activePage-1)
+      props.changePageMoins();
     }
   }
 

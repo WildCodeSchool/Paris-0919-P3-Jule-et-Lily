@@ -114,10 +114,10 @@ const Tables = props => {
           </thead>
 
           <tbody>
-            {console.log("datas2", props.donnees)}
+            {console.log("props.donnees", props.donnees)}
 
-            {props.donnees.data &&
-              props.donnees.data.map(data => {
+            {props.donnees &&
+              props.donnees.map(data => {
                 switch (props.page) {
                   case "order":
                     const order_date = new Date(data.order_date);
@@ -168,6 +168,7 @@ const Tables = props => {
                     );
                   case "products":
                     return (
+                      // console.log(props.donnees)
                       <tr key={data.product_id}>
                         <td>
                           {" "}
@@ -197,7 +198,7 @@ const Tables = props => {
                       </tr>
                     );
                   case "collections":
-                    console.log(data);
+                    // console.log('table data', data);
                     return (
                       <tr key={data.collection_id}>
                         <td>
