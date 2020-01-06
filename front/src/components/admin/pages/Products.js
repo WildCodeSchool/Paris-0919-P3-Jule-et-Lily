@@ -12,7 +12,8 @@ import {
   Pagination,
   SearchBar,
   Tables,
-  Form
+  Form,
+  FormProducts,
 } from "../common/";
 
 
@@ -23,7 +24,7 @@ export default function Products(props) {
 
   const isClicked = () => {
     setClick(!click)
-    
+
 
   }
 
@@ -42,11 +43,11 @@ export default function Products(props) {
   // passer la props à table ici 
 
 
-console.log('dataproducts',data.data);
+  console.log('dataproducts', data.data);
 
   return (
     <div className='products'>
-      {click ? <div> <Form />  <ButtonModify cliquer={isClicked}/> </div> : <Tables page='products' cliquer={isClicked} donnees={data.data ? data : 'loading'} />}
+      {click ? <div> <FormProducts cliquer={isClicked}/>  <ButtonModify cliquer={isClicked} /> </div> : <Encarts title='Liste des Produits'> <Tables page='products' cliquer={isClicked} donnees={data.data ? data : 'loading'} /> </Encarts>}
     </div>
   )
 }
