@@ -4,7 +4,8 @@ import {
   Navbar,
   ReturnButton,
 } from "./components/admin/common/";
-import {Dashboard, Orders, Products, Clients, Promo, Collections, FrontCustom} from "./components/admin/pages/";
+import {Dashboard, Orders, Products, Clients, Promo, Collections} from "./components/admin/pages/";
+import FrontCustom from "./components/admin/pages/frontcustom/FrontCustom";
 import {Switch, NavLink, Route} from 'react-router-dom';
 import "../src/assets/css/admin/sb-admin-2.min.css";
 import "../src/assets/css/admin/buttons-actions.css";
@@ -23,9 +24,9 @@ export default () => {
             children={<ReturnButton returnPage="commandes" />}
           ></LoginBar>
           <div className="container-fluid">
-            <h1 className="col-md-12 col-md-offset-5">
+            {/* <h1 className="col-md-12 col-md-offset-5">
               Hello ici le front Jule et Lily
-            </h1>
+            </h1> */}
             {/* Mettre les routes vers les autres composants ici  */}
             <Switch >
               <Route exact path="/" component={Dashboard} />

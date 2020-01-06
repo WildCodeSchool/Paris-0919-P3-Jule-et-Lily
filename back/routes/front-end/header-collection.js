@@ -4,12 +4,11 @@ const router = express.Router()
 router.get('/', (req, res) => {
     res.send("je suis sur la route /header-collection ").status(200)
 })
-router.route(['/:request', '/',':id' ])  //
 
 
-
+router.route(['/all', '/:request', '/',':id' ])  //
     .get(function (req, res, next) {
-        connection.query(`SELECT * FROM header_collection_menu ORDER BY collection_menu_id ${req.params.request}`, (err, results) => {
+        connection.query(`SELECT * FROM header_collection_menu ORDER BY collection_menu_id`, (err, results) => {
             if (err) {
                 res.status(500).send('Erreur lors de la récupération des menu header collection');
             } else {
