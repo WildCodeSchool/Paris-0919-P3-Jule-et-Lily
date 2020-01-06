@@ -9,8 +9,9 @@ router.get('/', (req, res) => {
 })
 router.route(['/all'])
   .get(function (req, res) { //récup un produit
-    connection.query('SELECT * FROM product ', req.body, (err, results) => {
+    connection.query('SELECT p.*, s.stock_quantity as product_stock, c.collection_name, k.category_name FROM product as p LEFT OUTER JOIN stock as s ON s.stock_product_id = p.product_id LEFT OUTER JOIN collection as c on c.collection_id = p.product_collection_id LEFT OUTER JOIN category as k ON k.category_id = p.product_category_id', req.body, (err, results) => {
       if (err) {
+        console.log(err);
         res.send('Erreur lors de la récupération des produits').status(500);
       } else {
         res.json(results);

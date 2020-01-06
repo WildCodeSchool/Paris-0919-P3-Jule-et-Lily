@@ -42,10 +42,11 @@ export default function Products(props) {
   // passer la props à table ici 
 
 
+console.log('dataproducts',data.data);
 
   return (
     <div className='products'>
-      {click ? <div> <Form />  <ButtonModify cliquer={isClicked}/> </div> : <Tables page='product' cliquer={isClicked} donnees={data.data ? data : 'loading'} />}
+      {click ? <div> <Form />  <ButtonModify cliquer={isClicked}/> </div> : <Tables page='products' cliquer={isClicked} donnees={data.data ? data : 'loading'} />}
     </div>
   )
 }
