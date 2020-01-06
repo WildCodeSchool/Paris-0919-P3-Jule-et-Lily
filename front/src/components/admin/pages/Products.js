@@ -47,7 +47,7 @@ export default function Products(props) {
 
   return (
     <div className='products'>
-      {click ? <div> <FormProducts cliquer={isClicked}/>  <ButtonModify cliquer={isClicked} /> </div> : <Encarts title='Liste des Produits'> <Tables page='products' cliquer={isClicked} donnees={data.data ? data : 'loading'} /> </Encarts>}
+      {click ? <div> <FormProducts cliquer={isClicked} donnees={data.data ? data : 'loading'}/> </div> : <Encarts title='Liste des Produits'> <Tables page='products' cliquer={isClicked} donnees={data.data ? data : 'loading'} /> </Encarts>}
     </div>
   )
 }
