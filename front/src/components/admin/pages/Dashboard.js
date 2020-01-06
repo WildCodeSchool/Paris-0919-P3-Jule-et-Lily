@@ -18,18 +18,7 @@ import {
 
 export default function Dashboard() {
 
-    const [data, setData] = useState([]);
 
-    const fetchData = () => {
-      const id = 1
-      axios.get('/product/' +id)
-      //  .then(res => console.log(res.data[0]))
-      .then(res => setData({ data: res.data[0] })) ;
-    }  
-    
-    useEffect(() => {
-      fetchData()
-    }, [])
   
 
     return (
@@ -49,7 +38,7 @@ export default function Dashboard() {
                 <SearchBar />
                 <div className="addDiv">Ajouter <ButtonAdd /></div>
               </div>
-              <Tables data={data.data ? data.data : 'loading'}/>
+           
               <Pagination />
             </Encarts>
             <Encarts>

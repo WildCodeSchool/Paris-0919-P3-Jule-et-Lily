@@ -7,22 +7,7 @@ import ButtonAdd from './ButtonAdd';
 import ButtonModify from './ButtonModify';
 import ButtonSee from './ButtonSee';
 
-const Tables = () => {
-  const [commandes, setCommandes] = useState();
-  const [datas, setData] = useState([]);
-
-  const fetchData = () => {
-
-    axios.get('/product/all')
-      //  .then(res => console.log(res.data[0]))
-      .then(res => setData({ datas: res.data }));
-    console.log('datas', datas);
-    ;
-
-  }
-  useEffect(() => {
-    fetchData()
-  }, [])
+const Tables = (props) => {
 
   return (
 
@@ -50,7 +35,7 @@ const Tables = () => {
           <tbody>
             {/* {console.log('datas2', datas)} */}
 
-            {datas.datas && datas.datas.map(data => {
+            {props.donnees.data && props.donnees.data.map(data => {
               return (
                 <tr>
                   <td> <p>{data.product_id}</p></td>
@@ -58,7 +43,7 @@ const Tables = () => {
                   <td> <p>{data.product_price}</p></td>
                   <td><p>{data.product_description}</p></td>
                   <td>
-                    <ButtonModify />
+                    <ButtonModify cliquer={props.cliquer}/>
                     <ButtonSee />
                     <ButtonDelete />
                   </td>

@@ -1,40 +1,51 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import {
-    ButtonAdd,
-    ButtonConfirm,
-    ButtonDelete,
-    ButtonModify,
-    ButtonSee,
-    ButtonCancel,
-    Cards,
-    Encarts,
-    Pagination,
-    SearchBar,
-    Tables,
-    Form
-  } from "../common/";
+  ButtonAdd,
+  ButtonConfirm,
+  ButtonDelete,
+  ButtonModify,
+  ButtonSee,
+  ButtonCancel,
+  Cards,
+  Encarts,
+  Pagination,
+  SearchBar,
+  Tables,
+  Form
+} from "../common/";
 
 
-export default function Products() {
+export default function Products(props) {
 
-    const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
+  const [click, setClick] = useState(false);
 
-    const fetchData = () => {
-      const id = 1
-      axios.get('/product/' +id)
-      //  .then(res => console.log(res.data[0]))
-      .then(res => setData({ data: res.data[0] })) ;
-    }  
+  const isClicked = () => {
+    setClick(!click)
     
-    useEffect(() => {
-      fetchData()
-    }, [])
-  
 
-    return (
-        <div>
-  Products
-        </div>
-    )
+  }
+
+  const fetchData = () => {
+
+    axios.get('/product/all')
+      //  .then(res => console.log(res.data[0]))
+      .then(res => setData({ data: res.data }));
+  }
+
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  // passer la props à table ici 
+
+
+
+  return (
+    <div className='products'>
+      {click ? <div> <Form />  <ButtonModify cliquer={isClicked}/> </div> : <Tables page='product' cliquer={isClicked} donnees={data.data ? data : 'loading'} />}
+    </div>
+  )
 }
