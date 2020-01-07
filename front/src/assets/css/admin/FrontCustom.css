@@ -1,0 +1,45 @@
+.EncartsCollectionSection {
+    display: flex;
+    justify-content: space-between;
+    padding-top:1em;
+    padding-bottom:1em;
+}
+
+.EncartCollectionBlock {
+    width:31%;
+    flex-direction:column ;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end   ;
+    text-decoration: none;
+}
+
+.EncartCollection h5 {
+    text-align: center;
+}
+.EncartCollection:hover {
+    text-decoration: none;
+}
+
+.EncartCollection {
+    width:100%;
+    min-height:150px;
+    height:100%;
+    padding:2em;
+    flex-direction:column ;
+    display: flex;
+    justify-content: center;
+}
+
+
+.FormCustomColor {
+   height:auto; 
+   padding:2em;
+   display: flex;
+   flex-direction: column;
+}
+
+.ButtonsGroup {
+    align-self: flex-end;
+    margin-top:2em;
+}
