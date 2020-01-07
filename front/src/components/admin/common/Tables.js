@@ -86,8 +86,8 @@ const Tables = props => {
               </tr>
             ) : props.page === "categories" ? (
               <tr>
-                <th className="th-order pink bg-lightpink " onClick={handleSort}> Désignation </th>
-                <th className="th-order pink bg-lightpink " onClick={handleSort}> Nombre de références </th>
+                <th className="th-order pink bg-lightpink asc " id="category_name" onClick={handleSort}> Désignation </th>
+                <th className="th-order pink bg-lightpink desc" id="nb_items" onClick={handleSort}> Nombre de références </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
                 </th>
@@ -95,7 +95,7 @@ const Tables = props => {
             ) : props.page === "collections" ? (
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="collection_name" onClick={handleSort}> Désignation </th>
-                <th className="th-order pink bg-lightpink asc" id="image_url" onClick={handleSort}> Image de couverture </th>
+                <th className="th-order pink bg-lightpink asc" id="collection_cover_image_url" onClick={handleSort}> Image de couverture </th>
                 <th className="th-order pink bg-lightpink asc" id="collection_image_id" onClick={handleSort}> Image de la collection </th>
                 <th className="th-order pink bg-lightpink desc"  id="nb_items" onClick={handleSort}> Nombre de références </th>
                 <th className="gray bg-lightpink">
@@ -104,25 +104,25 @@ const Tables = props => {
               </tr>
             ) : props.page === "promo" ? (
               <tr>
-                <th className="th-order pink bg-lightpink " onClick={handleSort}> Nom de la promo </th>
-                <th className="th-order pink bg-lightpink " onClick={handleSort}> Réduction </th>
+                <th className="th-order pink bg-lightpink asc" id="promo_name" onClick={handleSort}> Nom de la promo </th>
+                <th className="th-order pink bg-lightpink desc" id="promo_id" onClick={handleSort}> Réduction </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
                 </th>
               </tr> 
               ) : props.page === "code-promo" ? (
               <tr>
-                <th className="th-order pink bg-lightpink " onClick={handleSort}> Nom du code promo </th>
-                <th className="th-order pink bg-lightpink " onClick={handleSort}> Réduction </th>
+                <th className="th-order pink bg-lightpink asc" id="code_promo_name" onClick={handleSort}> Nom du code promo </th>
+                <th className="th-order pink bg-lightpink desc" id="code_promo_value" onClick={handleSort}> Réduction </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
                 </th>
               </tr>
                ) : props.page === "clients" ? (
                 <tr>
-                  <th className="th-order pink bg-lightpink " onClick={handleSort}> Nom</th>
-                  <th className="th-order pink bg-lightpink " onClick={handleSort}> Prénom </th>
-                  <th className="th-order pink bg-lightpink " onClick={handleSort}> Email </th>
+                  <th className="th-order pink bg-lightpink asc" id="user_lastname" onClick={handleSort}> Nom</th>
+                  <th className="th-order pink bg-lightpink asc" id="user_firstname" onClick={handleSort}> Prénom </th>
+                  <th className="th-order pink bg-lightpink asc" id="user_email" onClick={handleSort}> Email </th>
                   <th className="gray bg-lightpink">
                     <strong>Action </strong>
                   </th>

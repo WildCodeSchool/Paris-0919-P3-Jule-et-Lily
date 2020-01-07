@@ -25,12 +25,12 @@ export default function Dashboard() {
   const fetchData = () => {
     const id = 1;
       // axios.get("/collection/all/ASC") //liste les collections
-      axios.get('/product/all') //liste les produits
+      // axios.get('/product/all') //liste les produits
       // axios.get("/order/all/") //liste les commandes
       // axios.get('/category/all/ASC') //liste les categories
       // axios.get('/promo/all') //liste les promos
       // axios.get('/code-promo/all') //liste les codes promo
-      // axios.get('/user/role/1') //liste des clients
+      axios.get('/user/role/1') //liste des clients
 
       .then(res => {
         // après avoir récuperé les données on regarde leurs nombre et on définit le nombre de page en fonction puis on rempli seulement 10 donnée max par page du tableaus
@@ -107,7 +107,6 @@ export default function Dashboard() {
         }
       }
     });
-
     // console.log(theData);
     setData(data => [...data, ...theData]);
   };
@@ -133,7 +132,7 @@ export default function Dashboard() {
         </div>
         {/* {console.log('data',data)} */}
         <Tables
-          page="products"
+          page="clients"
           orderBy={orderBy}
           donnees={data ? data : "loading"}
         />
