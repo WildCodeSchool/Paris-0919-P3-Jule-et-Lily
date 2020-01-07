@@ -41,6 +41,8 @@ passport.use(new LocalStrategy(
     session: false
   }, 
   function (user_login, user_password, cb) {
+    console.log(user_login);
+    
       connection.query('SELECT user_firstname, user_lastname, user_login, user_password FROM user WHERE user_login=?', user_login, (err, res) => {
           if (err) {
               console.log(err)
