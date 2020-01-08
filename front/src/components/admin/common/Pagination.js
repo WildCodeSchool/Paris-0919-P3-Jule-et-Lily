@@ -27,14 +27,14 @@ const Pagination = (props) => {
   const nextPage = () => {
     if (activePage < pagesNb) {
       setActivePage(activePage+1)
-      props.changePagePlus();
+      props.changePagePlus(props.table);
     }
   }
 
   const previousPage = () => {
     if (activePage > 1) {
       setActivePage(activePage-1)
-      props.changePageMoins();
+      props.changePageMoins(props.table);
     }
   }
 

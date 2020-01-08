@@ -39,7 +39,7 @@ const Tables = props => {
       e.target.classList.add("asc")
       e.target.classList.remove("desc")  
     }
-    props.orderBy(e.target.id, order)
+    props.orderBy(e.target.id, order, props.page)
   }
 
 
@@ -94,7 +94,7 @@ const Tables = props => {
               </tr>
             ) : props.page === "collections" ? (
               <tr>
-                <th className="th-order pink bg-lightpink asc" id="collection_name" onClick={handleSort}> Désignation </th>
+                <th className="th-order pink bg-lightpink asc" id="collection_name" onClick={handleSort}> Nom de la collection </th>
                 <th className="th-order pink bg-lightpink asc" id="collection_cover_image_url" onClick={handleSort}> Image de couverture </th>
                 <th className="th-order pink bg-lightpink asc" id="collection_image_id" onClick={handleSort}> Image de la collection </th>
                 <th className="th-order pink bg-lightpink desc"  id="nb_items" onClick={handleSort}> Nombre de références </th>
