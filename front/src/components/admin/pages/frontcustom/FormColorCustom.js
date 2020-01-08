@@ -6,45 +6,45 @@ import { ChromePicker } from 'react-color'
 
 const FormColorCustom = (props) => {
 
-  const styles = reactCSS({
-    'default': {
-      colorTitle: {
-        width: '36px',
-        height: '14px',
-        borderRadius: '2px',
-        backgroundColor: `${props.titleColor}`,
-      },
-      colorBackground: {
-        width: '36px',
-        height: '14px',
-        borderRadius: '2px',
-        backgroundColor: `${props.backgroundColor}`,
-      },
-      swatch: {
-        padding: '5px',
-        backgroundColor: '#fff',
-        borderRadius: '1px',
-        boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
-        display: 'inline-block',
-        cursor: 'pointer',
-      },
-      popover: {
-        position: 'absolute',
-        zIndex: '2',
-      },
-      cover: {
-        position: 'fixed',
-        top: '0px',
-        right: '0px',
-        bottom: '0px',
-        left: '0px',
-      },
-    },
-  });
+  // const styles = reactCSS({
+    // 'default': {
+    //   colorTitle: {
+    //     width: '36px',
+    //     height: '14px',
+    //     borderRadius: '2px',
+    //     backgroundColor: `${props.titleColor}`,
+    //   },
+      // colorBackground: {
+      //   width: '36px',
+      //   height: '14px',
+      //   borderRadius: '2px',
+      //   backgroundColor: `${props.backgroundColor}`,
+      // },
+      // swatch: {
+      //   padding: '5px',
+      //   backgroundColor: '#fff',
+      //   borderRadius: '1px',
+      //   boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
+      //   display: 'inline-block',
+      //   cursor: 'pointer',
+      // },
+      // popover: {
+      //   position: 'absolute',
+      //   zIndex: '2',
+      // },
+      // cover: {
+      //   position: 'fixed',
+      //   top: '0px',
+      //   right: '0px',
+      //   bottom: '0px',
+      //   left: '0px',
+      // },
+  //   },
+  // });
 
   return (
-    <div className="d-flex" >
-      <form className="w-50 mr-5">
+    <div className="d-flex EncartForm" >
+      <form className="mr-5 FormGlobal" onSubmit={props.onSubmit}>
         {/* INPUT TITRE */}
         <div className="form-group">
           <label htmlFor="title">Titre</label>
@@ -54,7 +54,7 @@ const FormColorCustom = (props) => {
             id="title"
             name="title"
             placeholder= {props.title}
-            onChange = {props.onChange}
+            onChange = {props.onChangeForm}
             value={props.title}
           />
         </div>
@@ -71,11 +71,11 @@ const FormColorCustom = (props) => {
             onChange = {props.onChangeForm}
           /> 
           <div>   
-            <div style={styles.swatch} onClick={props.onClickColorTitle}>
-              <div style={styles.colorTitle} />
+            <div className = "Swatch" onClick={props.onClickColorTitle}>
+              <div style={{backgroundColor: `${props.titleColor}`}} className="titleCSS"/>
             </div>
-            { props.stateColorPickerTitleDisplay ? <div style={styles.popover}>
-              <div style={styles.cover} onClick={props.onClickClose}/>
+            { props.stateColorPickerTitleDisplay ? <div className = "Popover" >
+              <div className="Cover" onClick={props.onClickClose}/>
               <ChromePicker color={props.titleColor} onChange={props.onChangeTitleColor} />
             </div> : null }
           </div>    
@@ -94,11 +94,11 @@ const FormColorCustom = (props) => {
             onChange = {props.onChangeForm}
           />
           <div>   
-            <div style={styles.swatch} onClick={props.onClickColorBackground}>
-              <div style={styles.colorBackground} />
+            <div className = "Swatch" onClick={props.onClickColorBackground}>
+              <div style={{backgroundColor: `${props.backgroundColor}`}} className="backgroundCSS"/>
             </div>
-            { props.stateColorPickerBackgroundDisplay ? <div style={styles.popover}>
-              <div style={styles.cover} onClick={props.onClickClose}/>
+            { props.stateColorPickerBackgroundDisplay ? <div className = "Popover">
+              <div className="Cover" onClick={props.onClickClose}/>
               <ChromePicker color={props.backgroundColor} onChange={props.onChangeBackgroundColor} />
             </div> : null }
           </div> 
@@ -112,11 +112,12 @@ const FormColorCustom = (props) => {
             name="url"
             placeholder={props.url}
             value={props.url}
-            onChange = {props.onChange}
+            onChange = {props.onChangeForm}
           />
         </div>
       </form>
-   <div style={{minHeight:'200px', width:"100%"}}>{props.children}</div>
+
+      <div style={{minHeight:'200px', width:"100%"}}>{props.children}</div>
     </div>
   );
 }
