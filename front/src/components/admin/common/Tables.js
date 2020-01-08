@@ -114,7 +114,7 @@ const Tables = props => {
           </thead>
 
           <tbody>
-            {console.log("datas2", props.donnees)}
+            
 
             {props.donnees &&
               props.donnees.map(data => {
@@ -190,7 +190,7 @@ const Tables = props => {
                           <p>{data.product_stock}</p>
                         </td>
                         <td>
-                          <ButtonModify onClick={props.cliquer}/>
+                          <ButtonModify onClick={props.onClick}/>
                           <ButtonSee />
                           <ButtonDelete />
                         </td>

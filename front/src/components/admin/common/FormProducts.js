@@ -73,7 +73,7 @@ export default function FormProducts(props) {
                 />
               </div>
 
-              <ButtonCancel onClick={props.cliquer} color='#234eb7' />
+              <ButtonCancel onClick={props.onClick} color='#234eb7' />
               <ButtonConfirm color='#234eb7' />
 
             </form>

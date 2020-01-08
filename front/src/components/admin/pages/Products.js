@@ -54,7 +54,7 @@ export default function Products(props) {
 
   return (
     <div className='products'>
-      {click ? <div> <FormProducts cliquer={isClicked} donneesProducts={productClick} /> </div> : <Encarts title='Liste des Produits'> <Tables page='products' cliquer={isClicked} donnees={data ? data : 'loading'} /> </Encarts>}
+      {click ? <div> <FormProducts onClick={isClicked} donneesProducts={productClick} /> </div> : <Encarts title='Liste des Produits'> <Tables page='products' onClick={isClicked} donnees={data ? data : 'loading'} /> </Encarts>}
     </div>
   )
 }
