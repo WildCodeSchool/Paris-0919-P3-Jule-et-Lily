@@ -21,10 +21,11 @@ export default function Products(props) {
 
   const [data, setData] = useState([]);
   const [click, setClick] = useState(false);
+  const [productClick, setProductClick] = useState([])
 
-  const isClicked = () => {
-    setClick(!click)
 
+  const NewProduct = () => {
+    setProductClick(productClick)
 
   }
 
@@ -32,22 +33,28 @@ export default function Products(props) {
 
     axios.get('/product/all')
       //  .then(res => console.log(res.data[0]))
-      .then(res => setData({ data: res.data }));
+      .then(res => setData(res.data));
   }
 
-
+  const isClicked = () => {
+    setClick(!click)
+    setProductClick(data)
+    
+  }
   useEffect(() => {
     fetchData()
+  
   }, [])
 
   // passer la props à table ici 
 
 
-  console.log('dataproducts', data.data);
+  console.log('dataproducts', data);
+  console.log('pructclick', productClick);
 
   return (
     <div className='products'>
-      {click ? <div> <FormProducts cliquer={isClicked} donnees={data.data ? data : 'loading'}/> </div> : <Encarts title='Liste des Produits'> <Tables page='products' cliquer={isClicked} donnees={data.data ? data : 'loading'} /> </Encarts>}
+      {click ? <div> <FormProducts cliquer={isClicked} donneesProducts={productClick} /> </div> : <Encarts title='Liste des Produits'> <Tables page='products' cliquer={isClicked} donnees={data ? data : 'loading'} /> </Encarts>}
     </div>
   )
 }

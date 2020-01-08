@@ -7,7 +7,10 @@ export default function FormProducts(props) {
     <>
 
       <Encarts title="Fiche Produit">
-        {props.donnees.data && props.donnees.data.map(data => {
+        
+        
+        {props.donneesProducts && props.donneesProducts.map(data => {
+          {console.log('log de donnes products',props.donneesProducts)}
           return (
             <form>
               <div className="form-group">
@@ -17,8 +20,10 @@ export default function FormProducts(props) {
                   class="form-control"
                   id="designationid"
                   placeholder={data.product_name}
+                  
                 />
               </div>
+             
 
               <div className="form-group">
                 <label for="prix">Prix</label>
@@ -68,7 +73,7 @@ export default function FormProducts(props) {
                 />
               </div>
 
-              <ButtonCancel cliquer={props.cliquer} color='#234eb7' />
+              <ButtonCancel onClick={props.cliquer} color='#234eb7' />
               <ButtonConfirm color='#234eb7' />
 
             </form>
