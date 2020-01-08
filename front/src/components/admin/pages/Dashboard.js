@@ -29,7 +29,7 @@ const [data, setData] = useState([])
       // axios.get('/code-promo/all') //liste les codes promo
       // axios.get('/user/role/1') //liste des clients
       //  .then(res => console.log(res.data[0]))
-      .then(res => setData({ data: res.data})) ;
+      .then(res => setData(res.data) );
     }  
     
     useEffect(() => {
@@ -55,7 +55,7 @@ const [data, setData] = useState([])
                 <div className="addDiv">Ajouter <ButtonAdd /></div>
               </div>
            
-              <Tables page="order" donnees={data.data ? data : 'loading'}/>
+              <Tables page="order" donnees={data ? data : 'loading'}/>
               <Pagination />
             </Encarts>
             <Encarts>

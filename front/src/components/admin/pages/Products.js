@@ -23,7 +23,7 @@ export default function Products(props) {
   const [click, setClick] = useState(false);
   const [productClick, setProductClick] = useState([])
 
-
+  
   const NewProduct = () => {
     setProductClick(productClick)
 
@@ -36,9 +36,11 @@ export default function Products(props) {
       .then(res => setData(res.data));
   }
 
-  const isClicked = () => {
+  const isClicked = (index) => {
+    console.log('click!');
+    
     setClick(!click)
-    setProductClick(data)
+    setProductClick(data[index])
     
   }
   useEffect(() => {

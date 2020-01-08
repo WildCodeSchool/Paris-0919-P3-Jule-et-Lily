@@ -117,7 +117,7 @@ const Tables = props => {
             
 
             {props.donnees &&
-              props.donnees.map(data => {
+              props.donnees.map((data, i) => {
                 switch (props.page) {
                   case "order":
                     const order_date = new Date(data.order_date);
@@ -190,7 +190,7 @@ const Tables = props => {
                           <p>{data.product_stock}</p>
                         </td>
                         <td>
-                          <ButtonModify onClick={props.onClick}/>
+                          <ButtonModify index={i} onClick={props.onClick}/>
                           <ButtonSee />
                           <ButtonDelete />
                         </td>
