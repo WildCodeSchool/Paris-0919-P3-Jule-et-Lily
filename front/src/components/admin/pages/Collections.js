@@ -16,8 +16,11 @@ import {
 } from "../common/";
 
 export default function Collections() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]); // prendra le resultat du axios et ne doit plus changer sauf si on refait le axios
+  const[dataToShow, setDataToShow] = useState([]); // resultat du axios qui peut changer et qu'on affiche dans le tableau. Pertmet de faire la recherche
+
   const [data2, setData2] = useState([]);
+  const[dataToShow2, setDataToShow2] = useState([])
 
   const [pagesNb, setPagesNb] = useState(0);
   const [activePage, setActivePage] = useState(1);
@@ -32,26 +35,34 @@ export default function Collections() {
         if (res.data.length <= 10) {
           setPagesNb(1);
           setData([]);
+          setDataToShow([]);
           for (let i = 0; i < res.data.length; i++) {
             setData(data => [...data, res.data[i]]);
+            setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
           }
         } else if (activePage === 1) {
           setPagesNb(parseInt(res.data.length / 10 + 1));
           setData([]);
+          setDataToShow([]);
           for (let i = 0; i < 10; i++) {
             setData(data => [...data, res.data[i]]);
+            setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
           }
         } else if (activePage === pagesNb) {
           setPagesNb(parseInt(res.data.length / 10 + 1));
           setData([]);
+          setDataToShow([]);
           for (let i = activePage * 10 - 10; i < res.data.length; i++) {
             setData(data => [...data, res.data[i]]);
+            setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
           }
         } else {
           setPagesNb(parseInt(res.data.length / 10 + 1));
           setData([]);
+          setDataToShow([]);
           for (let i = activePage * 10 - 10; i < activePage * 10; i++) {
             setData(data => [...data, res.data[i]]);
+            setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
           }
         }
       });
@@ -62,26 +73,34 @@ export default function Collections() {
         if (res.data.length <= 10) {
           setPagesNb2(1);
           setData2([]);
+          setDataToShow2([]);
           for (let i = 0; i < res.data.length; i++) {
             setData2(data2 => [...data2, res.data[i]]);
+            setDataToShow2(dataToShow2 => [...dataToShow2, res.data[i]]);
           }
         } else if (activePage2 === 1) {
           setPagesNb2(parseInt(res.data.length / 10 + 1));
           setData2([]);
+          setDataToShow2([]);
           for (let i = 0; i < 10; i++) {
             setData2(data2 => [...data2, res.data[i]]);
+            setDataToShow2(dataToShow2 => [...dataToShow2, res.data[i]]);
           }
         } else if (activePage2 === pagesNb) {
           setPagesNb2(parseInt(res.data.length / 10 + 1));
           setData2([]);
+          setDataToShow2([]);
           for (let i = activePage2 * 10 - 10; i < res.data.length; i++) {
             setData2(data2 => [...data2, res.data[i]]);
+            setDataToShow2(dataToShow2 => [...dataToShow2, res.data[i]]);
           }
         } else {
           setPagesNb2(parseInt(res.data.length / 10 + 1));
           setData2([]);
+          setDataToShow2([]);
           for (let i = activePage * 10 - 10; i < activePage * 10; i++) {
             setData2(data2 => [...data2, res.data[i]]);
+            setDataToShow2(dataToShow2 => [...dataToShow2, res.data[i]]);
           }
         }
       });
@@ -147,11 +166,38 @@ export default function Collections() {
     fetchData();
   }, []);
 
+  const search = (table, word) => {
+    if (table === "collections") {
+      let theData = data;
+      if (word !== "") {
+        setDataToShow([]);
+
+        let result = theData.filter(line =>
+          line.collection_name.toUpperCase().match(`.*${word.toUpperCase()}.*`) // on compare les deux chaine mises en majuscules
+        );
+        setDataToShow(dataToShow => [...dataToShow, ...result]); //
+      }
+      else setDataToShow(data);
+    }
+    if (table === "categories") {
+      let theData = data2;
+      if (word !== "") {
+        setDataToShow2([]);
+        let result = theData.filter(line =>
+          line.category_name.toUpperCase().match(`.*${word.toUpperCase()}.*`) 
+        );
+        setDataToShow2(dataToShow2 => [...dataToShow2, ...result]);
+      }
+      else setDataToShow2(data2);
+    }
+    
+  };
+
   return (
     <>
       <Encarts title="Liste des collections">
         <div className="tableActions border-gray">
-          <SearchBar />
+          <SearchBar table="collections" search={search} />
           <div className="addDiv">
             Ajouter <ButtonAdd />
           </div>
@@ -160,7 +206,7 @@ export default function Collections() {
         <Tables
           page="collections"
           orderBy={orderBy}
-          donnees={data ? data : "loading"}
+          donnees={dataToShow ? dataToShow : "loading"}
         />
         <Pagination
           nbPages={pagesNb}
@@ -168,13 +214,13 @@ export default function Collections() {
           changePagePlus={changePagePlus}
           changePageMoins={changePageMoins}
           setActivePage={setActivePage}
-          table='collections'
+          table="collections"
         />
       </Encarts>
 
       <Encarts title="Liste des catégories">
         <div className="tableActions border-gray">
-          <SearchBar />
+          <SearchBar table="categories" search={search} />
           <div className="addDiv">
             Ajouter <ButtonAdd />
           </div>
@@ -183,7 +229,7 @@ export default function Collections() {
         <Tables
           page="categories"
           orderBy={orderBy}
-          donnees={data2 ? data2 : "loading"}
+          donnees={dataToShow2 ? dataToShow2 : "loading"}
         />
         <Pagination
           nbPages={pagesNb2}
@@ -191,7 +237,7 @@ export default function Collections() {
           changePagePlus={changePagePlus}
           changePageMoins={changePageMoins}
           setActivePage={setActivePage2}
-          table='categories'
+          table="categories"
         />
       </Encarts>
     </>
