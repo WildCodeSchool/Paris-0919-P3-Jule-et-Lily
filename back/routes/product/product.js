@@ -14,6 +14,7 @@ router.route(['/all'])
         console.log(err);
         res.send('Erreur lors de la récupération des produits').status(500);
       } else {
+        console.log(results)
         res.json(results);
       }
     });  
