@@ -21,7 +21,6 @@ export default function Dashboard() {
     const [data, setData] = useState([]);
 
     const fetchData = () => {
-      const id = 1
       // axios.get('/collection/all/ASC') //liste les collections
       // axios.get('/product/all') //liste les produits 
       axios.get('/order/all') //liste les commandes
@@ -40,7 +39,8 @@ export default function Dashboard() {
 
     return (
         <div>
-            <Encarts>
+            <Encarts
+            title="STATISTIQUES DES VENTES">
               <div className="row">
                 <Cards title="Ventes de la semaine" benefits="6,740€" />
                 <Cards title="Ventes du mois" benefits="25,542€" />
@@ -48,9 +48,8 @@ export default function Dashboard() {
                 <Cards title="Ventes de l'année" benefits="98,121€" />
               </div>
             </Encarts>
-            <ButtonCancel />
-            <ButtonConfirm />
-            <Encarts>
+            <Encarts
+            title="STATISTIQUES DES VENTES">
               <div className="tableActions border-gray">
                 <SearchBar />
                 <div className="addDiv">Ajouter <ButtonAdd /></div>
@@ -58,7 +57,8 @@ export default function Dashboard() {
               <Tables page="order" donnees={data.data ? data : 'loading'}/>
               <Pagination />
             </Encarts>
-            <Encarts>
+            <Encarts
+            title="STATISTIQUES DES VENTES">
               <Form />
             </Encarts>
         </div>

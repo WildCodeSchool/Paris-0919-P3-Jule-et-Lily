@@ -1,0 +1,98 @@
+.EncartsCollectionSection {
+    display: flex;
+    justify-content: space-between;
+    padding-top:1em;
+    padding-bottom:1em;
+}
+
+.EncartCollectionBlock {
+    width:31%;
+    flex-direction:column ;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end   ;
+    text-decoration: none;
+}
+
+.EncartCollection h5 {
+    text-align: center;
+}
+.EncartCollection:hover {
+    text-decoration: none;
+}
+
+.EncartCollection {
+    width:100%;
+    min-height:150px;
+    height:100%;
+    padding:2em;
+    flex-direction:column ;
+    display: flex;
+    justify-content: center;
+}
+
+
+.FormCustomColor {
+   height:auto; 
+   padding:2em;
+   display: flex;
+   flex-direction: column;
+}
+
+.ButtonsGroup {
+    align-self: flex-end;
+    margin-top:2em;
+}
+
+@media screen and (max-width:900px) {
+
+    .EncartForm{
+       flex-direction: column;
+    }
+    .FormGlobal {
+        width:100%;
+    }
+}
+
+@media screen and (min-width:901px) {
+
+    .FormGlobal {
+        width:50%;
+    }
+}
+
+
+.Popover {
+    position: absolute;
+    z-index: 2;
+}
+
+.Cover {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.Swatch {
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 1px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1);
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+.backgroundCSS {
+    width: 36px;
+    height: 14px;
+    border-radius: 2px;
+}
+
+.titleCSS {
+    width: 36px;
+    height: 14px;
+    border-radius: 2px;
+}
