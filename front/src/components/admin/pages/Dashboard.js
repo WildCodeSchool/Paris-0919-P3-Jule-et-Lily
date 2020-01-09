@@ -58,9 +58,6 @@ export default function Dashboard() {
               <Tables page="order" donnees={data.data ? data : 'loading'}/>
               <Pagination />
             </Encarts>
-            <Encarts>
-              <Form />
-            </Encarts>
         </div>
     )
 }

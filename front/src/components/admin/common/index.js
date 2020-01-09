@@ -12,6 +12,6 @@ import Pagination from './Pagination'
 import SearchBar from './SearchBar'
 import ReturnButton from './ReturnButton'
 import Tables from './Tables'
-import Form from './Form'
+import FormLogin from './FormLogin'
 
-export { ButtonAdd, ButtonCancel, ButtonConfirm, ButtonDelete, ButtonModify, ButtonSee, Cards, Encarts, LoginBar, Navbar, Pagination, ReturnButton, SearchBar, Tables, Form }
+export { ButtonAdd, ButtonCancel, ButtonConfirm, ButtonDelete, ButtonModify, ButtonSee, Cards, Encarts, LoginBar, Navbar, Pagination, ReturnButton, SearchBar, Tables, FormLogin }
