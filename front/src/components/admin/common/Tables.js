@@ -191,7 +191,7 @@ const Tables = props => {
                         </td>
                         <td>
                           <ButtonModify index={i} onClick={props.onClick}/>
-                          <ButtonSee />
+                          <ButtonSee  index={i} onClickSee={props.onClickSee}/>
                           <ButtonDelete />
                         </td>
                       </tr>

@@ -14,15 +14,15 @@ import {
   Tables,
   Form,
   FormProducts,
-} from "../common/";
-
+} from "../../common";
+import EncartsViewArticle from './EncartsViewArticle';
 
 export default function Products(props) {
 
   const [data, setData] = useState([]);
   const [click, setClick] = useState(false);
   const [productClick, setProductClick] = useState([])
-
+  const [clickView, setclickView] = useState(false)
   
   const fetchData = () => {
 
@@ -33,11 +33,15 @@ export default function Products(props) {
 
   const isClicked = (index) => {
     console.log('click!');
-    
     setClick(!click)
     setProductClick(data[index])
-    
   }
+  const isClickedDelete = (index) => {
+    console.log('click! delete');
+    setclickView(!clickView)
+    setProductClick(data[index])
+  }
+
   useEffect(() => {
     fetchData()
   
@@ -47,11 +51,12 @@ export default function Products(props) {
 
 
   console.log('dataproducts', data);
-  console.log('pructclick', productClick);
+  console.log('proctclick', productClick);
 
   return (
     <div className='products'>
-      {click ? <div> <FormProducts onClick={isClicked} donneesProducts={productClick} /> </div> : <Encarts title='Liste des Produits'> <Tables page='products' onClick={isClicked} donnees={data ? data : 'loading'} /> </Encarts>}
+     
+      {clickView ? <EncartsViewArticle title=' Fiche produit' onClickSee={isClickedDelete} donneesProducts={productClick}/> : click ? <div> <FormProducts onClick={isClicked} donneesProducts={productClick} /> </div> : <Encarts title='Liste des Produits'> <Tables page='products'  onClickSee={isClickedDelete} onClick={isClicked} donnees={data ? data : 'loading'} /> </Encarts>}
     </div>
   )
 }

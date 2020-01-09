@@ -6,9 +6,6 @@ const ButtonModify = (props) => {
 
   return (
     <>
-
-      {/* Button Modify */}
-      {/* <div className="btn" onClick={() => setClick(!click)} > */}
       <div className="btn" onClick={()=>props.onClick(props.index)} >
         <i className="bg-gray btn-sm btn-action">
           <i class="fas fa-pen"></i>

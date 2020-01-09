@@ -1,10 +1,39 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import ButtonConfirm from './ButtonConfirm'
 import ButtonCancel from './ButtonCancel'
 import Encarts from './Encarts'
 export default function FormProducts(props) {
-  const data = props.donneesProducts
+
   const [productModify, setProductModify] = useState(props.donneesProducts)
+  const [dataCollection, setDataCollection]= useState()
+
+  console.log('props de donnes products', props.donneesProducts);
+
+  let handleSubmit = (e) => {
+    e.preventDefault();
+    const productPut = productModify
+    delete productPut.product_stock
+    delete productPut.collection_name
+    delete productPut.category_name
+    console.log('productput', productPut);
+
+    axios
+      .put(`product/${productModify.product_id}`, productPut)
+      .then(
+        res => (console.log('RES ok', res)),
+        err => (console.log('ERR -------', err))
+      )
+
+  }
+
+  const fetchCollection = () => {
+
+    axios.get('/product/all')
+      //  .then(res => console.log(res.data[0]))
+      .then(res => setDataCollection(res.data));
+  }
+
 
 
   const validateNewData = (e) => {
@@ -19,7 +48,7 @@ export default function FormProducts(props) {
   return (
     <>
 
-      <Encarts title="Modifier la fiche Produit">
+      <Encarts title="Ajouter / Modifier les informations">
         <form>
           <div className="form-group">
             <label for="designation"> Désignation</label>
@@ -51,7 +80,7 @@ export default function FormProducts(props) {
 
           <div className="form-group">
             <label for="Description">Description</label>
-            <textarea onChange={validateNewData}
+            <textarea rows="15" cols="33" onChange={validateNewData}
               name='product_description'
               type="text"
               class="form-control"
@@ -90,7 +119,7 @@ export default function FormProducts(props) {
           </div>
 
           <ButtonCancel onClick={props.onClick} color='#234eb7' />
-          <ButtonConfirm color='#234eb7' />
+          <ButtonConfirm color='#234eb7' onClick={handleSubmit} />
 
         </form>
 

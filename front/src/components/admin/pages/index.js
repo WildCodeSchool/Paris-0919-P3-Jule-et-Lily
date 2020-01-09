@@ -3,7 +3,7 @@ import Clients from './Clients'
 import Collections from './Collections'
 import FrontCustom from './FrontCustom'
 import Orders from './Orders'
-import Products from './Products'
+import Products from './Products/Products'
 import Promo from './Promo'
 
 
