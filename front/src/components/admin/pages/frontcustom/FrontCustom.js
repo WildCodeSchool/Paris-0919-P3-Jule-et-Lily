@@ -3,6 +3,7 @@ import axios from "axios";
 
 import EncartCollection from "./EncartCollection";
 import FormColorCustom from "./FormColorCustom";
+import UploadImage from "./UploadImage";
 
 import {
   ButtonConfirm,
@@ -205,6 +206,7 @@ const FrontCustom = () => {
       <div>
         <Encarts title="IMAGES DU SLIDER">
           <h6 className="blue font-weight-bold">Modifier les images :</h6>
+          <UploadImage/>
           <div>
             <ButtonCancel color="#234eb7" />
             <ButtonConfirm color="#234eb7" type="submit" value="Envoyer" />
