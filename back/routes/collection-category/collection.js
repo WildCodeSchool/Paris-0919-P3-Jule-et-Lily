@@ -8,9 +8,10 @@ router.get('/', (req, res) => {
 })
 
 router.get('/all/:request', (req, res) => {
-    connection.query(`SELECT * FROM collection ORDER BY collection_name ${req.params.request}`, (err, results) => {
+    connection.query(`SELECT c.*, i.image_url, COUNT(p.product_id) as nb_items FROM collection as c  JOIN image as i ON i.image_id = c.collection_image_id LEFT OUTER JOIN product as p ON p.product_collection_id = c.collection_id GROUP BY c.collection_id ORDER BY c.collection_name ${req.params.request}`, (err, results) => {
         if (err) {
-          res.status(500).send('Erreur lors de la récupération des collections');
+          console.log(err)
+          res.send('Erreur lors de la récupération des collections'+err).status(500);
         } else {
           res.json(results);
         }

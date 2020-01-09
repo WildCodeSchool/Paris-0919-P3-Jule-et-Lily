@@ -1,0 +1,13 @@
+.loginBar {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  min-height: 60px;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.loginItems{
+  position: absolute;
+  right: 40px;
+}

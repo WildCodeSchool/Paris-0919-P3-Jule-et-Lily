@@ -8,15 +8,15 @@ router.get('/', (req, res) => {
 })
 
 router.get('/all/:request', (req, res) => {
-  connection.query(`SELECT * FROM category ORDER BY category_name ${req.params.request}`, (err, results) => {
+  connection.query(`SELECT c.*, COUNT(p.product_id) as nb_items FROM category  as c JOIN product as p ON p.product_category_id = c.category_id GROUP BY c.category_id ORDER BY category_name ${req.params.request}`, (err, results) => {
       if (err) {
+        console.log(err)
         res.status(500).send('Erreur lors de la récupération des categories');
       } else {
-        res.json(results);
+        res.json(results).status(200);
       }
     });
 })
-
 
 router.route(['/:id', '/'])
 .get(function (req, res) {
@@ -24,7 +24,7 @@ router.route(['/:id', '/'])
     if (err) {
       res.status(500).send("Erreur lors de la récupération d'une catégorie");
     } else {
-      res.json(results);
+      res.json(results).status(200);
     }
   });
 })
