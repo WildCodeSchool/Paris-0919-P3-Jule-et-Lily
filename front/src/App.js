@@ -22,13 +22,10 @@ export default () => {
         <div id="content">
           {/* Mettre la login bar ici  */}
           <LoginBar
-            children={<ReturnButton returnPage="commandes" />}
+            // children={}
           ></LoginBar>
           <div className="container-fluid">
-            {/* <h1 className="col-md-12 col-md-offset-5">
-              Hello ici le front Jule et Lily
-            </h1> */}
-            {/* Mettre les routes vers les autres composants ici  */}
+ 
             <Switch >
               <Route exact path="/" component={Dashboard} />
               <Route path="/orders" component={Orders} />
