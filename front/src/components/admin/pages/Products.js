@@ -24,11 +24,6 @@ export default function Products(props) {
   const [productClick, setProductClick] = useState([])
 
   
-  const NewProduct = () => {
-    setProductClick(productClick)
-
-  }
-
   const fetchData = () => {
 
     axios.get('/product/all')

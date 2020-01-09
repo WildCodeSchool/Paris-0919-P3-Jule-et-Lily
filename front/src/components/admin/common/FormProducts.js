@@ -4,7 +4,7 @@ import ButtonCancel from './ButtonCancel'
 import Encarts from './Encarts'
 export default function FormProducts(props) {
   const data = props.donneesProducts
-  const [productModify, setProductModify] = useState(data)
+  const [productModify, setProductModify] = useState(props.donneesProducts)
 
 
   const validateNewData = (e) => {
@@ -29,7 +29,8 @@ export default function FormProducts(props) {
               type="text"
               class="form-control"
               id="designationid"
-              placeholder={data.product_name}
+              placeholder={productModify.product_name}
+              value={productModify.product_name}
 
             />
           </div>
@@ -43,24 +44,27 @@ export default function FormProducts(props) {
               class="form-control"
               id="examprixid"
               name='product_price'
-              placeholder={data.product_price}
+              placeholder={productModify.product_price}
+              value={productModify.product_price}
             />
           </div>
 
           <div className="form-group">
             <label for="Description">Description</label>
-            <textarea
+            <textarea onChange={validateNewData}
+              name='product_description'
               type="text"
               class="form-control"
               id="exampleInputEmail1"
-              placeholder={data.product_description}
+              value={productModify.product_description}
+              placeholder={productModify.product_description}
             />
           </div>
 
           <div className="input-group">
             <select className="custom-select" id="inputGroupSelect01">
-              <option selected>{data.category_name}</option>
-              <option value="1">{data.category_name}</option>
+              <option selected>{productModify.category_name}</option>
+              <option value="1">{productModify.category_name}</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
             </select>
@@ -69,7 +73,7 @@ export default function FormProducts(props) {
           <div className="input-group mt-4">
             <select className="custom-select" id="inputGroupSelect02">
 
-              <option value="1">{data.collection_name}</option>
+              <option value="1">{productModify.collection_name}</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
             </select>
@@ -81,7 +85,7 @@ export default function FormProducts(props) {
               type="text"
               class="form-control"
               id="imageid"
-              placeholder={data.product_image_id}
+              placeholder={productModify.product_image_id}
             />
           </div>
 
