@@ -33,7 +33,7 @@ const Tables = props => {
 
 
   return (
-    <div>
+    <div id={props.page}>
       <div className="table-responsive">
         <table
           className="table table-bordered text-center "
