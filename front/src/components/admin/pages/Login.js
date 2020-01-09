@@ -1,23 +1,19 @@
 import React, {useState, useEffect} from "react";
 import { FormLogin } from "../common/";
-import { log } from "util";
 
 export default function Login() {
-    const [user, setUser] = useState({ user_password: null, user_login: null, error: false, flash: null, message: null })
+    const [user, setUser] = useState({ user_password: null, user_login: null, error: false, message: null })
     
 
-    function updateLoginField(e) {
+    const updateLoginField = (e) => {
         setUser({...user, user_login: e.target.value })
-        console.log(user);
-        
-    }
-    function updatePasswordField(e) {
-        setUser({...user, user_password: e.target.value })
-        console.log(user);
-        
     }
 
-    function handleSubmit(e) {
+    const updatePasswordField = (e) => {
+        setUser({...user, user_password: e.target.value })
+    }
+
+    const handleSubmit = (e) => {
         fetch("/auth/signin",
             {
                 method: 'POST',
@@ -28,17 +24,17 @@ export default function Login() {
             })
             .then(res => res.json())
             .then(
-                res => console.log('pozepaozepaozpeoaze', res) ||  setUser({ error: res.error, message:'you are signed in' }),
-                err => console.log('fffffffffffffffffffffffff') || setUser({ error: err.error, message: 'Login ou mot de passe incorrect' })
+                res => (setUser({ error: res.error, message: res.flash})),
+                err => setUser({ error: err.error, message: err.flash })
             );
         e.preventDefault()
-        console.log({ user })
     }
 
 
     return (
         <div className='m-5'>
             <h1>Connecte-toi</h1>
+            {user.message ? (alert(user.message), setUser({...user, message: null})) : ''}
             <div>
                 <FormLogin 
                     onChangeLogin={ updateLoginField }
