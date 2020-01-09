@@ -1,0 +1,46 @@
+.th-order {
+  cursor: pointer;
+  position: relative;
+}
+.th-order::after {
+  content: "\2193";
+  bottom: 0.9em;
+  display: block;
+  position: absolute;
+  right: 0.5em;
+}
+
+.th-order::before {
+  content: "\2191";
+  bottom: 0.9em;
+  display: block;
+  position: absolute;
+  right: 1em;
+}
+.th {
+  font-weight: 800;
+}
+
+#dataTable {
+  margin-bottom: 1.25rem;
+}
+
+#dataTable th,
+#dataTable td {
+  min-width: 120px;
+  max-width: 400px;
+  vertical-align: middle;
+}
+
+#dataTable td p {
+ max-height:50px;
+ overflow:auto;
+}
+
+.table .actionButtons, .table .actionButtons div{
+  padding: 2px;
+}
+
+.table .actionButtons a  {
+  margin:0;
+}

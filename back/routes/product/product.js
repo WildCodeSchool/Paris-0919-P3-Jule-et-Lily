@@ -7,12 +7,23 @@ const router = express.Router()
 router.get('/', (req, res) => {
   res.send("je suis sur la route /product").status(200)
 })
+router.route(['/all'])
+  .get(function (req, res) { //récup un produit
+    connection.query('SELECT p.*, s.stock_quantity as product_stock, c.collection_name, k.category_name FROM product as p JOIN stock as s ON s.stock_product_id = p.product_id JOIN collection as c on c.collection_id = p.product_collection_id JOIN category as k ON k.category_id = p.product_category_id', req.body, (err, results) => {
+      if (err) {
+        console.log(err);
+        res.send('Erreur lors de la récupération des produits').status(500);
+      } else {
+        res.json(results);
+      }
+    });  
+  })
 
 router.route([`/:id`, `/`])
   .get(function (req, res) { //récup un produit
-    connection.query(`SELECT * FROM product ORDER BY product_name ${req.params.id}`, (err, results) => {
+    connection.query('SELECT * FROM product WHERE product_id = ?', req.params.id, (err, results) => {
       if (err) {
-        res.status(500).send('Erreur lors de la récupération des produits');
+        res.send('Erreur lors de la récupération des produits').status(500);
       } else {
         res.json(results);
       }

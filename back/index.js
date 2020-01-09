@@ -23,9 +23,6 @@ app.use("/order", route.order)
 app.use("/product", route.product)
 app.use("/code-promo", route.codePromo)
 app.use("/promo", route.promo)
-app.use("/product", route.product)
-app.use("/codePromo", route.codePromo)
-app.use("/promo", route.promo)
 app.use("/user", route.user)
 
 app.get('/', (req, res) => {
