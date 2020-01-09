@@ -23,13 +23,13 @@ export default function Dashboard() {
   const [activePage, setActivePage] = useState(1);
 
   const fetchData = () => {
-    const id = 1;
+    // const id = 1;
       // axios.get("/collection/all/ASC") //liste les collections
-      // axios.get('/product/all') //liste les produits
+      axios.get('/product/all') //liste les produits
       // axios.get("/order/all/") //liste les commandes
       // axios.get('/category/all/ASC') //liste les categories
       // axios.get('/promo/all') //liste les promos
-      axios.get('/code-promo/all') //liste les codes promo
+      // axios.get('/code-promo/all') //liste les codes promo
       // axios.get('/user/role/1') //liste des clients
 
       .then(res => {
@@ -73,6 +73,11 @@ export default function Dashboard() {
     fetchData();
   }, [activePage]);
 
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const changePagePlus = () => {
     // fonction pour aller une page en avant
     setActivePage(activePage + 1);
@@ -86,23 +91,22 @@ export default function Dashboard() {
   const orderBy = (type, order) => {
     // essai pour ordonnée le tableau
     let theData = data;
-    let name = type;
     setData([]);
-     console.log(type, order);
+    //  console.log(type, order);
     theData.sort((a, b) => {
-      console.log(typeof a[type]);
+      // console.log(typeof a[type]);
       if (typeof a[type] == "number") {
-        if (order === "desc") return b[name] - a[name];
-        else return a[name] - b[name]
+        if (order === "desc") return b[type] - a[type];
+        else return a[type] - b[type]
       }
       if (typeof a[type] == "string") {
         if (order === "desc") {
-          if (a[name] < b[name]) return -1;
-          if (a [name]> b[name]) return 1;
+          if (a[type] < b[type]) return -1;
+          if (a [type]> b[type]) return 1;
           return 0;
         } else {
-          if (a[name] > b[name]) return -1;
-          if (a[name] < b[name]) return 1;
+          if (a[type] > b[type]) return -1;
+          if (a[type] < b[type]) return 1;
           return 0;
         }
       }
@@ -132,7 +136,7 @@ export default function Dashboard() {
         </div>
         {/* {console.log('data',data)} */}
         <Tables
-          page="code-promo"
+          page="products"
           orderBy={orderBy}
           donnees={data ? data : "loading"}
         />

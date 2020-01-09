@@ -17,20 +17,34 @@ import {
 
 export default function Collections() {
   const [data, setData] = useState([]); // prendra le resultat du axios et ne doit plus changer sauf si on refait le axios
-  const[dataToShow, setDataToShow] = useState([]); // resultat du axios qui peut changer et qu'on affiche dans le tableau. Pertmet de faire la recherche
-
-  const [data2, setData2] = useState([]);
-  const[dataToShow2, setDataToShow2] = useState([])
+  const [dataToShow, setDataToShow] = useState([]); // resultat du axios qui peut changer et qu'on affiche dans le tableau. Permet de faire la recherche
 
   const [pagesNb, setPagesNb] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
+  // données du deuxième tableau
+  const [data2, setData2] = useState([]);
+  const [dataToShow2, setDataToShow2] = useState([]);
+
+  // pages du deuxième tableau
   const [pagesNb2, setPagesNb2] = useState(0);
   const [activePage2, setActivePage2] = useState(1);
 
+
+  const deleteData = (page, id) => {
+    let path ="";
+    if(page =="collections")
+      path = `collection/${id}`
+    else 
+      path = `category/${id}`
+
+    axios.delete(path)
+     .then(fetchData())  
+  }
+
   const fetchData = () => {
     axios
-      .get("/collection/all/ASC") //liste les collections
+      .get("/collection/all/ASC") // liste les collections
       .then(res => {
         if (res.data.length <= 10) {
           setPagesNb(1);
@@ -68,7 +82,7 @@ export default function Collections() {
       });
 
     axios
-      .get("/category/all/ASC") //liste les catégories
+      .get("/category/all/ASC") // liste les catégories
       .then(res => {
         if (res.data.length <= 10) {
           setPagesNb2(1);
@@ -108,11 +122,7 @@ export default function Collections() {
 
   useEffect(() => {
     fetchData();
-  }, [activePage]);
-
-  useEffect(() => {
-    fetchData();
-  }, [activePage2]);
+  }, [activePage, activePage2]);
 
   const changePagePlus = table => {
     table === "collections"
@@ -128,38 +138,37 @@ export default function Collections() {
 
   const orderBy = (type, order, page) => {
     let theData = "";
+    
     if (page === "collections") {
-      theData = data;
-      setData([]);
-    } else if (page === "categories") {
-      theData = data2;
-      let dataToset = data2;
-      setData2([]);
+      theData = dataToShow;
+      setDataToShow([]);
+    }
+    if (page === "categories") {
+      theData = dataToShow2;
+      setDataToShow2([]);
     }
 
-    let name = type;
-    console.log(type, order);
     theData.sort((a, b) => {
-      console.log(typeof a[type]);
+      //e.log(typeof a[type]);
       if (typeof a[type] == "number") {
-        if (order === "desc") return b[name] - a[name];
-        else return a[name] - b[name];
+        if (order === "desc") return b[type] - a[type];
+        else return a[type] - b[type];
       }
       if (typeof a[type] == "string") {
         if (order === "desc") {
-          if (a[name] < b[name]) return -1;
-          if (a[name] > b[name]) return 1;
+          if (a[type] < b[type]) return -1;
+          if (a[type] > b[type]) return 1;
           return 0;
         } else {
-          if (a[name] > b[name]) return -1;
-          if (a[name] < b[name]) return 1;
+          if (a[type] > b[type]) return -1;
+          if (a[type] < b[type]) return 1;
           return 0;
         }
       }
     });
 
-    if (page === "collections") setData(data => [...data, ...theData]);
-    if (page === "categories") setData2(data2 => [...data2, ...theData]);
+    if (page === "collections") setDataToShow(dataToShow => [...dataToShow, ...theData]);
+    if (page === "categories") setDataToShow2(dataToShow2 => [...dataToShow2, ...theData]);
   };
 
   useEffect(() => {
@@ -207,6 +216,7 @@ export default function Collections() {
           page="collections"
           orderBy={orderBy}
           donnees={dataToShow ? dataToShow : "loading"}
+          deleteData={deleteData}
         />
         <Pagination
           nbPages={pagesNb}
@@ -230,6 +240,7 @@ export default function Collections() {
           page="categories"
           orderBy={orderBy}
           donnees={dataToShow2 ? dataToShow2 : "loading"}
+          deleteData={deleteData}
         />
         <Pagination
           nbPages={pagesNb2}

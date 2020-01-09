@@ -6,7 +6,7 @@ const Pagination = (props) => {
   const [activePage, setActivePage] = useState(1);
 
   const createPagination = () => {
-    console.log(pagesNb)
+    // console.log(pagesNb)
     let pages = []
     for (let i = 1; i <= pagesNb; i++) {
      pages.push(i);

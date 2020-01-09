@@ -8,24 +8,9 @@ import ButtonModify from "./ButtonModify";
 import ButtonSee from "./ButtonSee";
 
 const Tables = props => {
-  // const [commandes, setCommandes] = useState();
-  // const [datas, setData] = useState([]);
-
-  // const fetchData = () => {
-
-  //   axios.get('/product/all')
-  //     //  .then(res => console.log(res.data[0]))
-  //     .then(res => setData({ datas: res.data }));
-  //   console.log('datas', datas);
-  //   ;
-
-  // }
-  // useEffect(() => {
-  //   fetchData()
-  // }, [])
 
   const handleSort = (e) => {
-    console.log(e.target)
+    //console.log(e.target)
     let order = '';
     if (e.target.classList.contains('asc')) 
     {
@@ -40,6 +25,10 @@ const Tables = props => {
       e.target.classList.remove("desc")  
     }
     props.orderBy(e.target.id, order, props.page)
+  }
+
+  const handleDelete = (id) => {
+    props.deleteData(props.page, id)
   }
 
 
@@ -133,7 +122,7 @@ const Tables = props => {
           </thead>
 
           <tbody>
-            {console.log("props.donnees", props.donnees)}
+            {/* {console.log("props.donnees", props.donnees)} */}
 
             {props.donnees &&
               props.donnees.map(data => {
@@ -181,7 +170,7 @@ const Tables = props => {
                         <td className='actionButtons'>
                           <ButtonModify />
                           <ButtonSee />
-                          <ButtonDelete />
+                          <ButtonDelete deleteData={handleDelete} id={data.order_id}/>
                         </td>
                       </tr>
                     );
@@ -212,7 +201,7 @@ const Tables = props => {
                         <td className='actionButtons'>
                           <ButtonModify />
                           <ButtonSee />
-                          <ButtonDelete />
+                          <ButtonDelete deleteData={handleDelete} id={data.product_id}/>
                         </td>
                       </tr>
                     );
@@ -237,7 +226,7 @@ const Tables = props => {
                         <td className='actionButtons'>
                           <ButtonModify />
                           <ButtonSee />
-                          <ButtonDelete />
+                          <ButtonDelete deleteData={handleDelete} id={data.collection_id}/>
                         </td>
                       </tr>
                     );
@@ -254,7 +243,7 @@ const Tables = props => {
                         <td className='actionButtons'>
                           <ButtonModify />
                           <ButtonSee />
-                          <ButtonDelete />
+                          <ButtonDelete  deleteData={handleDelete} id={data.category_id}/>
                         </td>
                       </tr>
                     );
@@ -276,7 +265,7 @@ const Tables = props => {
                         <td className='actionButtons'>
                           <ButtonModify />
                           <ButtonSee />
-                          <ButtonDelete />
+                          <ButtonDelete deleteData={handleDelete} id={data.user_id}/>
                         </td>
                       </tr>
                     );
@@ -294,7 +283,7 @@ const Tables = props => {
                         <td className='actionButtons'>
                           <ButtonModify />
                           <ButtonSee />
-                          <ButtonDelete />
+                          <ButtonDelete deleteData={handleDelete} id={data.promo_id}/>
                         </td>
                       </tr>
                     );
@@ -311,7 +300,7 @@ const Tables = props => {
                         <td className='actionButtons'>
                           <ButtonModify />
                           <ButtonSee />
-                          <ButtonDelete />
+                          <ButtonDelete deleteData={handleDelete} id={data.code_promo_id}/>
                         </td>
                       </tr>
                     );
