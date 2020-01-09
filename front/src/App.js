@@ -6,6 +6,7 @@ import {
 } from "./components/admin/common/";
 import { Dashboard, Orders, Products, Clients, Promo, Collections, FrontCustom } from "./components/admin/pages/";
 import Login from './components/admin/pages/Login'
+import Profile from './components/admin/pages/Profile'
 import { Switch, NavLink, Route } from 'react-router-dom';
 import "../src/assets/css/admin/sb-admin-2.min.css";
 import "../src/assets/css/admin/buttons-actions.css";
@@ -33,6 +34,7 @@ export default () => {
                 {/* Mettre les routes vers les autres composants ici  */}
                 <Switch >
                   <Route exact path="/" component={Dashboard} />
+                  <Route path="/profile" component={Profile} />
                   <Route path="/orders" component={Orders} />
                   <Route path="/clients" component={Clients} />
                   <Route path="/products" component={Products} />
