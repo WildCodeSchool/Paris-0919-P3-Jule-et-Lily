@@ -13,9 +13,10 @@ import {
   SearchBar,
   Tables,
   Form,
-  FormProducts
+
 } from "../../common";
 import EncartsViewArticle from "./EncartsViewArticle";
+import FormProducts from './FormProducts'
 
 export default function Products(props) {
   const [data, setData] = useState([]);

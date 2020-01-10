@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import ButtonConfirm from './ButtonConfirm'
-import ButtonCancel from './ButtonCancel'
-import Encarts from './Encarts'
-import ReturnButton from '../common/ReturnButton'
+import ButtonConfirm from '../../common/ButtonConfirm'
+import ButtonCancel from '../../common/ButtonCancel'
+import Encarts from '../../common/Encarts'
+import ReturnButton from '../../common/ReturnButton'
 export default function FormProducts(props) {
 
   const [productModify, setProductModify] = useState(props.donneesProducts)

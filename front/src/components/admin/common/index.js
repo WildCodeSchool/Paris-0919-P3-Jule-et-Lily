@@ -13,6 +13,6 @@ import SearchBar from './SearchBar'
 import ReturnButton from './ReturnButton'
 import Tables from './Tables'
 import Form from './Form'
-import FormProducts from './FormProducts'
 
-export { ButtonAdd, ButtonCancel, ButtonConfirm, ButtonDelete, ButtonModify, ButtonSee, Cards, Encarts, LoginBar, Navbar, Pagination, ReturnButton, SearchBar, Tables, Form , FormProducts}
+
+export { ButtonAdd, ButtonCancel, ButtonConfirm, ButtonDelete, ButtonModify, ButtonSee, Cards, Encarts, LoginBar, Navbar, Pagination, ReturnButton, SearchBar, Tables, Form }
