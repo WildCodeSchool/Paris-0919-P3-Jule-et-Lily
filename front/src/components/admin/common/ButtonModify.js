@@ -7,9 +7,9 @@ const ButtonModify = (props) => {
   return (
     <>
       <div className="btn" onClick={()=>props.onClick(props.index)} >
-        <i className="bg-gray btn-sm btn-action">
+        <a href="#" className="bg-gray btn-sm btn-action">
           <i class="fas fa-pen"></i>
-        </i>
+        </a>
       </div>
 
     </>
