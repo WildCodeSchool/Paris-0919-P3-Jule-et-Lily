@@ -10,7 +10,7 @@ export default function FormProducts(props) {
   const [dataCollection, setDataCollection] = useState()
   const [dataCategories, setDataCategories] = useState()
   console.log('props de donnes products', props.donneesProducts);
-  console.log('datacollection', dataCollection);
+  console.log('dataCategories', dataCategories);
 
 
   // récupération des noms de collections
@@ -44,6 +44,21 @@ export default function FormProducts(props) {
     console.log('newcollectionid', newCollectionId);
     setProductModify({ ...productModify, product_collection_id: newCollectionId })
   }
+
+
+    // modification de la hooks categorie avec traitement de la donnée
+    const validateNewDataCategory = (e) => {
+      // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
+      let newCategorie = dataCategories.filter(categorie => categorie.category_name.toUpperCase() == e.target.value.toUpperCase())
+      let newCategorieId = newCategorie[0].category_id
+      setProductModify({ ...productModify, [e.target.name]: e.target.value })
+      console.log('newcollection', newCategorie);
+      console.log('-------');
+      console.log('e target', e.target.value);
+      console.log('newcollectionid', newCategorieId);
+      setProductModify({ ...productModify, product_category_id: newCategorieId })
+    }
+  
 
 
   // fetch ds un hooks pour maper les noms des catégories etc ...
@@ -127,7 +142,7 @@ export default function FormProducts(props) {
 
           <div className="form-group ">
             <label htmlFor="collection_name">Catégorie</label>
-            <select className="custom-select  text-center" name='category_name' id="inputGroupSelect01" onChange={validateNewData}>
+            <select className="custom-select  text-center" name='category_name' id="inputGroupSelect01" onChange={validateNewDataCategory}>
               <option selected>{productModify.category_name} {productModify.category_id}</option>
               {dataCategories &&
                 dataCategories.map((data) => {
