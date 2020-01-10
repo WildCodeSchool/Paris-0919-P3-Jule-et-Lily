@@ -56,10 +56,10 @@ router.route([`/:id`, `/`])
     });
   })
   .delete(function (req, res) { // supprimer un produit
-    const requestProduct = req.params.request;
-    connection.query('DELETE FROM product WHERE product_id=?', [requestProduct], err => {
+    connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
       if (err) {
-        res.status(500).send("Erreur lors de la suppression du produit");
+        console.log(err);
+        res.send("Erreur lors de la suppression du produit").status(500);
       } else {
         res.sendStatus(200);
       }

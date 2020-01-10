@@ -27,6 +27,7 @@ export default function FormProducts(props) {
       .then(res => setDataCategories(res.data));
   }
 
+
   // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
   const validateNewData = (e) => {
 
@@ -125,6 +126,19 @@ export default function FormProducts(props) {
               name='product_price'
               placeholder={productModify.product_price}
               value={productModify.product_price}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="stock">Stock</label>
+            <input
+              onChange={validateNewData}
+              type="text"
+              className="form-control text-center"
+              id="examprixid"
+              name='product_stock'
+              placeholder={productModify.product_stock}
+              value={productModify.product_stock}
             />
           </div>
 
