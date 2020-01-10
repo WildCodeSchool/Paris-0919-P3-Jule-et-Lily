@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 
-// import img from "http://localhost:4000/public/Diapo-Disco-Lady-1.jpg"
 import EncartCollection from "./EncartCollection";
 import FormColorCustom from "./FormColorCustom";
 import UploadImage from "./UploadImage";
-
+import UploadImageHook from "./UploadImage";
 import {
   ButtonConfirm,
   ButtonModify,
@@ -32,7 +31,8 @@ const FrontCustom = () => {
   const [dataImage, setDataImage] = useState([]);
 
 
-  ////////////////////////// Database Request Data HEADER COLLECTION//////////////////////////
+
+  ////////////////////////// Database Request HEADER COLLECTION + SLIDER IMAGE//////////////////////////
 
   const fetchDataCollection = () => {
     axios
@@ -55,8 +55,6 @@ const FrontCustom = () => {
   useEffect(() => {
     fetchData()
   },[]);
-
-
 
 
 
@@ -230,19 +228,18 @@ const FrontCustom = () => {
 
       <div>
         <Encarts title="IMAGES DU SLIDER">
-          <h6 className="blue font-weight-bold">Modifier les images :</h6>
-          <div >
+          <h6 className="blue font-weight-bold mb-3">Modifier les images :</h6>
+          <div className="sliderBlock m-auto">
             {dataImage &&
               dataImage.map(item => (
                 <img
-                className="image"
+                className="sliderImage mr-5"
                 src={item.image_url}
                 alt={item.name}
               ></img>))}
           </div>
-          <img src = {"http://localhost:4000/public/Diapo-Disco-Lady-1.jpg"}/>
           <div className="container my-5">
-            <UploadImage/>
+            <UploadImageHook/>
           </div>
           {/* <div>
             <ButtonCancel color="#234eb7" />

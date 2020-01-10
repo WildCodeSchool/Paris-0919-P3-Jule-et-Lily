@@ -96,3 +96,9 @@
     height: 14px;
     border-radius: 2px;
 }
+
+
+.sliderImage {
+    width:200px;
+    height:auto;
+}
