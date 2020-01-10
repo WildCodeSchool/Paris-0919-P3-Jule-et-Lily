@@ -33,7 +33,7 @@ const Tables = props => {
 
 
   return (
-    <div>
+    <div id={props.page}>
       <div className="table-responsive">
         <table
           className="table table-bordered text-center "
@@ -49,7 +49,7 @@ const Tables = props => {
                   {" "}
                   Date de commande{" "}
                 </th>
-                <th className="pink bg-lightpink"> Status </th>
+                <th className="th-order pink bg-lightpink asc" id="order_status" onClick={handleSort}> Status </th>
                 <th className="th-order pink bg-lightpink desc" id="order_shipped_date" onClick={handleSort}> Date d'envoi </th>
                 <th className="th-order pink bg-lightpink desc" id="order_tracking_number" onClick={handleSort}> N° de suivi </th>
                 <th className="th-order pink bg-lightpink desc" id="order_user_id" onClick={handleSort}> Id Client </th>

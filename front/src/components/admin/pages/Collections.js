@@ -171,9 +171,9 @@ export default function Collections() {
     if (page === "categories") setDataToShow2(dataToShow2 => [...dataToShow2, ...theData]);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const search = (table, word) => {
     if (table === "collections") {
@@ -199,7 +199,6 @@ export default function Collections() {
       }
       else setDataToShow2(data2);
     }
-    
   };
 
   return (
