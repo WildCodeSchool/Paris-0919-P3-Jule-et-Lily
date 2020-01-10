@@ -46,12 +46,6 @@ function FormProfile(props) {
             // onChange={ props.onChangePassword }
           />
         </div>
-        <div class="form-group form-check">
-          <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-          <label className="form-check-label" for="exampleCheck1">
-           Coche moi !
-          </label>
-        </div>
         <button type="submit" className="btn btn-primary" onClick={ props.onClick }>
          Modifier
         </button>

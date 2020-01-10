@@ -1,9 +1,14 @@
 import React, {useState, useEffect} from "react";
-import { FormLogin } from "../common/";
+import FormLogin from '../common/FormLogin'
 
 export default function Login() {
-    const [user, setUser] = useState({ user_password: null, user_login: null, error: false, message: null })
+    const [user, setUser] = useState({ user_password: null, user_login: null, error: false, token: '', flash: this.props.flash  })
     
+    useEffect(() => {
+        if(this.props.authenticated === true) {
+            this.props.history.replace('/Dashboard');
+          }
+      });
 
     const updateLoginField = (e) => {
         setUser({...user, user_login: e.target.value })
@@ -24,7 +29,15 @@ export default function Login() {
             })
             .then(res => res.json())
             .then(
-                res => (setUser({ error: res.error, message: res.flash})),
+                res => (setUser({ error: res.error, message: res.flash }),
+                this.props.dispatch(
+                    {
+                        type : "CREATE_SESSION",
+                        user: res.user,
+                        token : res.token,
+                        message : res.message
+                    }
+                )),
                 err => setUser({ error: err.error, message: err.flash })
             );
         e.preventDefault()

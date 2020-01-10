@@ -12,7 +12,6 @@ import {
     Pagination,
     SearchBar,
     Tables,
-    Form
   } from "../common/";
 
 
