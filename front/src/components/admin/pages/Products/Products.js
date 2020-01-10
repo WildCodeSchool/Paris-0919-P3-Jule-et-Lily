@@ -32,6 +32,11 @@ export default function Products(props) {
       .then(res => (setData(res.data), setDataToShow(res.data)));
   };
 
+  const deleteData = (page, id) => {
+    axios.delete(`product/${id}`)
+      .then(fetchData())
+  }
+
   const isClickedModidy = index => {
     console.log("click!");
     setClick(!click);
@@ -113,22 +118,23 @@ export default function Products(props) {
           />
         </div>
       ) : (
-        <Encarts title="Liste des Produits">
-          <div className="tableActions border-gray">
-            <SearchBar search={search} table="product" />
-            <div className="addDiv">
-              Ajouter <ButtonAdd />
-            </div>
-          </div>
-          <Tables
-            page="products"
-            onClickSee={isClickedSee}
-            onClick={isClickedModidy}
-            donnees={dataToShow ? dataToShow : "loading"}
-            orderBy={orderBy}
-          />
-        </Encarts>
-      )}
+            <Encarts title="Liste des Produits">
+              <div className="tableActions border-gray">
+                <SearchBar search={search} table="product" />
+                <div className="addDiv">
+                  Ajouter <ButtonAdd />
+                </div>
+              </div>
+              <Tables
+                deleteData={deleteData}
+                page="products"
+                onClickSee={isClickedSee}
+                onClick={isClickedModidy}
+                donnees={dataToShow ? dataToShow : "loading"}
+                orderBy={orderBy}
+              />
+            </Encarts>
+          )}
     </div>
   );
 }

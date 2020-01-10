@@ -55,7 +55,7 @@ router.route([`/:id`, `/`])
       }
     });
   })
-  .delete(function (req, res) { // supprimer un produit
+  .delete(function (req, res) { // supprimer un produit penser à supprimer dans la bdd la connection avec le stock id
     connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
       if (err) {
         console.log(err);
