@@ -3,6 +3,7 @@ import axios from 'axios';
 import ButtonConfirm from './ButtonConfirm'
 import ButtonCancel from './ButtonCancel'
 import Encarts from './Encarts'
+import ReturnButton from'../common/ReturnButton'
 export default function FormProducts(props) {
 
   const [productModify, setProductModify] = useState(props.donneesProducts)
@@ -26,22 +27,25 @@ export default function FormProducts(props) {
       .then(res => setDataCategories(res.data));
   }
 
-  // modification de la hooks en fonction des changements du form
+  // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
   const validateNewData = (e) => {
+
+    setProductModify({ ...productModify, [e.target.name]: e.target.value })
+  }
+  // modification de la hooks collection avec traitement de la donnée
+  const validateNewDataCollection = (e) => {
+    // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
     let newCollection = dataCollection.filter(collection => collection.collection_name.toUpperCase() == e.target.value.toUpperCase())
     let newCollectionId = newCollection[0].collection_id
     setProductModify({ ...productModify, [e.target.name]: e.target.value })
-
     console.log('newcollection', newCollection);
     console.log('-------');
     console.log('e target', e.target.value);
     console.log('newcollectionid', newCollectionId);
-
     setProductModify({ ...productModify, product_collection_id: newCollectionId })
-
-
-
   }
+
+
   // fetch ds un hooks pour maper les noms des catégories etc ...
 
   // fonction pour envoyer les informations du form à jours
@@ -69,6 +73,7 @@ export default function FormProducts(props) {
   }, [])
   return (
     <>
+  
 
       <Encarts title="Ajouter / Modifier les informations">
         <form className='form-group text-center'>
@@ -112,18 +117,22 @@ export default function FormProducts(props) {
             />
           </div>
 
-          <select className="custom-select" name='category_name' id="inputGroupSelect01" onChange={validateNewData}>
-            <option selected>{productModify.category_name} {productModify.category_id}</option>
-            {dataCategories &&
-              dataCategories.map((data) => {
-                return (
-                  <option >{data.category_name} </option>
-                )
-              })}
-          </select>
+          <div className="form-group ">
+            <label htmlFor="collection_name">Catégorie</label>
+            <select className="custom-select  text-center" name='category_name' id="inputGroupSelect01" onChange={validateNewData}>
+              <option selected>{productModify.category_name} {productModify.category_id}</option>
+              {dataCategories &&
+                dataCategories.map((data) => {
+                  return (
+                    <option >{data.category_name} </option>
+                  )
+                })}
+            </select>
+          </div>
 
-          <div className="input-group mt-4">
-            <select className="custom-select" name='collection_name' id="inputGroupSelect02" onChange={validateNewData}>
+          <div className="form-group ">
+            <label htmlFor="collection_name">Collection</label>
+            <select className="custom-select  text-center" name='collection_name' id="inputGroupSelect02" onChange={validateNewDataCollection}>
               <option selected> {productModify.collection_name}</option>
               {dataCollection &&
                 dataCollection.map((data) => {
@@ -150,7 +159,7 @@ export default function FormProducts(props) {
           </div>
         </form>
 
-
+        <ReturnButton onClickSee={props.onClick} />
       </Encarts>
 
     </>

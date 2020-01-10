@@ -71,7 +71,7 @@ export default (props) => {
         </div>
 
         <div className="form-group ">
-          <label htmlFor="category">Catégorie</label>
+          <label htmlFor="category">Collection</label>
           <input name='category' className="form-control text-center" value={productModify.collection_name} />
 
         </div>
