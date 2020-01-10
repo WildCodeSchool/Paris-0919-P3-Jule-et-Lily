@@ -23,7 +23,7 @@ export default (props) => {
   const productModify = props.donneesProducts
   return (
     <>
-
+     <ReturnButton onClickSee={props.onClickSee} />
       <form className='form-group text-center'>
         <div className="form-group">
           <label htmlFor="designation"> Désignation</label>
@@ -87,7 +87,6 @@ export default (props) => {
         </div>
       </form>
 
-      <ReturnButton onClickSee={props.onClickSee} />
 
     </>
   );

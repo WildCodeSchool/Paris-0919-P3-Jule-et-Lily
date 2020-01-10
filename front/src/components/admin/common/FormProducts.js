@@ -3,7 +3,7 @@ import axios from 'axios';
 import ButtonConfirm from './ButtonConfirm'
 import ButtonCancel from './ButtonCancel'
 import Encarts from './Encarts'
-import ReturnButton from'../common/ReturnButton'
+import ReturnButton from '../common/ReturnButton'
 export default function FormProducts(props) {
 
   const [productModify, setProductModify] = useState(props.donneesProducts)
@@ -49,7 +49,7 @@ export default function FormProducts(props) {
   // fetch ds un hooks pour maper les noms des catégories etc ...
 
   // fonction pour envoyer les informations du form à jours
-  let handleSubmit = (e) => {
+  let handleSubmit = e => {
     e.preventDefault();
     const productPut = productModify
     delete productPut.product_stock
@@ -60,12 +60,19 @@ export default function FormProducts(props) {
 
     axios
       .put(`product/${productModify.product_id}`, productPut)
-      .then(
-        res => (console.log('RES ok', res)),
-        err => (console.log('ERR -------', err))
-      )
-
+      .then(res => {
+        if (res.err) {
+          alert(res.err);
+        } else {
+          alert(`l'encart ${productModify.product_id} a été ajouté avec succès!`);
+        }
+      }).catch(e => {
+        console.error(e);
+        alert("Erreur lors de l'ajout de l'encart");
+      });
+    setTimeout(() => window.location.reload(), 2000);
   }
+
   useEffect(() => {
     fetchCollection()
     fetchCategories()
@@ -73,9 +80,10 @@ export default function FormProducts(props) {
   }, [])
   return (
     <>
-  
+
 
       <Encarts title="Ajouter / Modifier les informations">
+        <ReturnButton onClickSee={props.onClick} />
         <form className='form-group text-center'>
           <div className="form-group">
             <label htmlFor="designation"> Désignation</label>
@@ -159,7 +167,7 @@ export default function FormProducts(props) {
           </div>
         </form>
 
-        <ReturnButton onClickSee={props.onClick} />
+
       </Encarts>
 
     </>
