@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+
+// import img from "http://localhost:4000/public/Diapo-Disco-Lady-1.jpg"
 import EncartCollection from "./EncartCollection";
 import FormColorCustom from "./FormColorCustom";
 import UploadImage from "./UploadImage";
@@ -27,18 +29,43 @@ const FrontCustom = () => {
   });
   const [ColorPickerTitleDisplay, setColorPickerTitleDisplay] = useState(false);
   const [ColorPickerBackgroundDisplay, setColorPickerBackgroundDisplay] = useState(false);
+  const [dataImage, setDataImage] = useState([]);
 
 
-  ////////////////////////// Database Request Data //////////////////////////
-  const fetchData = () => {
+  ////////////////////////// Database Request Data HEADER COLLECTION//////////////////////////
+
+  const fetchDataCollection = () => {
     axios
       .get("/header-collection/all")
       .then(res => (console.log("dataencarts", res.data), setData(res.data)));
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
 
+  const fetchDataImage = () => {
+    axios
+      .get("/image-slider/all")
+      .then(res => (console.log("imageslider", res.data), setDataImage(res.data)));
+  };
+
+  
+  const fetchData = () => {
+    fetchDataCollection()
+    fetchDataImage()
+  }
+  
+  useEffect(() => {
+    fetchData()
+  },[]);
+
+
+
+
+
+   ////////////////////////// Database Request Data IMAGES SLIDER//////////////////////////
+
+  
+  // useEffect(() => {
+  //   fetchDataImage();
+  // }, []);
 
   ////////////////////////// Database Send Data //////////////////////////////////
 
@@ -80,14 +107,11 @@ const FrontCustom = () => {
       .put(`header-collection/${encartDisplay.id}`, encartDisplay)
       .then(res => {
         if (res.error) {
-            alert(res.error);
+            alert("Erreur lors de l'ajout de l'encart", res.error);
         } else {
             alert(`l'encart ${encartDisplay.title} a été ajouté avec succès!`);
         }
-    }).catch(e => {
-    console.error(e);
-    alert("Erreur lors de l'ajout de l'encart");
-    });
+    }).catch(e => {console.error(e);});
     setTimeout(() => window.location.reload(), 2000);
   };
 
@@ -123,6 +147,7 @@ const FrontCustom = () => {
   const handleChangeBackgroundColor = (color) => {
     setEncartDisplay({ ...encartDisplay, backgroundColor: color.hex });
   };
+
 
 
 
@@ -206,11 +231,23 @@ const FrontCustom = () => {
       <div>
         <Encarts title="IMAGES DU SLIDER">
           <h6 className="blue font-weight-bold">Modifier les images :</h6>
-          <UploadImage/>
-          <div>
+          <div >
+            {dataImage &&
+              dataImage.map(item => (
+                <img
+                className="image"
+                src={item.image_url}
+                alt={item.name}
+              ></img>))}
+          </div>
+          <img src = {"http://localhost:4000/public/Diapo-Disco-Lady-1.jpg"}/>
+          <div className="container my-5">
+            <UploadImage/>
+          </div>
+          {/* <div>
             <ButtonCancel color="#234eb7" />
             <ButtonConfirm color="#234eb7" type="submit" value="Envoyer" />
-          </div>
+          </div> */}
         </Encarts>
       </div>
     </>
