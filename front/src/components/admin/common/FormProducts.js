@@ -57,7 +57,7 @@ export default function FormProducts(props) {
     delete productPut.collection_name
 
     console.log('productput', productPut);
-
+// récupération des données produit et envoi ds la bdd
     axios
       .put(`product/${productModify.product_id}`, productPut)
       .then(res => {
@@ -81,9 +81,9 @@ export default function FormProducts(props) {
   return (
     <>
 
-
+      <ReturnButton onClickSee={props.onClick} />
       <Encarts title="Ajouter / Modifier les informations">
-        <ReturnButton onClickSee={props.onClick} />
+
         <form className='form-group text-center'>
           <div className="form-group">
             <label htmlFor="designation"> Désignation</label>
