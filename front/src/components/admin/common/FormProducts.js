@@ -64,11 +64,11 @@ export default function FormProducts(props) {
         if (res.err) {
           alert(res.err);
         } else {
-          alert(`l'encart ${productModify.product_id} a été ajouté avec succès!`);
+          alert(` ${productModify.product_name} a été ajouté avec succès!`);
         }
       }).catch(e => {
         console.error(e);
-        alert("Erreur lors de l'ajout de l'encart");
+        alert(`Erreur lors de la modification de ${productModify.product_name}`);
       });
     setTimeout(() => window.location.reload(), 2000);
   }
