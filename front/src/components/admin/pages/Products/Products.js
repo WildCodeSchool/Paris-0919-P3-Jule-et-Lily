@@ -35,6 +35,7 @@ export default function Products(props) {
   const deleteData = (page, id) => {
     axios.delete(`product/${id}`)
       .then(fetchData())
+      alert('Le produit à été supprimé avec succès')
   }
 
   const isClickedModidy = index => {
