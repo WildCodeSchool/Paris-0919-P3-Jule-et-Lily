@@ -198,7 +198,7 @@ const Tables = props => {
                         <td>
                           <p>{data.product_stock}</p>
                         </td>
-                        <td>
+                        <td className='actionButtons'>
                           <ButtonModify index={i} onClick={props.onClick}/>
                           <ButtonSee  index={i} onClickSee={props.onClickSee}/>
                           <ButtonDelete deleteData={handleDelete} id={data.product_id}/>
