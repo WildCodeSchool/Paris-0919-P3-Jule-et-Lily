@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import ButtonConfirm from './ButtonConfirm'
 import ButtonCancel from './ButtonCancel'
@@ -6,16 +6,52 @@ import Encarts from './Encarts'
 export default function FormProducts(props) {
 
   const [productModify, setProductModify] = useState(props.donneesProducts)
-  const [dataCollection, setDataCollection]= useState()
-
+  const [dataCollection, setDataCollection] = useState()
+  const [dataCategories, setDataCategories] = useState()
   console.log('props de donnes products', props.donneesProducts);
+  console.log('datacollection', dataCollection);
 
+
+  // récupération des noms de collections
+  const fetchCollection = () => {
+    axios.get('/collection/all/asc')
+      //  .then(res => console.log(res.data[0]))
+      .then(res => setDataCollection(res.data));
+  }
+
+  // récupération des noms de catégories
+  const fetchCategories = () => {
+    axios.get('/category/all/asc')
+      //  .then(res => console.log(res.data[0]))
+      .then(res => setDataCategories(res.data));
+  }
+
+  // modification de la hooks en fonction des changements du form
+  const validateNewData = (e) => {
+    let newCollection = dataCollection.filter(collection => collection.collection_name.toUpperCase() == e.target.value.toUpperCase())
+    let newCollectionId = newCollection[0].collection_id
+    setProductModify({ ...productModify, [e.target.name]: e.target.value })
+
+    console.log('newcollection', newCollection);
+    console.log('-------');
+    console.log('e target', e.target.value);
+    console.log('newcollectionid', newCollectionId);
+
+    setProductModify({ ...productModify, product_collection_id: newCollectionId })
+
+
+
+  }
+  // fetch ds un hooks pour maper les noms des catégories etc ...
+
+  // fonction pour envoyer les informations du form à jours
   let handleSubmit = (e) => {
     e.preventDefault();
     const productPut = productModify
     delete productPut.product_stock
-    delete productPut.collection_name
     delete productPut.category_name
+    delete productPut.collection_name
+
     console.log('productput', productPut);
 
     axios
@@ -26,37 +62,23 @@ export default function FormProducts(props) {
       )
 
   }
+  useEffect(() => {
+    fetchCollection()
+    fetchCategories()
 
-  const fetchCollection = () => {
-
-    axios.get('/product/all')
-      //  .then(res => console.log(res.data[0]))
-      .then(res => setDataCollection(res.data));
-  }
-
-
-
-  const validateNewData = (e) => {
-
-    setProductModify({ ...productModify, [e.target.name]: e.target.value })
-
-    // else if ...
-
-  }
-  // fetch ds un hooks pour maper les noms des catégories etc ...
-
+  }, [])
   return (
     <>
 
       <Encarts title="Ajouter / Modifier les informations">
-        <form>
+        <form className='form-group text-center'>
           <div className="form-group">
-            <label for="designation"> Désignation</label>
+            <label htmlFor="designation"> Désignation</label>
             <input
               name='product_name'
               onChange={validateNewData}
               type="text"
-              class="form-control"
+              className="form-control text-center"
               id="designationid"
               placeholder={productModify.product_name}
               value={productModify.product_name}
@@ -66,11 +88,11 @@ export default function FormProducts(props) {
 
 
           <div className="form-group">
-            <label for="prix">Prix</label>
+            <label htmlFor="prix">Prix</label>
             <input
               onChange={validateNewData}
               type="text"
-              class="form-control"
+              className="form-control text-center"
               id="examprixid"
               name='product_price'
               placeholder={productModify.product_price}
@@ -79,49 +101,55 @@ export default function FormProducts(props) {
           </div>
 
           <div className="form-group">
-            <label for="Description">Description</label>
+            <label htmlFor="Description">Description</label>
             <textarea rows="15" cols="33" onChange={validateNewData}
               name='product_description'
               type="text"
-              class="form-control"
+              className="form-control text-center"
               id="exampleInputEmail1"
               value={productModify.product_description}
               placeholder={productModify.product_description}
             />
           </div>
 
-          <div className="input-group">
-            <select className="custom-select" id="inputGroupSelect01">
-              <option selected>{productModify.category_name}</option>
-              <option value="1">{productModify.category_name}</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </div>
+          <select className="custom-select" name='category_name' id="inputGroupSelect01" onChange={validateNewData}>
+            <option selected>{productModify.category_name} {productModify.category_id}</option>
+            {dataCategories &&
+              dataCategories.map((data) => {
+                return (
+                  <option >{data.category_name} </option>
+                )
+              })}
+          </select>
 
           <div className="input-group mt-4">
-            <select className="custom-select" id="inputGroupSelect02">
-
-              <option value="1">{productModify.collection_name}</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select className="custom-select" name='collection_name' id="inputGroupSelect02" onChange={validateNewData}>
+              <option selected> {productModify.collection_name}</option>
+              {dataCollection &&
+                dataCollection.map((data) => {
+                  return (
+                    <option > {data.collection_name}</option>
+                  )
+                })}
             </select>
           </div>
 
           <div className="form-group">
-            <label for="image">Image</label>
+            <label htmlFor="image">Image</label>
             <input
               type="text"
-              class="form-control"
+              className="form-control text-center"
               id="imageid"
               placeholder={productModify.product_image_id}
             />
           </div>
 
-          <ButtonCancel onClick={props.onClick} color='#234eb7' />
-          <ButtonConfirm color='#234eb7' onClick={handleSubmit} />
-
+          <div className='text-left'>
+            <ButtonCancel onClick={props.onClick} color='#234eb7' />
+            <ButtonConfirm color='#234eb7' onClick={handleSubmit} />
+          </div>
         </form>
+
 
       </Encarts>
 

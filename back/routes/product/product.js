@@ -23,6 +23,7 @@ router.route([`/:id`, `/`])
   .get(function (req, res) { //récup un produit
     connection.query('SELECT * FROM product WHERE product_id = ?', req.params.id, (err, results) => {
       if (err) {
+        console.log(err);
         res.send('Erreur lors de la récupération des produits').status(500);
       } else {
         res.json(results);
@@ -40,12 +41,14 @@ router.route([`/:id`, `/`])
     });
   })
   .put(function (req, res) { // modifier un produit
-    const requestProduct = req.params.request;
+    const requestProduct = req.params.id;
     const formData = req.body;
     connection.query('UPDATE product SET ? WHERE product_id=?', [formData, requestProduct], err => {
       if (err) {
+        console.log('erreur back',err);
         res.status(500).send("Erreur lors de la modification du produit");
       } else {
+        console.log('res back',res);
         res.sendStatus(200);
       }
     });

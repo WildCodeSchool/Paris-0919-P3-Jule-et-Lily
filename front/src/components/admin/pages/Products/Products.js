@@ -23,7 +23,7 @@ export default function Products(props) {
   const [click, setClick] = useState(false);
   const [productClick, setProductClick] = useState([])
   const [clickView, setclickView] = useState(false)
-  
+
   const fetchData = () => {
 
     axios.get('/product/all')
@@ -31,20 +31,22 @@ export default function Products(props) {
       .then(res => setData(res.data));
   }
 
-  const isClicked = (index) => {
+  const isClickedModidy = (index) => {
     console.log('click!');
     setClick(!click)
     setProductClick(data[index])
   }
-  const isClickedDelete = (index) => {
+  const isClickedSee = (index) => {
     console.log('click! delete');
     setclickView(!clickView)
+    console.log('data', data, 'index', index)
+    // console.log('data[index]',data[index])
     setProductClick(data[index])
   }
 
   useEffect(() => {
     fetchData()
-  
+
   }, [])
 
   // passer la props à table ici 
@@ -55,8 +57,17 @@ export default function Products(props) {
 
   return (
     <div className='products'>
-     
-      {clickView ? <EncartsViewArticle title=' Fiche produit' onClickSee={isClickedDelete} donneesProducts={productClick}/> : click ? <div> <FormProducts onClick={isClicked} donneesProducts={productClick} /> </div> : <Encarts title='Liste des Produits'> <Tables page='products'  onClickSee={isClickedDelete} onClick={isClicked} donnees={data ? data : 'loading'} /> </Encarts>}
+
+      {clickView ? <EncartsViewArticle title=' Fiche produit' onClickSee={isClickedSee} donneesProducts={productClick} />
+        :
+        click ?
+          <div>
+            <FormProducts onClick={isClickedModidy} donneesProducts={productClick} />
+          </div>
+          :
+          <Encarts title='Liste des Produits'>
+            <Tables page='products' onClickSee={isClickedSee} onClick={isClickedModidy} donnees={data ? data : 'loading'} />
+          </Encarts>}
     </div>
   )
 }
