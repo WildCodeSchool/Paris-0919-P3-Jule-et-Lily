@@ -14,6 +14,7 @@ router.route(['/all'])
         console.log(err);
         res.send('Erreur lors de la récupération des produits').status(500);
       } else {
+        console.log(results)
         res.json(results);
       }
     });  
@@ -43,12 +44,13 @@ router.route([`/:id`, `/`])
   .put(function (req, res) { // modifier un produit
     const requestProduct = req.params.id;
     const formData = req.body;
-    connection.query('UPDATE product SET ? WHERE product_id=?', [formData, requestProduct], err => {
+    connection.query('UPDATE product SET ? WHERE product_id=?', [formData, requestProduct], (err,results) => {
       if (err) {
         console.log('erreur back',err);
         res.status(500).send("Erreur lors de la modification du produit");
       } else {
         console.log('res back',res);
+        console.log(results)
         res.sendStatus(200);
       }
     });

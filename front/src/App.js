@@ -4,11 +4,13 @@ import {
   Navbar,
   ReturnButton,
 } from "./components/admin/common/";
-import {Dashboard, Orders, Products, Clients, Promo, Collections, FrontCustom} from "./components/admin/pages/";
+import {Dashboard, Orders, Products, Clients, Promo, Collections} from "./components/admin/pages/";
+import FrontCustom from "./components/admin/pages/frontcustom/FrontCustom";
 import {Switch, NavLink, Route} from 'react-router-dom';
 import "../src/assets/css/admin/sb-admin-2.min.css";
 import "../src/assets/css/admin/buttons-actions.css";
 import "../src/assets/css/admin/global.css";
+import "../src/assets/css/admin/FrontCustom.css";
 
 export default () => {
 
@@ -20,11 +22,10 @@ export default () => {
         <div id="content">
           {/* Mettre la login bar ici  */}
           <LoginBar
-            children={<ReturnButton returnPage="commandes" />}
+            // children={}
           ></LoginBar>
           <div className="container-fluid">
-
-            {/* Mettre les routes vers les autres composants ici  */}
+ 
             <Switch >
               <Route exact path="/" component={Dashboard} />
               <Route path="/orders" component={Orders} />
