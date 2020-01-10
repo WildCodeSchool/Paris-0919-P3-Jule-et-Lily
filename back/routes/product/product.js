@@ -41,12 +41,13 @@ router.route([`/:id`, `/`])
     });
   })
   .put(function (req, res) { // modifier un produit
-    const requestProduct = req.params.request;
+    const requestProduct = req.params.id;
     const formData = req.body;
-    connection.query('UPDATE product SET ? WHERE product_id=?', [formData, requestProduct], err => {
+    connection.query('UPDATE product SET ? WHERE product_id=?', [formData, requestProduct], (err,results) => {
       if (err) {
         res.status(500).send("Erreur lors de la modification du produit");
       } else {
+        console.log(results)
         res.sendStatus(200);
       }
     });
