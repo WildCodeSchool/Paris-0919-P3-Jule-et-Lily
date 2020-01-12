@@ -96,7 +96,12 @@ export default function Dashboard() {
   }
 
   const getOrderByMonth = (array, month, year, subyear) => {
-    year = currentYear - subyear
+    if (month < 0) {
+      month = month + 13
+      year = year - 1
+    } else {
+      year = year - subyear
+    }
     return _.filter(array, function (o) {
       return (o.order_month === month && o.order_year === year)
     })
@@ -113,8 +118,11 @@ export default function Dashboard() {
 
   return (
     <div className="container">
+      {allorders[0] && console.log("novembre 2019", getOrderByMonth(allorders, (currentMonth - 3), currentYear, 0))}
+      {allorders[0] && console.log("decembre 2019", getOrderByMonth(allorders, (currentMonth - 2), currentYear, 0))}
+      {allorders[0] && console.log("janvier 2020", getOrderByMonth(allorders, (currentMonth), currentYear, 0))}
       {allorders[0] && console.log("res requete + date des orders", pushDate(allorders))}
-      {allorders[0] && console.log("janvier 2019",getOrderByMonth(allorders, currentMonth, currentYear, 1))}
+      {allorders[0] && console.log("janvier 2019", getOrderByMonth(allorders, currentMonth, currentYear, 1))}
       <div className="row">
         <div className="card-orders-month col-lg-5 p-4">
           <Encarts title="Commandes du mois">
@@ -151,10 +159,10 @@ export default function Dashboard() {
               color="#4e73df"
               currentMonth={currentMonth}
               month1={getTot(getOrderByMonth(allorders, currentMonth, currentYear, 0))}
-              month2={getTot(getOrderByMonth(allorders, currentMonth, currentYear, 1))}
-              month3={getTot(getOrderByMonth(allorders, currentMonth, currentYear, 2))}
-              month4={getTot(getOrderByMonth(allorders, currentMonth, currentYear, 3))}
-              month5={getTot(getOrderByMonth(allorders, currentMonth, currentYear, 4))}
+              month2={getTot(getOrderByMonth(allorders, (currentMonth - 2), currentYear, 0))}
+              month3={getTot(getOrderByMonth(allorders, (currentMonth - 3), currentYear, 0))}
+              month4={getTot(getOrderByMonth(allorders, (currentMonth - 4), currentYear, 0))}
+              month5={getTot(getOrderByMonth(allorders, (currentMonth - 5), currentYear, 0))}
             />
           </Encarts>
         </div>
