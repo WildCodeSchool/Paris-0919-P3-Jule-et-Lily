@@ -17,6 +17,7 @@ import { ReactComponent as IconDarkPurple } from '../../../assets/icons/IconUser
 export default function Dashboard() {
 
   const _ = require('lodash')
+  const currentDate = new Date()
   const currentYear = new Date().getFullYear()
   // const currentMonth = String(("0" + (new Date().getMonth() + 1)).slice(-2))
   const currentMonth = new Date().getMonth() + 1
@@ -39,7 +40,6 @@ export default function Dashboard() {
   useEffect(() => {
     axiosData()
     axiosDataByWeek()
-    allorders[0] && pushDate(allorders)
   }, [])
 
   const getDate = (date) => {
@@ -114,6 +114,9 @@ export default function Dashboard() {
       ))
     return Math.round(tot)
   }
+
+// Une fois que la donnée est récupérée dans le tab allorders, merger day/month/year
+  allorders[0] && pushDate(allorders)
 
   return (
     <div className="container">
