@@ -21,17 +21,9 @@ export default function Dashboard() {
   const currentYear = new Date().getFullYear()
   // const currentMonth = String(("0" + (new Date().getMonth() + 1)).slice(-2))
   const currentMonth = new Date().getMonth() + 1
-  // const currentDay = new Date().getMonth() + 1
 
   const [allorders, setAllorders] = useState({ allorders: [] });
   const [ordersweek, setOrdersWeek] = useState({ ordersweek: [] });
-
-  // GRAPH CA STATE
-  // const [ordersmonth1, setOrdersMonth1] = useState({ ordersmonth1: [] });
-  // const [ordersmonth2, setOrdersMonth2] = useState({ ordersmonth2: [] });
-  // const [ordersmonth3, setOrdersMonth3] = useState({ ordersmonth3: [] });
-  // const [ordersmonth4, setOrdersMonth4] = useState({ ordersmonth4: [] });
-  // const [ordersmonth5, setOrdersMonth5] = useState({ ordersmonth5: [] });
 
   const axiosData = () => {
     axios
@@ -49,12 +41,6 @@ export default function Dashboard() {
     axiosData()
     axiosDataByWeek()
     allorders[0] && pushDate(allorders)
-
-    // allorders[0] && setOrdersMonth1(getTot(getOrderByMonth(allorders, currentMonth, currentYear, 0)))
-    // setOrdersMonth2(getTot(getOrderByMonth(allorders, currentMonth, currentYear, 1)))
-    // setOrdersMonth3(getTot(getOrderByMonth(allorders, currentMonth, currentYear, 2)))
-    // setOrdersMonth4(getTot(getOrderByMonth(allorders, currentMonth, currentYear, 3)))
-    // setOrdersMonth5(getTot(getOrderByMonth(allorders, currentMonth, currentYear, 4)))
   }, [])
 
   const getDate = (date) => {
@@ -128,6 +114,7 @@ export default function Dashboard() {
   return (
     <div className="container">
       {allorders[0] && console.log("res requete + date des orders", pushDate(allorders))}
+      {allorders[0] && console.log("janvier 2019",getOrderByMonth(allorders, currentMonth, currentYear, 1))}
       <div className="row">
         <div className="card-orders-month col-lg-5 p-4">
           <Encarts title="Commandes du mois">
