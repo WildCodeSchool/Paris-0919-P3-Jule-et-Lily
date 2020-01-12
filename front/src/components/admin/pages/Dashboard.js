@@ -17,7 +17,6 @@ import { ReactComponent as IconDarkPurple } from '../../../assets/icons/IconUser
 export default function Dashboard() {
 
   const _ = require('lodash')
-  const currentDate = new Date()
   const currentYear = new Date().getFullYear()
   // const currentMonth = String(("0" + (new Date().getMonth() + 1)).slice(-2))
   const currentMonth = new Date().getMonth() + 1
@@ -118,11 +117,6 @@ export default function Dashboard() {
 
   return (
     <div className="container">
-      {allorders[0] && console.log("novembre 2019", getOrderByMonth(allorders, (currentMonth - 3), currentYear, 0))}
-      {allorders[0] && console.log("decembre 2019", getOrderByMonth(allorders, (currentMonth - 2), currentYear, 0))}
-      {allorders[0] && console.log("janvier 2020", getOrderByMonth(allorders, (currentMonth), currentYear, 0))}
-      {allorders[0] && console.log("res requete + date des orders", pushDate(allorders))}
-      {allorders[0] && console.log("janvier 2019", getOrderByMonth(allorders, currentMonth, currentYear, 1))}
       <div className="row">
         <div className="card-orders-month col-lg-5 p-4">
           <Encarts title="Commandes du mois">
