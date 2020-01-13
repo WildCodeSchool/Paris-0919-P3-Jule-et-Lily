@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import ButtonConfirm from './ButtonConfirm'
-import ButtonCancel from './ButtonCancel'
-import Encarts from './Encarts'
-import ReturnButton from '../common/ReturnButton'
+import ButtonConfirm from '../../common/ButtonConfirm'
+import ButtonCancel from '../../common/ButtonCancel'
+import Encarts from '../../common/Encarts'
+import ReturnButton from '../../common/ReturnButton'
 export default function FormProducts(props) {
 
   const [productModify, setProductModify] = useState(props.donneesProducts)
   const [dataCollection, setDataCollection] = useState()
   const [dataCategories, setDataCategories] = useState()
   console.log('props de donnes products', props.donneesProducts);
-  console.log('datacollection', dataCollection);
+  console.log('dataCategories', dataCategories);
 
 
   // récupération des noms de collections
@@ -26,6 +26,7 @@ export default function FormProducts(props) {
       //  .then(res => console.log(res.data[0]))
       .then(res => setDataCategories(res.data));
   }
+
 
   // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
   const validateNewData = (e) => {
@@ -44,6 +45,21 @@ export default function FormProducts(props) {
     console.log('newcollectionid', newCollectionId);
     setProductModify({ ...productModify, product_collection_id: newCollectionId })
   }
+
+
+    // modification de la hooks categorie avec traitement de la donnée
+    const validateNewDataCategory = (e) => {
+      // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
+      let newCategorie = dataCategories.filter(categorie => categorie.category_name.toUpperCase() == e.target.value.toUpperCase())
+      let newCategorieId = newCategorie[0].category_id
+      setProductModify({ ...productModify, [e.target.name]: e.target.value })
+      console.log('newcollection', newCategorie);
+      console.log('-------');
+      console.log('e target', e.target.value);
+      console.log('newcollectionid', newCategorieId);
+      setProductModify({ ...productModify, product_category_id: newCategorieId })
+    }
+  
 
 
   // fetch ds un hooks pour maper les noms des catégories etc ...
@@ -114,6 +130,19 @@ export default function FormProducts(props) {
           </div>
 
           <div className="form-group">
+            <label htmlFor="stock">Stock</label>
+            <input
+              onChange={validateNewData}
+              type="text"
+              className="form-control text-center"
+              id="examprixid"
+              name='product_stock'
+              placeholder={productModify.product_stock}
+              value={productModify.product_stock}
+            />
+          </div>
+
+          <div className="form-group">
             <label htmlFor="Description">Description</label>
             <textarea rows="15" cols="33" onChange={validateNewData}
               name='product_description'
@@ -127,7 +156,7 @@ export default function FormProducts(props) {
 
           <div className="form-group ">
             <label htmlFor="collection_name">Catégorie</label>
-            <select className="custom-select  text-center" name='category_name' id="inputGroupSelect01" onChange={validateNewData}>
+            <select className="custom-select  text-center" name='category_name' id="inputGroupSelect01" onChange={validateNewDataCategory}>
               <option selected>{productModify.category_name} {productModify.category_id}</option>
               {dataCategories &&
                 dataCategories.map((data) => {
