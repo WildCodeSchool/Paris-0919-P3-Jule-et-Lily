@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from "react";
+import { connect } from  'react-redux';
 import FormLogin from '../common/FormLogin'
 
-export default function Login() {
-    const [user, setUser] = useState({ user_password: null, user_login: null, error: false, token: '', flash: this.props.flash  })
+function Login(props) {
+    const [user, setUser] = useState({ user_password: null, user_login: null, error: false, token: '', flash: props.flash  })
     
     useEffect(() => {
-        if(this.props.authenticated === true) {
-            this.props.history.replace('/Dashboard');
+        if(props.authenticated === true) {
+            props.history.replace('/Dashboard');
           }
-      });
+      }, []);
 
     const updateLoginField = (e) => {
         setUser({...user, user_login: e.target.value })
@@ -57,3 +58,13 @@ export default function Login() {
         </div>
     )
 }
+
+
+const  mapStateToProps = (state) => {
+    return {
+        flash:  state.auth.token,
+    }
+};
+
+
+export  default  connect(mapStateToProps)(Login)

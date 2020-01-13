@@ -1,26 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from 'react-redux'
 import FormProfile from "../common/FormProfile";
 
-export default function Profile(props) {
-    const [user, setUser] = ({})
-    
-    const componentDidMount = () => {
-        fetch("/profile", {
-          headers: {
-            Authorization: "Bearer " + this.props.token
-          },
-          body: JSON.stringify(this.props.email)
-        })
-          .then(res => res.json())
-          .then(res => {
-            this.setState({profile: {email: res[0].email, name: res[0].name, lastname: res[0].lastname}});
-          })
-          .catch();
-      };
+function Profile(props) {
+  const [user, setUser] = useState({ user_email: '', user_login: '', user_password: '' })
 
-    return (
-        <div className='m-5'>
-            <FormProfile />
-        </div>
-    )
+  useEffect(() => {
+    fetch("/profile", {
+      headers: {
+        Authorization: "Bearer " + props.token
+      },
+      body: JSON.stringify(props.user_login)
+    })
+      .then(res => res.json())
+      .then(res => {
+        setUser({ user_email: res[0].user_email, user_login: res[0].user_login, user_password: res[0].user_password });
+      })
+      .catch();
+  }, []);
+
+  return (
+    <div className='m-5'>
+      <FormProfile />
+    </div>
+  )
 }
+
+function mapStateToProps(state) {
+  // console.log(state)
+  return { token: state.auth.token, user: state.auth.email };
+}
+
+export default connect(mapStateToProps)(Profile);

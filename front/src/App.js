@@ -9,7 +9,7 @@ import requireAuth from './hoc/requireAuth'
 import requireNotAuth from './hoc/requireNotAuth'
 import { Dashboard, Orders, Products, Clients, Promo, Collections, FrontCustom } from "./components/admin/pages/";
 import Profile from './containers/admin/pages/Profile'
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import "../src/assets/css/admin/sb-admin-2.min.css";
 import "../src/assets/css/admin/buttons-actions.css";
 import "../src/assets/css/admin/global.css";
@@ -18,6 +18,7 @@ export default () => {
 
   return (
     <div>
+      <BrowserRouter>
         <Switch>
           <Route path="/login" component={Login} />
           <div id="wrapper">
@@ -32,24 +33,25 @@ export default () => {
                 <div className="container-fluid">
                   <h1 className="col-md-12 col-md-offset-5">
                     Hello ici le front Jule et Lily
-            </h1>
+                  </h1>
                   {/* Mettre les routes vers les autres composants ici  */}
                   <Switch >
-                    <Redirect exact path="/" component={Dashboard} />
+                    {/* <Route exact from="/" to='/dashboard' />  */}
                     <Route exact path="/profile" component={requireAuth(Profile)} />
                     <Route exact path="/login" component={requireNotAuth(Login)} />
-                    <Route path="/orders" component={Orders} />
-                    <Route path="/clients" component={Clients} />
-                    <Route path="/products" component={Products} />
-                    <Route path="/collections" component={Collections} />
-                    <Route path="/promo" component={Promo} />
-                    <Route path="/frontcustom" component={FrontCustom} />
+                    <Route path="/orders" component={requireAuth(Orders)} />
+                    <Route path="/clients" component={requireAuth(Clients)} />
+                    <Route path="/products" component={requireAuth(Products)} />
+                    <Route path="/collections" component={requireAuth(Collections)} />
+                    <Route path="/promo" component={requireAuth(Promo)} />
+                    <Route path="/frontcustom" component={requireAuth(FrontCustom)} />
                   </Switch>
                 </div>
               </div>
             </div>
           </div>
         </Switch>
+      </BrowserRouter>
     </div>
   );
 };

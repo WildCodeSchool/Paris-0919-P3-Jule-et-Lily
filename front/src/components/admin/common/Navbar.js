@@ -9,7 +9,7 @@ import IconPromos from '../../../assets/icons/IconPromos.svg'
 import IconUsers from '../../../assets/icons/IconUsers.svg'
 import '../../../assets/css/admin/global.css'
 import '../../../assets/css/admin/Navbar.css'
-import {Switch, NavLink, Route} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 const Navbar = () => {

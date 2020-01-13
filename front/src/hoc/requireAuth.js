@@ -1,20 +1,22 @@
-import  React, { Component } from  'react';
+import React, {useEffect} from "react";
 import { connect } from "react-redux";
 
 export  default  function (ComposedComponent) {
-    class  Authentication  extends  Component {  
-        componentDidMount() {
-            if (!this.props.authenticated) 
-                this.props.history.push('/login');
-        } 
-        componentDidUpdate() {
-            if (!this.props.authenticated) 
-                this.props.history.push('/login');
-        }
-        render() {
-            return  <ComposedComponent  {...this.props}  />
-        }
-    }  
+    function  Authentication(props) {  
+        useEffect(() => {
+            if (!props.authenticated) 
+                props.history.push('/dashboard');
+        }, [])
+
+        useEffect(() => {
+            if (!props.authenticated) 
+                props.history.push('/dashboard');
+        }, [props.authenticated])
+
+        return(
+           <ComposedComponent  {...props}  />
+        )
+    }
     
     function mapStateToProps(state) {
         return { authenticated:  state.auth.token?true:false };

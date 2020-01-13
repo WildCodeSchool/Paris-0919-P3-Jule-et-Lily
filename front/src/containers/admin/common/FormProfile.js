@@ -7,22 +7,24 @@ function FormProfile(props) {
         <div className="form-group">
           <label for="exampleInputEmail1">Login</label>
           <input
-            type="email"
+            type="login"
             class="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Email"
+            value={ props.user_login }
             // onChange={ props.onChangeLogin }
           />
         </div>
         <div className="form-group">
           <label for="exampleInputEmail1">Email</label>
           <input
-            type="login"
+            type="email"
             class="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Login"
+            value={ props.user_email }
             // onChange={ props.onChangeLogin }
           />
         </div>
@@ -33,6 +35,7 @@ function FormProfile(props) {
             className="form-control"
             id="exampleInputPassword1"
             placeholder="Mot de passe"
+            value={ props.user_password }
             // onChange={ props.onChangePassword }
           />
         </div>
@@ -46,7 +49,8 @@ function FormProfile(props) {
             // onChange={ props.onChangePassword }
           />
         </div>
-        <button type="submit" className="btn btn-primary" onClick={ props.onClick }>
+        <button type="submit" className="btn btn-primary" //onClick={ props.onClick }
+        >
          Modifier
         </button>
       </form>

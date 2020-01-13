@@ -16,6 +16,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
     "reactstrap": "^8.2.0",
+    "redirect": "^0.2.0",
     "redux": "^4.0.5"
   },
   "scripts": {
