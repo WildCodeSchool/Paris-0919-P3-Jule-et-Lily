@@ -116,6 +116,7 @@ export default function Products(props) {
           <FormProducts
             onClick={isClickedModidy}
             donneesProducts={productClick}
+            donnesStock={productClick} // add a new function for add a stock name id 
           />
         </div>
       ) : (
