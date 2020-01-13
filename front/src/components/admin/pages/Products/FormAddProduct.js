@@ -8,50 +8,66 @@ export default function FormProducts(props) {
 
     const [dataCollection, setDataCollection] = useState()
     const [dataCategories, setDataCategories] = useState()
-    const [productStockModify, setProductStockModify] = useState([]) // changement state stock pour le produit
+    // récupération des noms de collections
+    const fetchCollection = () => {
+        axios.get('/collection/all/asc')
+            //  .then(res => console.log(res.data[0]))
+            .then(res => setDataCollection(res.data));
+    }
+
+    // récupération des noms de catégories
+    const fetchCategories = () => {
+        axios.get('/category/all/asc')
+            .then(res => setDataCategories(res.data));
+    }
+    useEffect(() => {
+        fetchCollection()
+        fetchCategories()
+
+    }, [])
     return (
         <>
 
             <ReturnButton onClickSee={props.onClick} />
-            <Encarts title="Ajouter / Modifier les informations">
+            <Encarts title="Ajouter un produit">
 
                 <form className='form-group text-center'>
                     <div className="form-group">
                         <label htmlFor="designation"> Désignation</label>
                         <input
                             name='product_name'
-                          
+
                             type="text"
                             className="form-control text-center"
                             id="designationid"
-                            placeholder="Description du produit"
+                            placeholder="Ajouter le nom du produit"
                             value=""
 
                         />
                     </div>
 
-
                     <div className="form-group">
                         <label htmlFor="prix">Prix</label>
                         <input
-                          
+
                             type="text"
                             className="form-control text-center"
+                            placeholder="Ajouter un prix"
                             id="examprixid"
                             name='product_price'
-                           
+
                         />
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="stock_quantity">Stock</label>
                         <input
-                        
+
                             type="text"
                             className="form-control text-center"
                             id="examprixid"
                             name='stock_quantity'
-                            placeholder=""
+                            placeholder="Ajouter la quantité de produit en stock"
                             value=""
                         />
                     </div>
@@ -64,14 +80,14 @@ export default function FormProducts(props) {
                             className="form-control text-center"
                             id="exampleInputEmail1"
                             value=""
-                            placeholder=""
+                            placeholder="Ajouter une description au produit"
                         />
                     </div>
 
                     <div className="form-group ">
                         <label htmlFor="collection_name">Catégorie</label>
                         <select className="custom-select  text-center" name='category_name' id="inputGroupSelect01">
-                            <option selected></option>
+                            <option selected> Selectionner une Catégorie</option>
                             {dataCategories &&
                                 dataCategories.map((data) => {
                                     return (
@@ -84,13 +100,12 @@ export default function FormProducts(props) {
                     <div className="form-group ">
                         <label htmlFor="collection_name">Collection</label>
                         <select className="custom-select  text-center" name='collection_name' id="inputGroupSelect02">
-                            <option selected> </option>
-                            {dataCollection &&
-                                dataCollection.map((data) => {
-                                    return (
-                                        <option ></option>
-                                    )
-                                })}
+                            <option selected> Selectionner une Collection</option>
+                            {dataCollection && dataCollection.map((data) => {
+                                return (
+                                    <option > {data.collection_name} </option>
+                                )
+                            })}
                         </select>
                     </div>
 
@@ -105,8 +120,8 @@ export default function FormProducts(props) {
                     </div>
 
                     <div className='text-left'>
-                        <ButtonCancel color='#234eb7' />
-                        <ButtonConfirm color='#234eb7'  />
+                        <ButtonCancel onClick={props.onClick} color='#234eb7' />
+                        <ButtonConfirm color='#234eb7' />
                     </div>
                 </form>
 
