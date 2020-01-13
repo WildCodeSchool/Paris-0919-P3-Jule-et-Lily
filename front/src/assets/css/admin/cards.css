@@ -1,9 +1,16 @@
-.card h6 {
-  margin: 0px;
+.card-body {
+  min-width: 170px;
 }
 
 .bg-iconorders {
-  background-image: url("../../images/IconOrders.svg");
+  background-image: url("../../icons/IconOrders.svg");
+  background-size: 80px;
+  background-position: right 10% bottom 45%;
+  background-repeat: no-repeat;
+}
+
+.bg-iconorders-pink {
+  background-image: url("../../icons/IconOrdersPink.svg");
   background-size: 80px;
   background-position: right 35% bottom 45%;
   background-repeat: no-repeat;
@@ -12,4 +19,29 @@
 .encartContent {
   display: flex;
   flex-direction: column;
+}
+
+.card-text-important{
+  font-size: 7em;
+}
+
+.card-text-important-2{
+  font-size: 6em;
+}
+
+.card-text-important-3{
+  font-size: 2em;
+}
+
+.card-title-2{
+  font-size: 1.1em;
+}
+
+.card-title-1{
+  font-size: 1.2em;
+  margin-bottom: 0;
+}
+
+.border-left-card {
+  border-left: 1rem solid #4e73df !important;
 }

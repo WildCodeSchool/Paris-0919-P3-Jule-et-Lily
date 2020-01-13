@@ -3,14 +3,14 @@ import "../../../assets/css/admin/buttons-actions.css";
 
 
 
-const ButtonSee = () => {
+const ButtonSee = (props) => {
   return (
     <>
   
     {/* Button See */}
-    <div className="btn">
+    <div className="btn" onClick={()=>props.onClickSee(props.index)} >
        <a href="#" className="bg-gray btn-sm btn-action">
-         <i class="fas fa-eye fa-fw"></i>
+         <i class="fas fa-eye fa-fw" ></i>
       </a>
     </div>
       
