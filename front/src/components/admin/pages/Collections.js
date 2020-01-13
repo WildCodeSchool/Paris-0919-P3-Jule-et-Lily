@@ -2,12 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   ButtonAdd,
-  ButtonConfirm,
-  ButtonDelete,
-  ButtonModify,
-  ButtonSee,
-  ButtonCancel,
-  Cards,
   Encarts,
   Pagination,
   SearchBar,
@@ -33,24 +27,20 @@ export default function Collections(props) {
 
   const [click, setClick] = useState(false);
   const [clickView, setclickView] = useState(false);
-  const [productClick, setProductClick] = useState([]);
   const isClickedModidy = index => {
     console.log("click!");
     setClick(!click);
-    setProductClick(data[index]);
-
   };
   const isClickedSee = index => {
     console.log("click! delete");
     setclickView(!clickView);
     console.log("data", data, "index", index);
     // console.log('data[index]',data[index])
-    setProductClick(data[index]);
   };
 
   const deleteData = (page, id) => {
     let path = "";
-    if (page == "collections")
+    if (page === "collections")
       path = `collection/${id}`
     else
       path = `category/${id}`
@@ -150,7 +140,7 @@ export default function Collections(props) {
   const changePageMoins = table => {
     table === "collections"
       ? setActivePage(activePage - 1)
-      : setActivePage2(activePage2 + 1);
+      : setActivePage2(activePage2 - 1);
   };
 
   const orderBy = (type, order, page) => {
@@ -167,11 +157,11 @@ export default function Collections(props) {
 
     theData.sort((a, b) => {
       //e.log(typeof a[type]);
-      if (typeof a[type] == "number") {
+      if (typeof a[type] === "number") {
         if (order === "desc") return b[type] - a[type];
         else return a[type] - b[type];
       }
-      if (typeof a[type] == "string") {
+      if (typeof a[type] === "string") {
         if (order === "desc") {
           if (a[type] < b[type]) return -1;
           if (a[type] > b[type]) return 1;
@@ -182,6 +172,7 @@ export default function Collections(props) {
           return 0;
         }
       }
+      return null
     });
 
     if (page === "collections") setDataToShow(dataToShow => [...dataToShow, ...theData]);
@@ -220,59 +211,59 @@ export default function Collections(props) {
 
   return (
     <>
-{clickView ?(<> <ReturnButton onClickSee={isClickedSee} /> <Encarts/> </> ) :
-      click ? (<> <ReturnButton onClickSee={isClickedModidy} /> <Form>   </Form> </>) : (
-        <>
-          <Encarts title="Liste des collections">
-            <div className="tableActions border-gray">
-              <SearchBar table="collections" search={search} />
-              <div className="addDiv">
-                Ajouter <ButtonAdd />
+      {clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <Encarts /> </>) :
+        click ? (<> <ReturnButton onClickSee={isClickedModidy} /> <Form>   </Form> </>) : (
+          <>
+            <Encarts title="Liste des collections">
+              <div className="tableActions border-gray">
+                <SearchBar table="collections" search={search} />
+                <div className="addDiv">
+                  Ajouter <ButtonAdd />
+                </div>
               </div>
-            </div>
 
-            <Tables
-              page="collections"
-              orderBy={orderBy}
-              donnees={dataToShow ? dataToShow : "loading"} s
-              deleteData={deleteData}
-              onClick={isClickedModidy}
-              onClickSee={isClickedSee}
+              <Tables
+                page="collections"
+                orderBy={orderBy}
+                donnees={dataToShow ? dataToShow : "loading"} s
+                deleteData={deleteData}
+                onClick={isClickedModidy}
+                onClickSee={isClickedSee}
 
-            />
-            <Pagination
-              nbPages={pagesNb}
-              activePage={activePage}
-              changePagePlus={changePagePlus}
-              changePageMoins={changePageMoins}
-              setActivePage={setActivePage}
-              table="collections"
-            />
-          </Encarts>
+              />
+              <Pagination
+                nbPages={pagesNb}
+                activePage={activePage}
+                changePagePlus={changePagePlus}
+                changePageMoins={changePageMoins}
+                setActivePage={setActivePage}
+                table="collections"
+              />
+            </Encarts>
 
-          <Encarts title="Liste des catégories">
-            <div className="tableActions border-gray">
-              <SearchBar table="categories" search={search} />
-              <div className="addDiv">
-                Ajouter <ButtonAdd />
+            <Encarts title="Liste des catégories">
+              <div className="tableActions border-gray">
+                <SearchBar table="categories" search={search} />
+                <div className="addDiv">
+                  Ajouter <ButtonAdd />
+                </div>
               </div>
-            </div>
 
-            <Tables
-              page="categories"
-              orderBy={orderBy}
-              donnees={dataToShow2 ? dataToShow2 : "loading"}
-              deleteData={deleteData}
-            />
-            <Pagination
-              nbPages={pagesNb2}
-              activePage={activePage2}
-              changePagePlus={changePagePlus}
-              changePageMoins={changePageMoins}
-              setActivePage={setActivePage2}
-              table="categories"
-            />
-          </Encarts> </>)}
+              <Tables
+                page="categories"
+                orderBy={orderBy}
+                donnees={dataToShow2 ? dataToShow2 : "loading"}
+                deleteData={deleteData}
+              />
+              <Pagination
+                nbPages={pagesNb2}
+                activePage={activePage2}
+                changePagePlus={changePagePlus}
+                changePageMoins={changePageMoins}
+                setActivePage={setActivePage2}
+                table="categories"
+              />
+            </Encarts> </>)}
     </>
   );
 }

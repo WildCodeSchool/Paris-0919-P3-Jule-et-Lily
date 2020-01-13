@@ -36,7 +36,7 @@ export default function FormProducts(props) {
   // modification de la hooks collection avec traitement de la donnée
   const validateNewDataCollection = (e) => {
     // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
-    let newCollection = dataCollection.filter(collection => collection.collection_name.toUpperCase() == e.target.value.toUpperCase())
+    let newCollection = dataCollection.filter(collection => collection.collection_name.toUpperCase() === e.target.value.toUpperCase())
     let newCollectionId = newCollection[0].collection_id
     setProductModify({ ...productModify, [e.target.name]: e.target.value })
     console.log('newcollection', newCollection);
@@ -50,7 +50,7 @@ export default function FormProducts(props) {
     // modification de la hooks categorie avec traitement de la donnée
     const validateNewDataCategory = (e) => {
       // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
-      let newCategorie = dataCategories.filter(categorie => categorie.category_name.toUpperCase() == e.target.value.toUpperCase())
+      let newCategorie = dataCategories.filter(categorie => categorie.category_name.toUpperCase() === e.target.value.toUpperCase())
       let newCategorieId = newCategorie[0].category_id
       setProductModify({ ...productModify, [e.target.name]: e.target.value })
       console.log('newcollection', newCategorie);

@@ -2,18 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   ButtonAdd,
-  ButtonConfirm,
-  ButtonDelete,
-  ButtonModify,
-  ButtonSee,
-  ButtonCancel,
-  Cards,
   Encarts,
-  Pagination,
   SearchBar,
-  Tables,
-  Form,
-
+  Tables
 } from "../../common";
 import EncartsViewArticle from "./EncartsViewArticle";
 import FormProducts from './FormProducts'
@@ -29,7 +20,7 @@ export default function Products(props) {
     axios
       .get("/product/all")
       //  .then(res => console.log(res.data[0]))
-      .then(res => (setData(res.data), setDataToShow(res.data)));
+      .then(res => (setData(res.data), setDataToShow(res.data)))
   };
 
   const deleteData = (page, id) => {
@@ -39,14 +30,14 @@ export default function Products(props) {
   }
 
   const isClickedModidy = index => {
-    console.log("click!");
+    // console.log("click!");
     setClick(!click);
     setProductClick(data[index]);
   };
   const isClickedSee = index => {
-    console.log("click! delete");
+    // console.log("click! delete");
     setclickView(!clickView);
-    console.log("data", data, "index", index);
+    // console.log("data", data, "index", index);
     // console.log('data[index]',data[index])
     setProductClick(data[index]);
   };
@@ -78,6 +69,7 @@ export default function Products(props) {
           return 0;
         }
       }
+      return null
     });
     //on met les données triées dans le tableau à afficher
     setDataToShow(dataToShow => [...dataToShow, ...theData]);
@@ -100,8 +92,8 @@ export default function Products(props) {
 
   // passer la props à table ici
 
-  console.log("dataproducts", data);
-  console.log("proctclick", productClick);
+  // console.log("dataproducts", data);
+  // console.log("proctclick", productClick);
 
   return (
     <div className="products">

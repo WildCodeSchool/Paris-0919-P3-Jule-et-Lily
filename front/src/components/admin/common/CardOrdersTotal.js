@@ -3,7 +3,7 @@ import '../../../assets/css/admin/cards.css'
 
 export default (props) => {
   return (
-    <div className={"col-xl-6 col-md-6 mb-12" + " " + props.border}>
+    <div className={`col-xl-6 col-md-6 mb-12 ${props.border}`}>
       <div className=" h-100 py-2">
         <div className="card-body">
           <div className="row no-gutters align-items-center">

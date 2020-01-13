@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import "../../../assets/css/admin/global.css";
 import "../../../assets/css/admin/Tables.css";
 import ButtonDelete from "./ButtonDelete";
-import ButtonAdd from "./ButtonAdd";
 import ButtonModify from "./ButtonModify";
 import ButtonSee from "./ButtonSee";
 
@@ -37,7 +35,7 @@ const Tables = props => {
           className="table table-bordered text-center "
           id="dataTable"
           width="100%"
-          cellspacing="0"
+          cellSpacing="0"
         >
           <thead>
             {props.page === "order" ? (
@@ -213,10 +211,10 @@ const Tables = props => {
                         </td>
                         <td>
                           {" "}
-                          <p><img src={data.collection_cover_image_url} alt="cover image" width="80" height="80" /><br />{data.collection_cover_image_url}</p>
+                          <p><img src={data.collection_cover_image_url} alt="cover" width="80" height="80" /><br />{data.collection_cover_image_url}</p>
                         </td>
                         <td>
-                          <p><img src={data.image_url} alt="collection image" width="80" height="80" /><br />{data.image_url}</p>
+                          <p><img src={data.image_url} alt="collection" width="80" height="80" /><br />{data.image_url}</p>
                         </td>
                         <td>
                           <p>{data.nb_items}</p>
@@ -306,6 +304,7 @@ const Tables = props => {
                   default:
                     break;
                 }
+              return null
               })}
           </tbody>
         </table>
