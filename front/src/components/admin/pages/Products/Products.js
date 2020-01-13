@@ -17,6 +17,7 @@ import {
 } from "../../common";
 import EncartsViewArticle from "./EncartsViewArticle";
 import FormProducts from './FormProducts'
+import FormAddProduct from './FormAddProduct'
 
 export default function Products(props) {
   const [data, setData] = useState([]);
@@ -24,6 +25,7 @@ export default function Products(props) {
   const [click, setClick] = useState(false);
   const [productClick, setProductClick] = useState([]);
   const [clickView, setclickView] = useState(false);
+  const [clickAdd, setClickAdd] = useState(false);
 
   const fetchData = () => {
     axios
@@ -44,12 +46,13 @@ export default function Products(props) {
     setProductClick(data[index]);
   };
   const isClickedSee = index => {
-    console.log("click! delete");
     setclickView(!clickView);
-    console.log("data", data, "index", index);
     // console.log('data[index]',data[index])
     setProductClick(data[index]);
   };
+  const isClickedAddProduct = () => {
+    setClickAdd(!clickAdd);
+  }
 
   useEffect(() => {
     fetchData();
@@ -105,38 +108,41 @@ export default function Products(props) {
 
   return (
     <div className="products">
-      {clickView ? (
-        <EncartsViewArticle
-          title=" Fiche produit"
-          onClickSee={isClickedSee}
-          donneesProducts={productClick}
-        />
-      ) : click ? (
-        <div>
-          <FormProducts
-            onClick={isClickedModidy}
+      {clickAdd ?
+        (<FormAddProduct onClick={isClickedAddProduct} />) :
+
+        clickView ? (
+          <EncartsViewArticle
+            title=" Fiche produit"
+            onClickSee={isClickedSee}
             donneesProducts={productClick}
-            donnesStock={productClick} // add a new function for add a stock name id 
           />
-        </div>
-      ) : (
-            <Encarts title="Liste des Produits">
-              <div className="tableActions border-gray">
-                <SearchBar search={search} table="product" />
-                <div className="addDiv">
-                  Ajouter <ButtonAdd />
+        ) : click ? (
+          <div>
+            <FormProducts
+              onClick={isClickedModidy}
+              donneesProducts={productClick}
+              donnesStock={productClick} // add a new function for add a stock name id 
+            />
+          </div>
+        ) : (
+              <Encarts title="Liste des Produits">
+                <div className="tableActions border-gray">
+                  <SearchBar search={search} table="product" />
+                  <div className="addDiv">
+                    Ajouter <ButtonAdd onClick={isClickedAddProduct} />
+                  </div>
                 </div>
-              </div>
-              <Tables
-                deleteData={deleteData}
-                page="products"
-                onClickSee={isClickedSee}
-                onClick={isClickedModidy}
-                donnees={dataToShow ? dataToShow : "loading"}
-                orderBy={orderBy}
-              />
-            </Encarts>
-          )}
+                <Tables
+                  deleteData={deleteData}
+                  page="products"
+                  onClickSee={isClickedSee}
+                  onClick={isClickedModidy}
+                  donnees={dataToShow ? dataToShow : "loading"}
+                  orderBy={orderBy}
+                />
+              </Encarts>
+            )}
     </div>
   );
 }
