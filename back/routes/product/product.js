@@ -3,10 +3,39 @@ const connection = require('../../conf')
 
 const router = express.Router()
 
+/////////////// stock des produits ///////////
+/////////////////////////////////////////////
+
 
 router.get('/', (req, res) => {
   res.send("je suis sur la route /product").status(200)
 })
+router.route(['/stock/:id'])
+  .get(function (req, res) { //récup un produit
+    connection.query('SELECT * from stock WHERE stock_product_id = ?', req.params.id, (err, results) => {
+      if (err) {
+        console.log(err);
+        res.send('Erreur lors de la récupération du stock').status(500);
+      } else {
+        console.log(results)
+        res.json(results);
+      }
+    });
+  })
+  .put(function (req, res) { // modifier un produit
+    const requestProduct = req.params.id;
+    const formData = req.body;
+    connection.query('UPDATE stock SET ? WHERE stock_product_id=?', [formData, requestProduct], (err, results) => {
+      if (err) {
+        console.log('erreur back', err);
+        res.status(500).send("Erreur lors de la modification du stock");
+      } else {
+        console.log('res back', res);
+        console.log(results)
+        res.sendStatus(200);
+      }
+    });
+  })
 router.route(['/all'])
   .get(function (req, res) { //récup un produit
     connection.query('SELECT p.*, s.stock_quantity as product_stock, c.collection_name, k.category_name FROM product as p LEFT OUTER JOIN stock as s ON s.stock_product_id = p.product_id LEFT OUTER JOIN collection as c on c.collection_id = p.product_collection_id LEFT OUTER JOIN category as k ON k.category_id = p.product_category_id', req.body, (err, results) => {
@@ -17,7 +46,7 @@ router.route(['/all'])
         console.log(results)
         res.json(results);
       }
-    });  
+    });
   })
 
 router.route([`/:id`, `/`])
@@ -29,7 +58,7 @@ router.route([`/:id`, `/`])
       } else {
         res.json(results);
       }
-    });  
+    });
   })
   .post(function (req, res) {
     const formData = req.body;
@@ -44,12 +73,12 @@ router.route([`/:id`, `/`])
   .put(function (req, res) { // modifier un produit
     const requestProduct = req.params.id;
     const formData = req.body;
-    connection.query('UPDATE product SET ? WHERE product_id=?', [formData, requestProduct], (err,results) => {
+    connection.query('UPDATE product SET ? WHERE product_id=?', [formData, requestProduct], (err, results) => {
       if (err) {
-        console.log('erreur back',err);
+        console.log('erreur back', err);
         res.status(500).send("Erreur lors de la modification du produit");
       } else {
-        console.log('res back',res);
+        console.log('res back', res);
         console.log(results)
         res.sendStatus(200);
       }
@@ -66,17 +95,19 @@ router.route([`/:id`, `/`])
     });
   });
 
-  // image associée à un produit set à NULL 
-  router.put('/image/:id', (req, res) => {
-    const requestProduct = req.params.id;
-    const formData = req.body;
-    connection.query('UPDATE product SET product_image_id = 0 WHERE product_id = ?', [requestProduct], err => {
-      if (err) {
-        res.status(500).send("Erreur lors de la modification du produit"+err);
-      } else {
-        res.sendStatus(200);
-      }
-    });
+// image associée à un produit set à NULL 
+router.put('/image/:id', (req, res) => {
+  const requestProduct = req.params.id;
+  const formData = req.body;
+  connection.query('UPDATE product SET product_image_id = 0 WHERE product_id = ?', [requestProduct], err => {
+    if (err) {
+      res.status(500).send("Erreur lors de la modification du produit" + err);
+    } else {
+      res.sendStatus(200);
+    }
   });
+});
+
+
 
 module.exports = router
