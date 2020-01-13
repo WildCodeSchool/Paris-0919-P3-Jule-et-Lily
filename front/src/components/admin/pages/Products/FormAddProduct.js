@@ -8,6 +8,27 @@ export default function FormProducts(props) {
 
     const [dataCollection, setDataCollection] = useState()
     const [dataCategories, setDataCategories] = useState()
+    const [newProduct, setNewProduct] = useState(
+        {
+
+            product_name: 'kjkj',
+            product_price: 0,
+            stock_quantity: 0,
+            product_id: 'auto',
+            product_description: 'description du produit',
+            product_custom: '0',
+            collection_name: 'ajouter votre collection',
+            product_image_id: 1,
+            product_collection_id: 0,
+            product_stock: 0,
+
+        })
+    console.log('newproduct', newProduct);
+
+
+
+    ////////////////// récupération des données ////////////////////
+
     // récupération des noms de collections
     const fetchCollection = () => {
         axios.get('/collection/all/asc')
@@ -20,6 +41,22 @@ export default function FormProducts(props) {
         axios.get('/category/all/asc')
             .then(res => setDataCategories(res.data));
     }
+
+    // modification de la hooks 
+    const validateNewData = (e) => {
+
+        setNewProduct({ ...newProduct, [e.target.name]: e.target.value })
+    }
+
+    ////////////////////////        submitNewProduct    ////////////////////////
+    // fonction pour envoyer les informations du form à jours
+    let submitNewProduct = e => {
+        e.preventDefault();
+        console.log('productput');
+    }
+
+
+
     useEffect(() => {
         fetchCollection()
         fetchCategories()
@@ -36,25 +73,27 @@ export default function FormProducts(props) {
                         <label htmlFor="designation"> Désignation</label>
                         <input
                             name='product_name'
+                            onChange={validateNewData}
 
                             type="text"
                             className="form-control text-center"
                             id="designationid"
                             placeholder="Ajouter le nom du produit"
-                            value=""
+                            value={setNewProduct.product_name}
 
                         />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="prix">Prix</label>
+                        <label htmlFor="product_price">Prix</label>
                         <input
-
+                            name='product_price'
+                            onChange={validateNewData}
                             type="text"
                             className="form-control text-center"
                             placeholder="Ajouter un prix"
                             id="examprixid"
-                            name='product_price'
+
 
                         />
                     </div>
@@ -62,31 +101,32 @@ export default function FormProducts(props) {
                     <div className="form-group">
                         <label htmlFor="stock_quantity">Stock</label>
                         <input
-
+                            name='stock_quantity'
+                            onChange={validateNewData}
                             type="text"
                             className="form-control text-center"
                             id="examprixid"
-                            name='stock_quantity'
+
                             placeholder="Ajouter la quantité de produit en stock"
-                            value=""
+
                         />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="Description">Description</label>
+                        <label htmlFor="product_description">Description</label>
                         <textarea rows="15" cols="33"
                             name='product_description'
+                            onChange={validateNewData}
                             type="text"
                             className="form-control text-center"
                             id="exampleInputEmail1"
-                            value=""
                             placeholder="Ajouter une description au produit"
                         />
                     </div>
 
                     <div className="form-group ">
                         <label htmlFor="collection_name">Catégorie</label>
-                        <select className="custom-select  text-center" name='category_name' id="inputGroupSelect01">
+                        <select className="custom-select  text-center" name='category_name' id="inputGroupSelect01" onChange={validateNewData}>
                             <option selected> Selectionner une Catégorie</option>
                             {dataCategories &&
                                 dataCategories.map((data) => {
@@ -99,7 +139,7 @@ export default function FormProducts(props) {
 
                     <div className="form-group ">
                         <label htmlFor="collection_name">Collection</label>
-                        <select className="custom-select  text-center" name='collection_name' id="inputGroupSelect02">
+                        <select className="custom-select  text-center" name='collection_name' id="inputGroupSelect02" onChange={validateNewData}>
                             <option selected> Selectionner une Collection</option>
                             {dataCollection && dataCollection.map((data) => {
                                 return (
@@ -112,7 +152,9 @@ export default function FormProducts(props) {
                     <div className="form-group">
                         <label htmlFor="image">Image</label>
                         <input
+                            name='product_image_id'
                             type="text"
+                            onChange={validateNewData}
                             className="form-control text-center"
                             id="imageid"
                             placeholder=""
