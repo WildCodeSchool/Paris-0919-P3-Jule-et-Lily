@@ -18,4 +18,5 @@ import ReturnButton from './ReturnButton'
 import Tables from './Tables'
 import Form from './Form'
 
-export { ButtonAdd, ButtonCancel, ButtonConfirm, ButtonDelete, ButtonModify, ButtonSee, Cards, CardHistogramme, CardLastYear, CardOrdersMonth, CardOrdersTotal, Encarts, LoginBar, Navbar, Pagination, ReturnButton, SearchBar, Tables, Form, FormProducts }
+
+export { ButtonAdd, ButtonCancel, ButtonConfirm, ButtonDelete, ButtonModify, ButtonSee, Cards, CardHistogramme, CardLastYear, CardOrdersMonth, CardOrdersTotal, Encarts, LoginBar, Navbar, Pagination, ReturnButton, SearchBar, Tables, Form }
