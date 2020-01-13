@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import axios from 'axios'
-import _ from 'lodash'
 import {
   Cards,
   CardHistogramme,
@@ -17,7 +16,6 @@ import { ReactComponent as IconDarkPurple } from '../../../assets/icons/IconUser
 export default function Dashboard() {
 
   const _ = require('lodash')
-  const currentDate = new Date()
   const currentYear = new Date().getFullYear()
   // const currentMonth = String(("0" + (new Date().getMonth() + 1)).slice(-2))
   const currentMonth = new Date().getMonth() + 1
@@ -46,7 +44,7 @@ export default function Dashboard() {
     let dateobj = new Date(`${date}`)
     let result = dateobj.toLocaleDateString()
     result = result.split("/").map(Number)
-    const newdate = new Object();
+    const newdate = {}
     newdate.order_day = result[0]
     newdate.order_month = result[1]
     newdate.order_year = result[2]
@@ -54,7 +52,7 @@ export default function Dashboard() {
   }
 
   const pushDate = (array) => {
-    let other = new Object();
+    let other = {}
     array && array
       .map((item, key) => (
         other = getDate(item.order_date),
@@ -77,14 +75,14 @@ export default function Dashboard() {
   const getOrderByQuarter = (array) => {
     const year = currentYear
     const a = currentMonth
-    if (0 > a <= 4) {
+    if (0 > a && a <= 4) {
       return _.filter(array, function (o) {
         return (o.order_month <= 4 && o.order_year === year)
       })
     }
-    else if (4 > a <= 8) {
+    else if (4 > a && a <= 8) {
       return _.filter(array, function (o) {
-        return (o.order_month > 4 || o.order_month <= 8 && o.order_year === year)
+        return ((o.order_month > 4 || o.order_month <= 8) && o.order_year === year)
       })
     }
     else {

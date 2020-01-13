@@ -8,7 +8,7 @@ export default function Form() {
           <label for="exampleInputEmail1">Adresse email</label>
           <input
             type="email"
-            class="form-control"
+            className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Email"
@@ -26,7 +26,7 @@ export default function Form() {
             placeholder="Mot de passe"
           />
         </div>
-        <div class="form-group form-check">
+        <div className="form-group form-check">
           <input type="checkbox" className="form-check-input" id="exampleCheck1" />
           <label className="form-check-label" for="exampleCheck1">
            Coche moi !

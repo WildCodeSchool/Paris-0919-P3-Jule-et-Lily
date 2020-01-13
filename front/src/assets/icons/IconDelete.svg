@@ -5,7 +5,7 @@
 <style type="text/css">
 	.st0{fill:#FFFFFF;}
 </style>
-<rect x="7.2" y="3.2" class="st0" width="11.2" height="1.2"/>
+<rect x="7.2" y="3.2" className="st0" width="11.2" height="1.2"/>
 <g>
 	<path class="st0" d="M15.2,4.1h-4.7V2.7c0-0.7,0.6-1.3,1.3-1.3h2.1c0.7,0,1.3,0.6,1.3,1.3V4.1z M11.4,3.2h3V2.7
 		c0-0.2-0.2-0.4-0.4-0.4h-2.1c-0.2,0-0.4,0.2-0.4,0.4v0.5H11.4z"/>

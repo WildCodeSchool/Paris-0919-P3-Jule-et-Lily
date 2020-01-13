@@ -32,7 +32,7 @@ const FrontCustom = () => {
   const fetchData = () => {
     axios
       .get("/header-collection/all")
-      .then(res => (console.log("dataencarts", res.data), setData(res.data)));
+      .then(res => (setData(res.data)));
   };
   useEffect(() => {
     fetchData();
@@ -133,8 +133,8 @@ const FrontCustom = () => {
 
           <div className="EncartsCollectionSection">
             {data &&
-              data.map(encart => (
-                <div className="EncartCollectionBlock">
+              data.map((encart, key) => (
+                <div key={key} className="EncartCollectionBlock">
                   <EncartCollection
                     id={encart.collection_menu_id}
                     backgroundColor={encart.collection_menu_background_color}

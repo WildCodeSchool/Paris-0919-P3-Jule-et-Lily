@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import {
   LoginBar,
-  Navbar,
-  ReturnButton,
+  Navbar
 } from "./components/admin/common/";
 import {Dashboard, Orders, Products, Clients, Promo, Collections} from "./components/admin/pages/";
 import FrontCustom from "./components/admin/pages/frontcustom/FrontCustom";
-import {Switch, NavLink, Route} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import "../src/assets/css/admin/sb-admin-2.min.css";
 import "../src/assets/css/admin/buttons-actions.css";
 import "../src/assets/css/admin/global.css";
@@ -18,7 +17,7 @@ export default () => {
     <div id="wrapper">
       {/* mettre la navbar/sidebar ici */}
       <Navbar />
-      <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content-wrapper" className="d-flex flex-column">
         <div id="content">
           {/* Mettre la login bar ici  */}
           <LoginBar

@@ -2,17 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   ButtonAdd,
-  ButtonConfirm,
-  ButtonDelete,
-  ButtonModify,
-  ButtonSee,
-  ButtonCancel,
-  Cards,
   Encarts,
   Pagination,
   SearchBar,
-  Tables,
-  Form
+  Tables
 } from "../common/";
 
 export default function Orders() {
@@ -117,6 +110,7 @@ export default function Orders() {
           return 0;
         }
       }
+      return null
     });
     //on met les données triées dans le tableau à afficher
     setDataToShow(dataToShow => [...dataToShow, ...theData]);
