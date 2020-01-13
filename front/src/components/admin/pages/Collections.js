@@ -12,10 +12,11 @@ import {
   Pagination,
   SearchBar,
   Tables,
+  ReturnButton,
   Form
 } from "../common/";
 
-export default function Collections() {
+export default function Collections(props) {
   const [data, setData] = useState([]); // prendra le resultat du axios et ne doit plus changer sauf si on refait le axios
   const [dataToShow, setDataToShow] = useState([]); // resultat du axios qui peut changer et qu'on affiche dans le tableau. Permet de faire la recherche
 
@@ -30,16 +31,32 @@ export default function Collections() {
   const [pagesNb2, setPagesNb2] = useState(0);
   const [activePage2, setActivePage2] = useState(1);
 
+  const [click, setClick] = useState(false);
+  const [clickView, setclickView] = useState(false);
+  const [productClick, setProductClick] = useState([]);
+  const isClickedModidy = index => {
+    console.log("click!");
+    setClick(!click);
+    setProductClick(data[index]);
+
+  };
+  const isClickedSee = index => {
+    console.log("click! delete");
+    setclickView(!clickView);
+    console.log("data", data, "index", index);
+    // console.log('data[index]',data[index])
+    setProductClick(data[index]);
+  };
 
   const deleteData = (page, id) => {
-    let path ="";
-    if(page =="collections")
+    let path = "";
+    if (page == "collections")
       path = `collection/${id}`
-    else 
+    else
       path = `category/${id}`
 
     axios.delete(path)
-     .then(fetchData())  
+      .then(fetchData())
   }
 
   const fetchData = () => {
@@ -138,7 +155,7 @@ export default function Collections() {
 
   const orderBy = (type, order, page) => {
     let theData = "";
-    
+
     if (page === "collections") {
       theData = dataToShow;
       setDataToShow([]);
@@ -193,7 +210,7 @@ export default function Collections() {
       if (word !== "") {
         setDataToShow2([]);
         let result = theData.filter(line =>
-          line.category_name.toUpperCase().match(`.*${word.toUpperCase()}.*`) 
+          line.category_name.toUpperCase().match(`.*${word.toUpperCase()}.*`)
         );
         setDataToShow2(dataToShow2 => [...dataToShow2, ...result]);
       }
@@ -203,53 +220,59 @@ export default function Collections() {
 
   return (
     <>
-      <Encarts title="Liste des collections">
-        <div className="tableActions border-gray">
-          <SearchBar table="collections" search={search} />
-          <div className="addDiv">
-            Ajouter <ButtonAdd />
-          </div>
-        </div>
+{clickView ?(<> <ReturnButton onClickSee={isClickedSee} /> <Encarts/> </> ) :
+      click ? (<> <ReturnButton onClickSee={isClickedModidy} /> <Form>   </Form> </>) : (
+        <>
+          <Encarts title="Liste des collections">
+            <div className="tableActions border-gray">
+              <SearchBar table="collections" search={search} />
+              <div className="addDiv">
+                Ajouter <ButtonAdd />
+              </div>
+            </div>
 
-        <Tables
-          page="collections"
-          orderBy={orderBy}
-          donnees={dataToShow ? dataToShow : "loading"}
-          deleteData={deleteData}
-        />
-        <Pagination
-          nbPages={pagesNb}
-          activePage={activePage}
-          changePagePlus={changePagePlus}
-          changePageMoins={changePageMoins}
-          setActivePage={setActivePage}
-          table="collections"
-        />
-      </Encarts>
+            <Tables
+              page="collections"
+              orderBy={orderBy}
+              donnees={dataToShow ? dataToShow : "loading"} s
+              deleteData={deleteData}
+              onClick={isClickedModidy}
+              onClickSee={isClickedSee}
 
-      <Encarts title="Liste des catégories">
-        <div className="tableActions border-gray">
-          <SearchBar table="categories" search={search} />
-          <div className="addDiv">
-            Ajouter <ButtonAdd />
-          </div>
-        </div>
+            />
+            <Pagination
+              nbPages={pagesNb}
+              activePage={activePage}
+              changePagePlus={changePagePlus}
+              changePageMoins={changePageMoins}
+              setActivePage={setActivePage}
+              table="collections"
+            />
+          </Encarts>
 
-        <Tables
-          page="categories"
-          orderBy={orderBy}
-          donnees={dataToShow2 ? dataToShow2 : "loading"}
-          deleteData={deleteData}
-        />
-        <Pagination
-          nbPages={pagesNb2}
-          activePage={activePage2}
-          changePagePlus={changePagePlus}
-          changePageMoins={changePageMoins}
-          setActivePage={setActivePage2}
-          table="categories"
-        />
-      </Encarts>
+          <Encarts title="Liste des catégories">
+            <div className="tableActions border-gray">
+              <SearchBar table="categories" search={search} />
+              <div className="addDiv">
+                Ajouter <ButtonAdd />
+              </div>
+            </div>
+
+            <Tables
+              page="categories"
+              orderBy={orderBy}
+              donnees={dataToShow2 ? dataToShow2 : "loading"}
+              deleteData={deleteData}
+            />
+            <Pagination
+              nbPages={pagesNb2}
+              activePage={activePage2}
+              changePagePlus={changePagePlus}
+              changePageMoins={changePageMoins}
+              setActivePage={setActivePage2}
+              table="categories"
+            />
+          </Encarts> </>)}
     </>
   );
 }
