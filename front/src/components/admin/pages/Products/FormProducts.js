@@ -9,7 +9,7 @@ export default function FormProducts(props) {
   const [productModify, setProductModify] = useState(props.donneesProducts)
   const [dataCollection, setDataCollection] = useState()
   const [dataCategories, setDataCategories] = useState()
-  const [productStockModify, setProductStockModify]= useState([]) // changement state stock pour le produit
+  const [productStockModify, setProductStockModify] = useState([]) // changement state stock pour le produit
   console.log('productStock', productStockModify);
   console.log('dataCategories', dataCategories);
 
@@ -38,7 +38,7 @@ export default function FormProducts(props) {
   // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
   const validateNewData = (e) => {
 
-    setProductModify({ ...productModify, [e.target.name]: e.target.value})
+    setProductModify({ ...productModify, [e.target.name]: e.target.value })
   }
   // modification de la hooks collection avec traitement de la donnée
   const validateNewDataCollection = (e) => {
@@ -72,8 +72,8 @@ export default function FormProducts(props) {
     delete productPut.category_name
     delete productPut.collection_name
     console.log('productput', productPut);
-    // récupération des données produit et envoi ds la bdd
-    axios
+
+    axios     // récupération des données produit et envoi ds la bdd
       .put(`product/${productModify.product_id}`, productPut)
       .then(res => {
         if (res.err) {
@@ -86,17 +86,17 @@ export default function FormProducts(props) {
         alert(`Erreur lors de la modification de ${productModify.product_name}`);
       });
     setTimeout(() => window.location.reload(), 2000);
-    axios
-        .put(`/product/stock/${props.donneesProducts.product_id}`,productStockModify )
-        .then(res => {
-          if (res.err) {
-            alert(res.err);
-          } else {
-            alert(` Le stock a été modifié`);
-          }
-        })
-      }
-    
+    axios // modifier le stock
+      .put(`/product/stock/${props.donneesProducts.product_id}`, productStockModify)
+      .then(res => {
+        if (res.err) {
+          alert(res.err);
+        } else {
+          alert(` Le stock a bien été modifié`);
+        }
+      })
+  }
+
 
   useEffect(() => {
     fetchCollection()
