@@ -5,7 +5,7 @@ export  default  function (ComposedComponent) {
     function  Authentication(props) {  
         useEffect(() => {
             if (props.authenticated) 
-                props.history.push('/dashboard');
+                props.history.push('/profile');
         })
 
 

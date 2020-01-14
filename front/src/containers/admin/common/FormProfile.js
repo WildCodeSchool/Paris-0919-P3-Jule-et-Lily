@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux'
 
 function FormProfile(props) {
   return (
@@ -58,4 +59,9 @@ function FormProfile(props) {
   );
 }
 
-export default FormProfile
+function mapStateToProps(state) {
+  // console.log(state)
+  return { token: state.auth.token, user: state.auth.email };
+}
+
+export default connect(mapStateToProps)(FormProfile);
