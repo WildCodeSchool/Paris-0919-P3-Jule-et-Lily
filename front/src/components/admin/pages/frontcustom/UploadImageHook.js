@@ -15,19 +15,17 @@ const UploadImage = () => {
         text: ''
       });
 
-      onChangeHandler = e => {
-        let fileList = files;
+
+    const onChangeHandler = e => {
         for (var i = 0; i < e.target.files.length; i++) {
             if (!e.target.files[i]) return
-          fileList.push(e.target.files[i])
-          }
-        
-          setFiles(fileList)
-    }
+            setFiles([...files, e.target.files[i]])
+        }
+}
 
-    onClickHandler = e => {
+    const onClickHandler = e => {
         e.preventDefault();
-        const files = files;
+        // const files = files;
         const data = new FormData();
         for (const key of Object.keys(files)) {
             data.append('file', files[key])
@@ -50,18 +48,18 @@ const UploadImage = () => {
             });
     };
 
-    reset = () => {
+    const reset = () => {
         window.location.reload();
     }
 
-    handleDrop = (files) => {
-        let fileList = files
-        for (var i = 0; i < files.length; i++) {
-          if (!files[i]) return
-          fileList.push(files[i])
-        }
-        setFiles(fileList, () => console.log(this.state))
-    }
+    // handleDrop = (files) => {
+    //     let fileList = files
+    //     for (var i = 0; i < files.length; i++) {
+    //       if (!files[i]) return
+    //       fileList.push(files[i])
+    //     }
+    //     setFiles(fileList, () => console.log(this.state))
+    // }
 
 
     return (

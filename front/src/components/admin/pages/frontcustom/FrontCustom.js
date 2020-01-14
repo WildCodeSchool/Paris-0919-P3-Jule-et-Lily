@@ -4,8 +4,8 @@ import axios from "axios";
 
 import EncartCollection from "./EncartCollection";
 import FormColorCustom from "./FormColorCustom";
-import UploadImage from "./UploadImage";
-import UploadImageHook from "./UploadImage";
+import Image from "./Image";
+import UploadImageHook from "./UploadImageHook";
 import {
   ButtonConfirm,
   ButtonModify,
@@ -147,6 +147,25 @@ const FrontCustom = () => {
   };
 
 
+  ////////////////////////// deleteImage //////////////////////////
+ 
+  const handleDelete = (id) => {
+    axios
+      .delete(`image-slider/${id}`)
+      .then(res => {
+        if (res.error) {
+            alert("Erreur lors de la suppression de l'image", res.error);
+        } else {
+            alert(`l'image a été supprimée avec succès!`);
+        }
+    }).catch(e => {console.error(e);});
+    setTimeout(() => window.location.reload(), 2000);
+  };
+
+  // const handleDelete = id => {
+  //   setDataImage(dataImage.filter(img => img.id !== id))
+  // }
+
 
 
   return (
@@ -232,12 +251,16 @@ const FrontCustom = () => {
           <div className="sliderBlock m-auto">
             {dataImage &&
               dataImage.map(item => (
-                <img
-                className="sliderImage mr-5"
+                <Image
                 src={item.image_url}
-                alt={item.name}
-              ></img>))}
+                alt={item.image_name}
+                key={item.image_id}
+                id = {item.image_id}
+                onClick={() => handleDelete(item.image_id)}
+                />
+                ))}
           </div>
+          {console.log("dataImage", dataImage)}
           <div className="container my-5">
             <UploadImageHook/>
           </div>
