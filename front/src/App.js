@@ -36,9 +36,10 @@ export default () => {
                   </h1>
                   {/* Mettre les routes vers les autres composants ici  */}
                   <Switch >
-                    {/* <Route exact from="/" to='/dashboard' />  */}
+                    <Redirect exact from='/' to='/dashboard' />
                     <Route exact path="/profile" component={requireAuth(Profile)} />
                     <Route exact path="/login" component={requireNotAuth(Login)} />
+                    <Route path="/" component={requireAuth(Dashboard)} />
                     <Route path="/orders" component={requireAuth(Orders)} />
                     <Route path="/clients" component={requireAuth(Clients)} />
                     <Route path="/products" component={requireAuth(Products)} />

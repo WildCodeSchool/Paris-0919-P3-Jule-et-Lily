@@ -3,7 +3,11 @@ import { connect } from  'react-redux';
 import FormLogin from '../common/FormLogin'
 
 function Login(props) {
-    const [user, setUser] = useState({ user_password: null, user_login: null, error: false, token: '', flash: props.flash  })
+    const [user, setUser] = useState({ user_password: null,
+                                       user_login: null, 
+                                       error: false, 
+                                       token: '', 
+                                       flash: props.flash  })
     
     useEffect(() => {
         if(props.authenticated === true) {
@@ -30,25 +34,26 @@ function Login(props) {
             })
             .then(res => res.json())
             .then(
-                res => (setUser({ error: res.error, message: res.flash }),
-                this.props.dispatch(
+                res => (setUser({ error: res.error, flash: res.flash }),
+                props.dispatch(
                     {
                         type : "CREATE_SESSION",
                         user: res.user,
                         token : res.token,
-                        message : res.message
+                        flash : res.flash
                     }
                 )),
-                err => setUser({ error: err.error, message: err.flash })
+                err => setUser({ error: err.error, flash: err.flash })
             );
         e.preventDefault()
+        console.log(user)
     }
 
 
     return (
         <div className='m-5'>
             <h1>Connecte-toi</h1>
-            {user.message ? (alert(user.message), setUser({...user, message: null})) : ''}
+            {user.flash ? (alert(user.flash), setUser({...user, flash: null})) : ''}
             <div>
                 <FormLogin 
                     onChangeLogin={ updateLoginField }

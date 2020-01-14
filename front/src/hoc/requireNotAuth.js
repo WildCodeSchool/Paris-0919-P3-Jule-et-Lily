@@ -6,12 +6,8 @@ export  default  function (ComposedComponent) {
         useEffect(() => {
             if (props.authenticated) 
                 props.history.push('/dashboard');
-        }, [])
+        })
 
-        useEffect(() => {
-            if (props.authenticated) 
-                props.history.push('/dashboard');
-        }, [props.authenticated])
 
         return(
            <ComposedComponent  {...props}  />

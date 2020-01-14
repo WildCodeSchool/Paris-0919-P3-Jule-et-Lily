@@ -5,13 +5,9 @@ export  default  function (ComposedComponent) {
     function  Authentication(props) {  
         useEffect(() => {
             if (!props.authenticated) 
-                props.history.push('/dashboard');
-        }, [])
+                props.history.push('/login');
+        })
 
-        useEffect(() => {
-            if (!props.authenticated) 
-                props.history.push('/dashboard');
-        }, [props.authenticated])
 
         return(
            <ComposedComponent  {...props}  />
@@ -19,7 +15,8 @@ export  default  function (ComposedComponent) {
     }
     
     function mapStateToProps(state) {
-        return { authenticated:  state.auth.token?true:false };
+        return { authenticated:  state.auth.token? true:false
+         };
     }
 
     return connect(mapStateToProps)(Authentication);
