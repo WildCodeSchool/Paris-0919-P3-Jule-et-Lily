@@ -79,7 +79,7 @@ router.get("/", (req, res) => {
 router.get("/all", (req, res) => {
   // connection à la base de données, et sélection des employés
   connection.query(
-    `SELECT SUM(p.product_price) as total_price, COUNT(i.order_item_product_id) as number_of_products, o.* FROM product as p JOIN order_items as i ON p.product_id = i.order_item_product_id JOIN orders as o ON o.order_id = i.order_item_order_id GROUP BY o.order_id`,
+    `SELECT SUM(p.product_price) as total_price, COUNT(i.order_item_product_id) as number_of_products, o.*, s.order_status_name FROM product as p JOIN order_items as i ON p.product_id = i.order_item_product_id JOIN orders as o ON o.order_id = i.order_item_order_id JOIN order_status as s ON s.order_status_id = o.order_status GROUP BY o.order_id`,
     (err, results) => {
       if (err) {
         res.status(500).send('Erreur lors de la récupération des commandes du mois');
