@@ -49,7 +49,7 @@ router.route(['/all'])
     });
   })
 
-router.route([`/:id`, `/`])
+router.route(['/:id', '/'])
   .get(function (req, res) { //récup un produit
     connection.query('SELECT * FROM product WHERE product_id = ?', req.params.id, (err, results) => {
       if (err) {
@@ -61,53 +61,70 @@ router.route([`/:id`, `/`])
     });
   })
   .post(function (req, res) {
-    const formData = req.body;
-    connection.query('INSERT INTO product SET ?', formData, (err, results) => { //ajouter un produit
+    console.log(req.body);
+    const formData = req.body; // CKECKS = Activer OU DESACTIVER  la vérification des clés étrangères
+    connection.query('SET FOREIGN_KEY_CHECKS=0', formData, (err, results) => { //ajouter un produit
       if (err) {
-        res.status(500).send("Erreur lors de l'ajout du produit.");
+        console.log(`ici l'erreur `, err);
+        res.send("Erreur lors de l'ajout du produit.").status(500);
       } else {
-        res.sendStatus(200);
+        connection.query('INSERT INTO product SET ?', formData, (err, results) => { //ajouter un produit
+          if (err) {
+            console.log(`ici l'erreur `, err);
+            res.send("Erreur lors de l'ajout du produit.").status(500);
+          } else {
+            connection.query('SET FOREIGN_KEY_CHECKS=1', formData, (err, results) => {
+              if (err) {
+                console.log(`ici l'erreur `, err);
+                res.send("Erreur lors de l'ajout du produit.").status(500);
+              }
+              else {
+                res.sendStatus(200);
+              }
+            })
+          }
+        })
       }
+    })})
+
+      .put(function (req, res) { // modifier un produit
+        const requestProduct = req.params.id;
+        const formData = req.body;
+        connection.query('UPDATE product SET ? WHERE product_id=?', [formData, requestProduct], (err, results) => {
+          if (err) {
+            console.log('erreur back', err);
+            res.status(500).send("Erreur lors de la modification du produit");
+          } else {
+            console.log('res back', res);
+            console.log(results)
+            res.sendStatus(200);
+          }
+        });
+      })
+      .delete(function (req, res) { // supprimer un produit penser à supprimer dans la bdd la connection avec le stock id
+        connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
+          if (err) {
+            console.log(err);
+            res.send("Erreur lors de la suppression du produit").status(500);
+          } else {
+            res.sendStatus(200);
+          }
+        });
+      });
+
+    // image associée à un produit set à NULL 
+    router.put('/image/:id', (req, res) => {
+      const requestProduct = req.params.id;
+      const formData = req.body;
+      connection.query('UPDATE product SET product_image_id = 0 WHERE product_id = ?', [requestProduct], err => {
+        if (err) {
+          res.status(500).send("Erreur lors de la modification du produit" + err);
+        } else {
+          res.sendStatus(200);
+        }
+      });
     });
-  })
-  .put(function (req, res) { // modifier un produit
-    const requestProduct = req.params.id;
-    const formData = req.body;
-    connection.query('UPDATE product SET ? WHERE product_id=?', [formData, requestProduct], (err, results) => {
-      if (err) {
-        console.log('erreur back', err);
-        res.status(500).send("Erreur lors de la modification du produit");
-      } else {
-        console.log('res back', res);
-        console.log(results)
-        res.sendStatus(200);
-      }
-    });
-  })
-  .delete(function (req, res) { // supprimer un produit penser à supprimer dans la bdd la connection avec le stock id
-    connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
-      if (err) {
-        console.log(err);
-        res.send("Erreur lors de la suppression du produit").status(500);
-      } else {
-        res.sendStatus(200);
-      }
-    });
-  });
-
-// image associée à un produit set à NULL 
-router.put('/image/:id', (req, res) => {
-  const requestProduct = req.params.id;
-  const formData = req.body;
-  connection.query('UPDATE product SET product_image_id = 0 WHERE product_id = ?', [requestProduct], err => {
-    if (err) {
-      res.status(500).send("Erreur lors de la modification du produit" + err);
-    } else {
-      res.sendStatus(200);
-    }
-  });
-});
 
 
 
-module.exports = router
+    module.exports = router
