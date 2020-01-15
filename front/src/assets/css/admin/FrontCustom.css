@@ -1,18 +1,5 @@
-.EncartsCollectionSection {
-    display: flex;
-    justify-content: space-between;
-    padding-top:1em;
-    padding-bottom:1em;
-}
+/* /////////////////////  ENCARTS COLLECTIONS ////////////////////// */
 
-.EncartCollectionBlock {
-    width:31%;
-    flex-direction:column ;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end   ;
-    text-decoration: none;
-}
 
 .EncartCollection h5 {
     text-align: center;
@@ -30,7 +17,6 @@
     display: flex;
     justify-content: center;
 }
-
 
 .FormCustomColor {
    height:auto; 
@@ -52,12 +38,46 @@
     .FormGlobal {
         width:100%;
     }
+
+    .EncartsCollectionSection {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-top:1em;
+        padding-bottom:1em;
+        margin: auto;
+        width:80%;
+    }
+    .EncartCollectionBlock {
+        width:100%;
+        flex-direction:column ;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end   ;
+        text-decoration: none;
+    }
 }
 
 @media screen and (min-width:901px) {
 
     .FormGlobal {
         width:50%;
+    }
+
+    .EncartsCollectionSection {
+        display: flex;
+        justify-content: space-between;
+        padding-top:1em;
+        padding-bottom:1em;
+    }
+
+    .EncartCollectionBlock {
+        width:31%;
+        flex-direction:column ;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end   ;
+        text-decoration: none;
     }
 }
 
@@ -98,7 +118,32 @@
 }
 
 
+
+
+/* /////////////////////  UPLOAD IMAGES ////////////////////// */
+
+
+
+.sliderBlock {
+    display:flex;
+
+}
 .sliderImage {
-    width:200px;
+    width:150px;
     height:auto;
+    position:relative;
+}
+
+.sliderImage img {
+    width:100%;
+}
+
+.DeleteImageBtn{
+    border-radius: 80%;
+    border:1px solid gray;
+    width:30px;
+    height:30px;
+    position:absolute;
+    top:-35px;
+    right:-35px;
 }

@@ -6,14 +6,13 @@ import FlashMessage from "./FlashMsg"
 
 
 
-
 const UploadImage = () => {
 
     const [files, setFiles] = useState([]);
-    const [message, setMessage] = useState({
-        type: '',
-        text: ''
-      });
+    // const [message, setMessage] = useState({
+    //     type: '',
+    //     text: ''
+    //   });
 
 
     const onChangeHandler = e => {
@@ -33,24 +32,17 @@ const UploadImage = () => {
         axios
             .post("/image-slider/", data)
             .then(res => {
-                setMessage(
-                       {type: 'success',
-                        text: 'Files uploaded with success',
-                        isVisible: true }
-                , () => files)
-            })
-            
-            .catch(error => {
-                setMessage(
-                    {type: 'error',
-                     text: 'Error, try again'}   
-                , () => this.state)
-            });
+                if (res.error) {
+                    alert("Erreur lors de l'upload de l'image", res.error);
+                } else {
+                    alert(`l'image a été ajoutée avec succès!`);
+                }
+            }).catch(e => {console.error(e);});
+            setTimeout(() => window.location.reload(), 2000);
     };
 
-    const reset = () => {
-        window.location.reload();
-    }
+   
+ 
 
     // handleDrop = (files) => {
     //     let fileList = files
@@ -64,17 +56,17 @@ const UploadImage = () => {
 
     return (
         <>
-            <div className="row">
+            {/* <div className="row">
                 <FlashMessage
                     duration={10000}
                     persistOnHover={true}
                     type={message.type}
                     message={message.text}
                     close={() => reset()} />
-            </div>
+            </div> */}
             <div className="row">
                 <div className="col-12 text-center my-3">
-                    <h1 className="">Upload your Files here</h1>
+                    <h1 className="">Uploader les images ici</h1>
                 </div>
             </div>
             <div className="input-group">
