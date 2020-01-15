@@ -6,16 +6,7 @@ import {
   CardLastYear,
   CardOrdersMonth,
   CardOrdersTotal,
-  Encarts,
-  ButtonAdd,
-  ButtonConfirm,
-  ButtonDelete,
-  ButtonModify,
-  ButtonSee,
-  ButtonCancel,
-  Pagination,
-  SearchBar,
-  Tables
+  Encarts
 } from "../common/";
 
 import { ReactComponent as IconBlue } from '../../../assets/icons/IconPromosBlue.svg'

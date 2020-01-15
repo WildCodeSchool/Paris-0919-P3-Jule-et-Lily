@@ -29,13 +29,13 @@ export default () => {
               {/* Mettre les routes vers les autres composants ici  */}
               <Switch >
                 <Route exact path="/profile" component={Profile} />
-                <Route exact path="/dashboard" component={Dashboard} />
-                <Route exact path="/orders" component={Orders} />
-                <Route exact path="/clients" component={Clients} />
-                <Route exact path="/products" component={Products} />
-                <Route exact path="/collections" component={Collections} />
-                <Route exact path="/promo" component={Promo} />
-                {/* <Route exact path="/frontcustom" component={FrontCustom} /> */}
+                <Route  path="/" component={Dashboard} />
+                <Route  path="/orders" component={Orders} />
+                <Route  path="/clients" component={Clients} />
+                <Route  path="/products" component={Products} />
+                <Route  path="/collections" component={Collections} />
+                <Route  path="/promo" component={Promo} />
+                <Route  path="/frontcustom" component={FrontCustom} />
               </Switch>
             </div>
           </div>
