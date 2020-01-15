@@ -5,7 +5,6 @@ import ButtonCancel from '../../common/ButtonCancel'
 import Encarts from '../../common/Encarts'
 import ReturnButton from '../../common/ReturnButton'
 export default function FormProducts(props) {
-
   const [productModify, setProductModify] = useState(props.donneesProducts)
   const [dataCollection, setDataCollection] = useState()
   const [dataCategories, setDataCategories] = useState()
@@ -37,22 +36,22 @@ export default function FormProducts(props) {
 
   // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
   const validateNewData = (e) => {
-  
+
     setProductModify({ ...productModify, [e.target.name]: e.target.value })
   }
 
-    // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
-    const validateNewDatacustom = (e) => {
-      // pour le custom product
-      const checkedElement = document.getElementById('product_custom')
-      setProductModify({ ...productModify, [e.target.name]: e.target.value })
-      if (checkedElement.checked === true) {
-        setProductModify({ ...productModify, product_custom: 1 })
-      }
-      else {
-        setProductModify({ ...productModify, product_custom: 0 })
-      }
+  // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
+  const validateNewDatacustom = (e) => {
+    // pour le custom product
+    const checkedElement = document.getElementById('product_custom')
+    setProductModify({ ...productModify, [e.target.name]: e.target.value })
+    if (checkedElement.checked === true) {
+      setProductModify({ ...productModify, product_custom: 1 })
     }
+    else {
+      setProductModify({ ...productModify, product_custom: 0 })
+    }
+  }
   // modification de la hooks collection avec traitement de la donnée
   const validateNewDataCollection = (e) => {
     // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
@@ -105,11 +104,6 @@ export default function FormProducts(props) {
           alert(` Le stock a bien été modifié`);
         }
       })
-      .catch(e => {
-        console.error(e);
-        alert(`Erreur lors de la modification du stock de '${productModify.product_name}'
-        pensez à inscrire un nombre positif`);
-      });
     setTimeout(() => window.location.reload(), 2000);
   }
 
