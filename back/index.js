@@ -24,6 +24,7 @@ app.use("/product", route.product)
 app.use("/code-promo", route.codePromo)
 app.use("/promo", route.promo)
 app.use("/user", route.user)
+app.use('/public', express.static ("public"))
 
 app.get('/', (req, res) => {
     res.send("Bienvenue chez jule et lily !").status(200)

@@ -19,4 +19,6 @@ const promo = require("./promo/promo")
 // Routes user
 const user = require("./user/user")
 
+
+
 module.exports = { category, collection, headerCollection, imageSlider, order, product, codePromo, promo, user}
