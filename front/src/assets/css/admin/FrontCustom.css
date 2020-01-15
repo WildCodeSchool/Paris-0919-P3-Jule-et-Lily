@@ -56,6 +56,11 @@
         align-items: flex-end   ;
         text-decoration: none;
     }
+
+    .sliderBlockResponsive {
+        display:flex;
+        flex-direction: column;
+    }
 }
 
 @media screen and (min-width:901px) {

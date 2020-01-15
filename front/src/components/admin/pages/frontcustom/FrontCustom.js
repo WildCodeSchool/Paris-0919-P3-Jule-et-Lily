@@ -38,7 +38,7 @@ const FrontCustom = () => {
   const fetchDataCollection = () => {
     axios
       .get("/header-collection/all")
-      .then(res => (console.log("dataencarts", res.data), setData(res.data)));
+      .then(res => (setData(res.data)));
   };
 
   const fetchDataImage = () => {
@@ -164,8 +164,8 @@ const FrontCustom = () => {
 
           <div className="EncartsCollectionSection">
             {data &&
-              data.map(encart => (
-                <div className="EncartCollectionBlock">
+              data.map((encart, key) => (
+                <div key={key} className="EncartCollectionBlock">
                   <EncartCollection
                     id={encart.collection_menu_id}
                     backgroundColor={encart.collection_menu_background_color}
@@ -236,7 +236,7 @@ const FrontCustom = () => {
       <div>
         <Encarts title="IMAGES DU SLIDER">
           <h6 className="blue font-weight-bold mb-5">Modifier les images :</h6>
-          <div className="sliderBlock m-auto">
+          <div className="sliderBlock m-auto sliderBlockResponsive">
             {dataImage &&
               dataImage.map(item => (
                 <Image

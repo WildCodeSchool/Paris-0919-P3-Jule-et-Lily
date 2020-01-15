@@ -5,6 +5,10 @@ import ButtonDelete from './ButtonDelete'
 import ButtonModify from './ButtonModify'
 import ButtonSee from './ButtonSee'
 import Cards from './Cards'
+import CardHistogramme from './CardHistogramme'
+import CardLastYear from './CardLastYear'
+import CardOrdersMonth from './CardOrdersMonth'
+import CardOrdersTotal from './CardOrdersTotal'
 import Encarts from './Encarts'
 import LoginBar from './LoginBar'
 import Navbar from './Navbar.js'
@@ -14,4 +18,5 @@ import ReturnButton from './ReturnButton'
 import Tables from './Tables'
 import Form from './Form'
 
-export { ButtonAdd, ButtonCancel, ButtonConfirm, ButtonDelete, ButtonModify, ButtonSee, Cards, Encarts, LoginBar, Navbar, Pagination, ReturnButton, SearchBar, Tables, Form }
+
+export { ButtonAdd, ButtonCancel, ButtonConfirm, ButtonDelete, ButtonModify, ButtonSee, Cards, CardHistogramme, CardLastYear, CardOrdersMonth, CardOrdersTotal, Encarts, LoginBar, Navbar, Pagination, ReturnButton, SearchBar, Tables, Form }

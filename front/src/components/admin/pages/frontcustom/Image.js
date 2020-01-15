@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Image = (props) => {
     return (  
-      <div className="sliderImage mr-5">
+      <div className="sliderImage mr-5 mb-5">
         <img
         src= {props.src}
         alt= {props.alt}/>

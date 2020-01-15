@@ -17,6 +17,7 @@ const Pagination = (props) => {
   const itemClick = (e) => {
     setActivePage(parseInt(e.target.text))
     props.setActivePage(parseInt(e.target.text));
+    scrollToview();
   }
 
   useEffect(() => {
@@ -28,6 +29,7 @@ const Pagination = (props) => {
     if (activePage < pagesNb) {
       setActivePage(activePage+1)
       props.changePagePlus(props.table);
+      scrollToview();
     }
   }
 
@@ -35,7 +37,14 @@ const Pagination = (props) => {
     if (activePage > 1) {
       setActivePage(activePage-1)
       props.changePageMoins(props.table);
+      scrollToview();
     }
+  }
+
+  const scrollToview = () => {
+    const theDiv = document.getElementById(props.table)
+    // console.log('theDiv, props.table',theDiv, props.table)
+    theDiv.scrollIntoView();
   }
 
 
@@ -44,16 +53,16 @@ const Pagination = (props) => {
       <nav aria-label="Page navigation example" className="paginationEnd">
         <ul className="pagination">
           <li className={activePage === 1 ? "page-item disabled" : "page-item"}>
-            <a className="page-link" href="#" aria-label="Next" onClick={previousPage}>
+            <a className="page-link" href="/#" aria-label="Next" onClick={previousPage}>
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
           {createPagination().map(page => (
-<li key={page} className={activePage === page ? "active page-item" : "page-item"}><a className="page-link" href="#" onClick={itemClick}  value={page}>{page}</a></li>
+<li key={page} className={activePage === page ? "active page-item" : "page-item"}><a className="page-link" href="/#" onClick={itemClick}  value={page} >{page}</a></li>
              ))
           }
           <li className={activePage === pagesNb ? "page-item disabled" : "page-item"}>
-            <a className="page-link" href="#" aria-label="Next" onClick={nextPage}>
+            <a className="page-link" href="/#" aria-label="Next" onClick={nextPage}>
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>

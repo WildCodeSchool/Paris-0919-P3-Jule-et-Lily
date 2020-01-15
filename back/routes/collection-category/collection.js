@@ -50,7 +50,7 @@ router.route(['/:id','/'])
     });
   })
   .delete(function (req, res) {
-    connection.query(`DELETE FROM collection WHERE collection_id= ${req.params.id}`, err => {
+    connection.query(`DELETE FROM collection WHERE collection_id=${req.params.id}`, err => {
       if (err) {
         res.status(500).send("Erreur lors de la suppression d'une collection");
       } else {

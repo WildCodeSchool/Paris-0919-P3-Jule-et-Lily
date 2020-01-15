@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import "../../../assets/css/admin/global.css";
 import "../../../assets/css/admin/Tables.css";
 import ButtonDelete from "./ButtonDelete";
-import ButtonAdd from "./ButtonAdd";
 import ButtonModify from "./ButtonModify";
 import ButtonSee from "./ButtonSee";
 
@@ -12,17 +10,15 @@ const Tables = props => {
   const handleSort = (e) => {
     //console.log(e.target)
     let order = '';
-    if (e.target.classList.contains('asc')) 
-    {
+    if (e.target.classList.contains('asc')) {
       order = 'asc'
       e.target.classList.add("desc")
       e.target.classList.remove("asc")
     }
-    else
-    {
+    else {
       order = 'desc'
       e.target.classList.add("asc")
-      e.target.classList.remove("desc")  
+      e.target.classList.remove("desc")
     }
     props.orderBy(e.target.id, order, props.page)
   }
@@ -33,13 +29,13 @@ const Tables = props => {
 
 
   return (
-    <div>
+    <div id={props.page}>
       <div className="table-responsive">
         <table
           className="table table-bordered text-center "
           id="dataTable"
           width="100%"
-          cellspacing="0"
+          cellSpacing="0"
         >
           <thead>
             {props.page === "order" ? (
@@ -49,7 +45,7 @@ const Tables = props => {
                   {" "}
                   Date de commande{" "}
                 </th>
-                <th className="pink bg-lightpink"> Status </th>
+                <th className="th-order pink bg-lightpink asc" id="order_status" onClick={handleSort}> Status </th>
                 <th className="th-order pink bg-lightpink desc" id="order_shipped_date" onClick={handleSort}> Date d'envoi </th>
                 <th className="th-order pink bg-lightpink desc" id="order_tracking_number" onClick={handleSort}> N° de suivi </th>
                 <th className="th-order pink bg-lightpink desc" id="order_user_id" onClick={handleSort}> Id Client </th>
@@ -86,7 +82,7 @@ const Tables = props => {
                 <th className="th-order pink bg-lightpink asc" id="collection_name" onClick={handleSort}> Nom de la collection </th>
                 <th className="th-order pink bg-lightpink asc" id="collection_cover_image_url" onClick={handleSort}> Image de couverture </th>
                 <th className="th-order pink bg-lightpink asc" id="collection_image_id" onClick={handleSort}> Image de la collection </th>
-                <th className="th-order pink bg-lightpink desc"  id="nb_items" onClick={handleSort}> Nombre de références </th>
+                <th className="th-order pink bg-lightpink desc" id="nb_items" onClick={handleSort}> Nombre de références </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
                 </th>
@@ -98,8 +94,8 @@ const Tables = props => {
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
                 </th>
-              </tr> 
-              ) : props.page === "code-promo" ? (
+              </tr>
+            ) : props.page === "code-promo" ? (
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="code_promo_name" onClick={handleSort}> Nom du code promo </th>
                 <th className="th-order pink bg-lightpink desc" id="code_promo_value" onClick={handleSort}> Réduction </th>
@@ -107,25 +103,25 @@ const Tables = props => {
                   <strong>Action </strong>
                 </th>
               </tr>
-               ) : props.page === "clients" ? (
-                <tr>
-                  <th className="th-order pink bg-lightpink asc" id="user_lastname" onClick={handleSort}> Nom</th>
-                  <th className="th-order pink bg-lightpink asc" id="user_firstname" onClick={handleSort}> Prénom </th>
-                  <th className="th-order pink bg-lightpink asc" id="user_email" onClick={handleSort}> Email </th>
-                  <th className="gray bg-lightpink">
-                    <strong>Action </strong>
-                  </th>
-                </tr>
-                 ) : (
-              <></>
-            )}
+            ) : props.page === "clients" ? (
+              <tr>
+                <th className="th-order pink bg-lightpink asc" id="user_lastname" onClick={handleSort}> Nom</th>
+                <th className="th-order pink bg-lightpink asc" id="user_firstname" onClick={handleSort}> Prénom </th>
+                <th className="th-order pink bg-lightpink asc" id="user_email" onClick={handleSort}> Email </th>
+                <th className="gray bg-lightpink">
+                  <strong>Action </strong>
+                </th>
+              </tr>
+            ) : (
+                            <></>
+                          )}
           </thead>
 
           <tbody>
-            {/* {console.log("props.donnees", props.donnees)} */}
+
 
             {props.donnees &&
-              props.donnees.map(data => {
+              props.donnees.map((data, i) => {
                 switch (props.page) {
                   case "order":
                     const order_date = new Date(data.order_date);
@@ -168,9 +164,9 @@ const Tables = props => {
                           </p>
                         </td>
                         <td className='actionButtons'>
-                          <ButtonModify />
-                          <ButtonSee />
-                          <ButtonDelete deleteData={handleDelete} id={data.order_id}/>
+                          <ButtonModify index={i} onClick={props.onClick} />
+                          <ButtonSee index={i} onClickSee={props.onClickSee} />
+                          <ButtonDelete deleteData={handleDelete} id={data.order_id} />
                         </td>
                       </tr>
                     );
@@ -199,9 +195,9 @@ const Tables = props => {
                           <p>{data.product_stock}</p>
                         </td>
                         <td className='actionButtons'>
-                          <ButtonModify />
-                          <ButtonSee />
-                          <ButtonDelete deleteData={handleDelete} id={data.product_id}/>
+                          <ButtonModify index={i} onClick={props.onClick} />
+                          <ButtonSee index={i} onClickSee={props.onClickSee} />
+                          <ButtonDelete deleteData={handleDelete} id={data.product_id} />
                         </td>
                       </tr>
                     );
@@ -215,18 +211,18 @@ const Tables = props => {
                         </td>
                         <td>
                           {" "}
-                    <p><img src={data.collection_cover_image_url} alt="cover image" width="80" height="80"/><br/>{data.collection_cover_image_url}</p>
+                          <p><img src={data.collection_cover_image_url} alt="cover" width="80" height="80" /><br />{data.collection_cover_image_url}</p>
                         </td>
                         <td>
-                          <p><img src={data.image_url} alt="collection image" width="80" height="80"/><br/>{data.image_url}</p>
+                          <p><img src={data.image_url} alt="collection" width="80" height="80" /><br />{data.image_url}</p>
                         </td>
                         <td>
                           <p>{data.nb_items}</p>
                         </td>
                         <td className='actionButtons'>
-                          <ButtonModify />
-                          <ButtonSee />
-                          <ButtonDelete deleteData={handleDelete} id={data.collection_id}/>
+                          <ButtonModify index={i} onClick={props.onClick} />
+                          <ButtonSee index={i} onClickSee={props.onClickSee} />
+                          <ButtonDelete deleteData={handleDelete} id={data.collection_id} />
                         </td>
                       </tr>
                     );
@@ -241,9 +237,9 @@ const Tables = props => {
                           <p>{data.nb_items}</p>
                         </td>
                         <td className='actionButtons'>
-                          <ButtonModify />
-                          <ButtonSee />
-                          <ButtonDelete  deleteData={handleDelete} id={data.category_id}/>
+                          <ButtonModify index={i} onClick={props.onClick} />
+                          <ButtonSee index={i} onClickSee={props.onClickSee} />
+                          <ButtonDelete deleteData={handleDelete} id={data.category_id} />
                         </td>
                       </tr>
                     );
@@ -263,9 +259,9 @@ const Tables = props => {
                           <p>{data.user_email}</p>
                         </td>
                         <td className='actionButtons'>
-                          <ButtonModify />
-                          <ButtonSee />
-                          <ButtonDelete deleteData={handleDelete} id={data.user_id}/>
+                          <ButtonModify index={i} onClick={props.onClick} />
+                          <ButtonSee index={i} onClickSee={props.onClickSee} />
+                          <ButtonDelete deleteData={handleDelete} id={data.user_id} />
                         </td>
                       </tr>
                     );
@@ -281,9 +277,9 @@ const Tables = props => {
                           <p>{data.promo_value}</p>
                         </td>
                         <td className='actionButtons'>
-                          <ButtonModify />
-                          <ButtonSee />
-                          <ButtonDelete deleteData={handleDelete} id={data.promo_id}/>
+                          <ButtonModify index={i} onClick={props.onClick} />
+                          <ButtonSee index={i} onClickSee={props.onClickSee} />
+                          <ButtonDelete deleteData={handleDelete} id={data.promo_id} />
                         </td>
                       </tr>
                     );
@@ -298,9 +294,9 @@ const Tables = props => {
                           <p>{data.code_promo_value}</p>
                         </td>
                         <td className='actionButtons'>
-                          <ButtonModify />
-                          <ButtonSee />
-                          <ButtonDelete deleteData={handleDelete} id={data.code_promo_id}/>
+                          <ButtonModify index={i} onClick={props.onClick} />
+                          <ButtonSee index={i} onClickSee={props.onClickSee} />
+                          <ButtonDelete deleteData={handleDelete} id={data.code_promo_id} />
                         </td>
                       </tr>
                     );
@@ -308,6 +304,7 @@ const Tables = props => {
                   default:
                     break;
                 }
+              return null
               })}
           </tbody>
         </table>
