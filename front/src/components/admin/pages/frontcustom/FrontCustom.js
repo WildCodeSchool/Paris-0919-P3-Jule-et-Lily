@@ -45,7 +45,7 @@ const FrontCustom = () => {
     axios
       .get("/image-slider/all")
       .then(
-        res => (console.log("imageslider", res.data), setDataImage(res.data))
+        res => (setDataImage(res.data))
       );
   };
 
@@ -55,7 +55,7 @@ const FrontCustom = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData()
   }, []);
 
   ////////////////////////// Database Send Data //////////////////////////////////
@@ -100,9 +100,9 @@ const FrontCustom = () => {
           alert(`l'encart ${encartDisplay.title} a été ajouté avec succès!`);
         }
       })
-      .catch(e => {
-        console.error(e);
-      });
+      // .catch(e => {
+      //   console.error(e);
+      // });
     setTimeout(() => window.location.reload(), 2000);
   };
 
@@ -147,9 +147,9 @@ const FrontCustom = () => {
           alert(`l'image a été supprimée avec succès!`);
         }
       })
-      .catch(e => {
-        console.error(e);
-      });
+      // .catch(e => {
+      //   console.error(e);
+      // });
     setTimeout(() => window.location.reload(), 2000);
   } else {
     alert ("Attention il faut garder au moins une image dans le slider");
@@ -258,7 +258,7 @@ const FrontCustom = () => {
             <Carousel autoPlay showArrows={true}>   
             {dataImage &&
               dataImage.map(item => (
-                <div className= "CarouselImage">
+                <div className= "CarouselImage" key={item.image_id}>
                   <img src={item.image_url} alt={item.image_name}/>
                   <p className="legend">{item.image_name}</p>
                 </div>

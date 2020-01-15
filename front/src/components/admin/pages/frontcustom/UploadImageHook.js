@@ -1,7 +1,7 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios"
-import FlashMessage from "./FlashMsg"
+// import FlashMessage from "./FlashMsg"
 // import DragAndDrop from './DragAndDrop'
 
 
@@ -33,12 +33,12 @@ const onChangeHandler = e => {
         for (var i = 0; i < e.target.files.length; i++) {
             if (!e.target.files[i]) return
             fileList.push(e.target.files[i])
-            console.log("filelist", fileList)
+            // console.log("filelist", fileList)
            
         }
        setFiles([...files], fileList)
-        console.log("filelistfinal", fileList)
-        console.log("files", files)
+        // console.log("filelistfinal", fileList)
+        // console.log("files", files)
     } else {
         alert ("Attention il n'est pas possible d'avoir plus de 5 images dans le slider");
     }   
@@ -59,7 +59,8 @@ const onChangeHandler = e => {
                 } else {
                     alert(`l'image a été ajoutée avec succès!`);
                 }
-            }).catch(e => {console.error(e);});
+            })
+            // .catch(e => {console.error(e);});
             setTimeout(() => window.location.reload(), 2000);
     };
 
@@ -114,8 +115,7 @@ const onChangeHandler = e => {
             <div>
                 <div className="row">
                     <ul>
-        {files && files.map((file,i) =>  <li key={i}>{console.log(i)
-        }{file.name}</li>)}
+        {files && files.map((file,i) =>  <li key={i}>{file.name}</li>)}
                     </ul>
                 </div>
             </div> 
