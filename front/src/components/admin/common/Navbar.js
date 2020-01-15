@@ -30,7 +30,7 @@ const Navbar = () => {
 
                     <li className="nav-item active">
                         <NavLink to="/profile" className="nav-link">
-                            <img className='icons mr-2' src={IconDash} alt='' />
+                        <img className='icons mr-2' src={IconUsers} alt='' />
                             <span>Profile</span>
                         </NavLink>
                     </li>

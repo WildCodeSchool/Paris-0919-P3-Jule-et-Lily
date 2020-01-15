@@ -23,9 +23,6 @@ export default () => {
               children={<ReturnButton returnPage="commandes" />}
             ></LoginBar>
             <div className="container-fluid">
-              <h1 className="col-md-12 col-md-offset-5">
-                Hello ici le front Jule et Lily
-                  </h1>
               {/* Mettre les routes vers les autres composants ici  */}
               <Switch >
                 <Route path="/profile" component={Profile} />
