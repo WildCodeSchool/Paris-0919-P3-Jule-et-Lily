@@ -19,6 +19,8 @@ const promo = require("./promo/promo")
 // Routes user
 const user = require("./user/user")
 
+// Routes authentification
+const auth = require("./auth/auth")
+const profile = require("./auth/profile")
 
-
-module.exports = { category, collection, headerCollection, imageSlider, order, product, codePromo, promo, user}
+module.exports = { category, collection, headerCollection, imageSlider, order, product, codePromo, promo, user, auth, profile }
