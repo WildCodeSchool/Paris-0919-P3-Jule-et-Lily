@@ -136,6 +136,7 @@
 
 .sliderImage img {
     width:100%;
+
 }
 
 .DeleteImageBtn{
@@ -146,4 +147,17 @@
     position:absolute;
     top:-35px;
     right:-35px;
+}
+
+
+
+.CarouselImage{
+    object-fit:cover;
+    width:100%;
+    height: 300px;
+}
+
+.CarouselImage img{
+    object-fit:cover;
+    height:100%;
 }

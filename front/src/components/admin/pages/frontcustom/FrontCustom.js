@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Carousel } from 'react-responsive-carousel';
+
 
 import EncartCollection from "./EncartCollection";
 import FormColorCustom from "./FormColorCustom";
@@ -13,7 +15,6 @@ import {
 } from "../../common";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
 
 const FrontCustom = () => {
   const [data, setData] = useState([]);
@@ -136,6 +137,7 @@ const FrontCustom = () => {
   ////////////////////////// deleteImage //////////////////////////
 
   const handleDelete = id => {
+    if (dataImage.length > 1) {
     axios
       .delete(`image-slider/${id}`)
       .then(res => {
@@ -149,8 +151,10 @@ const FrontCustom = () => {
         console.error(e);
       });
     setTimeout(() => window.location.reload(), 2000);
-  };
-
+  } else {
+    alert ("Attention il faut garder au moins une image dans le slider");
+  }
+}
 
   return (
     <>
@@ -246,17 +250,18 @@ const FrontCustom = () => {
           </div>
 
           <div className="container ">
-            <UploadImageHook />
+            <UploadImageHook 
+            length = {dataImage.length}/>
           </div>
           <h6 className="blue font-weight-bold mb-5">Visualiser le slider :</h6>
           <div className = "m-auto w-75">
             <Carousel autoPlay showArrows={true}>   
             {dataImage &&
               dataImage.map(item => (
-                <div>
+                <div className= "CarouselImage">
                   <img src={item.image_url} alt={item.image_name}/>
                   <p className="legend">{item.image_name}</p>
-                  </div>
+                </div>
               ))}
               </Carousel>
           </div>

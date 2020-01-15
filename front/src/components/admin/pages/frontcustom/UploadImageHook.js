@@ -6,7 +6,7 @@ import FlashMessage from "./FlashMsg"
 
 
 
-const UploadImage = () => {
+const UploadImage = (props) => {
 
     const [files, setFiles] = useState([]);
     // const [message, setMessage] = useState({
@@ -15,11 +15,33 @@ const UploadImage = () => {
     //   });
 
 
-    const onChangeHandler = e => {
+//     const onChangeHandler = e => {
+//         if (props.length < 5) {
+//             for (var i = 0; i < e.target.files.length; i++) {
+//                 if (!e.target.files[i]) return
+//                 setFiles([...files, e.target.files[i]])
+//             }
+//         } else {
+//             alert ("Attention il n'est pas possible d'avoir plus de 5 images dans le slider");
+//         }   
+// }
+
+const onChangeHandler = e => {
+
+    if (props.length < 5) {
+        let fileList = files;
         for (var i = 0; i < e.target.files.length; i++) {
             if (!e.target.files[i]) return
-            setFiles([...files, e.target.files[i]])
+            fileList.push(e.target.files[i])
+            console.log("filelist", fileList)
+           
         }
+       setFiles([...files], fileList)
+        console.log("filelistfinal", fileList)
+        console.log("files", files)
+    } else {
+        alert ("Attention il n'est pas possible d'avoir plus de 5 images dans le slider");
+    }   
 }
 
     const onClickHandler = e => {
@@ -92,7 +114,8 @@ const UploadImage = () => {
             <div>
                 <div className="row">
                     <ul>
-                        {files && files.map((file,i) =>  <li key={i}>{file.name}</li>)}
+        {files && files.map((file,i) =>  <li key={i}>{console.log(i)
+        }{file.name}</li>)}
                     </ul>
                 </div>
             </div> 
