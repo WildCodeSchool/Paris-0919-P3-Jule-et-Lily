@@ -24,7 +24,7 @@ function Login(props) {
     }
 
     const handleSubmit = (e) => {
-        fetch("/auth/signin",
+        fetch("/auth",
             {
                 method: 'POST',
                 headers: new Headers({
