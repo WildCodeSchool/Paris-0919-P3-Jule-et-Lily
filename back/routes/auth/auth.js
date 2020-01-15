@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
     res.send("je suis sur la route /auth ").status(200)
   })
 
-router.post('/signin', function(req, res) {
+router.post('/', function(req, res) {
     passport.authenticate('local',(err, user, info) => { 
       console.log('user',user);
       const token = jwt.sign(Object.assign({}, user), 'your_jwt_secret')

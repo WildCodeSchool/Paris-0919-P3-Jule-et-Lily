@@ -29,6 +29,7 @@ app.use("/code-promo", route.codePromo)
 app.use("/promo", route.promo)
 app.use("/user", route.user)
 app.use("/auth", route.auth)
+app.use("/profile", route.profile)
 
 app.get('/', (req, res) => {
     res.send("Bienvenue chez jule et lily !").status(200)

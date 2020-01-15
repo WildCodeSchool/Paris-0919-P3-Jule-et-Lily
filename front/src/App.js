@@ -1,16 +1,12 @@
 import React from "react";
-import {
-  LoginBar,
-  Navbar,
-  ReturnButton
-} from "./components/admin/common/";
-import { Dashboard, Orders, Products, Clients, Promo, Collections, FrontCustom } from "./components/admin/pages/";
+import { LoginBar, Navbar, ReturnButton } from "./components/admin/common/";
+import { Dashboard, Orders, Products, Clients, Promo, Collections } from "./components/admin/pages/";
 import Profile from './containers/admin/pages/Profile'
 import { Switch, Route } from 'react-router-dom';
 import "../src/assets/css/admin/sb-admin-2.min.css";
 import "../src/assets/css/admin/buttons-actions.css";
 import "../src/assets/css/admin/global.css";
-import "../src/assets/css/admin/FrontCustom.css";
+// import "../src/assets/css/admin/FrontCustom.css";
 
 export default () => {
 
@@ -38,7 +34,7 @@ export default () => {
                 <Route exact path="/products" component={Products} />
                 <Route exact path="/collections" component={Collections} />
                 <Route exact path="/promo" component={Promo} />
-                <Route exact path="/frontcustom" component={FrontCustom} />
+                {/* <Route exact path="/frontcustom" component={FrontCustom} /> */}
               </Switch>
             </div>
           </div>
