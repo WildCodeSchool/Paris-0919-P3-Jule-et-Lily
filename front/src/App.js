@@ -28,8 +28,8 @@ export default () => {
                   </h1>
               {/* Mettre les routes vers les autres composants ici  */}
               <Switch >
-                <Route exact path="/profile" component={Profile} />
-                <Route  path="/" component={Dashboard} />
+                <Route path="/profile" component={Profile} />
+                <Route exact path="/" component={Dashboard} />
                 <Route  path="/orders" component={Orders} />
                 <Route  path="/clients" component={Clients} />
                 <Route  path="/products" component={Products} />

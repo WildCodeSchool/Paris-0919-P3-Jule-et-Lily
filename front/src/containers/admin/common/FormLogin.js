@@ -5,7 +5,7 @@ export default function FormLogin(props) {
     <div>
       <form>
         <div className="form-group">
-          <label for="exampleInputEmail1">Adresse email</label>
+          <label for="exampleInputEmail1">Login</label>
           <input
             type="login"
             class="form-control"
