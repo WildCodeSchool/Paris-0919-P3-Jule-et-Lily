@@ -37,9 +37,22 @@ export default function FormProducts(props) {
 
   // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
   const validateNewData = (e) => {
-
+  
     setProductModify({ ...productModify, [e.target.name]: e.target.value })
   }
+
+    // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
+    const validateNewDatacustom = (e) => {
+      // pour le custom product
+      const checkedElement = document.getElementById('product_custom')
+      setProductModify({ ...productModify, [e.target.name]: e.target.value })
+      if (checkedElement.checked === true) {
+        setProductModify({ ...productModify, product_custom: 1 })
+      }
+      else {
+        setProductModify({ ...productModify, product_custom: 0 })
+      }
+    }
   // modification de la hooks collection avec traitement de la donnée
   const validateNewDataCollection = (e) => {
     // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
@@ -48,6 +61,7 @@ export default function FormProducts(props) {
     setProductModify({ ...productModify, [e.target.name]: e.target.value })
     setProductModify({ ...productModify, product_collection_id: newCollectionId })
   }
+
   // modification de la hooks categorie avec traitement de la donnée
   const validateNewDataCategory = (e) => {
     // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
@@ -60,8 +74,6 @@ export default function FormProducts(props) {
     console.log('newcollectionid', newCategorieId);
     setProductModify({ ...productModify, product_category_id: newCategorieId })
   }
-
-
   // fetch ds un hooks pour maper les noms des catégories etc ...
 
   // fonction pour envoyer les informations du form à jours
@@ -72,29 +84,33 @@ export default function FormProducts(props) {
     delete productPut.category_name
     delete productPut.collection_name
     console.log('productput', productPut);
-
     axios     // récupération des données produit et envoi ds la bdd
       .put(`product/${productModify.product_id}`, productPut)
       .then(res => {
         if (res.err) {
           alert(res.err);
         } else {
-          alert(` ${productModify.product_name} a été ajouté avec succès!`);
+          alert(` ${productModify.product_name} a été modifié avec succès!`);
         }
       }).catch(e => {
         console.error(e);
         alert(`Erreur lors de la modification de ${productModify.product_name}`);
       });
-    setTimeout(() => window.location.reload(), 2000);
     axios // modifier le stock
       .put(`/product/stock/${props.donneesProducts.product_id}`, productStockModify)
       .then(res => {
         if (res.err) {
-          alert(res.err);
+          alert(`Le stock n'a pas été modifié`);
         } else {
           alert(` Le stock a bien été modifié`);
         }
       })
+      .catch(e => {
+        console.error(e);
+        alert(`Erreur lors de la modification du stock de '${productModify.product_name}'
+        pensez à inscrire un nombre positif`);
+      });
+    setTimeout(() => window.location.reload(), 2000);
   }
 
 
@@ -103,6 +119,8 @@ export default function FormProducts(props) {
     fetchCategories()
     fetchStock()
   }, [])
+
+
   return (
     <>
 
@@ -129,7 +147,7 @@ export default function FormProducts(props) {
             <label htmlFor="prix">Prix</label>
             <input
               onChange={validateNewData}
-              type="text"
+              type="number"
               className="form-control text-center"
               id="examprixid"
               name='product_price'
@@ -142,7 +160,8 @@ export default function FormProducts(props) {
             <label htmlFor="stock_quantity">Stock</label>
             <input
               onChange={validateNewDataStock}
-              type="text"
+              required
+              type="number"
               className="form-control text-center"
               id="examprixid"
               name='stock_quantity'
@@ -160,6 +179,15 @@ export default function FormProducts(props) {
               id="exampleInputEmail1"
               value={productModify.product_description}
               placeholder={productModify.product_description}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="product_custom">Personalisable ?</label>
+            <input onChange={validateNewDatacustom}
+              name='product_custom'
+              type="checkbox"
+              id="product_custom"
+
             />
           </div>
 

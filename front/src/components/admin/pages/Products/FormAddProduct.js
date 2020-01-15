@@ -10,22 +10,17 @@ export default function FormProducts(props) {
     const [dataCategories, setDataCategories] = useState()
     const [newProduct, setNewProduct] = useState(
         {
-
             product_name: 'kjkj',
             product_price: 0,
-            stock_quantity: 0,
-            product_id: 'auto',
+            // stock_quantity: 0,
+            product_category_id: 1,
+            product_collection_id: 4,
             product_description: 'description du produit',
             product_custom: '0',
-            collection_name: 'ajouter votre collection',
-            product_image_id: 1,
-            product_collection_id: 0,
-            product_stock: 0,
-
+            // collection_name: 'ajouter votre collection',
+            // product_image_id: 1,
+            // product_stock: 5,
         })
-    console.log('newproduct', newProduct);
-
-
 
     ////////////////// récupération des données ////////////////////
 
@@ -44,18 +39,30 @@ export default function FormProducts(props) {
 
     // modification de la hooks 
     const validateNewData = (e) => {
-
         setNewProduct({ ...newProduct, [e.target.name]: e.target.value })
     }
-
     ////////////////////////        submitNewProduct    ////////////////////////
     // fonction pour envoyer les informations du form à jours
-    let submitNewProduct = e => {
+    let handleSubmit = e => {
         e.preventDefault();
-        console.log('productput');
+        // const productPut= newProduct
+        // delete productPut.product_stock
+        // delete productPut.category_name
+        // delete productPut.stock_quantity
+        // delete productPut.collection_name
+        // delete productPut.category_id
+        // delete productPut.product_collection_id
+        console.log('productput',newProduct);
+        axios     // récupération des données produit et envoi ds la bdd
+            .post(`product/`, newProduct)
+            .then(res => {
+                if (res.err) {
+                    alert(res.err);
+                } else {
+                    alert(`${newProduct.product_name} a été ajouté avec succès!`);
+                }
+            })
     }
-
-
 
     useEffect(() => {
         fetchCollection()
@@ -74,13 +81,11 @@ export default function FormProducts(props) {
                         <input
                             name='product_name'
                             onChange={validateNewData}
-
                             type="text"
                             className="form-control text-center"
                             id="designationid"
                             placeholder="Ajouter le nom du produit"
                             value={setNewProduct.product_name}
-
                         />
                     </div>
 
@@ -89,12 +94,10 @@ export default function FormProducts(props) {
                         <input
                             name='product_price'
                             onChange={validateNewData}
-                            type="text"
+                            type="number"
                             className="form-control text-center"
                             placeholder="Ajouter un prix"
                             id="examprixid"
-
-
                         />
                     </div>
 
@@ -103,12 +106,10 @@ export default function FormProducts(props) {
                         <input
                             name='stock_quantity'
                             onChange={validateNewData}
-                            type="text"
+                            type="number"
                             className="form-control text-center"
                             id="examprixid"
-
                             placeholder="Ajouter la quantité de produit en stock"
-
                         />
                     </div>
 
@@ -163,7 +164,7 @@ export default function FormProducts(props) {
 
                     <div className='text-left'>
                         <ButtonCancel onClick={props.onClick} color='#234eb7' />
-                        <ButtonConfirm color='#234eb7' />
+                        <ButtonConfirm onClick={handleSubmit} color='#234eb7' />
                     </div>
                 </form>
 
