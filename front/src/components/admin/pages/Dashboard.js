@@ -6,11 +6,21 @@ import {
   CardLastYear,
   CardOrdersMonth,
   CardOrdersTotal,
-  Encarts
+  Encarts,
+  ButtonAdd,
+  ButtonConfirm,
+  ButtonDelete,
+  ButtonModify,
+  ButtonSee,
+  ButtonCancel,
+  Pagination,
+  SearchBar,
+  Tables
 } from "../common/";
 
 import { ReactComponent as IconBlue } from '../../../assets/icons/IconPromosBlue.svg'
 import { ReactComponent as IconDarkPurple } from '../../../assets/icons/IconUsersDarkPurple.svg'
+
 
 
 export default function Dashboard() {
