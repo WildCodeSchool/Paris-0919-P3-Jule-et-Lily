@@ -91,11 +91,11 @@ export default function FormProducts(props) {
         if (res.err) {
           alert(res.err);
         } else {
-          alert(` ${productModify.product_name} a été ajouté avec succès!`);
+          alert(` ${productModify.product_name} a été modifié avec succès!`)
         }
       }).catch(e => {
         console.error(e);
-        alert(`Erreur lors de la modification de ${productModify.product_name}`);
+        alert(`Erreur lors de la modification de ${productModify.product_name}`)
       });
     axios // modifier le stock
       .put(`/product/stock/${props.donneesProducts.product_id}`, productStockModify)
@@ -114,7 +114,7 @@ export default function FormProducts(props) {
     fetchCollection()
     fetchCategories()
     fetchStock()
-  }, [])
+  }, [] )
 
 
   return (
@@ -123,7 +123,7 @@ export default function FormProducts(props) {
       <ReturnButton onClickSee={props.onClick} />
       <Encarts title="Ajouter / Modifier les informations">
 
-        <form className='form-group text-center'>
+        <form className='form-group text-center '>
           <div className="form-group">
             <label htmlFor="designation"> Désignation</label>
             <input
@@ -178,9 +178,10 @@ export default function FormProducts(props) {
               placeholder={productModify.product_description}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group ">
             <label htmlFor="product_custom">Personalisable ?</label>
             <input onChange={validateNewDatacustom}
+            className=" form ml-3 "
               name='product_custom'
               type="checkbox"
               id="product_custom"
