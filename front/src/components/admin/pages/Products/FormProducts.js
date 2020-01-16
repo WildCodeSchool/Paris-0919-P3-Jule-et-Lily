@@ -144,6 +144,7 @@ export default function FormProducts(props) {
             <input
               onChange={validateNewData}
               type="number"
+              step="0.01"
               className="form-control text-center"
               id="examprixid"
               name='product_price'
