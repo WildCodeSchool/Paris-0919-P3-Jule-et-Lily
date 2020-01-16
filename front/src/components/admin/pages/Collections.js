@@ -178,6 +178,12 @@ export default function Collections(props) {
     if (page === "categories") setDataToShow2(dataToShow2 => [...dataToShow2, ...theData]);
   };
 
+
+  const reload = () => {
+    setClick(!click);
+    fetchData();
+  }
+
   // useEffect(() => {
   //   fetchData();
   // }, []);

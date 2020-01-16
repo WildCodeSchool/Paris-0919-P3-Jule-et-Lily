@@ -46,7 +46,12 @@ export default function Products(props) {
     fetchData();
   }, []);
 
-
+  //fonction pour remettre le state click a false puis recharger les données quand on clique sur le bouton confirmer
+  const reload = () => {
+    setClick(!click);
+    fetchData();
+  }
+ 
   // fonction pour ordonnée le tableau
   const orderBy = (type, order) => {
     let theData = dataToShow; //on copie les données dans un nouveau tableau
@@ -108,6 +113,7 @@ export default function Products(props) {
           <FormProducts
             onClick={isClickedModidy}
             donneesProducts={productClick}
+            reload={reload}
           />
         </div>
       ) : (

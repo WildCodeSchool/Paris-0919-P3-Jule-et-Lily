@@ -81,18 +81,17 @@ export default function FormProducts(props) {
           alert(res.err);
         } else {
           alert(` ${productModify.product_name} a été ajouté avec succès!`);
+          props.reload(); // au lieu de recharger complètement la page on execute la fonction reload du composant parent
         }
       }).catch(e => {
         console.error(e);
         alert(`Erreur lors de la modification de ${productModify.product_name}`);
       });
-    setTimeout(() => window.location.reload(), 2000);
   }
 
   useEffect(() => {
     fetchCollection()
     fetchCategories()
-
   }, [])
   return (
     <>

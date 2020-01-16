@@ -9,7 +9,7 @@ import "../src/assets/css/admin/buttons-actions.css";
 import "../src/assets/css/admin/global.css";
 import "../src/assets/css/admin/FrontCustom.css";
 
-export default () => {
+export default (props) => {
 
   return (
     <div>
@@ -19,8 +19,8 @@ export default () => {
         <div id="content-wrapper" class="d-flex flex-column">
           <div id="content">
             {/* Mettre la login bar ici  */}
-            <LoginBar
-              children={<ReturnButton returnPage="commandes" />}
+            <LoginBar dispatch={props.dispatch}
+              children={<ReturnButton returnPage="commandes"/>}
             ></LoginBar>
             <div className="container-fluid">
               {/* Mettre les routes vers les autres composants ici  */}

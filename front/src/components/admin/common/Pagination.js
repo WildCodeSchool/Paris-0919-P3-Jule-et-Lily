@@ -15,8 +15,8 @@ const Pagination = (props) => {
   }
 
   const itemClick = (e) => {
-    setActivePage(parseInt(e.target.text))
-    props.setActivePage(parseInt(e.target.text));
+    setActivePage(parseInt(e.target.innerHTML))
+    props.setActivePage(parseInt(e.target.innerHTML));
     scrollToview();
   }
 
@@ -53,18 +53,18 @@ const Pagination = (props) => {
       <nav aria-label="Page navigation example" className="paginationEnd">
         <ul className="pagination">
           <li className={activePage === 1 ? "page-item disabled" : "page-item"}>
-            <a className="page-link" href="/#" aria-label="Next" onClick={previousPage}>
+            <span className="page-link" aria-label="Next" onClick={previousPage}>
               <span aria-hidden="true">&laquo;</span>
-            </a>
+            </span>
           </li>
           {createPagination().map(page => (
-<li key={page} className={activePage === page ? "active page-item" : "page-item"}><a className="page-link" href="/#" onClick={itemClick}  value={page} >{page}</a></li>
+<li key={page} className={activePage === page ? "active page-item" : "page-item"}><span className="page-link" onClick={itemClick}  value={page} >{page}</span></li>
              ))
           }
           <li className={activePage === pagesNb ? "page-item disabled" : "page-item"}>
-            <a className="page-link" href="/#" aria-label="Next" onClick={nextPage}>
+            <span className="page-link" aria-label="Next" onClick={nextPage}>
               <span aria-hidden="true">&raquo;</span>
-            </a>
+            </span>
           </li>
         </ul>
       </nav>

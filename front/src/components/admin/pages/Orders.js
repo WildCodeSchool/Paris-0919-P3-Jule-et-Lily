@@ -129,6 +129,11 @@ export default function Orders() {
     else setDataToShow(data); //si la recherche est vide on veut afficher toutes les données dans le tableau
   };
 
+  // const reload = () => {
+  //   setClick(!click);
+  //   fetchData();
+  // }
+
   return (
     <div>
       <Encarts title="LISTE DES COMMANDES">
