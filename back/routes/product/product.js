@@ -22,7 +22,7 @@ router.route(['/productstockid'])
     })
   })
 
-router.route(['/stock/:id', '/stock/:stock_quantity/and/:stock_min'])
+router.route(['/stock/:id','/stock/:stock_quantity/and/:stock_min'])
   .get(function (req, res) { //récup un produit
     connection.query('SELECT * from stock WHERE stock_product_id = ?', req.params.id, (err, results) => {
       if (err) {

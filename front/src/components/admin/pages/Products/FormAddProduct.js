@@ -70,7 +70,18 @@ export default function FormProducts(props) {
         setNewProduct({ ...newProduct, [e.target.name]: e.target.value })
         setNewProduct({ ...newProduct, product_category_id: newCategorieId })
     }
-
+    // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
+    const validateNewDatacustom = (e) => {
+        // pour le custom product
+        const checkedElement = document.getElementById('product_custom')
+        setNewProduct({ ...newProduct, [e.target.name]: e.target.value })
+        if (checkedElement.checked === true) {
+            setNewProduct({ ...newProduct, product_custom: 1 })
+        }
+        else {
+            setNewProduct({ ...newProduct, product_custom: 0 })
+        }
+    }
     ////////////////////////      submitNewProduct   ////////////////////////
     // fonction pour envoyer les informations du form à jours
     let handleSubmitProduct = e => {
@@ -80,8 +91,6 @@ export default function FormProducts(props) {
         delete productPut.category_name
         delete productPut.stock_quantity
         delete productPut.collection_name
-
-
         console.log('productput', productPut);
         axios     // envoi ds la bdd
             .post(`product/`, productPut)
@@ -95,7 +104,6 @@ export default function FormProducts(props) {
                         .then(res => {
                             if (res.err) {
                                 alert(`Le stock n'a pas été modifié`);
-
                             } else {
                                 alert(` Le stock a bien été modifié`);
                             }
@@ -177,6 +185,15 @@ export default function FormProducts(props) {
                             className="form-control text-center"
                             id="exampleInputEmail1"
                             placeholder="Ajouter une description au produit"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="product_custom">Personalisable ?</label>
+                        <input onChange={validateNewDatacustom}
+                            name='product_custom'
+                            type="checkbox"
+                            id="product_custom"
                         />
                     </div>
 

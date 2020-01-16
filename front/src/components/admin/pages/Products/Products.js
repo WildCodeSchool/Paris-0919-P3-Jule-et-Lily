@@ -27,11 +27,55 @@ export default function Products(props) {
   const [clickView, setclickView] = useState(false);
   const [clickAdd, setClickAdd] = useState(false);
 
+  //state pour le nombre de pages du tableau
+  const [pagesNb, setPagesNb] = useState(0); //le nombre de pages
+  const [activePage, setActivePage] = useState(1); // le numéro de la page active
+
   const fetchData = () => {
     axios
-      .get("/product/all")
-      //  .then(res => console.log(res.data[0]))
-      .then(res => (setData(res.data), setDataToShow(res.data)));
+      .get("/product/all") //liste les commandes
+      .then(res => {
+        // après avoir récuperé les données on regarde leurs nombre et on définit le nombre de page en fonction puis on rempli seulement 10 donnée max par page du tableaus
+        // console.log("activePage", activePage);
+        if (res.data.length <= 10) {
+          // cas où il y a moins de 10 résultats. Il n'y aura que une page
+          setPagesNb(1); // il n'y a qu'une page.
+          setData([]); // avant de remplir le tableau on le vide
+          setDataToShow([]); // idem
+          for (let i = 0; i < res.data.length; i++) { // on boucle pour remplir les deux tableau avec les données
+            setData(data => [...data, res.data[i]]); 
+            setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
+          }
+          //si plus de 10 résultats
+        } else if (activePage === 1) {
+          // si on est sur la première page
+          setPagesNb(parseInt(res.data.length / 10 + 1)); // on défini le nombre de pages en fonction du nombre de données
+          setData([]);
+          setDataToShow([]);
+          for (let i = 0; i < 10; i++) {
+            setData(data => [...data, res.data[i]]);
+            setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
+          }
+        } else if (activePage === pagesNb) {
+          // si on est sur la dernière page
+          setPagesNb(parseInt(res.data.length / 10 + 1));// on défini le nombre de pages en fonction du nombre de données
+          setData([]);
+          setDataToShow([]);
+          for (let i = activePage * 10 - 10; i < res.data.length; i++) {
+            setData(data => [...data, res.data[i]]);
+            setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
+          }
+        } else {
+          // si on est sur une autre page
+          setPagesNb(parseInt(res.data.length / 10 + 1));// on défini le nombre de pages en fonction du nombre de données
+          setData([]);
+          setDataToShow([]);
+          for (let i = activePage * 10 - 10; i < activePage * 10; i++) {
+            setData(data => [...data, res.data[i]]);
+            setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
+          }
+        }
+      });
   };
 
   const deleteData = (page, id) => {
@@ -56,7 +100,7 @@ export default function Products(props) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [activePage]);
 
 
   // fonction pour ordonnée le tableau
@@ -105,6 +149,15 @@ export default function Products(props) {
 
   console.log("dataproducts", data);
   console.log("proctclick", productClick);
+  // fonction pour aller une page en avant
+  const changePagePlus = () => {
+    setActivePage(activePage + 1); //on ajoute 1 à la page active
+  };
+
+  // fonction pour aller une page en arière
+  const changePageMoins = () => {
+    setActivePage(activePage - 1);//on retire 1 à la page active
+  };
 
   return (
     <div className="products">
@@ -140,6 +193,15 @@ export default function Products(props) {
                   onClick={isClickedModidy}
                   donnees={dataToShow ? dataToShow : "loading"}
                   orderBy={orderBy}
+                />
+
+                <Pagination
+                  nbPages={pagesNb}
+                  activePage={activePage}
+                  changePagePlus={changePagePlus}
+                  changePageMoins={changePageMoins}
+                  setActivePage={setActivePage}
+                  table="products"
                 />
               </Encarts>
             )}
