@@ -46,7 +46,7 @@ export default function Products(props) {
     fetchData();
   }, []);
 
-  //fonction pour remettre le state click a false puis recharger les données quand on clique sur le bouton confirmer
+  //fonction pour remettre le state click a false puis recharger les données quand on clique sur le bouton
   const reload = () => {
     setClick(!click);
     fetchData();
