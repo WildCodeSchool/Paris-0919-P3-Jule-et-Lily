@@ -55,16 +55,17 @@ export default function FormProducts(props) {
   // modification de la hooks collection avec traitement de la donnée
   const validateNewDataCollection = (e) => {
     // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
-    let newCollection = dataCollection.filter(collection => collection.collection_name.toUpperCase() == e.target.value.toUpperCase())
+    let newCollection = dataCollection.filter(collection => collection.collection_name.toUpperCase() === e.target.value.toUpperCase())
     let newCollectionId = newCollection[0].collection_id
     setProductModify({ ...productModify, [e.target.name]: e.target.value })
     setProductModify({ ...productModify, product_collection_id: newCollectionId })
   }
 
+
   // modification de la hooks categorie avec traitement de la donnée
   const validateNewDataCategory = (e) => {
     // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
-    let newCategorie = dataCategories.filter(categorie => categorie.category_name.toUpperCase() == e.target.value.toUpperCase())
+    let newCategorie = dataCategories.filter(categorie => categorie.category_name.toUpperCase() === e.target.value.toUpperCase())
     let newCategorieId = newCategorie[0].category_id
     setProductModify({ ...productModify, [e.target.name]: e.target.value })
     console.log('newcollection', newCategorie);
@@ -73,6 +74,7 @@ export default function FormProducts(props) {
     console.log('newcollectionid', newCategorieId);
     setProductModify({ ...productModify, product_category_id: newCategorieId })
   }
+
   // fetch ds un hooks pour maper les noms des catégories etc ...
 
   // fonction pour envoyer les informations du form à jours
@@ -89,7 +91,7 @@ export default function FormProducts(props) {
         if (res.err) {
           alert(res.err);
         } else {
-          alert(` ${productModify.product_name} a été modifié avec succès!`);
+          alert(` ${productModify.product_name} a été ajouté avec succès!`);
         }
       }).catch(e => {
         console.error(e);
@@ -102,9 +104,9 @@ export default function FormProducts(props) {
           alert(`Le stock n'a pas été modifié`);
         } else {
           alert(` Le stock a bien été modifié`);
+          props.reload(); // au lieu de recharger complètement la page on execute la fonction reload du composant parent
         }
       })
-    setTimeout(() => window.location.reload(), 2000);
   }
 
 

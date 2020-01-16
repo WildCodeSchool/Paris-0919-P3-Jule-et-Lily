@@ -2,18 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   ButtonAdd,
-  ButtonConfirm,
-  ButtonDelete,
-  ButtonModify,
-  ButtonSee,
-  ButtonCancel,
-  Cards,
   Encarts,
-  Pagination,
   SearchBar,
-  Tables,
-  Form,
-
+  Tables, 
+  Pagination
 } from "../../common";
 import EncartsViewArticle from "./EncartsViewArticle";
 import FormProducts from './FormProducts'
@@ -85,7 +77,7 @@ export default function Products(props) {
   }
 
   const isClickedModidy = index => {
-    console.log("click!");
+    // console.log("click!");
     setClick(!click);
     setProductClick(data[index]);
   };
@@ -102,7 +94,12 @@ export default function Products(props) {
     fetchData();
   }, [activePage]);
 
-
+  //fonction pour remettre le state click a false puis recharger les données quand on clique sur le bouton
+  const reload = () => {
+    setClick(!click);
+    fetchData();
+  }
+ 
   // fonction pour ordonnée le tableau
   const orderBy = (type, order) => {
     let theData = dataToShow; //on copie les données dans un nouveau tableau
@@ -125,6 +122,7 @@ export default function Products(props) {
           return 0;
         }
       }
+      return null
     });
     //on met les données triées dans le tableau à afficher
     setDataToShow(dataToShow => [...dataToShow, ...theData]);
@@ -169,6 +167,7 @@ export default function Products(props) {
             title=" Fiche produit"
             onClickSee={isClickedSee}
             donneesProducts={productClick}
+            reload={reload}
           />
         ) : click ? (
           <div>

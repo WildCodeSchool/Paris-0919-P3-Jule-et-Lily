@@ -1,17 +1,18 @@
 import React from "react";
 
-export default function Form() {
+export default function FormLogin(props) {
   return (
     <div>
       <form>
         <div className="form-group">
-          <label for="exampleInputEmail1">Adresse email</label>
+          <label for="exampleInputEmail1">Login</label>
           <input
-            type="email"
+            type="login"
             class="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
-            placeholder="Email"
+            placeholder="Login"
+            onChange={ props.onChangeLogin }
           />
           <small id="emailHelp" className="form-text text-muted">
            Nous ne partagerons jamais votre email
@@ -24,15 +25,11 @@ export default function Form() {
             className="form-control"
             id="exampleInputPassword1"
             placeholder="Mot de passe"
+            onChange={ props.onChangePassword }
+
           />
         </div>
-        <div class="form-group form-check">
-          <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-          <label className="form-check-label" for="exampleCheck1">
-           Coche moi !
-          </label>
-        </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary" onClick={ props.onClick }>
          Envoyer
         </button>
       </form>

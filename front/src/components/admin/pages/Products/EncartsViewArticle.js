@@ -2,19 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../../../assets/css/admin/global.css'
 import '../../../../assets/css/admin/cards.css'
 import {
-  ButtonAdd,
-  ButtonConfirm,
-  ButtonDelete,
-  ButtonModify,
-  ButtonSee,
-  ButtonCancel,
-  Cards,
   Encarts,
-  Pagination,
-  SearchBar,
-  Tables,
-  Form,
-  FormProducts,
   ReturnButton,
 } from "../../common";
 export default (props) => {

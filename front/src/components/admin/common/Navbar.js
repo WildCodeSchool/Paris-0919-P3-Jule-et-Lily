@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import IconJL from '../../../assets/icons/LogoJuleetLily.svg'
 import IconCollections from '../../../assets/icons/IconsCollections.svg'
 import IconDash from '../../../assets/icons/IconDashboard.svg'
@@ -9,7 +9,7 @@ import IconPromos from '../../../assets/icons/IconPromos.svg'
 import IconUsers from '../../../assets/icons/IconUsers.svg'
 import '../../../assets/css/admin/global.css'
 import '../../../assets/css/admin/Navbar.css'
-import {Switch, NavLink, Route} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -17,7 +17,7 @@ const Navbar = () => {
             <div>
                 <ul className="navbar-nav bg-gradient-purple sidebar cssNavbar sidebar-dark accordion" id="accordionSidebar">
 
-                    <a className="sidebar-brand d-flex align-items-center justify-content-center">
+                    <a href="/#" className="sidebar-brand d-flex align-items-center justify-content-center">
                             <img className='logoJuleLily' src={IconJL} alt='Jule + Lily' />
                     </a>
 
@@ -25,6 +25,13 @@ const Navbar = () => {
                         <NavLink to="/" className="nav-link">
                             <img className='icons mr-2' src={IconDash} alt='' />
                             <span>Dashboard</span>
+                        </NavLink>
+                    </li>
+
+                    <li className="nav-item active">
+                        <NavLink to="/profile" className="nav-link">
+                        <img className='icons mr-2' src={IconUsers} alt='' />
+                            <span>Profile</span>
                         </NavLink>
                     </li>
 
