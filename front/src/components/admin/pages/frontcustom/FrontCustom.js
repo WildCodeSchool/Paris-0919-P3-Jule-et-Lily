@@ -1,43 +1,62 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Carousel } from 'react-responsive-carousel';
+
 
 import EncartCollection from "./EncartCollection";
 import FormColorCustom from "./FormColorCustom";
-
+import Image from "./Image";
+import UploadImageHook from "./UploadImageHook";
 import {
   ButtonConfirm,
   ButtonModify,
   ButtonCancel,
-  Encarts,
+  Encarts
 } from "../../common";
 
-
-
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const FrontCustom = () => {
   const [data, setData] = useState([]);
   const [formDisplay, setFormDisplay] = useState(false);
   const [encartDisplay, setEncartDisplay] = useState({
-    id:"",
+    id: "",
     backgroundColor: "",
     title: "",
     url: "",
-    titleColor: "",
+    titleColor: ""
   });
   const [ColorPickerTitleDisplay, setColorPickerTitleDisplay] = useState(false);
-  const [ColorPickerBackgroundDisplay, setColorPickerBackgroundDisplay] = useState(false);
+  const [
+    ColorPickerBackgroundDisplay,
+    setColorPickerBackgroundDisplay
+  ] = useState(false);
+  const [dataImage, setDataImage] = useState([]);
 
+  ////////////////////////// Database Request HEADER COLLECTION + SLIDER IMAGE//////////////////////////
 
-  ////////////////////////// Database Request Data //////////////////////////
-  const fetchData = () => {
+  const fetchDataCollection = () => {
     axios
       .get("/header-collection/all")
       .then(res => (setData(res.data)));
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
 
+  const fetchDataImage = () => {
+    axios
+      .get("/image-slider/all")
+      .then(
+        res => (setDataImage(res.data))
+      );
+  };
+
+  const fetchData = () => {
+    fetchDataCollection();
+    fetchDataImage();
+  };
+
+  useEffect(() => {
+    fetchData()
+  }, []);
 
   ////////////////////////// Database Send Data //////////////////////////////////
 
@@ -50,12 +69,10 @@ const FrontCustom = () => {
   //       "Content-Type": "application/json",
   //     },
   //     body: JSON.stringify(encartDisplay),
-      
+
   //   };
   //   {console.log('state brut', encartDisplay)}
   //   {console.log('state jsonifié', JSON.stringify('JSON : ------------',encartDisplay))}
-
-  
 
   // fetch(url, config)
   //     .then(res => res.json())
@@ -72,40 +89,34 @@ const FrontCustom = () => {
 
   // }
 
-
   const submitForm = e => {
     e.preventDefault();
     axios
       .put(`header-collection/${encartDisplay.id}`, encartDisplay)
       .then(res => {
         if (res.error) {
-            alert(res.error);
+          alert("Erreur lors de l'ajout de l'encart", res.error);
         } else {
-            alert(`l'encart ${encartDisplay.title} a été ajouté avec succès!`);
+          alert(`l'encart ${encartDisplay.title} a été ajouté avec succès!`);
         }
-    }).catch(e => {
-    console.error(e);
-    alert("Erreur lors de l'ajout de l'encart");
-    });
+      })
+      // .catch(e => {
+      //   console.error(e);
+      // });
     setTimeout(() => window.location.reload(), 2000);
   };
 
-
-
-
-////////////////////////// Encart //////////////////////////
+  ////////////////////////// Encart //////////////////////////
   const changeEncartDisplay = e => {
     setEncartDisplay({ ...encartDisplay, [e.target.name]: e.target.value });
-  };// setState(state => ({ ...state, left: e.pageX, top: e.pageY }))
+  }; // setState(state => ({ ...state, left: e.pageX, top: e.pageY }))
 
-
- ////////////////////////// Form //////////////////////////
+  ////////////////////////// Form //////////////////////////
   const cancelFormDisplay = () => {
     setFormDisplay(false);
   };
 
-
-////////////////////////// colorPicker //////////////////////////
+  ////////////////////////// colorPicker //////////////////////////
   const handleClickColorPickerTitle = () => {
     setColorPickerTitleDisplay(!ColorPickerTitleDisplay);
   };
@@ -113,17 +124,37 @@ const FrontCustom = () => {
     setColorPickerBackgroundDisplay(!ColorPickerBackgroundDisplay);
   };
   const handleCloseColorPicker = () => {
-    setColorPickerTitleDisplay(false)
-    setColorPickerBackgroundDisplay(false)
+    setColorPickerTitleDisplay(false);
+    setColorPickerBackgroundDisplay(false);
   };
-  const handleChangeTitleColor = (color) => {
+  const handleChangeTitleColor = color => {
     setEncartDisplay({ ...encartDisplay, titleColor: color.hex });
   };
-  const handleChangeBackgroundColor = (color) => {
+  const handleChangeBackgroundColor = color => {
     setEncartDisplay({ ...encartDisplay, backgroundColor: color.hex });
   };
 
+  ////////////////////////// deleteImage //////////////////////////
 
+  const handleDelete = id => {
+    if (dataImage.length > 1) {
+    axios
+      .delete(`image-slider/${id}`)
+      .then(res => {
+        if (res.error) {
+          alert("Erreur lors de la suppression de l'image", res.error);
+        } else {
+          alert(`l'image a été supprimée avec succès!`);
+        }
+      })
+      // .catch(e => {
+      //   console.error(e);
+      // });
+    setTimeout(() => window.location.reload(), 2000);
+  } else {
+    alert ("Attention il faut garder au moins une image dans le slider");
+  }
+}
 
   return (
     <>
@@ -151,11 +182,12 @@ const FrontCustom = () => {
                     onClick={() =>
                       setEncartDisplay(
                         {
-                          id :encart.collection_menu_id,
-                          backgroundColor: encart.collection_menu_background_color,
+                          id: encart.collection_menu_id,
+                          backgroundColor:
+                            encart.collection_menu_background_color,
                           title: encart.collection_menu_title,
                           url: encart.collection_menu_url,
-                          titleColor: encart.collection_menu_title_color,
+                          titleColor: encart.collection_menu_title_color
                         },
                         setFormDisplay(true)
                       )
@@ -180,7 +212,7 @@ const FrontCustom = () => {
                 onClickColorBackground={handleClickColorPickerBackground}
                 onClickClose={handleCloseColorPicker}
                 onChangeTitleColor={handleChangeTitleColor}
-                onChangeBackgroundColor={handleChangeBackgroundColor} 
+                onChangeBackgroundColor={handleChangeBackgroundColor}
               >
                 <EncartCollection
                   title={encartDisplay.title}
@@ -192,22 +224,46 @@ const FrontCustom = () => {
 
               <div className="ButtonsGroup">
                 <ButtonCancel color="#234eb7" onClick={cancelFormDisplay} />
-                <ButtonConfirm color="#234eb7" onClick={submitForm}/>
+                <ButtonConfirm color="#234eb7" onClick={submitForm} />
               </div>
             </div>
           ) : (
             ""
           )}
-
         </Encarts>
       </div>
 
       <div>
         <Encarts title="IMAGES DU SLIDER">
-          <h6 className="blue font-weight-bold">Modifier les images :</h6>
-          <div>
-            <ButtonCancel color="#234eb7" />
-            <ButtonConfirm color="#234eb7" type="submit" value="Envoyer" />
+          <h6 className="blue font-weight-bold mb-5">Modifier les images :</h6>
+          <div className="sliderBlock m-auto sliderBlockResponsive">
+            {dataImage &&
+              dataImage.map(item => (
+                <Image
+                  src={item.image_url}
+                  alt={item.image_name}
+                  key={item.image_id}
+                  id={item.image_id}
+                  onClick={() => handleDelete(item.image_id)}
+                />
+              ))}
+          </div>
+
+          <div className="container ">
+            <UploadImageHook 
+            length = {dataImage.length}/>
+          </div>
+          <h6 className="blue font-weight-bold mb-5">Visualiser le slider :</h6>
+          <div className = "m-auto w-75">
+            <Carousel autoPlay showArrows={true}>   
+            {dataImage &&
+              dataImage.map(item => (
+                <div className= "CarouselImage" key={item.image_id}>
+                  <img src={item.image_url} alt={item.image_name}/>
+                  <p className="legend">{item.image_name}</p>
+                </div>
+              ))}
+              </Carousel>
           </div>
         </Encarts>
       </div>
@@ -215,4 +271,4 @@ const FrontCustom = () => {
   );
 };
 
-export default FrontCustom
+export default FrontCustom;

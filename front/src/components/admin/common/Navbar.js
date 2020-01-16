@@ -28,6 +28,13 @@ const Navbar = () => {
                         </NavLink>
                     </li>
 
+                    <li className="nav-item active">
+                        <NavLink to="/profile" className="nav-link">
+                        <img className='icons mr-2' src={IconUsers} alt='' />
+                            <span>Profile</span>
+                        </NavLink>
+                    </li>
+
                     <hr className="sidebar-divider" />
 
                     <div className="sidebar-heading">Boutique</div>

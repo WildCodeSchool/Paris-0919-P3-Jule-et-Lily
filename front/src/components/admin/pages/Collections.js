@@ -7,7 +7,6 @@ import {
   SearchBar,
   Tables,
   ReturnButton,
-  Form
 } from "../common/";
 
 export default function Collections(props) {
@@ -212,7 +211,7 @@ export default function Collections(props) {
   return (
     <>
       {clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <Encarts /> </>) :
-        click ? (<> <ReturnButton onClickSee={isClickedModidy} /> <Form>   </Form> </>) : (
+        click ? (<> <ReturnButton onClickSee={isClickedModidy} /> </>) : (
           <>
             <Encarts title="Liste des collections">
               <div className="tableActions border-gray">
