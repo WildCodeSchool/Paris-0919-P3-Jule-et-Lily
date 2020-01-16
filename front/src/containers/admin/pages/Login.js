@@ -24,6 +24,10 @@ function Login(props) {
     }
 
     const handleSubmit = (e) => {
+        const  inputLogin= document.getElementById(' onChangeLogin');
+        const inputPassword= document.getElementById(' onChangePassword');
+        setUser({...user,  user_login: inputLogin.value, userPassword : inputPassword.value })
+        
         fetch("/auth",
             {
                 method: 'POST',
