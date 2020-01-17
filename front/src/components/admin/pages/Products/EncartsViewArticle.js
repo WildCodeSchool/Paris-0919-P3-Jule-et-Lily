@@ -79,7 +79,7 @@ export default (props) => {
               disabled
               className="form-control text-center"
               type="text"
-              value={valueCustom != '' ? valueCustom : ''}
+              value={valueCustom !=='' ? valueCustom : ''}
             />
           </div>
 

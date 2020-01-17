@@ -8,7 +8,7 @@ export default function FormProducts(props) {
   const [productModify, setProductModify] = useState(props.donneesProducts)
   const [dataCollection, setDataCollection] = useState()
   const [dataCategories, setDataCategories] = useState()
-  const [productStockModify, setProductStockModify] = useState([]) // changement state stock pour le produit
+  const [productStockModify, setProductStockModify] = useState({}) // changement state stock pour le produit
   console.log('productStock', productStockModify);
   console.log('dataCategories', dataCategories);
 
@@ -27,7 +27,7 @@ export default function FormProducts(props) {
   // récupération des id de stocks
   const fetchStock = () => {
     axios.get(`/product/stock/${props.donneesProducts.product_id}`)
-      .then(res => setProductStockModify(res.data));
+      .then(res => setProductStockModify(...res.data));
   }
   // modification de la hooks stock en fonction des changements du form 
   const validateNewDataStock = (e) => {

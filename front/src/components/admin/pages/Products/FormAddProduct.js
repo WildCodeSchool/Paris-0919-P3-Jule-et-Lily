@@ -109,7 +109,7 @@ export default function FormProducts(props) {
                             }
                         }
                         )
-                    setTimeout(() => window.location.reload(), 2000);
+                        props.reloadAdd();
                 }
             })
 
