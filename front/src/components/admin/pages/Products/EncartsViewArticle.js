@@ -31,6 +31,10 @@ export default (props) => {
       <ReturnButton onClickSee={props.onClickSee} />
       <Encarts title="Fiche produit">
 
+        <div className="form-group text-center">
+          <img src={productModify.image_url} alt="cover" width="120" height="120" />
+        </div>
+
         <form className='form-group text-center'>
           <div className="form-group">
             <label htmlFor="designation"> Désignation</label>
@@ -62,7 +66,7 @@ export default (props) => {
 
           <div className="form-group">
             <label htmlFor="Description">Description</label>
-            <textarea rows="10" 
+            <textarea rows="10"
               disabled
               name='product_description'
               type="text"
@@ -79,7 +83,7 @@ export default (props) => {
               disabled
               className="form-control text-center"
               type="text"
-              value={valueCustom !=='' ? valueCustom : ''}
+              value={valueCustom !== '' ? valueCustom : ''}
             />
           </div>
 
