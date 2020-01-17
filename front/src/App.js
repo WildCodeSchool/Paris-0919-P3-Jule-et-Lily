@@ -20,7 +20,7 @@ export default (props) => {
           <div id="content">
             {/* Mettre la login bar ici  */}
             <LoginBar dispatch={props.dispatch}
-              children={<ReturnButton returnPage="commandes"/>}
+              
             ></LoginBar>
             <div className="container-fluid">
               {/* Mettre les routes vers les autres composants ici  */}
