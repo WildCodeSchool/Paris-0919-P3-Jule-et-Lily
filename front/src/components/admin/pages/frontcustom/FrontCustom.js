@@ -237,7 +237,7 @@ const FrontCustom = () => {
             {dataImage &&
               dataImage.map(item => (
                 <Image
-                  src={item.image_url}
+                  src={item.image_name}
                   alt={item.image_name}
                   key={item.image_id}
                   id={item.image_id}
@@ -256,8 +256,9 @@ const FrontCustom = () => {
             {dataImage &&
               dataImage.map(item => (
                 <div className= "CarouselImage" key={item.image_id}>
-                  <img src={item.image_url} alt={item.image_name}/>
+                 <img href={item.image_url} src={item.image_name} alt={item.image_name} />
                   <p className="legend">{item.image_name}</p>
+                  
                 </div>
               ))}
               </Carousel>
