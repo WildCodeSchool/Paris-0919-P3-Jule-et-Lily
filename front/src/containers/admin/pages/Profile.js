@@ -15,9 +15,10 @@ function Profile(props) {
   
 
   useEffect(() => {
-    fetch(`/profile/${props.user}`, {
+    fetch(`/profile/${props.userLog}`, {
       headers: {
-        Authorization: "Bearer " + props.token
+        Authorization: "Bearer " + props.token,
+        method: 'POST'
       }
       // body: JSON.stringify(props.user)
     })
@@ -28,11 +29,14 @@ function Profile(props) {
       })
       .catch();
       console.log(profile); 
-  }, []);
+  }, [setProfileModifying]);
+
 
   const handleSubmit = (e) => {
+    console.log(props.userEmail);
+    
     if (profileModifying.user_password === profileModifying.user_passwordBis){
-    fetch(`/profile/${props.user}`,
+    fetch(`/profile/${props.userEmail}`,
     {
         method: 'POST',
         headers: new Headers({
@@ -42,11 +46,12 @@ function Profile(props) {
     })
     .then(
         res => res.json(),
-        res=>setProfileModifying({ user_login: res.user_login, user_password: res.user_password, user_email: res.user_email, flash: res.flash, error: res.error }),
+        res => setProfileModifying({ user_login: res.user_login, user_password: res.user_password, user_email: res.user_email, flash: res.flash, error: res.error }),
         );
+    // .catch(error=>{console.log(error)})
     e.preventDefault()
     console.log(profileModifying);
-    
+    return alert('Votre profil a bien été modifié !')
     } else {
       return alert('Le mot de passe est différent !')
     }
@@ -70,7 +75,7 @@ function Profile(props) {
 }
 
 function mapStateToProps(state) {
-  return { token: state.auth.token, user: state.auth.login };
+  return { token: state.auth.token, userLog: state.auth.login, userEmail: state.auth.email };
 }
 
 export default connect(mapStateToProps)(Profile);
