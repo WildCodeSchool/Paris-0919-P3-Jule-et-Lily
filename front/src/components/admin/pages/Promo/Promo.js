@@ -7,7 +7,7 @@ import {
   Tables, 
   Pagination
 } from "../../common";
-// import EncartsViewArticle from "./EncartsViewArticle";
+import EncartsViewPromo from "./EncartsViewPromo";
 import FormPromo from './FormPromo'
 // import FormAddProduct from './FormAddProduct'
 
@@ -16,6 +16,7 @@ export default function Promo(props) {
   const [dataToShow, setDataToShow] = useState([]);
   const [click, setClick] = useState(false);
   const [clickAdd, setClickAdd] = useState(false);
+  const [clickView, setClickView] = useState(false);
   const [promoClick, setPromoClick] = useState([]);
 
 
@@ -82,6 +83,13 @@ export default function Promo(props) {
     setClick(!click);
     setPromoClick(data[index]);
   };
+
+  const isClickedSee = index => {
+    // console.log("click!");
+    setClickView(!click);
+    setPromoClick(data[index]);
+  };
+  
 
   const isClickedAddPromo = () => {
     setClickAdd(!clickAdd);
@@ -164,14 +172,13 @@ export default function Promo(props) {
       {clickAdd ? <p>Add Promo</p>
         // (<FormAddProduct onClick={isClickedAddPromo} reloadAdd={reloadAdd} />) 
         :
-        // clickView ? (
-        //   // <EncartsViewPromo
-        //   //   title="Fiche promo"
-        //   //   onClickSee={isClickedSee}
-        //   //   donneesProducts={productClick}
-        //   // />
-        //  <p>View Promo</p>
-        // ) : 
+        clickView ? (
+          <EncartsViewPromo
+            title="Fiche promo"
+            onClickSee={isClickedSee}
+            donneesProducts={promoClick}
+          />
+        ) : 
         click ? (
           <div>
             <FormPromo
