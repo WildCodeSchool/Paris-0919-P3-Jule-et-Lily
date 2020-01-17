@@ -27,10 +27,7 @@ const FrontCustom = () => {
     titleColor: ""
   });
   const [ColorPickerTitleDisplay, setColorPickerTitleDisplay] = useState(false);
-  const [
-    ColorPickerBackgroundDisplay,
-    setColorPickerBackgroundDisplay
-  ] = useState(false);
+  const [ColorPickerBackgroundDisplay, setColorPickerBackgroundDisplay] = useState(false);
   const [dataImage, setDataImage] = useState([]);
 
   ////////////////////////// Database Request HEADER COLLECTION + SLIDER IMAGE//////////////////////////
@@ -128,7 +125,7 @@ const FrontCustom = () => {
     setColorPickerBackgroundDisplay(false);
   };
   const handleChangeTitleColor = color => {
-    setEncartDisplay({ ...encartDisplay, titleColor: color.hex });
+    setEncartDisplay({ ...encartDisplay, titleColor: color.hex })
   };
   const handleChangeBackgroundColor = color => {
     setEncartDisplay({ ...encartDisplay, backgroundColor: color.hex });
@@ -184,7 +181,7 @@ const FrontCustom = () => {
                         {
                           id: encart.collection_menu_id,
                           backgroundColor:
-                            encart.collection_menu_background_color,
+                          encart.collection_menu_background_color,
                           title: encart.collection_menu_title,
                           url: encart.collection_menu_url,
                           titleColor: encart.collection_menu_title_color

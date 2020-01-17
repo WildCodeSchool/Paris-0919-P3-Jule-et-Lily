@@ -1,11 +1,10 @@
 const express = require("express")
 const connection = require('../../conf')
 const router = express.Router()
-////// AJOUT JENNY
 const multer = require("multer");
 const upload = multer({ dest: "public/" });
 const fs = require("fs");
-//////////////////
+
 
 
 
@@ -22,10 +21,12 @@ router.post("/", upload.array("file"), (req, res, next) => {
 
     let Timestamp = Math.round(new Date().getTime() / 1000)
     let FileName = file.originalname
+    let FileUrl = file.url
+    console.log(file)
+    console.log(FileName)
+    console.log(FileUrl)
     let regex1 = /\’\”/gi;
     let NewFileName = FileName.replace(regex1,"").split(" ").join("").toLowerCase()
-    console.log('name', FileName)
-    console.log('newname', NewFileName)
 
     fs.rename(file.path, `public/${Timestamp}${NewFileName}`, err => {
       if (err) {
@@ -34,7 +35,7 @@ router.post("/", upload.array("file"), (req, res, next) => {
         const objectFile = {
           image_name : `public/${Timestamp}${NewFileName}`,
           is_slider_image : 1,
-          image_url : `public/${Timestamp}${NewFileName}`,
+          image_url : `${FileUrl}`,
         }
         connection.query("INSERT INTO image SET ?", objectFile, err => {
           if (err) {

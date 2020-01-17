@@ -84,6 +84,12 @@
         align-items: flex-end   ;
         text-decoration: none;
     }
+
+    .sliderBlockResponsive {
+        display:flex;
+        flex-wrap: wrap;
+    }
+
 }
 
 
