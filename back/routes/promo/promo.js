@@ -53,6 +53,7 @@ router
   .put(function(req, res) {
     const idCodePromo = req.params.id;
     const formData = req.body;
+    console.log(formData)
     connection.query(
       "UPDATE promo SET ? WHERE promo_id=?",
       [formData, idCodePromo],

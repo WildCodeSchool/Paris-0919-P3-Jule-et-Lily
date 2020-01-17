@@ -6,9 +6,9 @@ import {
   SearchBar,
   Tables, 
   Pagination
-} from "../common";
+} from "../../common";
 // import EncartsViewArticle from "./EncartsViewArticle";
-// import FormProducts from './FormProducts'
+import FormPromo from './FormPromo'
 // import FormAddProduct from './FormAddProduct'
 
 export default function Promo(props) {
@@ -16,6 +16,7 @@ export default function Promo(props) {
   const [dataToShow, setDataToShow] = useState([]);
   const [click, setClick] = useState(false);
   const [clickAdd, setClickAdd] = useState(false);
+  const [promoClick, setPromoClick] = useState([]);
 
 
 
@@ -76,11 +77,11 @@ export default function Promo(props) {
       alert('La promo à été supprimé avec succès')
   }
 
-  // const isClickedModidy = index => {
-  //   // console.log("click!");
-  //   setClick(!click);
-  //   setProductClick(data[index]);
-  // };
+  const isClickedModidy = index => {
+    // console.log("click!");
+    setClick(!click);
+    setPromoClick(data[index]);
+  };
 
   const isClickedAddPromo = () => {
     setClickAdd(!clickAdd);
@@ -95,6 +96,7 @@ export default function Promo(props) {
     setClick(!click);
     fetchData();
   }
+
   const reloadAdd = () => {
     setClickAdd(!clickAdd)
     fetchData();
@@ -172,14 +174,11 @@ export default function Promo(props) {
         // ) : 
         click ? (
           <div>
-            {/* <FormProducts
+            <FormPromo
               onClick={isClickedModidy}
-              donneesProducts={productClick}
-              donnesStock={productClick} // add a new function for add a stock name id 
+              donneesPromo={promoClick}
               reload={reload}
-            /> */}
-
-            Modify Promo
+            />
           </div>
         ) : (
               <Encarts title="Liste des Promos">
@@ -195,7 +194,7 @@ export default function Promo(props) {
                   deleteData={deleteData}
                   page="promo"
                   // onClickSee={isClickedSee}
-                  // onClick={isClickedModidy}
+                  onClick={isClickedModidy}
                   donnees={dataToShow ? dataToShow : "loading"}
                   orderBy={orderBy}
                 />
