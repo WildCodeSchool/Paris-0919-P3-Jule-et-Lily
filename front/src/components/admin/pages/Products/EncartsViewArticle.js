@@ -31,85 +31,32 @@ export default (props) => {
       <ReturnButton onClickSee={props.onClickSee} />
       <Encarts title="Fiche produit">
 
-        <div className="form-group text-center">
-          <img src={productModify.image_url} alt="cover" width="120" height="120" />
+        <div className="media-text">
+          <h1 className="card-title text-center middlepurple "> {productModify.product_name} </h1>
+          <p className="card-text gray"> Stock: {productModify.product_stock}</p>
         </div>
 
-        <form className='form-group text-center'>
-          <div className="form-group">
-            <label htmlFor="designation"> Désignation</label>
-            <input
-              disabled
-              name='product_name'
-              type="text"
-              className="form-control text-center"
-              id="designationid"
-              placeholder={productModify.product_name}
-              value={productModify.product_name}
+        <div class="media" style={{ width: "100%" }} >
 
-            />
+          <div className="media-left">
+            <img className="m-3" src={productModify.image_url} alt="cover" style={{ width: "250px", height: "250px", }} />
           </div>
 
+          <div className="media-body ml-4 mt-2 mx-auto ">
 
-          <div className="form-group">
-            <label htmlFor="prix">Prix</label>
-            <input
-              disabled
-              type="text"
-              className="form-control text-center"
-              id="examprixid"
-              name='product_price'
-              placeholder={productModify.product_price}
-              value={productModify.product_price}
-            />
-          </div>
+            <h3 className="card-title text-center gray"> Description</h3>
 
-          <div className="form-group">
-            <label htmlFor="Description">Description</label>
-            <textarea rows="10"
-              disabled
-              name='product_description'
-              type="text"
-              className="form-control text-center"
-              id="exampleInputEmail1"
-              value={productModify.product_description}
-              placeholder={productModify.product_description}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="product_custom">Personnalisable ?</label>
-            <input
-              disabled
-              className="form-control text-center"
-              type="text"
-              value={valueCustom !== '' ? valueCustom : ''}
-            />
-          </div>
-
-          <div className="form-group ">
-            <label htmlFor="category">Catégorie</label>
-            <input disabled name='category' className="form-control text-center" value={productModify.category_name} />
+            <p className="text-center gray"> {productModify.product_description}</p>
+            <div className="text-center">
+              <h5 className="card-title text-center gray"> Prix : {productModify.product_price} €</h5>
+              <p className="gray">  Catégorie : {productModify.category_name} </p>
+              <p className="gray"> Collection : {productModify.collection_name}</p>
+              <p className="gray">  {valueCustom !== '' ? valueCustom : ''}</p>
+            </div>
 
           </div>
+        </div>
 
-          <div className="form-group ">
-            <label htmlFor="category">Collection</label>
-            <input disabled name='category' className="form-control text-center" value={productModify.collection_name} />
-
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="image">Image</label>
-            <input
-              disabled
-              type="text"
-              className="form-control text-center"
-              id="imageid"
-              placeholder={productModify.product_image_id}
-            />
-          </div>
-        </form>
       </Encarts>
 
     </>
