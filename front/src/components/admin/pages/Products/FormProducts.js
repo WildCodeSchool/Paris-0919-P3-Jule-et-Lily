@@ -93,9 +93,12 @@ export default function FormProducts(props) {
         } else {
           alert(` ${productModify.product_name} a été modifié avec succès!`)
         }
-      })
-      axios
-      .put(`/product/stock/${props.donneesProducts.product_id}`,productStockModify)
+      }).catch(e => {
+        console.error(e);
+        alert(`Erreur lors de la modification de ${productModify.product_name}`)
+      });
+    axios // modifier le stock
+      .put(`/product/stock/${props.donneesProducts.product_id}`, productStockModify)
       .then(res => {
         if (res.err) {
           alert(`Le stock n'a pas été modifié`);
