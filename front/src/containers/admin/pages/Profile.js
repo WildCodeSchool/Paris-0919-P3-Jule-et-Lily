@@ -5,7 +5,7 @@ import FormProfile from "../common/FormProfile";
 
 function Profile(props) {
   const [profile, setProfile] = useState({ user_email: '', user_login: '', user_password: '', user_passwordBis: '', flash: '', error: '' }) // Récupération des données de la Bdd
-  const [profileModifying, setProfileModifying] = useState(profile) // Récupération des données du formulaire lorsqu'elle veut modifier
+  const [profileModifying, setProfileModifying] = useState({user_email: '', user_login: '', user_password: '', user_passwordBis: '', flash: '', error: ''}) // Récupération des données du formulaire lorsqu'elle veut modifier
 
 
   const validateNewProfile = (e) => {
@@ -24,17 +24,16 @@ function Profile(props) {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res);        
-        setProfile({ user_login: res.user_login, user_password: res.user_password, user_email: res.user_email });
+        // setProfile({ user_login: res.user_login, user_password: res.user_password, user_email: res.user_email })
+        setProfileModifying({ user_email: res.user_email, user_login: res.user_login, user_password: res.user_password, user_passwordBis: res.user_passwordBis })
       })
       .catch();
-      console.log(profile); 
+      console.log(profile, profileModifying); 
   }, [setProfileModifying]);
 
 
   const handleSubmit = (e) => {
-    console.log(props.userEmail);
-    
+    console.log(props.userEmail); 
     if (profileModifying.user_password === profileModifying.user_passwordBis){
     fetch(`/profile/${props.userEmail}`,
     {
@@ -46,9 +45,9 @@ function Profile(props) {
     })
     .then(
         res => res.json(),
-        res => setProfileModifying({ user_login: res.user_login, user_password: res.user_password, user_email: res.user_email, flash: res.flash, error: res.error }),
-        );
-    // .catch(error=>{console.log(error)})
+        res => setProfileModifying({ user_login: res.user_login, user_email: res.user_email, flash: res.flash, error: res.error }),
+    )
+    props.reload()
     e.preventDefault()
     console.log(profileModifying);
     return alert('Votre profil a bien été modifié !')
@@ -60,9 +59,6 @@ function Profile(props) {
   return (
     <div className='m-5'>
       <FormProfile 
-      user_login={profile.user_login}
-      user_email={profile.user_email}
-      user_passwordBis={profile.user_passwordBis}
       userValue_login={profileModifying.user_login}
       userValue_password={profileModifying.user_password}
       userValue_email={profileModifying.user_email}
