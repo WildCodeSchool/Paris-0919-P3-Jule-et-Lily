@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import '../../../../assets/css/admin/global.css'
+import '../../../../assets/css/admin/cards.css'
+import {
+    Encarts,
+    ReturnButton,
+} from "../../common";
 
-function CollectionViewArticle() {
+function CollectionViewArticle(props) {
     return (
-        <div>
-            
-        </div>
+        <>
+            <Encarts title="Fiche produit">
+            </Encarts>
+        </>
     )
 }
 

@@ -8,12 +8,13 @@ import {
   Tables,
   ReturnButton,
 } from "../../common";
+import CollectionViewArticle from "./CollectionViewArticle";
 
 export default function Collections(props) {
   const [data, setData] = useState([]); // prendra le resultat du axios et ne doit plus changer sauf si on refait le axios
   const [dataToShow, setDataToShow] = useState([]); // resultat du axios qui peut changer et qu'on affiche dans le tableau. Permet de faire la recherche
-  const [fullData, setFullData]= useState([])
-;
+  const [fullData, setFullData]= useState([]);
+  const [collectionClick, setCollectionClick] = useState([]);
   const [pagesNb, setPagesNb] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
@@ -23,6 +24,7 @@ export default function Collections(props) {
   const [fullData2, setFullData2]= useState([])
 
 
+console.log('collectionClick', collectionClick);
 
   // pages du deuxième tableau
   const [pagesNb2, setPagesNb2] = useState(0);
@@ -38,6 +40,7 @@ export default function Collections(props) {
     console.log("click! delete");
     setclickView(!clickView);
     console.log("data", data, "index", index);
+    setCollectionClick(data[index]);
     // console.log('data[index]',data[index])
   };
 
@@ -222,7 +225,7 @@ export default function Collections(props) {
 
   return (
     <>
-      {clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <Encarts /> </>) :
+      {clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <CollectionViewArticle donneesProducts={collectionClick}/> </>) :
         click ? (<> <ReturnButton onClickSee={isClickedModidy} /> </>) : (
           <>
             <Encarts title="Liste des collections">
@@ -240,6 +243,7 @@ export default function Collections(props) {
                 deleteData={deleteData}
                 onClick={isClickedModidy}
                 onClickSee={isClickedSee}
+                donneesProducts={collectionClick}
 
               />
               <Pagination
