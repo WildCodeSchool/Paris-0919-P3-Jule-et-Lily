@@ -1,11 +1,10 @@
 const express = require("express")
 const connection = require('../../conf')
 const router = express.Router()
-////// AJOUT JENNY
 const multer = require("multer");
 const upload = multer({ dest: "public/" });
 const fs = require("fs");
-//////////////////
+
 
 
 
@@ -15,42 +14,75 @@ router.get('/', (req, res) => {
 
 
 
-///////// Route JENNY
-router.post("/", upload.array("file"), (req, res, next) => {
+///////// Route ajout image
+router.post("/image", upload.array("file"), (req, res, next) => {
+  let error =  false;
 
+  console.log("file cote back",req.files)
   req.files.map(file => {
 
     let Timestamp = Math.round(new Date().getTime() / 1000)
     let FileName = file.originalname
-    let regex1 = /\’\”/gi;
+    let regex1 = /\’\”\;\,\*\./gi;
     let NewFileName = FileName.replace(regex1,"").split(" ").join("").toLowerCase()
-    console.log('name', FileName)
-    console.log('newname', NewFileName)
 
     fs.rename(file.path, `public/${Timestamp}${NewFileName}`, err => {
       if (err) {
-        return res.send("Problem during travel").status(500);
+        error=true;
       } else {
         const objectFile = {
           image_name : `public/${Timestamp}${NewFileName}`,
           is_slider_image : 1,
           image_url : `public/${Timestamp}${NewFileName}`,
         }
-        connection.query("INSERT INTO image SET ?", objectFile, err => {
-          if (err) {
-            return res.send("Error ocurred").status(500);
-          }
+        connection.query("INSERT INTO image SET ?", objectFile, err2 => {
+          if (err2) {
+            error=true;
+          } 
         })
       }
     })
-  })
+  }) 
+  if (error) {
+    res.send("Problem when uploading files").status(500);
+  } else
   return res.send("Files uploaded sucessfully").status(200);
 });
 
 
+///////// Route ajout url
+router.put("/url", (req, res) => {
+  let error =  false;
+  console.log("url cote back", req.body)
+ const size = req.body.length
+  req.body.map((item,i) => {
+    const formdata = {
+     image_url: item
+    }
+    connection.query(`SELECT image_id FROM image ORDER by image_id DESC LIMIT 1 OFFSET ${(size-1)-i}`, (err, result) => {
+      let dataId = result[0].image_id
+      console.log("image_id",dataId)
+      if (err) {
+        error=true;
+      } else {
+        connection.query(`UPDATE image SET ?  WHERE image_id = ${dataId}`, formdata, err2 => {
+        if (err2) {
+        error=true;
+      } 
+    })
+  }
+}) 
+})
+if (error) {
+  res.send("Problem when updating url").status(500);
+} else
+return res.send("url uploaded sucessfully").status(200);
+})
 
-router
-  .route(["/all", "/", "/:id"])
+
+
+
+router.route(["/all", "/", "/:id"])
   //////// AFFICHER TOUTES LES IMAGES
   .get(function(req, res, next) {
     //http://localhost:3000/image-slider/all
