@@ -104,7 +104,7 @@ const Tables = props => {
                   <strong>Action </strong>
                 </th>
               </tr>
-            ) : props.page === "clients" ? (
+            ) : props.page === "users" ? (
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="user_lastname" onClick={handleSort}> Nom</th>
                 <th className="th-order pink bg-lightpink asc" id="user_firstname" onClick={handleSort}> Prénom </th>

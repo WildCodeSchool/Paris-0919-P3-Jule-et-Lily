@@ -1,6 +1,6 @@
 import React from "react";
 import { LoginBar, Navbar, ReturnButton } from "./components/admin/common/";
-import {Dashboard, Orders, Products, Clients, Promo} from "./components/admin/pages/";
+import {Dashboard, Orders, Products, Users, Promo} from "./components/admin/pages/";
 import Collections from "./components/admin/pages/collections/Collections";
 import FrontCustom from "./components/admin/pages/frontcustom/FrontCustom";
 import Profile from './containers/admin/pages/Profile'
@@ -27,9 +27,9 @@ export default (props) => {
               {/* Mettre les routes vers les autres composants ici  */}
               <Switch >
                 <Route exact path ="/" component={Dashboard} />
-                <Route  path="/profile" component={Profile} />
+                <Route  path="/profil" component={Profile} />
                 <Route  path="/orders" component={Orders} />
-                <Route  path="/clients" component={Clients} />
+                <Route  path="/users" component={Users} />
                 <Route  path="/products" component={Products} />
                 <Route  path="/collections" component={Collections} />
                 <Route  path="/promo" component={Promo} />
