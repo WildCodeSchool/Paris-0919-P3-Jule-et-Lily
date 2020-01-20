@@ -7,7 +7,7 @@ import {
   SearchBar,
   Tables,
   ReturnButton,
-} from "../common/";
+} from "../../common";
 
 export default function Collections(props) {
   const [data, setData] = useState([]); // prendra le resultat du axios et ne doit plus changer sauf si on refait le axios
