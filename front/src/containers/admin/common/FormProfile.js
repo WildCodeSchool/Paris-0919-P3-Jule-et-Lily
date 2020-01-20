@@ -39,8 +39,8 @@ function FormProfile(props) {
             type="password"
             className="form-control text-center"
             id="exampleInputPassword1"
-            placeholder='*******'
-            value={ props.userValue_password }
+            placeholder=''
+            // value={''}
           />
         </div>
         <div className="form-group">

@@ -4,11 +4,11 @@ const router = express.Router();
 const connection = require('../../conf')
 
 
-router.route("/:login")
+router.route("/:id")
   .get((req, res) => {
     connection.query(
-      "SELECT user_login, user_password, user_email FROM user WHERE user_login = ?",
-      [req.params.login],
+      "SELECT user_login, user_password, user_email FROM user WHERE user_id = ?",
+      [req.params.id],
       (err, result) => {
         if (err) {
           res.json({ flash: err.message, error: true }).status(500);
@@ -20,20 +20,34 @@ router.route("/:login")
     );
   })
 // Modif du profil 
-router.route('/:email')
+router.route('/:id')
   .post(function (req, res) {
-    const requestProfile = req.params.email;
+    const requestProfile = req.params.id;
     console.log('pass',req.body.user_password)
-    let hash = bcrypt.hashSync(req.body.user_password, 10);
+
     const formData = {user_email : req.body.user_email, user_login: req.body.user_login}
-    connection.query('UPDATE user SET ?, user_password= ? WHERE user.user_email=? ', [formData, hash, requestProfile, hash], (err) => {
-      if (err) {
-        console.log(err)
-        res.status(500).send('erreur lors de la modification')
-      } else {
-        res.status(200).json({ flash: "Les données sont modifiées", error: false })
-      }
-    })
+    if (req.body.user_password) {
+      let hash = bcrypt.hashSync(req.body.user_password, 10);
+      connection.query('UPDATE user SET ?, user_password= ? WHERE user.user_id=? ', [formData, hash, requestProfile, hash], (err) => {
+        if (err) {
+          console.log(err)
+          res.status(500).send('erreur lors de la modification')
+        } else {
+          res.status(200).json({ flash: "Les données sont modifiées", error: false })
+        }
+      })
+    }
+    else {
+      connection.query('UPDATE user SET ? WHERE user.user_id=? ', [formData, requestProfile], (err) => {
+        if (err) {
+          console.log(err)
+          res.status(500).send('erreur lors de la modification')
+        } else {
+          res.status(200).json({ flash: "Les données sont modifiées", error: false })
+        }
+      })
+    }
+    
   })
 
 module.exports = router;
