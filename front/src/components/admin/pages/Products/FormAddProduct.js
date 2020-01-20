@@ -109,7 +109,7 @@ export default function FormProducts(props) {
                             }
                         }
                         )
-                        props.reloadAdd();
+                    props.reloadAdd();
                 }
             })
 
@@ -198,9 +198,9 @@ export default function FormProducts(props) {
                         />
                     </div>
 
-                    <div className="form-group ">
+                    <div className="form-group text-center ">
                         <label htmlFor="collection_name">Catégorie</label>
-                        <select className="custom-select  text-center" name='category_name' id="inputGroupSelect01" onChange={validateNewDataCategory}>
+                        <select className="custom-select text-center" name='category_name' id="inputGroupSelect01" onChange={validateNewDataCategory}>
                             <option selected> Selectionner une Catégorie</option>
                             {dataCategories &&
                                 dataCategories.map((data) => {
