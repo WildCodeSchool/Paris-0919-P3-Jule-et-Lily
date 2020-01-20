@@ -99,6 +99,9 @@ export default function Products(props) {
     setClick(!click);
     fetchData();
   }
+  const reloadAdd = () => {
+    setClickAdd(!clickAdd)
+  }
  
   // fonction pour ordonnée le tableau
   const orderBy = (type, order) => {
@@ -160,14 +163,13 @@ export default function Products(props) {
   return (
     <div className="products">
       {clickAdd ?
-        (<FormAddProduct onClick={isClickedAddProduct} />) :
+        (<FormAddProduct onClick={isClickedAddProduct} reloadAdd={reloadAdd} />) :
 
         clickView ? (
           <EncartsViewArticle
             title=" Fiche produit"
             onClickSee={isClickedSee}
             donneesProducts={productClick}
-            reload={reload}
           />
         ) : click ? (
           <div>
@@ -175,6 +177,7 @@ export default function Products(props) {
               onClick={isClickedModidy}
               donneesProducts={productClick}
               donnesStock={productClick} // add a new function for add a stock name id 
+              reload={reload}
             />
           </div>
         ) : (

@@ -62,7 +62,7 @@ export default (props) => {
 
           <div className="form-group">
             <label htmlFor="Description">Description</label>
-            <textarea
+            <textarea rows="10" 
               disabled
               name='product_description'
               type="text"
@@ -79,7 +79,7 @@ export default (props) => {
               disabled
               className="form-control text-center"
               type="text"
-              value={valueCustom != '' ? valueCustom : ''}
+              value={valueCustom !=='' ? valueCustom : ''}
             />
           </div>
 

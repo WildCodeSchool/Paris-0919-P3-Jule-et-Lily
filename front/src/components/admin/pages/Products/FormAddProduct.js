@@ -109,7 +109,7 @@ export default function FormProducts(props) {
                             }
                         }
                         )
-                    setTimeout(() => window.location.reload(), 2000);
+                        props.reloadAdd();
                 }
             })
 
@@ -147,6 +147,7 @@ export default function FormProducts(props) {
                             name='product_price'
                             onChange={validateNewData}
                             type="number"
+                            step="0.01"
                             className="form-control text-center"
                             placeholder="Ajouter un prix"
                             id="examprixid"
