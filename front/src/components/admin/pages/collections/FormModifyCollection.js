@@ -7,7 +7,7 @@ export default function FormProducts(props) {
 
 
 
-  const [CollectionModify, setProductModify] = useState(props.donneesProducts)
+  const [CollectionModify, setProductModify] = useState(props.donneesCollection)
 
 
   // modification de la hooks stock en fonction des changements du form 
@@ -23,12 +23,12 @@ export default function FormProducts(props) {
     delete newValueCollection.image_url
     delete newValueCollection.nb_items
     axios     // envoi ds la bdd
-      .put(`collection/${props.donneesProducts.collection_id}`, newValueCollection)
+      .put(`collection/${props.donneesCollection.collection_id}`, newValueCollection)
       .then(res => {
         if (res.err) {
           alert(res.err);
         } else {
-          alert(`${CollectionModify.collection_name} a été ajouté avec succès!`);
+          alert(`${CollectionModify.collection_name} a été modifié avec succès!`);
           props.reload();
         }
       })
@@ -49,7 +49,7 @@ export default function FormProducts(props) {
               type="text"
               className="form-control text-center"
               id="collection_name"
-              placeholder={props.donneesProducts.collection_name}
+              placeholder={props.donneesCollection.collection_name}
               value={CollectionModify.collection_name}
 
             />
@@ -59,7 +59,7 @@ export default function FormProducts(props) {
             <label htmlFor="image_url"> Images de la collection</label>
 
             <div className="media-left">
-              <img className="m-1" src={props.donneesProducts.image_url} alt="cover" style={{ width: "80px", height: "80px", }} />
+              <img className="m-1" src={props.donneesCollection.image_url} alt="cover" style={{ width: "80px", height: "80px", }} />
             </div>
 
             <input
@@ -68,7 +68,7 @@ export default function FormProducts(props) {
               type="text"
               className="form-control text-center"
               id="image_url"
-              placeholder={props.donneesProducts.image_url}
+              placeholder={props.donneesCollection.image_url}
             />
           </div>
 
@@ -76,7 +76,7 @@ export default function FormProducts(props) {
             <label htmlFor="designation"> Image de couverture</label>
 
             <div className="media-left">
-              <img className="m-1" src={props.donneesProducts.collection_cover_image_url} alt="cover" style={{ width: "80px", height: "80px", }} />
+              <img className="m-1" src={props.donneesCollection.collection_cover_image_url} alt="cover" style={{ width: "80px", height: "80px", }} />
             </div>
 
             <input
@@ -85,11 +85,11 @@ export default function FormProducts(props) {
               type="text"
               className="form-control text-center"
               id="designationid"
-              placeholder={props.donneesProducts.collection_cover_image_url}
+              placeholder={props.donneesCollection.collection_cover_image_url}
             />
           </div>
 
-          <p className="card-text gray mt-2"> Nombre d'articles associés à " {props.donneesProducts.collection_name} "  : {props.donneesProducts.nb_items}</p>
+          <p className="card-text gray mt-2"> Nombre d'articles associés à " {props.donneesCollection.collection_name} "  : {props.donneesCollection.nb_items}</p>
           <div className='text-left'>
             <ButtonCancel onClick={props.onClickSee} color='#234eb7' />
             <ButtonConfirm onClick={handleSubmitCollection} color='#234eb7' />

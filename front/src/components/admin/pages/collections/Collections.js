@@ -11,7 +11,10 @@ import {
 } from "../../common";
 import CollectionViewArticle from "./CollectionViewArticle";
 import FormModifyCollection from './FormModifyCollection';
-import FormAddCollection from './FormAddCollection'
+import FormAddCollection from './FormAddCollection';
+import FormModifyCategory from './FormModifyCategory';
+import FormAddCategory from './FormAddCategory';
+import CategoryViewArticle from './CategoryViewArticle'
 
 export default function Collections(props) {
   const [data, setData] = useState([]); // prendra le resultat du axios et ne doit plus changer sauf si on refait le axios
@@ -36,6 +39,10 @@ export default function Collections(props) {
   const [click, setClick] = useState(false);
   const [clickView, setclickView] = useState(false);
   const [clickAdd, setClickAdd] = useState(false);
+  const [clickAddCat, setclickAddCat] = useState(false);
+  const [clickedViewCategory, setClickedViewCategory] = useState(false);
+  const [clickedCategory, setClickedCategory] = useState(false);
+
 
   const isClickedModidy = index => {
     console.log("click!");
@@ -47,9 +54,21 @@ export default function Collections(props) {
     setCollectionClick(data[index]);
   };
 
-  const isClickedAddProduct = () => {
+  const isClickedAddCollection = () => {
     setClickAdd(!clickAdd);
   }
+  const isClickedAddCategory = () => {
+    setclickAddCat(!clickAddCat);
+  }
+  const isClickedSeeCategory = index => {
+    // console.log("click!");
+    setClickedViewCategory(!clickedViewCategory);
+    setCollectionClick(data[index]);
+  };
+  const isClickedCategory = () => {
+    setClickedCategory(!clickedCategory);
+    fetchData();
+  };
 
   const deleteData = (page, id) => {
     let path = "";
@@ -238,16 +257,16 @@ export default function Collections(props) {
   return (
     <>
 
-      {clickAdd ? (<FormAddCollection onClick={isClickedAddProduct} reloadAdd={reloadAdd} />) :
+      {clickAdd ? (<FormAddCollection onClick={isClickedAddCollection} reloadAdd={reloadAdd} />) :
 
-        clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <CollectionViewArticle donneesProducts={collectionClick} /> </>) :
-          click ? (<> <ReturnButton onClickSee={isClickedModidy} />  <FormModifyCollection onClickSee={isClickedModidy} donneesProducts={collectionClick} reload={reload}> </FormModifyCollection> </>) : (
+        clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <CollectionViewArticle donneesCollection={collectionClick} /> </>) :
+          click ? (<> <ReturnButton onClickSee={isClickedModidy} />  <FormModifyCollection onClickSee={isClickedModidy} donneesCollection={collectionClick} reload={reload}> </FormModifyCollection> </>) : (
             <>
               <Encarts title="Liste des collections">
                 <div className="tableActions border-gray">
                   <SearchBar table="collections" search={search} />
                   <div className="addDiv">
-                    Ajouter <ButtonAdd onClick={isClickedAddProduct} />
+                    Ajouter <ButtonAdd onClick={isClickedAddCollection} />
                   </div>
                 </div>
 
@@ -258,7 +277,7 @@ export default function Collections(props) {
                   deleteData={deleteData}
                   onClick={isClickedModidy}
                   onClickSee={isClickedSee}
-                  donneesProducts={collectionClick}
+                  donneesCollection={collectionClick}
 
                 />
                 <Pagination
@@ -270,30 +289,50 @@ export default function Collections(props) {
                   table="collections"
                 />
               </Encarts>
+            </>)}
+      {/* categories penser à la donnée que l'on envoie à la place de donnesproduct */}
 
-              <Encarts title="Liste des catégories">
-                <div className="tableActions border-gray">
-                  <SearchBar table="categories" search={search} />
-                  <div className="addDiv">
-                    Ajouter <ButtonAdd />
+
+      {clickAddCat ? (
+        <FormAddCategory onClick={isClickedAddCategory} />) :
+        clickedViewCategory ? (
+          <> <ReturnButton onClickSee={isClickedSeeCategory} /> <CategoryViewArticle /> </>
+        ) :
+          clickedCategory ? (
+            <> <ReturnButton onClickSee={isClickedCategory} /> <FormModifyCategory onClickSee={isClickedCategory} /> </>
+          ) : (
+              <>
+                <Encarts title="Liste des catégories">
+                  <div className="tableActions border-gray">
+                    <SearchBar table="categories" search={search} />
+                    <div className="addDiv">
+                      Ajouter <ButtonAdd onClick={isClickedAddCategory} />
+                    </div>
                   </div>
-                </div>
 
-                <Tables
-                  page="categories"
-                  orderBy={orderBy}
-                  donnees={dataToShow2 ? dataToShow2 : "loading"}
-                  deleteData={deleteData}
-                />
-                <Pagination
-                  nbPages={pagesNb2}
-                  activePage={activePage2}
-                  changePagePlus={changePagePlus}
-                  changePageMoins={changePageMoins}
-                  setActivePage={setActivePage2}
-                  table="categories"
-                />
-              </Encarts> </>)}
+                  <Tables
+                    page="categories"
+                    orderBy={orderBy}
+                    donnees={dataToShow2 ? dataToShow2 : "loading"}
+                    deleteData={deleteData}
+                    onClick={isClickedCategory}
+                    onClickSee={isClickedSeeCategory}
+                    donneesProducts={collectionClick}
+                  />
+                  <Pagination
+                    nbPages={pagesNb2}
+                    activePage={activePage2}
+                    changePagePlus={changePagePlus}
+                    changePageMoins={changePageMoins}
+                    setActivePage={setActivePage2}
+                    table="categories"
+                  />
+                </Encarts>
+              </>)}
+
     </>
-  );
+  )
 }
+
+
+

@@ -8,7 +8,7 @@ import {
 
 function CollectionViewArticle(props) {
 
-    const CollectionModify = props.donneesProducts
+    const CollectionModify = props.donneesCollection
     return (
         <>
             <Encarts title="Fiche Collection">
