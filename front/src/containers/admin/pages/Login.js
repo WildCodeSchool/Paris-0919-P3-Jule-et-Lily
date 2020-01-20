@@ -11,19 +11,25 @@ function Login(props) {
     
     useEffect(() => {
         if(props.authenticated === true) {
-            props.history.replace('/Dashboard');
+            props.history.replace('/');
           }
       }, []);
 
-    const updateLoginField = (e) => {
-        setUser({...user, user_login: e.target.value })
+    // const updateLoginField = (e) => {
+    //     setUser({...user, user_login: e.target.value })
+    // }
+
+    // const updatePasswordField = (e) => {
+    //     setUser({...user, user_password: e.target.value })
+    // }
+
+    const updateForm = (e) => {
+        const  inputLogin= document.getElementById('exampleInputEmail1');
+        const inputPassword= document.getElementById('exampleInputPassword1');
+        setUser({...user, user_login: inputLogin.value, user_password: inputPassword.value})
     }
 
-    const updatePasswordField = (e) => {
-        setUser({...user, user_password: e.target.value })
-    }
-
-    const handleSubmit = (e) => {
+    const handleSubmit = (e) => {       
         fetch("/auth",
             {
                 method: 'POST',
@@ -56,8 +62,9 @@ function Login(props) {
             {user.flash ? (alert(user.flash), setUser({...user, flash: null})) : ''}
             <div>
                 <FormLogin 
-                    onChangeLogin={ updateLoginField }
-                    onChangePassword={ updatePasswordField }
+                    // onChangeLogin={ updateLoginField }
+                    // onChangePassword={ updatePasswordField }
+                    updateForm= { updateForm }
                     onClick={ handleSubmit } />
             </div>
         </div>

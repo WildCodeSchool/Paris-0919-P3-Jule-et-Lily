@@ -22,7 +22,10 @@ export default function Products(props) {
   //state pour le nombre de pages du tableau
   const [pagesNb, setPagesNb] = useState(0); //le nombre de pages
   const [activePage, setActivePage] = useState(1); // le numéro de la page active
-
+  
+  const picturesProducts = () => {
+    axios.get(``)
+  }
   const fetchData = () => {
     axios
       .get("/product/all") //liste les commandes
@@ -101,6 +104,7 @@ export default function Products(props) {
   }
   const reloadAdd = () => {
     setClickAdd(!clickAdd)
+    fetchData();
   }
  
   // fonction pour ordonnée le tableau
@@ -195,6 +199,7 @@ export default function Products(props) {
                   onClick={isClickedModidy}
                   donnees={dataToShow ? dataToShow : "loading"}
                   orderBy={orderBy}
+                  pictures={picturesProducts}
                 />
 
                 <Pagination

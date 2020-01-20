@@ -60,6 +60,7 @@ const Tables = props => {
             ) : props.page === "products" ? (
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="product_name" onClick={handleSort}> Désignation</th>
+                <th className="th-order pink bg-lightpink asc" id="product_image_id" onClick={handleSort}> Image de produit </th>
                 <th className="th-order pink bg-lightpink desc" id="product_price" onClick={handleSort}> Prix </th>
                 <th className="pink bg-lightpink asc" id="product_description" onClick={handleSort}> Description </th>
                 <th className="pink bg-lightpink asc" id="collection_name" onClick={handleSort}> Collection </th>
@@ -90,7 +91,7 @@ const Tables = props => {
             ) : props.page === "promo" ? (
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="promo_name" onClick={handleSort}> Nom de la promo </th>
-                <th className="th-order pink bg-lightpink desc" id="promo_id" onClick={handleSort}> Réduction </th>
+                <th className="th-order pink bg-lightpink desc" id="promo_value" onClick={handleSort}> Réduction </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
                 </th>
@@ -180,6 +181,10 @@ const Tables = props => {
                         </td>
                         <td>
                           {" "}
+                          <p><img src={data.image_url} alt="cover" width="80" height="80" /><br />{data.image_url}</p>
+                        </td>
+                        <td>
+                          {" "}
                           <p>{data.product_price}</p>
                         </td>
                         <td>
@@ -192,7 +197,7 @@ const Tables = props => {
                           <p>{data.category_name}</p>
                         </td>
                         <td>
-                          <p>{data.product_stock}</p>
+                          <p className={data.product_stock <= data.product_stock_min ? "badge badge-pill bg-pink lightpink" : null} >{data.product_stock}</p>
                         </td>
                         <td className='actionButtons'>
                           <ButtonModify index={i} onClick={props.onClick} />
@@ -304,7 +309,7 @@ const Tables = props => {
                   default:
                     break;
                 }
-              return null
+                return null
               })}
           </tbody>
         </table>
