@@ -33,14 +33,15 @@
 }
 
 #dataTable td p {
- max-height:50px;
- overflow:auto;
+  max-height: 50px;
+  overflow: auto;
 }
 
-.table .actionButtons, .table .actionButtons div{
+.table .actionButtons,
+.table .actionButtons div {
   padding: 2px;
 }
 
-.table .actionButtons i  {
-  margin:0;
+.table .actionButtons i {
+  margin: 0;
 }
