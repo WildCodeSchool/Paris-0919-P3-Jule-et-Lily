@@ -48,9 +48,15 @@ router.route([`${codePromoRoute}:id`, codePromoRoute])
   // modifier un code promotionnel 
   .put(function (req, res) {
     const idCodePromo = req.params.id;
-    const formData = req.body;
-    connection.query('UPDATE code_promo SET ? WHERE code_promo_id=?', [formData, idCodePromo], err => {
+    const formData = {code_promo_value : req.body.code_promo_value, code_promo_id : req.body.code_promo_id, code_promo_name : req.body.code_promo_name }
+    let date_start = new Date (req.body.code_promo_date_start)
+    date_start = `${date_start.getUTCFullYear()}/${date_start.getUTCMonth()+1}/${date_start.getDate()}`
+    let date_end = new Date (req.body.code_promo_date_end)
+    date_end = `${date_end.getUTCFullYear()}/${date_end.getUTCMonth()+1}/${date_end.getDate()}`
+    console.log('date_start',date_start)
+    connection.query('UPDATE code_promo SET ?, code_promo_date_start= ?, code_promo_date_end = ? WHERE code_promo_id=?', [formData, date_start, date_end, idCodePromo], err => {
       if (err) {
+        console.log(err)
         res.status(500).send("Erreur lors de la modification du code promo");
       } else {
         res.sendStatus(200);
