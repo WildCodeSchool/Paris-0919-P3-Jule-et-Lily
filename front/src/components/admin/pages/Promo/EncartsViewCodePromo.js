@@ -18,6 +18,26 @@ const end_date = new Date(promoModify.code_promo_date_end);
       <Encarts title="Fiche code-promo">
 
 
+      <div className="media-text">
+          <h1 className="card-title text-center middlepurple "> {promoModify.code_promo_name}</h1>
+        </div>
+
+        <div class="media" style={{ width: "100%" }} >
+
+          <div className="media-body ml-4 mt-2 mx-auto ">
+
+            <h3 className="card-title text-center gray">Valeur : {promoModify.code_promo_value} %</h3>
+
+            <h3 className="card-title text-center gray">Date de début : {start_date.toLocaleDateString()} </h3>
+
+            <h3 className="card-title text-center gray">Date de fin : {end_date.toLocaleDateString()} </h3>
+
+
+          </div>
+        </div>
+
+
+{/* 
       <form className='form-group text-center '>
           <div className="form-group">
             <label htmlFor="promo_name">Désignation</label>
@@ -73,7 +93,7 @@ const end_date = new Date(promoModify.code_promo_date_end);
               value={end_date.toLocaleDateString()}
             />
           </div>
-          </form>
+          </form> */}
       </Encarts>
     </>
   );

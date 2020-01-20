@@ -15,8 +15,25 @@ const promoModify = props.donneesPromo
       <ReturnButton onClickSee={props.onClickSee} />
       <Encarts title="Fiche promo">
 
+      <div className="media-text">
+          <h1 className="card-title text-center middlepurple "> {promoModify.promo_name}</h1>
+        </div>
 
-      <form className='form-group text-center '>
+        <div class="media" style={{ width: "100%" }} >
+
+          {/* <div className="media-left">
+            <img className="m-3" src={promoModify.promo_sticker_id} alt="sticker-promo" style={{ width: "250px", height: "250px", }} />
+          </div> */}
+
+          <div className="media-body ml-4 mt-2 mx-auto ">
+
+            <h3 className="card-title text-center gray">Valeur : {promoModify.promo_value} %</h3>
+
+          </div>
+        </div>
+
+
+      {/* <form className='form-group text-center '>
           <div className="form-group">
             <label htmlFor="promo_name">Désignation</label>
             <input
@@ -59,7 +76,7 @@ const promoModify = props.donneesPromo
               value={promoModify.ppromo_sticker_id}
             />
           </div>
-          </form>
+          </form> */}
       </Encarts>
     </>
   );
