@@ -91,7 +91,7 @@ const Tables = props => {
             ) : props.page === "promo" ? (
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="promo_name" onClick={handleSort}> Nom de la promo </th>
-                <th className="th-order pink bg-lightpink desc" id="promo_id" onClick={handleSort}> Réduction </th>
+                <th className="th-order pink bg-lightpink desc" id="promo_value" onClick={handleSort}> Réduction </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
                 </th>

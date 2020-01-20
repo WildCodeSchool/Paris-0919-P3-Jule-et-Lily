@@ -15,11 +15,11 @@ router.post('/', function(req, res) {
       if(err) return res.status(500).json({flash: 'Erreur de connexion'})
       if (!user) return res.status(400).json({flash: 'Login ou mot de passe incorrect'})
       else {
-        console.log(info.info+ ' ' +user[0].user_login)
+        // console.log(info.info+ ' ' +user[0].user_login)
         hashCompare = bcrypt.compareSync(info.info, user[0].user_password)
-        console.log(hashCompare)
-        if(hashCompare === false) return res.status(400).json({flash: 'Login ou mot de passe incorrect', error: true})
-        else return res.json({user, token, flash: 'Vous êtes connecté !', error: false})
+        // console.log(hashCompare)
+        if(hashCompare === false) return res.status(400).json({flash: 'Login ou mot de passe incorrectes', error: true})
+        else return res.json({user, token, flash: 'Vous êtes connectés !', error: false})
       }
    })(req, res)
   });

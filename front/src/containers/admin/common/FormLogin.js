@@ -3,11 +3,11 @@ import React from "react";
 export default function FormLogin(props) {
   return (
     <div>
-      <form>
+      <form onChange={props.updateForm}>
         <div className="form-group">
           <label for="exampleInputEmail1">Login</label>
           <input
-            type="login"
+            type="text"
             class="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
@@ -26,7 +26,6 @@ export default function FormLogin(props) {
             id="exampleInputPassword1"
             placeholder="Mot de passe"
             onChange={ props.onChangePassword }
-
           />
         </div>
         <button type="submit" className="btn btn-primary" onClick={ props.onClick }>
