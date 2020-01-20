@@ -60,6 +60,7 @@ const Tables = props => {
             ) : props.page === "products" ? (
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="product_name" onClick={handleSort}> Désignation</th>
+                <th className="th-order pink bg-lightpink asc" id="product_image_id" onClick={handleSort}> Image de produit </th>
                 <th className="th-order pink bg-lightpink desc" id="product_price" onClick={handleSort}> Prix </th>
                 <th className="pink bg-lightpink asc" id="product_description" onClick={handleSort}> Description </th>
                 <th className="pink bg-lightpink asc" id="collection_name" onClick={handleSort}> Collection </th>
@@ -177,6 +178,10 @@ const Tables = props => {
                         <td>
                           {" "}
                           <p>{data.product_name}</p>
+                        </td>
+                        <td>
+                          {" "}
+                          <p><img src={data.image_url} alt="cover" width="80" height="80" /><br />{data.image_url}</p>
                         </td>
                         <td>
                           {" "}
@@ -304,7 +309,7 @@ const Tables = props => {
                   default:
                     break;
                 }
-              return null
+                return null
               })}
           </tbody>
         </table>

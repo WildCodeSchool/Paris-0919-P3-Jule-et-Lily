@@ -4,54 +4,58 @@ import { connect } from 'react-redux'
 function FormProfile(props) {
   return (
     <div>
-      <form>
+      <form onSubmit={props.onSubmit}>
         <div className="form-group">
           <label for="exampleInputEmail1">Login</label>
           <input
+            name='user_login'
+            onChange={ props.onChange }
             type="login"
-            class="form-control"
+            className="form-control text-center"
             id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Email"
-            value={ props.user_login }
-            // onChange={ props.onChangeLogin }
+            // aria-describedby="emailHelp"
+            placeholder={props.userValue_login}
+            value={ props.userValue_login }
           />
         </div>
         <div className="form-group">
           <label for="exampleInputEmail1">Email</label>
           <input
+            name='user_email'
+            onChange={ props.onChange }
             type="email"
-            class="form-control"
+            className="form-control text-center"
             id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Login"
-            value={ props.user_email }
-            // onChange={ props.onChangeLogin }
+            // aria-describedby="emailHelp"
+            placeholder={props.userValue_email}
+            value={ props.userValue_email }
           />
         </div>
         <div className="form-group">
           <label for="exampleInputPassword1">Mot de passe</label>
           <input
+            name='user_password'
+            onChange={ props.onChange }
             type="password"
-            className="form-control"
+            className="form-control text-center"
             id="exampleInputPassword1"
-            placeholder="Mot de passe"
-            value={ props.user_password }
-            // onChange={ props.onChangePassword }
+            placeholder=''
+            // value={''}
           />
         </div>
         <div className="form-group">
           <label for="exampleInputPassword1">Confirmation mot de passe</label>
-          <input
+          <input            
+            name='user_passwordBis'
+            onChange={ props.onChange }
             type="password"
-            className="form-control"
+            className="form-control text-center"
             id="exampleInputPassword1"
-            placeholder="Mot de passe"
-            // onChange={ props.onChangePassword }
+            placeholder={props.userValue_passwordBis}
+            value={ props.userValue_passwordBis }
           />
         </div>
-        <button type="submit" className="btn btn-primary" //onClick={ props.onClick }
-        >
+        <button type="submit" className="btn btn-primary">
          Modifier
         </button>
       </form>
