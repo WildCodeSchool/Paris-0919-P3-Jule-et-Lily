@@ -84,6 +84,7 @@ export default function FormProducts(props) {
     delete productPut.product_stock
     delete productPut.category_name
     delete productPut.collection_name
+    delete productPut.image_url
     console.log('productput', productPut);
     axios     // récupération des données produit et envoi ds la bdd
       .put(`product/${productModify.product_id}`, productPut)
