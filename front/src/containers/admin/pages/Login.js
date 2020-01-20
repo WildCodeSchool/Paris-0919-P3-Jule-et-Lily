@@ -11,7 +11,7 @@ function Login(props) {
     
     useEffect(() => {
         if(props.authenticated === true) {
-            props.history.replace('/Dashboard');
+            props.history.replace('/');
           }
       }, []);
 
