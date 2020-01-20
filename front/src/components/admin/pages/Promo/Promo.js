@@ -98,32 +98,32 @@ export default function Promo(props) {
             setDataToShow2(dataToShow2 => [...dataToShow2, res.data[i]]);
           }
           //si plus de 10 résultats
-        } else if (activePage === 1) {
+        } else if (activePage2 === 1) {
           // si on est sur la première page
           setPagesNb2(parseInt(res.data.length / 10 + 1)); // on défini le nombre de pages en fonction du nombre de données
           setData2([]);
           setDataToShow2([]);
           for (let i = 0; i < 10; i++) {
-            setData(data2 => [...data2, res.data[i]]);
+            setData2(data2 => [...data2, res.data[i]]);
             setDataToShow2(dataToShow2 => [...dataToShow2, res.data[i]]);
           }
-        } else if (activePage === pagesNb) {
+        } else if (activePage2 === pagesNb2) {
           // si on est sur la dernière page
           setPagesNb2(parseInt(res.data.length / 10 + 1)); // on défini le nombre de pages en fonction du nombre de données
           setData2([]);
           setDataToShow2([]);
-          for (let i = activePage * 10 - 10; i < res.data.length; i++) {
+          for (let i = activePage2 * 10 - 10; i < res.data.length; i++) {
             setData2(data2 => [...data2, res.data[i]]);
-            setDataToShow2(dataToShow2 => [...dataToShow, res.data[i]]);
+            setDataToShow2(dataToShow2 => [...dataToShow2, res.data[i]]);
           }
         } else {
           // si on est sur une autre page
           setPagesNb2(parseInt(res.data.length / 10 + 1)); // on défini le nombre de pages en fonction du nombre de données
           setData2([]);
           setDataToShow2([]);
-          for (let i = activePage * 10 - 10; i < activePage * 10; i++) {
+          for (let i = activePage2 * 10 - 10; i < activePage2 * 10; i++) {
             setData2(data2 => [...data2, res.data[i]]);
-            setDataToShow2(dataToShow2 => [...dataToShow, res.data[i]]);
+            setDataToShow2(dataToShow2 => [...dataToShow2, res.data[i]]);
           }
         }
       });
@@ -261,13 +261,22 @@ export default function Promo(props) {
   console.log("datapromo", data);
   // console.log("proctclick", productClick);
   // fonction pour aller une page en avant
-  const changePagePlus = () => {
-    setActivePage(activePage + 1); //on ajoute 1 à la page active
+  const changePagePlus =  table => {
+      table === "promo" ?
+      setActivePage(activePage + 1) 
+      :
+      setActivePage2(activePage2 + 1) 
+       //on ajoute 1 à la page active
   };
 
   // fonction pour aller une page en arière
-  const changePageMoins = () => {
-    setActivePage(activePage - 1); //on retire 1 à la page active
+  const changePageMoins = table => {
+    table === "promo" ?
+    setActivePage(activePage - 1)
+    :
+    setActivePage2(activePage2 - 1) 
+    
+    //on retire 1 à la page active
   };
 
   return (
@@ -360,7 +369,7 @@ export default function Promo(props) {
               activePage={activePage2}
               changePagePlus={changePagePlus}
               changePageMoins={changePageMoins}
-              setActivePage={setActivePage}
+              setActivePage={setActivePage2}
               table="code-promo"
             />
           </Encarts>
