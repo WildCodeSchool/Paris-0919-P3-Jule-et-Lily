@@ -7,8 +7,10 @@ import {
   SearchBar,
   Tables,
   ReturnButton,
+  
 } from "../../common";
 import CollectionViewArticle from "./CollectionViewArticle";
+import FormModifyCollection from './FormModifyCollection'
 
 export default function Collections(props) {
   const [data, setData] = useState([]); // prendra le resultat du axios et ne doit plus changer sauf si on refait le axios
@@ -226,7 +228,7 @@ console.log('collectionClick', collectionClick);
   return (
     <>
       {clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <CollectionViewArticle donneesProducts={collectionClick}/> </>) :
-        click ? (<> <ReturnButton onClickSee={isClickedModidy} /> </>) : (
+        click ? (<> <FormModifyCollection> <ReturnButton onClickSee={isClickedModidy} /> </FormModifyCollection> </>) : (
           <>
             <Encarts title="Liste des collections">
               <div className="tableActions border-gray">
