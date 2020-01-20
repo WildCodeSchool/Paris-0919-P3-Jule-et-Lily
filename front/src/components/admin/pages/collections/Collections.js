@@ -10,7 +10,8 @@ import {
 
 } from "../../common";
 import CollectionViewArticle from "./CollectionViewArticle";
-import FormModifyCollection from './FormModifyCollection'
+import FormModifyCollection from './FormModifyCollection';
+import FormAddCollection from './FormAddCollection'
 
 export default function Collections(props) {
   const [data, setData] = useState([]); // prendra le resultat du axios et ne doit plus changer sauf si on refait le axios
@@ -34,6 +35,8 @@ export default function Collections(props) {
 
   const [click, setClick] = useState(false);
   const [clickView, setclickView] = useState(false);
+  const [clickAdd, setClickAdd] = useState(false);
+
   const isClickedModidy = index => {
     console.log("click!");
     setClick(!click);
@@ -43,6 +46,10 @@ export default function Collections(props) {
     setclickView(!clickView);
     setCollectionClick(data[index]);
   };
+
+  const isClickedAddProduct = () => {
+    setClickAdd(!clickAdd);
+  }
 
   const deleteData = (page, id) => {
     let path = "";
@@ -193,6 +200,11 @@ export default function Collections(props) {
     fetchData();
   }
 
+  const reloadAdd = () => {
+    setClickAdd(!clickAdd)
+  }
+
+
   // useEffect(() => {
   //   fetchData();
   // }, []);
@@ -225,60 +237,63 @@ export default function Collections(props) {
 
   return (
     <>
-      {clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <CollectionViewArticle donneesProducts={collectionClick} /> </>) :
-        click ? (<> <ReturnButton onClickSee={isClickedModidy} />  <FormModifyCollection onClickSee={isClickedModidy} donneesProducts={collectionClick} reload={reload}> </FormModifyCollection> </>) : (
-          <>
-            <Encarts title="Liste des collections">
-              <div className="tableActions border-gray">
-                <SearchBar table="collections" search={search} />
-                <div className="addDiv">
-                  Ajouter <ButtonAdd />
+
+      {clickAdd ? (<FormAddCollection onClick={isClickedAddProduct} reloadAdd={reloadAdd} />) :
+
+        clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <CollectionViewArticle donneesProducts={collectionClick} /> </>) :
+          click ? (<> <ReturnButton onClickSee={isClickedModidy} />  <FormModifyCollection onClickSee={isClickedModidy} donneesProducts={collectionClick} reload={reload}> </FormModifyCollection> </>) : (
+            <>
+              <Encarts title="Liste des collections">
+                <div className="tableActions border-gray">
+                  <SearchBar table="collections" search={search} />
+                  <div className="addDiv">
+                    Ajouter <ButtonAdd onClick={isClickedAddProduct} />
+                  </div>
                 </div>
-              </div>
 
-              <Tables
-                page="collections"
-                orderBy={orderBy}
-                donnees={dataToShow ? dataToShow : "loading"} s
-                deleteData={deleteData}
-                onClick={isClickedModidy}
-                onClickSee={isClickedSee}
-                donneesProducts={collectionClick}
+                <Tables
+                  page="collections"
+                  orderBy={orderBy}
+                  donnees={dataToShow ? dataToShow : "loading"} s
+                  deleteData={deleteData}
+                  onClick={isClickedModidy}
+                  onClickSee={isClickedSee}
+                  donneesProducts={collectionClick}
 
-              />
-              <Pagination
-                nbPages={pagesNb}
-                activePage={activePage}
-                changePagePlus={changePagePlus}
-                changePageMoins={changePageMoins}
-                setActivePage={setActivePage}
-                table="collections"
-              />
-            </Encarts>
+                />
+                <Pagination
+                  nbPages={pagesNb}
+                  activePage={activePage}
+                  changePagePlus={changePagePlus}
+                  changePageMoins={changePageMoins}
+                  setActivePage={setActivePage}
+                  table="collections"
+                />
+              </Encarts>
 
-            <Encarts title="Liste des catégories">
-              <div className="tableActions border-gray">
-                <SearchBar table="categories" search={search} />
-                <div className="addDiv">
-                  Ajouter <ButtonAdd />
+              <Encarts title="Liste des catégories">
+                <div className="tableActions border-gray">
+                  <SearchBar table="categories" search={search} />
+                  <div className="addDiv">
+                    Ajouter <ButtonAdd />
+                  </div>
                 </div>
-              </div>
 
-              <Tables
-                page="categories"
-                orderBy={orderBy}
-                donnees={dataToShow2 ? dataToShow2 : "loading"}
-                deleteData={deleteData}
-              />
-              <Pagination
-                nbPages={pagesNb2}
-                activePage={activePage2}
-                changePagePlus={changePagePlus}
-                changePageMoins={changePageMoins}
-                setActivePage={setActivePage2}
-                table="categories"
-              />
-            </Encarts> </>)}
+                <Tables
+                  page="categories"
+                  orderBy={orderBy}
+                  donnees={dataToShow2 ? dataToShow2 : "loading"}
+                  deleteData={deleteData}
+                />
+                <Pagination
+                  nbPages={pagesNb2}
+                  activePage={activePage2}
+                  changePagePlus={changePagePlus}
+                  changePageMoins={changePageMoins}
+                  setActivePage={setActivePage2}
+                  table="categories"
+                />
+              </Encarts> </>)}
     </>
   );
 }
