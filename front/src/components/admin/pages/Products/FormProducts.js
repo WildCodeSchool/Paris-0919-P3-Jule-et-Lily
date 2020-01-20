@@ -5,13 +5,12 @@ import ButtonCancel from '../../common/ButtonCancel'
 import Encarts from '../../common/Encarts'
 import ReturnButton from '../../common/ReturnButton'
 export default function FormProducts(props) {
-
   const [productModify, setProductModify] = useState(props.donneesProducts)
   const [dataCollection, setDataCollection] = useState()
   const [dataCategories, setDataCategories] = useState()
-  console.log('props de donnes products', props.donneesProducts);
+  const [productStockModify, setProductStockModify] = useState({}) // changement state stock pour le produit
+  console.log('productStock', productStockModify);
   console.log('dataCategories', dataCategories);
-
 
   // récupération des noms de collections
   const fetchCollection = () => {
@@ -23,15 +22,35 @@ export default function FormProducts(props) {
   // récupération des noms de catégories
   const fetchCategories = () => {
     axios.get('/category/all/asc')
-      //  .then(res => console.log(res.data[0]))
       .then(res => setDataCategories(res.data));
   }
-
+  // récupération des id de stocks
+  const fetchStock = () => {
+    axios.get(`/product/stock/${props.donneesProducts.product_id}`)
+      .then(res => setProductStockModify(...res.data));
+  }
+  // modification de la hooks stock en fonction des changements du form 
+  const validateNewDataStock = (e) => {
+    setProductStockModify({ ...productStockModify[0], [e.target.name]: parseInt(e.target.value) })
+  }
 
   // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
   const validateNewData = (e) => {
 
     setProductModify({ ...productModify, [e.target.name]: e.target.value })
+  }
+
+  // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
+  const validateNewDatacustom = (e) => {
+    // pour le custom product
+    const checkedElement = document.getElementById('product_custom')
+    setProductModify({ ...productModify, [e.target.name]: e.target.value })
+    if (checkedElement.checked === true) {
+      setProductModify({ ...productModify, product_custom: 1 })
+    }
+    else {
+      setProductModify({ ...productModify, product_custom: 0 })
+    }
   }
   // modification de la hooks collection avec traitement de la donnée
   const validateNewDataCollection = (e) => {
@@ -39,28 +58,22 @@ export default function FormProducts(props) {
     let newCollection = dataCollection.filter(collection => collection.collection_name.toUpperCase() === e.target.value.toUpperCase())
     let newCollectionId = newCollection[0].collection_id
     setProductModify({ ...productModify, [e.target.name]: e.target.value })
-    console.log('newcollection', newCollection);
-    console.log('-------');
-    console.log('e target', e.target.value);
-    console.log('newcollectionid', newCollectionId);
     setProductModify({ ...productModify, product_collection_id: newCollectionId })
   }
 
 
-    // modification de la hooks categorie avec traitement de la donnée
-    const validateNewDataCategory = (e) => {
-      // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
-      let newCategorie = dataCategories.filter(categorie => categorie.category_name.toUpperCase() === e.target.value.toUpperCase())
-      let newCategorieId = newCategorie[0].category_id
-      setProductModify({ ...productModify, [e.target.name]: e.target.value })
-      console.log('newcollection', newCategorie);
-      console.log('-------');
-      console.log('e target', e.target.value);
-      console.log('newcollectionid', newCategorieId);
-      setProductModify({ ...productModify, product_category_id: newCategorieId })
-    }
-  
-
+  // modification de la hooks categorie avec traitement de la donnée
+  const validateNewDataCategory = (e) => {
+    // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
+    let newCategorie = dataCategories.filter(categorie => categorie.category_name.toUpperCase() === e.target.value.toUpperCase())
+    let newCategorieId = newCategorie[0].category_id
+    setProductModify({ ...productModify, [e.target.name]: e.target.value })
+    console.log('newcollection', newCategorie);
+    console.log('-------');
+    console.log('e target', e.target.value);
+    console.log('newcollectionid', newCategorieId);
+    setProductModify({ ...productModify, product_category_id: newCategorieId })
+  }
 
   // fetch ds un hooks pour maper les noms des catégories etc ...
 
@@ -71,36 +84,46 @@ export default function FormProducts(props) {
     delete productPut.product_stock
     delete productPut.category_name
     delete productPut.collection_name
-
     console.log('productput', productPut);
-// récupération des données produit et envoi ds la bdd
-    axios
+    axios     // récupération des données produit et envoi ds la bdd
       .put(`product/${productModify.product_id}`, productPut)
       .then(res => {
         if (res.err) {
           alert(res.err);
         } else {
-          alert(` ${productModify.product_name} a été ajouté avec succès!`);
+          alert(` ${productModify.product_name} a été modifié avec succès!`)
         }
       }).catch(e => {
         console.error(e);
-        alert(`Erreur lors de la modification de ${productModify.product_name}`);
+        alert(`Erreur lors de la modification de ${productModify.product_name}`)
       });
-    setTimeout(() => window.location.reload(), 2000);
+    axios // modifier le stock
+      .put(`/product/stock/${props.donneesProducts.product_id}`, productStockModify)
+      .then(res => {
+        if (res.err) {
+          alert(`Le stock n'a pas été modifié`);
+        } else {
+          alert(` Le stock a bien été modifié`);
+          props.reload(); // au lieu de recharger complètement la page on execute la fonction reload du composant parent
+        }
+      })
   }
+
 
   useEffect(() => {
     fetchCollection()
     fetchCategories()
+    fetchStock()
+  }, [] )
 
-  }, [])
+
   return (
     <>
 
       <ReturnButton onClickSee={props.onClick} />
       <Encarts title="Ajouter / Modifier les informations">
 
-        <form className='form-group text-center'>
+        <form className='form-group text-center '>
           <div className="form-group">
             <label htmlFor="designation"> Désignation</label>
             <input
@@ -120,7 +143,8 @@ export default function FormProducts(props) {
             <label htmlFor="prix">Prix</label>
             <input
               onChange={validateNewData}
-              type="text"
+              type="number"
+              step="0.01"
               className="form-control text-center"
               id="examprixid"
               name='product_price'
@@ -130,15 +154,16 @@ export default function FormProducts(props) {
           </div>
 
           <div className="form-group">
-            <label htmlFor="stock">Stock</label>
+            <label htmlFor="stock_quantity">Stock</label>
             <input
-              onChange={validateNewData}
-              type="text"
+              onChange={validateNewDataStock}
+              required
+              type="number"
               className="form-control text-center"
               id="examprixid"
-              name='product_stock'
+              name='stock_quantity'
               placeholder={productModify.product_stock}
-              value={productModify.product_stock}
+              value={productStockModify.stock_quantity}
             />
           </div>
 
@@ -151,6 +176,16 @@ export default function FormProducts(props) {
               id="exampleInputEmail1"
               value={productModify.product_description}
               placeholder={productModify.product_description}
+            />
+          </div>
+          <div className="form-group ">
+            <label htmlFor="product_custom">Personalisable ?</label>
+            <input onChange={validateNewDatacustom}
+            className=" form ml-3 "
+              name='product_custom'
+              type="checkbox"
+              id="product_custom"
+
             />
           </div>
 

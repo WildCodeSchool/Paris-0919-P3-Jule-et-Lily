@@ -12,6 +12,7 @@ export default function Orders() {
   //state des données
   const [data, setData] = useState([]); //le tableau qui contiendra les données récupérées par axios
   const [dataToShow, setDataToShow] = useState([]); // une copie du premier tableau qui va servir à afficher les données et sur lequel on va executer les fonctions (filter, sort, etc...)
+  const [fullData, setFullData]= useState([])
 
   //state pour le nombre de pages du tableau
   const [pagesNb, setPagesNb] = useState(0); //le nombre de pages
@@ -62,6 +63,7 @@ export default function Orders() {
             setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
           }
         }
+        setFullData(res.data)
       });
   };
 
@@ -118,7 +120,7 @@ export default function Orders() {
 
   // fonction de recherche dans le tableau
   const search = (table, word) => {
-    let theData = data;
+    let theData = fullData;
     if (word !== "") {  // si le mot recherché n'est pas une chaine vide 
       setDataToShow([]); // on vide le tableau à afficher
       let result = theData.filter( // on fait un filter et on met le résultat dans la variable result
@@ -128,6 +130,11 @@ export default function Orders() {
     } 
     else setDataToShow(data); //si la recherche est vide on veut afficher toutes les données dans le tableau
   };
+
+  // const reload = () => {
+  //   setClick(!click);
+  //   fetchData();
+  // }
 
   return (
     <div>

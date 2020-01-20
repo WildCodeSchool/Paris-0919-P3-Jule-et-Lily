@@ -7,19 +7,22 @@ import {
   SearchBar,
   Tables,
   ReturnButton,
-  Form
 } from "../common/";
 
 export default function Collections(props) {
   const [data, setData] = useState([]); // prendra le resultat du axios et ne doit plus changer sauf si on refait le axios
   const [dataToShow, setDataToShow] = useState([]); // resultat du axios qui peut changer et qu'on affiche dans le tableau. Permet de faire la recherche
-
+  const [fullData, setFullData]= useState([])
+;
   const [pagesNb, setPagesNb] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
   // données du deuxième tableau
   const [data2, setData2] = useState([]);
   const [dataToShow2, setDataToShow2] = useState([]);
+  const [fullData2, setFullData2]= useState([])
+
+
 
   // pages du deuxième tableau
   const [pagesNb2, setPagesNb2] = useState(0);
@@ -86,6 +89,7 @@ export default function Collections(props) {
             setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
           }
         }
+        setFullData(res.data)
       });
 
     axios
@@ -124,6 +128,7 @@ export default function Collections(props) {
             setDataToShow2(dataToShow2 => [...dataToShow2, res.data[i]]);
           }
         }
+        setFullData2(res.data)
       });
   };
 
@@ -179,13 +184,19 @@ export default function Collections(props) {
     if (page === "categories") setDataToShow2(dataToShow2 => [...dataToShow2, ...theData]);
   };
 
+
+  const reload = () => {
+    setClick(!click);
+    fetchData();
+  }
+
   // useEffect(() => {
   //   fetchData();
   // }, []);
 
   const search = (table, word) => {
     if (table === "collections") {
-      let theData = data;
+      let theData = fullData;
       if (word !== "") {
         setDataToShow([]);
 
@@ -212,7 +223,7 @@ export default function Collections(props) {
   return (
     <>
       {clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <Encarts /> </>) :
-        click ? (<> <ReturnButton onClickSee={isClickedModidy} /> <Form>   </Form> </>) : (
+        click ? (<> <ReturnButton onClickSee={isClickedModidy} /> </>) : (
           <>
             <Encarts title="Liste des collections">
               <div className="tableActions border-gray">

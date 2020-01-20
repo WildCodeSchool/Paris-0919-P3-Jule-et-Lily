@@ -4,10 +4,12 @@ import {
   ButtonAdd,
   Encarts,
   SearchBar,
-  Tables
+  Tables, 
+  Pagination
 } from "../../common";
 import EncartsViewArticle from "./EncartsViewArticle";
 import FormProducts from './FormProducts'
+import FormAddProduct from './FormAddProduct'
 
 export default function Products(props) {
   const [data, setData] = useState([]);
@@ -15,12 +17,57 @@ export default function Products(props) {
   const [click, setClick] = useState(false);
   const [productClick, setProductClick] = useState([]);
   const [clickView, setclickView] = useState(false);
+  const [clickAdd, setClickAdd] = useState(false);
+
+  //state pour le nombre de pages du tableau
+  const [pagesNb, setPagesNb] = useState(0); //le nombre de pages
+  const [activePage, setActivePage] = useState(1); // le numéro de la page active
 
   const fetchData = () => {
     axios
-      .get("/product/all")
-      //  .then(res => console.log(res.data[0]))
-      .then(res => (setData(res.data), setDataToShow(res.data)))
+      .get("/product/all") //liste les commandes
+      .then(res => {
+        // après avoir récuperé les données on regarde leurs nombre et on définit le nombre de page en fonction puis on rempli seulement 10 donnée max par page du tableaus
+        // console.log("activePage", activePage);
+        if (res.data.length <= 10) {
+          // cas où il y a moins de 10 résultats. Il n'y aura que une page
+          setPagesNb(1); // il n'y a qu'une page.
+          setData([]); // avant de remplir le tableau on le vide
+          setDataToShow([]); // idem
+          for (let i = 0; i < res.data.length; i++) { // on boucle pour remplir les deux tableau avec les données
+            setData(data => [...data, res.data[i]]); 
+            setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
+          }
+          //si plus de 10 résultats
+        } else if (activePage === 1) {
+          // si on est sur la première page
+          setPagesNb(parseInt(res.data.length / 10 + 1)); // on défini le nombre de pages en fonction du nombre de données
+          setData([]);
+          setDataToShow([]);
+          for (let i = 0; i < 10; i++) {
+            setData(data => [...data, res.data[i]]);
+            setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
+          }
+        } else if (activePage === pagesNb) {
+          // si on est sur la dernière page
+          setPagesNb(parseInt(res.data.length / 10 + 1));// on défini le nombre de pages en fonction du nombre de données
+          setData([]);
+          setDataToShow([]);
+          for (let i = activePage * 10 - 10; i < res.data.length; i++) {
+            setData(data => [...data, res.data[i]]);
+            setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
+          }
+        } else {
+          // si on est sur une autre page
+          setPagesNb(parseInt(res.data.length / 10 + 1));// on défini le nombre de pages en fonction du nombre de données
+          setData([]);
+          setDataToShow([]);
+          for (let i = activePage * 10 - 10; i < activePage * 10; i++) {
+            setData(data => [...data, res.data[i]]);
+            setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
+          }
+        }
+      });
   };
 
   const deleteData = (page, id) => {
@@ -35,18 +82,27 @@ export default function Products(props) {
     setProductClick(data[index]);
   };
   const isClickedSee = index => {
-    // console.log("click! delete");
     setclickView(!clickView);
-    // console.log("data", data, "index", index);
     // console.log('data[index]',data[index])
     setProductClick(data[index]);
   };
+  const isClickedAddProduct = () => {
+    setClickAdd(!clickAdd);
+  }
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [activePage]);
 
-
+  //fonction pour remettre le state click a false puis recharger les données quand on clique sur le bouton
+  const reload = () => {
+    setClick(!click);
+    fetchData();
+  }
+  const reloadAdd = () => {
+    setClickAdd(!clickAdd)
+  }
+ 
   // fonction pour ordonnée le tableau
   const orderBy = (type, order) => {
     let theData = dataToShow; //on copie les données dans un nouveau tableau
@@ -92,42 +148,65 @@ export default function Products(props) {
 
   // passer la props à table ici
 
-  // console.log("dataproducts", data);
-  // console.log("proctclick", productClick);
+  console.log("dataproducts", data);
+  console.log("proctclick", productClick);
+  // fonction pour aller une page en avant
+  const changePagePlus = () => {
+    setActivePage(activePage + 1); //on ajoute 1 à la page active
+  };
+
+  // fonction pour aller une page en arière
+  const changePageMoins = () => {
+    setActivePage(activePage - 1);//on retire 1 à la page active
+  };
 
   return (
     <div className="products">
-      {clickView ? (
-        <EncartsViewArticle
-          title=" Fiche produit"
-          onClickSee={isClickedSee}
-          donneesProducts={productClick}
-        />
-      ) : click ? (
-        <div>
-          <FormProducts
-            onClick={isClickedModidy}
+      {clickAdd ?
+        (<FormAddProduct onClick={isClickedAddProduct} reloadAdd={reloadAdd} />) :
+
+        clickView ? (
+          <EncartsViewArticle
+            title=" Fiche produit"
+            onClickSee={isClickedSee}
             donneesProducts={productClick}
           />
-        </div>
-      ) : (
-            <Encarts title="Liste des Produits">
-              <div className="tableActions border-gray">
-                <SearchBar search={search} table="product" />
-                <div className="addDiv">
-                  Ajouter <ButtonAdd />
+        ) : click ? (
+          <div>
+            <FormProducts
+              onClick={isClickedModidy}
+              donneesProducts={productClick}
+              donnesStock={productClick} // add a new function for add a stock name id 
+              reload={reload}
+            />
+          </div>
+        ) : (
+              <Encarts title="Liste des Produits">
+                <div className="tableActions border-gray">
+                  <SearchBar search={search} table="product" />
+                  <div className="addDiv">
+                    Ajouter <ButtonAdd onClick={isClickedAddProduct} />
+                  </div>
                 </div>
-              </div>
-              <Tables
-                deleteData={deleteData}
-                page="products"
-                onClickSee={isClickedSee}
-                onClick={isClickedModidy}
-                donnees={dataToShow ? dataToShow : "loading"}
-                orderBy={orderBy}
-              />
-            </Encarts>
-          )}
+                <Tables
+                  deleteData={deleteData}
+                  page="products"
+                  onClickSee={isClickedSee}
+                  onClick={isClickedModidy}
+                  donnees={dataToShow ? dataToShow : "loading"}
+                  orderBy={orderBy}
+                />
+
+                <Pagination
+                  nbPages={pagesNb}
+                  activePage={activePage}
+                  changePagePlus={changePagePlus}
+                  changePageMoins={changePageMoins}
+                  setActivePage={setActivePage}
+                  table="products"
+                />
+              </Encarts>
+            )}
     </div>
   );
 }
