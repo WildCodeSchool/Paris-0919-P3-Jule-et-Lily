@@ -4,7 +4,7 @@ import {Dashboard, Orders, Products, Clients, Promo} from "./components/admin/pa
 import Collections from "./components/admin/pages/collections/Collections";
 import FrontCustom from "./components/admin/pages/frontcustom/FrontCustom";
 import Profile from './containers/admin/pages/Profile'
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import "../src/assets/css/admin/sb-admin-2.min.css";
 import "../src/assets/css/admin/buttons-actions.css";
 import "../src/assets/css/admin/global.css";
@@ -26,8 +26,8 @@ export default (props) => {
             <div className="container-fluid">
               {/* Mettre les routes vers les autres composants ici  */}
               <Switch >
-                <Route path="/profile" component={Profile} />
-                <Route exact path="/" component={Dashboard} />
+                <Route exact path ="/" component={Dashboard} />
+                <Route  path="/profile" component={Profile} />
                 <Route  path="/orders" component={Orders} />
                 <Route  path="/clients" component={Clients} />
                 <Route  path="/products" component={Products} />
