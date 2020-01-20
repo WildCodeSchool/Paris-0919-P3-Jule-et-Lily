@@ -104,6 +104,7 @@ export default function Products(props) {
   }
   const reloadAdd = () => {
     setClickAdd(!clickAdd)
+    fetchData();
   }
  
   // fonction pour ordonnée le tableau
