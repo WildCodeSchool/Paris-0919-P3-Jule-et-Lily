@@ -84,7 +84,6 @@ export default function Products(props) {
     setClick(!click);
     setProductClick(data[index]);
   };
-  console.log('ProductClick',productClick);
   
   const isClickedSee = index => {
     setclickView(!clickView);

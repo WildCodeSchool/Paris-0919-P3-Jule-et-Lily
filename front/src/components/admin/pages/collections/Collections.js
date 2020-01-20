@@ -7,7 +7,7 @@ import {
   SearchBar,
   Tables,
   ReturnButton,
-  
+
 } from "../../common";
 import CollectionViewArticle from "./CollectionViewArticle";
 import FormModifyCollection from './FormModifyCollection'
@@ -15,7 +15,7 @@ import FormModifyCollection from './FormModifyCollection'
 export default function Collections(props) {
   const [data, setData] = useState([]); // prendra le resultat du axios et ne doit plus changer sauf si on refait le axios
   const [dataToShow, setDataToShow] = useState([]); // resultat du axios qui peut changer et qu'on affiche dans le tableau. Permet de faire la recherche
-  const [fullData, setFullData]= useState([]);
+  const [fullData, setFullData] = useState([]);
   const [collectionClick, setCollectionClick] = useState([]);
   const [pagesNb, setPagesNb] = useState(0);
   const [activePage, setActivePage] = useState(1);
@@ -23,10 +23,10 @@ export default function Collections(props) {
   // données du deuxième tableau
   const [data2, setData2] = useState([]);
   const [dataToShow2, setDataToShow2] = useState([]);
-  const [fullData2, setFullData2]= useState([])
+  const [fullData2, setFullData2] = useState([])
 
 
-console.log('collectionClick', collectionClick);
+  console.log('collectionClick', collectionClick);
 
   // pages du deuxième tableau
   const [pagesNb2, setPagesNb2] = useState(0);
@@ -37,13 +37,11 @@ console.log('collectionClick', collectionClick);
   const isClickedModidy = index => {
     console.log("click!");
     setClick(!click);
+    setCollectionClick(data[index]);
   };
   const isClickedSee = index => {
-    console.log("click! delete");
     setclickView(!clickView);
-    console.log("data", data, "index", index);
     setCollectionClick(data[index]);
-    // console.log('data[index]',data[index])
   };
 
   const deleteData = (page, id) => {
@@ -227,8 +225,8 @@ console.log('collectionClick', collectionClick);
 
   return (
     <>
-      {clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <CollectionViewArticle donneesProducts={collectionClick}/> </>) :
-        click ? (<> <FormModifyCollection> <ReturnButton onClickSee={isClickedModidy} /> </FormModifyCollection> </>) : (
+      {clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <CollectionViewArticle donneesProducts={collectionClick} /> </>) :
+        click ? (<> <ReturnButton onClickSee={isClickedModidy} />  <FormModifyCollection onClickSee={isClickedModidy} donneesProducts={collectionClick} reload={reload}> </FormModifyCollection> </>) : (
           <>
             <Encarts title="Liste des collections">
               <div className="tableActions border-gray">

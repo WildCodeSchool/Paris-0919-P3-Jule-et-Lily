@@ -19,11 +19,11 @@ function CollectionViewArticle(props) {
                 <div className="text-center" style={{ width: "100%" }} >
 
                     <div className="text-center">
-                    <h5 className="card-text gray mt-2 mb-1"> Images de la collection</h5>
-                        <img className="mx-auto mt-2" src={CollectionModify.image_url} alt="cover" style={{ width: "250px", height: "250px", }} />
+                    <h5 className="card-text gray mt-2 mb-1"> Image de la collection</h5>
+                        <img className="mx-auto mt-2" src={CollectionModify.image_url} alt="cover collection" style={{ width: "250px", height: "250px", }} />
                     </div>
-                    <h5 className="card-text gray mt-2 mb-1"> Images de couverture</h5>
-                    <img className="mx-auto mt-2" src={CollectionModify.collection_cover_image_url} alt="cover" style={{ width: "250px", height: "250px", }} />
+                    <h5 className="card-text gray mt-2 mb-1"> Image de couverture</h5>
+                    <img className="mx-auto mt-2" src={CollectionModify.collection_cover_image_url} alt="cover picture" style={{ width: "250px", height: "250px", }} />
 
                  
                     <p className="card-text gray mt-2"> Nombre d'articles actuel dans la collection " {CollectionModify.collection_name} "  : {CollectionModify.nb_items}</p>
