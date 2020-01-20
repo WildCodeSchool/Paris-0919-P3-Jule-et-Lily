@@ -10,21 +10,21 @@ export default function FormProducts(props) {
     const [newCollection, setnewCollection] = useState(
         {
             collection_name: '',
-            collection_cover_image_url: 1,
+            collection_cover_image_url: 'https://juleetlily.com/wp-content/uploads/2019/09/Nineties-08.jpg',
+            collection_image_id: 1,
            
         })
 
     // modification de la hooks NewProduct entière
     const validateNewCollection = (e) => {
         setnewCollection({ ...newCollection, [e.target.name]: e.target.value })
+        console.log('newCollection', newCollection);
     }
   
     let handleSubmitProduct = e => {
         e.preventDefault();
         const collectionPut = newCollection
         delete collectionPut.image_url
-
-        console.log('newCollection', newCollection);
         axios     // envoi ds la bdd
             .post(`collection/`, newCollection)
             .then(res => {
@@ -35,6 +35,10 @@ export default function FormProducts(props) {
                     props.reloadAdd();
                 }
             })
+            .catch(e => {
+                console.error(e);
+                alert(`Erreur lors l'ajout de la collection ${newCollection.collection_name}`)
+              });
 
     }
 
@@ -47,7 +51,7 @@ export default function FormProducts(props) {
                 <form className='form-group text-center'>
 
                     <div className="form-group">
-                        <label htmlFor="designation"> Nom de la collection</label>
+                        <label htmlFor="collection_name"> Nom de la collection</label>
                         <input
                             name='collection_name'
                             onChange={validateNewCollection}
@@ -56,6 +60,32 @@ export default function FormProducts(props) {
                             id="designationid"
                             placeholder="Ajouter le nom de la collection"
                             value={newCollection.collection_name}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="collection_cover_image_url"> URL de l'image de couverture de la collection</label>
+                        <input
+                            name='collection_cover_image_url'
+                            onChange={validateNewCollection}
+                            type="text"
+                            className="form-control text-center"
+                            id="designationid"
+                            placeholder="Ajouter le nom de la collection"
+                            value={newCollection.collection_cover_image_url}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="collection_image_id"> image  de la collection</label>
+                        <input
+                            name="collection_image_id"
+                            onChange={validateNewCollection}
+                            type="text"
+                            className="form-control text-center"
+                            id="designationid"
+                            placeholder="Ajouter le nom de la collection"
+                            value={newCollection.collection_image_id}
                         />
                     </div>
 
