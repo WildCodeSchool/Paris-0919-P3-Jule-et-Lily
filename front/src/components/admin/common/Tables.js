@@ -91,7 +91,7 @@ const Tables = props => {
             ) : props.page === "promo" ? (
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="promo_name" onClick={handleSort}> Nom de la promo </th>
-                <th className="th-order pink bg-lightpink desc" id="promo_id" onClick={handleSort}> Réduction </th>
+                <th className="th-order pink bg-lightpink desc" id="promo_value" onClick={handleSort}> Réduction </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
                 </th>
@@ -197,7 +197,7 @@ const Tables = props => {
                           <p>{data.category_name}</p>
                         </td>
                         <td>
-                          <p>{data.product_stock}</p>
+                          <p className={data.product_stock <= data.product_stock_min ? "badge badge-pill bg-pink lightpink" : null} >{data.product_stock}</p>
                         </td>
                         <td className='actionButtons'>
                           <ButtonModify index={i} onClick={props.onClick} />
