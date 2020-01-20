@@ -23,7 +23,7 @@ router.post("/image", upload.array("file"), (req, res, next) => {
 
     let Timestamp = Math.round(new Date().getTime() / 1000)
     let FileName = file.originalname
-    let regex1 = /\’\”/gi;
+    let regex1 = /\’\”\;\,\*\./gi;
     let NewFileName = FileName.replace(regex1,"").split(" ").join("").toLowerCase()
 
     fs.rename(file.path, `public/${Timestamp}${NewFileName}`, err => {

@@ -107,6 +107,7 @@ const onChangeUrl = (e) => {
                 type="file"
                 className="custom-file-input"
                 name="file"
+                accept="image/png, image/jpeg, image/gif"
                 multiple
                 onChange={onChangeFile}
               />
