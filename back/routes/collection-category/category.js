@@ -18,7 +18,7 @@ router.get('/all/:request', (req, res) => {
     });
 })
 
-router.route(['/:id', '/'])
+router.route(['/:id', '/',])
 .get(function (req, res) {
   connection.query(`SELECT * FROM category WHERE category_id = ${req.params.id}`, (err, results) => {
     if (err) {
@@ -32,6 +32,8 @@ router.route(['/:id', '/'])
     const formData = req.body;
     connection.query('INSERT INTO category SET ?', formData, (err, results) => {
       if (err) {
+        console.log(err);
+        
         res.status(500).send("Erreur lors de l'ajout d'une categorie");
       } else {
         res.sendStatus(200);
