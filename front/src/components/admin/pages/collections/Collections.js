@@ -21,6 +21,7 @@ export default function Collections(props) {
   const [dataToShow, setDataToShow] = useState([]); // resultat du axios qui peut changer et qu'on affiche dans le tableau. Permet de faire la recherche
   const [fullData, setFullData] = useState([]);
   const [collectionClick, setCollectionClick] = useState([]);
+  const [categoryClick, setcategoryClick] = useState([]);
   const [pagesNb, setPagesNb] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
@@ -52,6 +53,7 @@ export default function Collections(props) {
   const isClickedSee = index => {
     setclickView(!clickView);
     setCollectionClick(data[index]);
+    
   };
 
   const isClickedAddCollection = () => {
@@ -64,6 +66,7 @@ export default function Collections(props) {
     // console.log("click!");
     setClickedViewCategory(!clickedViewCategory);
     setCollectionClick(data[index]);
+    setcategoryClick(data2[index]);
   };
   const isClickedCategory = () => {
     setClickedCategory(!clickedCategory);
@@ -296,7 +299,7 @@ export default function Collections(props) {
       {clickAddCat ? (
         <FormAddCategory onClick={isClickedAddCategory} />) :
         clickedViewCategory ? (
-          <> <ReturnButton onClickSee={isClickedSeeCategory} /> <CategoryViewArticle /> </>
+          <> <ReturnButton onClickSee={isClickedSeeCategory} /> <CategoryViewArticle donneesCategory={categoryClick} /> </>
         ) :
           clickedCategory ? (
             <> <ReturnButton onClickSee={isClickedCategory} /> <FormModifyCategory onClickSee={isClickedCategory} /> </>
