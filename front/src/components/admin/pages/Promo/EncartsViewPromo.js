@@ -1,39 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import '../../../../assets/css/admin/global.css'
-import '../../../../assets/css/admin/cards.css'
-import {
-  Encarts,
-  ReturnButton,
-} from "../../common";
-export default (props) => {
-
-const promoModify = props.donneesPromo
-
+import React, { useState, useEffect } from "react";
+import "../../../../assets/css/admin/global.css";
+import "../../../../assets/css/admin/cards.css";
+import { Encarts, ReturnButton } from "../../common";
+export default props => {
+  const promoModify = props.donneesPromo;
 
   return (
     <>
       <ReturnButton onClickSee={props.onClickSee} />
       <Encarts title="Fiche promo">
-
-      <div className="media-text">
-          <h1 className="card-title text-center middlepurple "> {promoModify.promo_name}</h1>
+        <div className="media-text">
+          <h1 className="card-title text-center middlepurple ">
+            {" "}
+            {promoModify.promo_name}
+          </h1>
         </div>
 
-        <div class="media" style={{ width: "100%" }} >
-
+        <div class="media" style={{ width: "100%" }}>
           {/* <div className="media-left">
             <img className="m-3" src={promoModify.promo_sticker_id} alt="sticker-promo" style={{ width: "250px", height: "250px", }} />
           </div> */}
 
-          <div className="media-body ml-4 mt-2 mx-auto ">
-
-            <h3 className="card-title text-center gray">Valeur : {promoModify.promo_value} %</h3>
-
+          <div className="media-body ml-4 mt-2 mx-auto text-center">
+            <h3 className="card-title text-center gray">
+              Valeur : {promoModify.promo_value} %
+            </h3>
+            
+            <h3 className="card-title text-center gray">
+              Sticker :
+            </h3>
+            <p><b class={`sticker-promo`} style={{backgroundColor:promoModify.promo_sticker_color}}>{promoModify.promo_sticker_text}</b></p>
           </div>
         </div>
 
-
-      {/* <form className='form-group text-center '>
+        {/* <form className='form-group text-center '>
           <div className="form-group">
             <label htmlFor="promo_name">Désignation</label>
             <input
@@ -80,4 +80,4 @@ const promoModify = props.donneesPromo
       </Encarts>
     </>
   );
-}
+};

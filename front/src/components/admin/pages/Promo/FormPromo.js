@@ -4,6 +4,7 @@ import ButtonConfirm from '../../common/ButtonConfirm'
 import ButtonCancel from '../../common/ButtonCancel'
 import Encarts from '../../common/Encarts'
 import ReturnButton from '../../common/ReturnButton'
+import { ChromePicker } from 'react-color'
 
 export default function FormPromo(props) {
   const [promoModify, setPromoModify] = useState(props.donneesPromo)
@@ -19,10 +20,8 @@ console.log('props.donneesPromo',props.donneesPromo)
   let handleSubmit = e => {
     e.preventDefault();
     const promoPut = promoModify
-    delete promoPut.promo_stock
-    delete promoPut.category_name
-    delete promoPut.collection_name
-    console.log('promoput', promoPut);
+    delete promoPut.image_name
+    console.log('promoput2', promoPut);
     axios   
       .put(`promo/${promoModify.promo_id}`, promoPut)
       .then(res => {
@@ -79,18 +78,39 @@ console.log('props.donneesPromo',props.donneesPromo)
           
 
           <div className="form-group">
-            <label htmlFor="image">Sticker</label>
+            <label htmlFor="image">Texte sticker</label>
             <input
              onChange={validateNewData}
-              name="promo_sticker_id"
+              name="promo_sticker_text"
               type="text"
               className="form-control text-center"
               id="imageid"
-              step="0.01"
-              placeholder={promoModify.promo_sticker_id}
-              value={promoModify.ppromo_sticker_id}
+              maxlength="10"
+              placeholder={promoModify.promo_sticker_text}
+              value={promoModify.promo_sticker_text}
             />
           </div>
+
+
+          <div className="form-group">
+            <label htmlFor="image">Couleur sticker</label>
+            <input
+             onChange={validateNewData}
+              name="promo_sticker_color"
+              type="text"
+              className="form-control text-center"
+              id="imageid"
+              placeholder={promoModify.promo_sticker_color}
+              value={promoModify.promo_sticker_color}
+            />
+            <div className="Swatch" onClick={props.onClickColorTitle}>
+              <div style={{backgroundColor: `${props.titleColor}`}} className="titleCSS"/>
+            </div>
+            { props.stateColorPickerTitleDisplay ? <div className = "Popover" >
+              <div className="Cover" onClick={promoModify.promo_sticker_color}/>
+              <ChromePicker color={promoModify.promo_sticker_color} onChange={props.onChangeTitleColor} />
+            </div> : null }
+          </div>    
 
           <div className='text-left'>
             <ButtonCancel onClick={props.onClick} color='#234eb7' />

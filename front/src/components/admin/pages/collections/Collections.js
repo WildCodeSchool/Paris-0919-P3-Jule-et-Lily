@@ -236,7 +236,7 @@ export default function Collections(props) {
               <Tables
                 page="collections"
                 orderBy={orderBy}
-                donnees={dataToShow ? dataToShow : "loading"} s
+                donnees={dataToShow ? dataToShow : "loading"}
                 deleteData={deleteData}
                 onClick={isClickedModidy}
                 onClickSee={isClickedSee}

@@ -92,6 +92,7 @@ const Tables = props => {
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="promo_name" onClick={handleSort}> Nom de la promo </th>
                 <th className="th-order pink bg-lightpink desc" id="promo_value" onClick={handleSort}> Réduction </th>
+                <th className="th-order pink bg-lightpink desc" id="promo_sticker" onClick={handleSort}> Sticker </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
                 </th>
@@ -280,6 +281,10 @@ const Tables = props => {
                         <td>
                           {" "}
                           <p>{data.promo_value}</p>
+                        </td>
+                        <td>
+                          {" "}
+                          <p><b class={`sticker-promo`} style={{backgroundColor:data.promo_sticker_color}}>{data.promo_sticker_text}</b></p>
                         </td>
                         <td className='actionButtons'>
                           <ButtonModify index={i} onClick={props.onClick} />
