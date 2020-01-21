@@ -11,7 +11,6 @@ export default function FormProducts(props) {
         {
             collection_name: '',
             collection_cover_image_url: 'https://juleetlily.com/wp-content/uploads/2019/09/Nineties-08.jpg',
-            collection_image_id: 1,
            
         })
 
@@ -24,7 +23,8 @@ export default function FormProducts(props) {
     let handleSubmitCollection = e => {
         e.preventDefault();
         const collectionPut = newCollection
-        delete collectionPut.image_url
+        delete collectionPut.collection_cover_image_url
+        delete collectionPut.collection_image_id
         axios     // envoi ds la bdd
             .post(`collection/`, newCollection)
             .then(res => {

@@ -84,7 +84,7 @@ export default function FormProducts(props) {
     delete productPut.product_stock
     delete productPut.category_name
     delete productPut.collection_name
-    delete productPut.image_url
+    delete productPut.image_name
     delete productPut.product_stock_min
     console.log('productput', productPut);
     axios     // récupération des données produit et envoi ds la bdd
@@ -234,10 +234,11 @@ export default function FormProducts(props) {
           <div className="form-group">
             <label htmlFor="image">Image</label>
             <input
+            name="product_cover_image_id"
               type="text"
               className="form-control text-center"
               id="imageid"
-              placeholder={productModify.product_image_id}
+              placeholder={productModify.product_cover_image_id}
             />
           </div>
 

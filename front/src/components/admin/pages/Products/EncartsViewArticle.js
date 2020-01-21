@@ -39,7 +39,7 @@ export default (props) => {
         <div class="media" style={{ width: "100%" }} >
 
           <div className="media-left">
-            <img className="m-3" src={productModify.image_url} alt="cover" style={{ width: "250px", height: "250px", }} />
+            <img className="m-3" src={productModify.image_name} alt="cover" style={{ width: "250px", height: "250px", }} />
           </div>
 
           <div className="media-body ml-4 mt-2 mx-auto ">
