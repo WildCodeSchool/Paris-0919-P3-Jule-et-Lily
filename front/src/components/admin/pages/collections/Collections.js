@@ -68,8 +68,9 @@ export default function Collections(props) {
     setCollectionClick(data[index]);
     setcategoryClick(data2[index]);
   };
-  const isClickedCategory = () => {
+  const isClickedCategory = (index) => {
     setClickedCategory(!clickedCategory);
+    setcategoryClick(data2[index]);
     fetchData();
   };
 
@@ -219,6 +220,7 @@ export default function Collections(props) {
 
   const reload = () => {
     setClick(!click);
+    setClickedCategory(!clickedCategory);
     fetchData();
   }
 
@@ -302,7 +304,7 @@ export default function Collections(props) {
           <> <ReturnButton onClickSee={isClickedSeeCategory} /> <CategoryViewArticle donneesCategory={categoryClick} /> </>
         ) :
           clickedCategory ? (
-            <> <ReturnButton onClickSee={isClickedCategory} /> <FormModifyCategory onClickSee={isClickedCategory} /> </>
+            <> <ReturnButton onClickSee={isClickedCategory} /> <FormModifyCategory reload={reload} donneesCategory={categoryClick} onClickSee={isClickedCategory} /> </>
           ) : (
               <>
                 <Encarts title="Liste des catégories">

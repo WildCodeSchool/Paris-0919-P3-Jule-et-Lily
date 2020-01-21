@@ -24,9 +24,9 @@ export default function FormAddCategory(props) {
                 <form className='form-group text-center'>
 
                     <div className="form-group">
-                        <label htmlFor="collection_name"> Nom de la categorie</label>
+                        <label htmlFor="category_name"> Nom de la categorie</label>
                         <input
-                            name='collection_name'
+                            name='category_name'
                             
                             type="text"
                             className="form-control text-center"
@@ -35,6 +35,20 @@ export default function FormAddCategory(props) {
                            
                         />
                     </div>
+
+                    <div className="form-group">
+                        <label htmlFor="category_name"> Nom de la categorie</label>
+                        <input
+                            name='category_name'
+                            
+                            type="text"
+                            className="form-control text-center"
+                            id="designationid"
+                            placeholder="Ajouter le nom de la collection"
+                           
+                        />
+                    </div>
+                    
 
                     <div className='text-left'>
                         <ButtonCancel onClick={props.onClick} color='#234eb7' />
