@@ -224,11 +224,18 @@ export default function Collections(props) {
     fetchData();
   }
 
+  const reload2 = () => {
+    setClickedCategory(!clickedCategory);
+    fetchData();
+  }
   const reloadAdd = () => {
     setClickAdd(!clickAdd)
+    
+  }
+  const reloadAdd2 = () => {
+    
     setclickAddCat(!clickAddCat)
   }
-
 
   // useEffect(() => {
   //   fetchData();
@@ -300,12 +307,12 @@ export default function Collections(props) {
 
 
       {clickAddCat ? (
-        <FormAddCategory onClick={isClickedAddCategory} />) :
+        <FormAddCategory reloadAdd2={reloadAdd2} onClick={isClickedAddCategory} />) :
         clickedViewCategory ? (
           <> <ReturnButton onClickSee={isClickedSeeCategory} /> <CategoryViewArticle donneesCategory={categoryClick} /> </>
         ) :
           clickedCategory ? (
-            <> <ReturnButton onClickSee={isClickedCategory} /> <FormModifyCategory reload={reload} donneesCategory={categoryClick} onClickSee={isClickedCategory} /> </>
+            <> <ReturnButton onClickSee={isClickedCategory} /> <FormModifyCategory reload2={reload2} donneesCategory={categoryClick} onClickSee={isClickedCategory} /> </>
           ) : (
               <>
                 <Encarts title="Liste des catégories">

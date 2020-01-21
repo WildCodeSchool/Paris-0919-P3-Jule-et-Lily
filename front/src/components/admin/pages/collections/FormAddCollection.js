@@ -77,7 +77,7 @@ export default function FormProducts(props) {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="collection_image_id"> image  de la collection</label>
+                        <label htmlFor="collection_image_id"> image de la collection</label>
                         <input
                             name="collection_image_id"
                             onChange={validateNewCollection}
@@ -94,7 +94,6 @@ export default function FormProducts(props) {
                         <ButtonConfirm onClick={handleSubmitCollection} color='#234eb7' />
                     </div>
                 </form>
-
 
             </Encarts>
 

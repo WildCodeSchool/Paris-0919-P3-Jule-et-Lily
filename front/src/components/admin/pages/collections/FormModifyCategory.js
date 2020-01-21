@@ -28,7 +28,7 @@ export default function FormModifyCategory(props) {
           alert(res.err);
         } else {
           alert(`${CategoryModify.category_name} a été modifié avec succès!`);
-          props.reload();
+          props.reload2();
         }
       })
 

@@ -10,7 +10,8 @@ export default function FormAddCategory(props) {
     const [newCategory, setnewCategory] = useState(
         {
             category_name: '',
-        })
+        }
+        )
 
     const validateNewCategory = (e) => {
         setnewCategory({...newCategory, [e.target.name]: e.target.value })
@@ -19,26 +20,21 @@ export default function FormAddCategory(props) {
   
     let handleSubmitCategory = e => {
         e.preventDefault();
-        const categoryPut = newCategory
         axios     // envoi ds la bdd
-            .post(`category/`, categoryPut)
+            .post(`category/`, newCategory)
             .then(res => {
                 if (res.err) {
                     alert(res.err);
                 } else {
                     alert(`${newCategory.category_name} a été ajouté avec succès!`);
-                    props.reloadAdd();
+                    props.reloadAdd2();
+                    
                 }
             })
-            .catch(e => {
-                console.error(e);
-                alert(`Erreur lors l'ajout de la catégorie ${newCategory.category_name}`)
-              });
 
     }
     return (
         <>
-
             <ReturnButton onClickSee={props.onClick} />
             <Encarts title="Ajouter une catégorie">
 
@@ -60,7 +56,7 @@ export default function FormAddCategory(props) {
 
                     <div className='text-left'>
                         <ButtonCancel onClick={props.onClick} color='#234eb7' />
-                        <ButtonConfirm onclick={handleSubmitCategory} color='#234eb7' />
+                        <ButtonConfirm onClick={handleSubmitCategory} color='#234eb7' />
                     </div>
                 </form>
 
