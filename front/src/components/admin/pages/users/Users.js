@@ -7,6 +7,10 @@ import FormUsers from './FormUsers'
 export default function Users() {
   const [data, setData] = useState([]);
   const [dataToShow, setDataToShow] = useState([]);
+  const [usersClick, setUsersClick] = useState([]);
+  const [clickView, setclickView] = useState(false);
+  const [click, setClick] = useState(false);
+
   const [pagesNb, setPagesNb] = useState(0); //pages number
   const [activePage, setActivePage] = useState(1); // number of active page
 
@@ -55,14 +59,26 @@ export default function Users() {
           }
         }
       });
-     
-      
+
+
   };
 
   useEffect(() => {
     fetchData()
     console.log('ici', data)
   }, [])
+
+  const isClickedSee = index => {
+    setclickView(!clickView);
+    // console.log('data[index]',data[index])
+    setUsersClick(data[index]);
+  };
+
+  //fonction pour remettre le state click a false puis recharger les données quand on clique sur le bouton
+  const reload = () => {
+    setClick(!click);
+    fetchData();
+  }
 
   const deleteData = (page, id) => {
     axios.delete(`/user/${id}`)
@@ -98,21 +114,37 @@ export default function Users() {
   console.log('ici', data);
   return (
     <div className="users">
-      <Encarts title="Liste des clients">
-      <SearchBar search={search} table="product" />
-        <Tables
-          page="users"
-          donnees={dataToShow ? dataToShow : "loading"}
-          />
-        <Pagination
-          nbPages={pagesNb}
-          activePage={activePage}
-          changePagePlus={changePagePlus}
-          changePageMoins={changePageMoins}
-          setActivePage={setActivePage}
-          table="users"
+      {clickView ? (
+        <EncartViewUser
+          title='Fiche client'
+          onClickSee={isClickedSee}
         />
-      </Encarts>
+      ) : click ? (
+        <div>
+          <FormUsers
+            donneesUsers={usersClick}
+            // donnesStock={productClick} // add a new function for add a stock name id 
+            reload={reload}
+          />
+        </div>
+      ) : (
+            <Encarts title="Liste des clients">
+              <SearchBar search={search} table="product" />
+              <Tables
+                page="users"
+                onClickSee={isClickedSee}
+                donnees={dataToShow ? dataToShow : "loading"}
+              />
+              <Pagination
+                nbPages={pagesNb}
+                activePage={activePage}
+                changePagePlus={changePagePlus}
+                changePageMoins={changePageMoins}
+                setActivePage={setActivePage}
+                table="users"
+              />
+            </Encarts>
+          )}
     </div>
   );
 }

@@ -31,7 +31,7 @@ const Navbar = () => {
                     <li className="nav-item active">
                         <NavLink to="/profile" className="nav-link">
                         <img className='icons mr-2' src={IconUsers} alt='' />
-                            <span>Profile</span>
+                            <span>Profil</span>
                         </NavLink>
                     </li>
 
