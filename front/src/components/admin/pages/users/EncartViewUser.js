@@ -80,7 +80,7 @@ export default function EncartViewUser(props) {
                                 </th>
                                 <th>
                                     {" "}
-                                    <p>Socité</p>
+                                    <p>Société</p>
                                 </th>
                             </tr>
                         </tbody>
@@ -154,7 +154,7 @@ export default function EncartViewUser(props) {
                                 </th>
                                 <th>
                                     {" "}
-                                    <p>Statu</p>
+                                    <p>Statut</p>
                                 </th>
                                 <td className='actionButtons'>
                                     <ButtonModify  onClick={props.onClick} />
