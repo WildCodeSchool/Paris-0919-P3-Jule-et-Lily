@@ -20,7 +20,7 @@ export default function FormProducts(props) {
   let handleSubmitCollection = e => {
     e.preventDefault();
     const newValueCollection = CollectionModify
-    delete newValueCollection.image_url
+    delete newValueCollection.image_name
     delete newValueCollection.nb_items
     axios     // envoi ds la bdd
       .put(`collection/${props.donneesCollection.collection_id}`, newValueCollection)
@@ -81,7 +81,7 @@ export default function FormProducts(props) {
 
             <input
               onChange={validateNewCollection}
-              name='image_url'
+              name='collection_cover_image_url'
               type="text"
               className="form-control text-center"
               id="designationid"

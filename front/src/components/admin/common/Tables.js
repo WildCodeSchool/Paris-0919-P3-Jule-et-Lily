@@ -82,7 +82,7 @@ const Tables = props => {
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="collection_name" onClick={handleSort}> Nom de la collection </th>
                 <th className="th-order pink bg-lightpink asc" id="collection_cover_image_url" onClick={handleSort}> Image de couverture </th>
-                <th className="th-order pink bg-lightpink asc" id="collection_image_id" onClick={handleSort}> Image de la collection </th>
+                {/* <th className="th-order pink bg-lightpink asc" id="collection_image_id" onClick={handleSort}> Image de la collection </th> */}
                 <th className="th-order pink bg-lightpink desc" id="nb_items" onClick={handleSort}> Nombre de références </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
@@ -92,6 +92,7 @@ const Tables = props => {
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="promo_name" onClick={handleSort}> Nom de la promo </th>
                 <th className="th-order pink bg-lightpink desc" id="promo_value" onClick={handleSort}> Réduction </th>
+                <th className="th-order pink bg-lightpink desc" id="promo_sticker" onClick={handleSort}> Sticker </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
                 </th>
@@ -181,7 +182,7 @@ const Tables = props => {
                         </td>
                         <td>
                           {" "}
-                          <p><img src={data.image_url} alt="cover" width="80" height="80" /><br />{data.image_url}</p>
+                          <p><img src={data.image_name} alt="cover" width="80" height="80" /><br />{data.image_name}</p>
                         </td>
                         <td>
                           {" "}
@@ -216,11 +217,11 @@ const Tables = props => {
                         </td>
                         <td>
                           {" "}
-                          <p><img src={data.collection_cover_image_url} alt="cover" width="80" height="80" /><br />{data.collection_cover_image_url}</p>
+                          <p><img src={data.image_name} alt="aucune image de couverture" width="80" height="80" /><br />{data.collection_cover_image_url}</p>
                         </td>
-                        <td>
+                        {/* <td>
                           <p><img src={data.image_url} alt="collection" width="80" height="80" /><br />{data.image_url}</p>
-                        </td>
+                        </td> */}
                         <td>
                           <p>{data.nb_items}</p>
                         </td>
@@ -280,6 +281,10 @@ const Tables = props => {
                         <td>
                           {" "}
                           <p>{data.promo_value}</p>
+                        </td>
+                        <td>
+                          {" "}
+                          <p><b class={`sticker-promo`} style={{backgroundColor:data.promo_sticker_color}}>{data.promo_sticker_text}</b></p>
                         </td>
                         <td className='actionButtons'>
                           <ButtonModify index={i} onClick={props.onClick} />
