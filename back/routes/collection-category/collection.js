@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/all/:request', (req, res) => {
-    connection.query(`SELECT c.*, i.image_url, COUNT(p.product_id) as nb_items FROM collection as c  JOIN image as i ON i.image_id = c.collection_image_id LEFT OUTER JOIN product as p ON p.product_collection_id = c.collection_id GROUP BY c.collection_id ORDER BY c.collection_name ${req.params.request}`, (err, results) => {
+    connection.query(`SELECT c.*, i.image_name, COUNT(p.product_id) as nb_items FROM collection as c LEFT OUTER JOIN image as i ON i.image_id = c.collection_cover_image_id LEFT OUTER JOIN product as p ON p.product_collection_id = c.collection_id GROUP BY c.collection_id ORDER BY c.collection_name ${req.params.request}`, (err, results) => {
         if (err) {
           console.log(err)
           res.send('Erreur lors de la récupération des collections'+err).status(500);
@@ -33,6 +33,7 @@ router.route(['/:id','/'])
     const formData = req.body;
     connection.query('INSERT INTO collection SET ?', formData, (err, results) => {
       if (err) {
+        console.log(err)
         res.status(500).send("Erreur lors de l'ajout d'une collection");
       } else {
         res.sendStatus(200);
@@ -43,6 +44,8 @@ router.route(['/:id','/'])
     const formData = req.body;
     connection.query(`UPDATE collection SET ? WHERE collection_id= ${req.params.id}`, [formData], err => {
       if (err) {
+        console.log(err);
+        
         res.status(500).send("Erreur lors de la modification d'une collection");
       } else {
         res.sendStatus(200);
