@@ -84,6 +84,7 @@ export default function Products(props) {
     setClick(!click);
     setProductClick(data[index]);
   };
+  
   const isClickedSee = index => {
     setclickView(!clickView);
     // console.log('data[index]',data[index])
@@ -151,9 +152,8 @@ export default function Products(props) {
   };
 
   // passer la props à table ici
-
   console.log("dataproducts", data);
-  console.log("proctclick", productClick);
+
   // fonction pour aller une page en avant
   const changePagePlus = () => {
     setActivePage(activePage + 1); //on ajoute 1 à la page active
