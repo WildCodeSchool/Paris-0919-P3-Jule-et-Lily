@@ -46,7 +46,7 @@ const Navbar = () => {
                     </li>
 
                     <li className="nav-item">
-                        <NavLink to="/clients"  className="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        <NavLink to="/users"  className="nav-link collapsed" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                         <img className='icons mr-2' src={IconUsers} alt='' />
                             <span className='align-bottom'>Clients</span>
                         </NavLink>

@@ -12,7 +12,7 @@ export default function Users() {
 
   const fetchData = (props) => {
     axios
-      .get("/user/1") //users list
+      .get("/user/role/1") //users list
       .then(res => {
         // après avoir récuperé les données on regarde leurs nombre et on définit le nombre de page en fonction puis on rempli seulement 10 donnée max par page du tableau
         // console.log("activePage", activePage);
@@ -55,10 +55,13 @@ export default function Users() {
           }
         }
       });
+     
+      
   };
 
   useEffect(() => {
     fetchData()
+    console.log('ici', data)
   }, [])
 
   const deleteData = (page, id) => {
@@ -77,10 +80,26 @@ export default function Users() {
     setActivePage(activePage - 1);//on retire 1 à la page active
   };
 
+  // fonction de recherche dans le tableau
+  const search = (table, word) => {
+    let theData = data;
+    if (word !== "") {
+      // si le mot recherché n'est pas une chaine vide
+      setDataToShow([]); // on vide le tableau à afficher
+      let result = theData.filter(
+        // on fait un filter et on met le résultat dans la variable result
+        line =>
+          line.user_lastname.toUpperCase().match(`.*${word.toUpperCase()}.*`) // on compare les deux chaine mises en majuscules(pour que l'on soit sur de toujours comparer des chaines de meme type)
+      );
+      setDataToShow(dataToShow => [...dataToShow, ...result]); //on rempli le tableau avec le resultat du filter
+    } else setDataToShow(data); //si la recherche est vide on veut afficher toutes les données dans le tableau
+  };
 
+  console.log('ici', data);
   return (
     <div className="users">
       <Encarts title="Liste des clients">
+      <SearchBar search={search} table="product" />
         <Tables
           page="users"
           donnees={dataToShow ? dataToShow : "loading"}
