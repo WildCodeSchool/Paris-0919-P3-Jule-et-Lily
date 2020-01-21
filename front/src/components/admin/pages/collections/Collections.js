@@ -226,6 +226,7 @@ export default function Collections(props) {
 
   const reloadAdd = () => {
     setClickAdd(!clickAdd)
+    setclickAddCat(!clickAddCat)
   }
 
 

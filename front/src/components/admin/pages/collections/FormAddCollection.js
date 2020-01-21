@@ -21,7 +21,7 @@ export default function FormProducts(props) {
         console.log('newCollection', newCollection);
     }
   
-    let handleSubmitProduct = e => {
+    let handleSubmitCollection = e => {
         e.preventDefault();
         const collectionPut = newCollection
         delete collectionPut.image_url
@@ -91,7 +91,7 @@ export default function FormProducts(props) {
 
                     <div className='text-left'>
                         <ButtonCancel onClick={props.onClick} color='#234eb7' />
-                        <ButtonConfirm onClick={handleSubmitProduct} color='#234eb7' />
+                        <ButtonConfirm onClick={handleSubmitCollection} color='#234eb7' />
                     </div>
                 </form>
 
