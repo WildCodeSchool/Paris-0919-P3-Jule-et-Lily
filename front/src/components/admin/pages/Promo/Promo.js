@@ -13,6 +13,7 @@ import FormPromo from "./FormPromo";
 import FormCodePromo from "./FormCodePromo";
 import FormAddPromo from "./FormAddPromo";
 import FormAddCodePromo from "./FormAddCodePromo";
+import "../../../../assets/css/admin/Promo.css"
 
 export default function Promo(props) {
   const [data, setData] = useState([]);
@@ -36,16 +37,6 @@ export default function Promo(props) {
   const [pagesNb2, setPagesNb2] = useState(0); //le nombre de pages
   const [activePage2, setActivePage2] = useState(1); // le numéro de la page active
 
-
-  const [ColorPickerDisplay, setColorPickerDisplay] = useState(false);
-
-  const [encartDisplay, setEncartDisplay] = useState({
-    id: "",
-    backgroundColor: "",
-    title: "",
-    url: "",
-    titleColor: ""
-  });
 
   const fetchData = () => {
     axios
@@ -208,15 +199,7 @@ export default function Promo(props) {
     fetchData();
   };
 
-  const handleClickColorPicker = () => {
-    setColorPickerDisplay(!ColorPickerDisplay);
-  };
- const handleCloseColorPicker = () => {
-    setColorPickerDisplay(false);
-  };
-  const handleChangeTitleColor = color => {
-    setEncartDisplay({ ...encartDisplay, titleColor: color.hex })
-  };
+
 
   // fonction pour ordonnée le tableau
   const orderBy = (type, order) => {
