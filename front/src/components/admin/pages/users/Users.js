@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Encarts, SearchBar, Tables, Pagination } from "../../common";
 import EncartViewUser from "./EncartViewUser";
-import FormUsers from './FormUsers'
+// import FormUsers from './FormUsers'
 
 export default function Users() {
   const [data, setData] = useState([]);
@@ -118,15 +118,8 @@ export default function Users() {
         <EncartViewUser
           title='Fiche client'
           onClickSee={isClickedSee}
+          users={usersClick}
         />
-      ) : click ? (
-        <div>
-          <FormUsers
-            donneesUsers={usersClick}
-            // donnesStock={productClick} // add a new function for add a stock name id 
-            reload={reload}
-          />
-        </div>
       ) : (
             <Encarts title="Liste des clients">
               <SearchBar search={search} table="product" />
@@ -134,6 +127,7 @@ export default function Users() {
                 page="users"
                 onClickSee={isClickedSee}
                 donnees={dataToShow ? dataToShow : "loading"}
+                delete={deleteData}
               />
               <Pagination
                 nbPages={pagesNb}
