@@ -10,7 +10,7 @@ import {
     Tables,
 } from "../../common";
 export default (props) => {
-
+// axios vers les /:id/items pour remplir le 2 tab'
     console.log('ici la data order', props.donneesOrder);
     const order =  props.donneesOrder;
 
@@ -37,6 +37,7 @@ export default (props) => {
     const orderView = props.donneesOrder
 
     const orderLocal = new Date(order.order_date)
+    const orderShip = new Date(order.order_shipped_date)
 
 
 
@@ -75,7 +76,7 @@ export default (props) => {
                                     <p>{order.order_ref}</p>
                                 </td>
                                 <td>
-                                    <p>dsdsdsds</p>
+                                    <p>{order.user_firstname} </p>
                                 </td>
                                 <td>
                                     <p>{orderLocal.toLocaleDateString()} </p>
@@ -107,12 +108,13 @@ export default (props) => {
                         </thead>
 
                         <tbody>
+                       
                             <tr >
                                 <td>
-                                    <p>Monsieur laqué</p>
+                                    <p> nom du produit</p>
                                 </td>
                                 <td>
-                                    <p>Kête</p>
+                                    <p>prix du produit</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -135,10 +137,10 @@ export default (props) => {
                         <tbody>
                             <tr >
                                 <td>
-                                    <p>Monsieur laqué</p>
+                                    <p>{order.order_tracking_number}</p>
                                 </td>
                                 <td>
-                                    <p>Kête</p>
+                                    <p>{orderShip.toLocaleDateString()}</p>
                                 </td>
                             </tr>
                         </tbody>
