@@ -29,7 +29,7 @@ const Navbar = () => {
                     </li>
 
                     <li className="nav-item active">
-                        <NavLink to="/profile" className="nav-link">
+                        <NavLink to="/profil" className="nav-link">
                         <img className='icons mr-2' src={IconUsers} alt='' />
                             <span>Profil</span>
                         </NavLink>
