@@ -69,9 +69,15 @@ export default function Orders() {
 
   //fonction pour supprimer des données dans la BDD
   const deleteData = (page, id) => {
+    if (window.confirm("Voulez vous vraiment supprimer la commande ?")) {
     let path =`order/${id}`; // la route avec l'id de l'objet à supprimmer 
     axios.delete(path) // axios delete sur la route
-     .then(fetchData()) // on ré-éxecute la fonction fetchData pour mettre à jours les données du tableau
+    alert('La commande à bien été supprimée')
+    }
+    else {
+      alert("Suppression annulée")
+    }
+    fetchData()
   }
 
 
@@ -141,9 +147,9 @@ export default function Orders() {
       <Encarts title="LISTE DES COMMANDES">
         <div className="tableActions border-gray">
           <SearchBar search={search} table="orders" />
-          <div className="addDiv">
+          {/* <div className="addDiv">
             Ajouter <ButtonAdd />
-          </div>
+          </div> */}
         </div>
         <Tables
           page="order"

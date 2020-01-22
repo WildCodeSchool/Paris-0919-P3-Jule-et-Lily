@@ -132,8 +132,13 @@ export default function Promo(props) {
   };
 
   const deleteData = (page, id) => {
-    axios.delete(`promo/${id}`).then(fetchData());
-    alert("La promo à été supprimé avec succès");
+    if (window.confirm("Voulez vous vraiment supprimer la promo ?")) {
+      axios.delete(`promo/${id}`);
+      alert("La promo à été supprimé avec succès");
+    } else {
+      alert("Vous avez annuler la suppression ");
+    } 
+    fetchData();
   };
 
   const isClickedModidy = index => {
@@ -168,8 +173,14 @@ export default function Promo(props) {
   };
 
   const deleteData2 = (page, id) => {
-    axios.delete(`code-promo/${id}`).then(fetchData());
+    if (window.confirm("Voulez vous vraiment supprimer le code promo ?")) {
+    axios.delete(`code-promo/${id}`);
     alert("Le code promo à été supprimé avec succès");
+    }
+    else {
+      alert("Suppression annulée");
+    }
+    fetchData();
   };
 
   const isClickedModifyCodePromo = index => {
