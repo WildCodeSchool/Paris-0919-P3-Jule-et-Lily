@@ -7,22 +7,31 @@ import {
   SearchBar,
   Tables,
   ReturnButton,
+
 } from "../../common";
+import CollectionViewArticle from "./CollectionViewArticle";
+import FormModifyCollection from './FormModifyCollection';
+import FormAddCollection from './FormAddCollection';
+import FormModifyCategory from './FormModifyCategory';
+import FormAddCategory from './FormAddCategory';
+import CategoryViewArticle from './CategoryViewArticle'
 
 export default function Collections(props) {
   const [data, setData] = useState([]); // prendra le resultat du axios et ne doit plus changer sauf si on refait le axios
   const [dataToShow, setDataToShow] = useState([]); // resultat du axios qui peut changer et qu'on affiche dans le tableau. Permet de faire la recherche
-  const [fullData, setFullData]= useState([])
-;
+  const [fullData, setFullData] = useState([]);
+  const [collectionClick, setCollectionClick] = useState([]);
+  const [categoryClick, setcategoryClick] = useState([]);
   const [pagesNb, setPagesNb] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
   // données du deuxième tableau
   const [data2, setData2] = useState([]);
   const [dataToShow2, setDataToShow2] = useState([]);
-  const [fullData2, setFullData2]= useState([])
+  const [fullData2, setFullData2] = useState([])
 
 
+  console.log('collectionClick', collectionClick);
 
   // pages du deuxième tableau
   const [pagesNb2, setPagesNb2] = useState(0);
@@ -30,15 +39,39 @@ export default function Collections(props) {
 
   const [click, setClick] = useState(false);
   const [clickView, setclickView] = useState(false);
+  const [clickAdd, setClickAdd] = useState(false);
+  const [clickAddCat, setclickAddCat] = useState(false);
+  const [clickedViewCategory, setClickedViewCategory] = useState(false);
+  const [clickedCategory, setClickedCategory] = useState(false);
+
+
   const isClickedModidy = index => {
     console.log("click!");
     setClick(!click);
+    setCollectionClick(data[index]);
   };
   const isClickedSee = index => {
-    console.log("click! delete");
     setclickView(!clickView);
-    console.log("data", data, "index", index);
-    // console.log('data[index]',data[index])
+    setCollectionClick(data[index]);
+    
+  };
+
+  const isClickedAddCollection = () => {
+    setClickAdd(!clickAdd);
+  }
+  const isClickedAddCategory = () => {
+    setclickAddCat(!clickAddCat);
+  }
+  const isClickedSeeCategory = index => {
+    // console.log("click!");
+    setClickedViewCategory(!clickedViewCategory);
+    setCollectionClick(data[index]);
+    setcategoryClick(data2[index]);
+  };
+  const isClickedCategory = (index) => {
+    setClickedCategory(!clickedCategory);
+    setcategoryClick(data2[index]);
+    fetchData();
   };
 
   const deleteData = (page, id) => {
@@ -187,7 +220,21 @@ export default function Collections(props) {
 
   const reload = () => {
     setClick(!click);
+    setClickedCategory(!clickedCategory);
     fetchData();
+  }
+
+  const reload2 = () => {
+    setClickedCategory(!clickedCategory);
+    fetchData();
+  }
+  const reloadAdd = () => {
+    setClickAdd(!clickAdd)
+    
+  }
+  const reloadAdd2 = () => {
+    
+    setclickAddCat(!clickAddCat)
   }
 
   // useEffect(() => {
@@ -222,59 +269,83 @@ export default function Collections(props) {
 
   return (
     <>
-      {clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <Encarts /> </>) :
-        click ? (<> <ReturnButton onClickSee={isClickedModidy} /> </>) : (
-          <>
-            <Encarts title="Liste des collections">
-              <div className="tableActions border-gray">
-                <SearchBar table="collections" search={search} />
-                <div className="addDiv">
-                  Ajouter <ButtonAdd />
+
+      {clickAdd ? (<FormAddCollection onClick={isClickedAddCollection} reloadAdd={reloadAdd} />) :
+
+        clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <CollectionViewArticle donneesCollection={collectionClick} /> </>) :
+          click ? (<> <ReturnButton onClickSee={isClickedModidy} />  <FormModifyCollection onClickSee={isClickedModidy} donneesCollection={collectionClick} reload={reload}> </FormModifyCollection> </>) : (
+            <>
+              <Encarts title="Liste des collections">
+                <div className="tableActions border-gray">
+                  <SearchBar table="collections" search={search} />
+                  <div className="addDiv">
+                    Ajouter <ButtonAdd onClick={isClickedAddCollection} />
+                  </div>
                 </div>
-              </div>
 
-              <Tables
-                page="collections"
-                orderBy={orderBy}
-                donnees={dataToShow ? dataToShow : "loading"} s
-                deleteData={deleteData}
-                onClick={isClickedModidy}
-                onClickSee={isClickedSee}
+                <Tables
+                  page="collections"
+                  orderBy={orderBy}
+                  donnees={dataToShow ? dataToShow : "loading"} s
+                  deleteData={deleteData}
+                  onClick={isClickedModidy}
+                  onClickSee={isClickedSee}
+                  donneesCollection={collectionClick}
 
-              />
-              <Pagination
-                nbPages={pagesNb}
-                activePage={activePage}
-                changePagePlus={changePagePlus}
-                changePageMoins={changePageMoins}
-                setActivePage={setActivePage}
-                table="collections"
-              />
-            </Encarts>
+                />
+                <Pagination
+                  nbPages={pagesNb}
+                  activePage={activePage}
+                  changePagePlus={changePagePlus}
+                  changePageMoins={changePageMoins}
+                  setActivePage={setActivePage}
+                  table="collections"
+                />
+              </Encarts>
+            </>)}
+      {/* categories penser à la donnée que l'on envoie à la place de donnesproduct */}
 
-            <Encarts title="Liste des catégories">
-              <div className="tableActions border-gray">
-                <SearchBar table="categories" search={search} />
-                <div className="addDiv">
-                  Ajouter <ButtonAdd />
-                </div>
-              </div>
 
-              <Tables
-                page="categories"
-                orderBy={orderBy}
-                donnees={dataToShow2 ? dataToShow2 : "loading"}
-                deleteData={deleteData}
-              />
-              <Pagination
-                nbPages={pagesNb2}
-                activePage={activePage2}
-                changePagePlus={changePagePlus}
-                changePageMoins={changePageMoins}
-                setActivePage={setActivePage2}
-                table="categories"
-              />
-            </Encarts> </>)}
+      {clickAddCat ? (
+        <FormAddCategory reloadAdd2={reloadAdd2} onClick={isClickedAddCategory} />) :
+        clickedViewCategory ? (
+          <> <ReturnButton onClickSee={isClickedSeeCategory} /> <CategoryViewArticle donneesCategory={categoryClick} /> </>
+        ) :
+          clickedCategory ? (
+            <> <ReturnButton onClickSee={isClickedCategory} /> <FormModifyCategory reload2={reload2} donneesCategory={categoryClick} onClickSee={isClickedCategory} /> </>
+          ) : (
+              <>
+                <Encarts title="Liste des catégories">
+                  <div className="tableActions border-gray">
+                    <SearchBar table="categories" search={search} />
+                    <div className="addDiv">
+                      Ajouter <ButtonAdd onClick={isClickedAddCategory} />
+                    </div>
+                  </div>
+
+                  <Tables
+                    page="categories"
+                    orderBy={orderBy}
+                    donnees={dataToShow2 ? dataToShow2 : "loading"}
+                    deleteData={deleteData}
+                    onClick={isClickedCategory}
+                    onClickSee={isClickedSeeCategory}
+                    donneesProducts={collectionClick}
+                  />
+                  <Pagination
+                    nbPages={pagesNb2}
+                    activePage={activePage2}
+                    changePagePlus={changePagePlus}
+                    changePageMoins={changePageMoins}
+                    setActivePage={setActivePage2}
+                    table="categories"
+                  />
+                </Encarts>
+              </>)}
+
     </>
-  );
+  )
 }
+
+
+

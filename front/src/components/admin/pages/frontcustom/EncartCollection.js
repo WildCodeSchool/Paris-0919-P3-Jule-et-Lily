@@ -8,6 +8,7 @@ const EncartCollection = props => {
         className="EncartCollection"
         href={props.url}
         style={{ backgroundColor: props.backgroundColor }}
+        target="_blank"
       >
         <h5 style={{ color: props.titleColor }}>{props.title}</h5>
       </a>

@@ -10,6 +10,7 @@ import "../src/assets/css/admin/buttons-actions.css";
 import "../src/assets/css/admin/global.css";
 import "../src/assets/css/admin/FrontCustom.css";
 
+
 export default (props) => {
 
   return (

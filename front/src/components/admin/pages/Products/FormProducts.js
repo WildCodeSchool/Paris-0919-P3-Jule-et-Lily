@@ -84,7 +84,8 @@ export default function FormProducts(props) {
     delete productPut.product_stock
     delete productPut.category_name
     delete productPut.collection_name
-    delete productPut.image_url
+    delete productPut.image_name
+    delete productPut.product_stock_min
     console.log('productput', productPut);
     axios     // récupération des données produit et envoi ds la bdd
       .put(`product/${productModify.product_id}`, productPut)
@@ -169,6 +170,20 @@ export default function FormProducts(props) {
           </div>
 
           <div className="form-group">
+            <label htmlFor="stock_min">Stock min </label>
+            <input
+              onChange={validateNewDataStock}
+              required
+              type="number"
+              className="form-control text-center"
+              id="examprixid"
+              name='stock_min'
+              placeholder={productModify.stock_min}
+              value={productStockModify.stock_min}
+            />
+          </div>
+
+          <div className="form-group">
             <label htmlFor="Description">Description</label>
             <textarea rows="15" cols="33" onChange={validateNewData}
               name='product_description'
@@ -191,7 +206,7 @@ export default function FormProducts(props) {
           </div>
 
           <div className="form-group ">
-            <label htmlFor="collection_name">Catégorie</label>
+            <label htmlFor="category_name">Catégorie</label>
             <select className="custom-select  text-center" name='category_name' id="inputGroupSelect01" onChange={validateNewDataCategory}>
               <option selected>{productModify.category_name} {productModify.category_id}</option>
               {dataCategories &&
@@ -203,7 +218,7 @@ export default function FormProducts(props) {
             </select>
           </div>
 
-          <div className="form-group ">
+          <div className="form-group">
             <label htmlFor="collection_name">Collection</label>
             <select className="custom-select  text-center" name='collection_name' id="inputGroupSelect02" onChange={validateNewDataCollection}>
               <option selected> {productModify.collection_name}</option>
@@ -219,10 +234,11 @@ export default function FormProducts(props) {
           <div className="form-group">
             <label htmlFor="image">Image</label>
             <input
+            name="product_cover_image_id"
               type="text"
               className="form-control text-center"
               id="imageid"
-              placeholder={productModify.product_image_id}
+              placeholder={productModify.product_cover_image_id}
             />
           </div>
 

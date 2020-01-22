@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Carousel } from 'react-responsive-carousel';
+// import { Carousel } from 'react-responsive-carousel';
 
 
 import EncartCollection from "./EncartCollection";
@@ -27,10 +27,7 @@ const FrontCustom = () => {
     titleColor: ""
   });
   const [ColorPickerTitleDisplay, setColorPickerTitleDisplay] = useState(false);
-  const [
-    ColorPickerBackgroundDisplay,
-    setColorPickerBackgroundDisplay
-  ] = useState(false);
+  const [ColorPickerBackgroundDisplay, setColorPickerBackgroundDisplay] = useState(false);
   const [dataImage, setDataImage] = useState([]);
 
   ////////////////////////// Database Request HEADER COLLECTION + SLIDER IMAGE//////////////////////////
@@ -128,7 +125,7 @@ const FrontCustom = () => {
     setColorPickerBackgroundDisplay(false);
   };
   const handleChangeTitleColor = color => {
-    setEncartDisplay({ ...encartDisplay, titleColor: color.hex });
+    setEncartDisplay({ ...encartDisplay, titleColor: color.hex })
   };
   const handleChangeBackgroundColor = color => {
     setEncartDisplay({ ...encartDisplay, backgroundColor: color.hex });
@@ -240,7 +237,7 @@ const FrontCustom = () => {
             {dataImage &&
               dataImage.map(item => (
                 <Image
-                  src={item.image_url}
+                  src={item.image_name}
                   alt={item.image_name}
                   key={item.image_id}
                   id={item.image_id}
@@ -250,20 +247,65 @@ const FrontCustom = () => {
           </div>
 
           <div className="container ">
-            <UploadImageHook 
-            length = {dataImage.length}/>
+            <UploadImageHook length={dataImage.length} />
           </div>
           <h6 className="blue font-weight-bold mb-5">Visualiser le slider :</h6>
-          <div className = "m-auto w-75">
-            <Carousel autoPlay showArrows={true}>   
+          <div className="m-auto w-75">
+            <div id="myCarousel" className="carousel slide" data-ride="carousel">
+              {/* <!-- Indicators --> */} 
+              <ol className="carousel-indicators">
+              {dataImage &&
+                dataImage.map((item,i) => (
+                 <li className="mr-2" data-target="#myCarousel" data-slide-to={i}></li>
+                )
+              )} </ol>
+              {/* <!-- Wrapper for slides --> */}
+              <div className="carousel-inner mb-3">
+              {dataImage &&
+                dataImage.map((item,i) => (
+                  <div className={i == 0 ? "item active CarouselImage" : "item CarouselImage"} key={item.image_id}>
+
+                    <a className="CarouselItem" href={`https://${item.image_url}`} target="_blank"><img className="CarouselItem" src={item.image_name} alt={item.image_name} /></a>
+                    <div className="carousel-caption">
+                    <p className="legend">{item.image_url}</p>
+                    </div>
+                  </div>
+                )
+              )}
+
+                {/* <!-- Left and right controls --> */}
+                <a
+                  className="left carousel-control"
+                  href="#myCarousel"
+                  data-slide="prev"
+                >
+                  <span className="glyphicon glyphicon-chevron-left"><i class="fas fa-chevron-left"></i></span>
+                  <span className="sr-only">Previous</span>
+                </a>
+                <a
+                  className="right carousel-control"
+                  href="#myCarousel"
+                  data-slide="next"
+                >
+                  <span className="glyphicon glyphicon-chevron-right"><i class="fas fa-chevron-right"></i></span>
+                  <span className="sr-only">Next</span>
+                </a>
+            </div>
+
+            {/* <Carousel autoPlay showArrows={true}>   
             {dataImage &&
               dataImage.map(item => (
                 <div className= "CarouselImage" key={item.image_id}>
-                  <img src={item.image_url} alt={item.image_name}/>
-                  <p className="legend">{item.image_name}</p>
+                  <a href={item.image_url} target="_blank">
+                    <div>
+                      <img src={item.image_name} alt={item.image_name}/>
+                      <p className="legend">{item.image_name}</p>
+                    </div>
+                  </a>
                 </div>
               ))}
-              </Carousel>
+              </Carousel> */}
+          </div>
           </div>
         </Encarts>
       </div>

@@ -8,4 +8,10 @@
     width: 21px;
     height: auto;
 }
-
+.sidebar .nav-item .nav-link span {
+    font-size: 0.80rem;
+}
+.active-page span {
+    font-weight:bold;
+   
+  }

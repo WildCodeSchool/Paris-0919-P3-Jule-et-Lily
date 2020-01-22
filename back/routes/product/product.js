@@ -77,12 +77,12 @@ router.route(['/stock/:id','/stock/:stock_quantity/and/:stock_min'])
 
 router.route(['/all'])
   .get(function (req, res) { //récup un produit
-    connection.query('SELECT p.*, i.image_url, s.stock_quantity as product_stock, c.collection_name, k.category_name FROM product as p LEFT OUTER JOIN stock as s ON s.stock_product_id = p.product_id LEFT OUTER JOIN collection as c on c.collection_id = p.product_collection_id LEFT OUTER JOIN category as k ON k.category_id = p.product_category_id INNER JOIN image as i On i.image_id= p.product_image_id', req.body, (err, results) => {
+    connection.query('SELECT p.*, i.image_name, s.stock_quantity as product_stock, s.stock_min as product_stock_min, c.collection_name, k.category_name FROM product as p LEFT OUTER JOIN stock as s ON s.stock_product_id = p.product_id LEFT OUTER JOIN collection as c on c.collection_id = p.product_collection_id LEFT OUTER JOIN category as k ON k.category_id = p.product_category_id LEFT JOIN image as i ON i.image_id=p.product_cover_image_id', (err, results) => {
       if (err) {
         console.log(err);
         res.send('Erreur lors de la récupération des produits').status(500);
       } else {
-        console.log(results)
+        // console.log(results)
         res.json(results);
       }
     });
@@ -135,7 +135,6 @@ router.route(['/:id', '/'])
         console.log('erreur back', err);
         res.status(500).send("Erreur lors de la modification du produit");
       } else {
-        console.log('res back', res);
         console.log(results)
         res.sendStatus(200);
       }

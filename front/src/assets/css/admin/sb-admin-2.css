@@ -4037,6 +4037,11 @@ input[type="button"].btn-block {
   background-size: 100% 100%;
 }
 
+.active-page span {
+  font-weight:bold;
+  font-size: 0.80rem;
+}
+
 @media (max-width: 575.98px) {
   .navbar-expand-sm > .container,
   .navbar-expand-sm > .container-fluid {
