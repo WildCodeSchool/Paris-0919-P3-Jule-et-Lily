@@ -135,6 +135,7 @@ const FrontCustom = () => {
 
   const handleDelete = id => {
     if (dataImage.length > 1) {
+    if (window.confirm("Voulez vous vraiment supprimer l'image ?")) {
     axios
       .delete(`image-slider/${id}`)
       .then(res => {
@@ -148,6 +149,10 @@ const FrontCustom = () => {
       //   console.error(e);
       // });
     setTimeout(() => window.location.reload(), 2000);
+    }
+    else {
+      alert("Suppression annulée")
+    }
   } else {
     alert ("Attention il faut garder au moins une image dans le slider");
   }
