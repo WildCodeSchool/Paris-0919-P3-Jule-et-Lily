@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import '../../../../assets/css/admin/global.css'
 import '../../../../assets/css/admin/cards.css'
 import {
@@ -9,10 +10,24 @@ import {
     ButtonConfirm,
     Tables,
 } from "../../common";
+
+
+
 export default (props) => {
+    const [orders, setOrder] = useState(); 
 // axios vers les /:id/items pour remplir le 2 tab'
     console.log('ici la data order', props.donneesOrder);
+    console.log('order', orders);
+    
     const order =  props.donneesOrder;
+
+    const fetchOrders = () => {
+        axios
+          .get(`/order/${order.order_id}/items`) //liste les commandes
+          .then(res => {
+            setOrder(res.data);
+              })
+            }
 
     const handleSort = (e) => {
         //console.log(e.target)
@@ -42,6 +57,7 @@ export default (props) => {
 
 
     useEffect(() => {
+        fetchOrders()
     }, [])
 
     return (
@@ -60,7 +76,7 @@ export default (props) => {
 
                             <tr>
                                 <th className=" pink bg-lightpink asc" id="order_ref" > Ref </th>
-                                <th className=" pink bg-lightpink " id="order_tracking_number" > Nom</th>
+                                <th className=" pink bg-lightpink " id="order_tracking_number" > Client</th>
                                 <th className=" pink bg-lightpink asc" id="order_date" >
                                     {" "}
                                     Date de commande{" "}
@@ -76,7 +92,7 @@ export default (props) => {
                                     <p>{order.order_ref}</p>
                                 </td>
                                 <td>
-                                    <p>{order.user_firstname} </p>
+                                    <p>{order.user_firstname} {order.user_lastname} </p>
                                 </td>
                                 <td>
                                     <p>{orderLocal.toLocaleDateString()} </p>
