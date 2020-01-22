@@ -9,6 +9,8 @@ export default function EncartViewUser(props) {
     const [billing, setBilling] = useState()
     const [order, setOrder] = useState()
     console.log('coucou', shipping);
+    console.log('cou', billing);
+    console.log('c', order);
 
     const user = props.users
 
@@ -24,10 +26,17 @@ export default function EncartViewUser(props) {
             .then(res => setBilling(res.data))
     }
 
+    const fetchOrder = () => {
+        Axios
+            .get(`/user/order/${user.user_id}`) // we catch values
+            .then(res => setOrder(res.data))
+    }
+
     useEffect(() => {
         fetchShipping()
         fetchBilling()
-    }, [setShipping, setBilling])
+        fetchOrder()
+    }, [])
 
     return (
         <>
@@ -244,28 +253,34 @@ export default function EncartViewUser(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    {" "}
-                                    <p>{shipping && shipping[0].address_street}</p>
-                                </td>
-                                <td>
-                                    {" "}
-                                    <p>{shipping && shipping[0].address_city}</p>
-                                </td>
-                                <td>
-                                    {" "}
-                                    <p>{shipping && shipping[0].address_zip_code}</p>
-                                </td>
-                                <td>
-                                    {" "}
-                                    <p>{user.user_phone}</p>
-                                </td>
-                                <td>
-                                    {" "}
-                                    <p>{shipping && shipping[0].address_company_name}</p>
-                                </td>
-                            </tr>
+                        {order && order.map((data, i) => {
+                            const order_date = new Date(data.order_date);
+                            const shipped_date = new Date(data.order_shipped_date);
+                                return (
+                                <tr>
+                                    <td>
+                                        {" "}
+                                <p>{data.order_ref}</p>
+                                    </td>
+                                    <td>
+                                        {" "}
+                                        <p>{user.user_lastname} {user.user_firstname}</p>
+                                        {/* <p>{user.user_lastname} {user.user_firstname}</p> */}
+                                    </td>
+                                    <td>
+                                        {" "}
+                                        <p>{data.order_date}</p>
+                                    </td>
+                                    <td>
+                                        {" "}
+                                        <p>{user.user_phone}</p>
+                                    </td>
+                                    <td>
+                                        {" "}
+                                        <p>{shipping && shipping[0].address_company_name}</p>
+                                    </td>
+                                </tr>
+                                )})}
                         </tbody>
                     </table>
                 </div>
