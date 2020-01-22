@@ -79,9 +79,15 @@ export default function Orders() {
 
   //fonction pour supprimer des données dans la BDD
   const deleteData = (page, id) => {
-    let path = `order/${id}`; // la route avec l'id de l'objet à supprimmer 
+    if (window.confirm("Voulez vous vraiment supprimer la commande ?")) {
+    let path =`order/${id}`; // la route avec l'id de l'objet à supprimmer 
     axios.delete(path) // axios delete sur la route
-      .then(fetchData()) // on ré-éxecute la fonction fetchData pour mettre à jours les données du tableau
+    alert('La commande à bien été supprimée')
+    }
+    else {
+      alert("Suppression annulée")
+    }
+    fetchData()
   }
 
 

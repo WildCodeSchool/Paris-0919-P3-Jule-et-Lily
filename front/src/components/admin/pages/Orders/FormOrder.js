@@ -14,20 +14,20 @@ import {
 
 
 export default (props) => {
-    const [orders, setOrder] = useState(); 
-// axios vers les /:id/items pour remplir le 2 tab'
+    const [orders, setOrder] = useState();
+    // axios vers les /:id/items pour remplir le 2 tab'
     console.log('ici la data order', props.donneesOrder);
     console.log('order', orders);
-    
-    const order =  props.donneesOrder;
+
+    const order = props.donneesOrder;
 
     const fetchOrders = () => {
         axios
-          .get(`/order/${order.order_id}/items`) //liste les commandes
-          .then(res => {
-            setOrder(res.data);
-              })
-            }
+            .get(`/order/${order.order_id}/items`) //liste les commandes
+            .then(res => {
+                setOrder(res.data);
+            })
+    }
 
     const handleSort = (e) => {
         //console.log(e.target)
@@ -62,7 +62,7 @@ export default (props) => {
 
     return (
         <>
-            <ReturnButton  onClickSee={props.onClick}/>
+            <ReturnButton onClickSee={props.onClick} />
             <Encarts title="Fiche commande">
                 <p className='text-center'> Références de la commande</p>
                 <div className="table-responsive">
@@ -96,7 +96,7 @@ export default (props) => {
                                 </td>
                                 <td>
                                     <p>{orderLocal.toLocaleDateString()} </p>
-                                   
+
                                 </td>
                                 <td>
                                     <p>{order.total_price}</p>
@@ -124,7 +124,7 @@ export default (props) => {
                         </thead>
 
                         <tbody>
-                       
+
                             <tr >
                                 <td>
                                     <p> nom du produit</p>
@@ -146,14 +146,24 @@ export default (props) => {
                     >
                         <thead>
                             <tr>
-                                <th className=" pink bg-lightpink asc" id="order_ref" >Numéro Colissimo</th>
+                                <th className=" pink bg-lightpink asc" id="order_ref" > Numéro Colissimo</th>
                                 <th className=" pink bg-lightpink " id="order_tracking_number" > Date Expédition</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr >
                                 <td>
-                                    <p>{order.order_tracking_number}</p>
+                                    <input
+                                        name='product_name'
+                                        
+                                        type="text"
+                                        className="form-control text-center"
+                                        id="designationid"
+                                        placeholder={order.order_tracking_number}
+                                        value={order.order_tracking_number}
+
+                                    />
+                                   
                                 </td>
                                 <td>
                                     <p>{orderShip.toLocaleDateString()}</p>
@@ -165,7 +175,7 @@ export default (props) => {
 
                 <div className='text-right'>
                     <ButtonCancel onClick={props.onClick} color='#dd73da' />
-                    <ButtonConfirm color='#dd73da'  />
+                    <ButtonConfirm color='#dd73da' />
                 </div>
 
             </Encarts>
