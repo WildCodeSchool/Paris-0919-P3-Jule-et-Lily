@@ -105,7 +105,7 @@ const Tables = props => {
                   <strong>Action </strong>
                 </th>
               </tr>
-            ) : props.page === "clients" ? (
+            ) : props.page === "users" ? (
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="user_lastname" onClick={handleSort}> Nom</th>
                 <th className="th-order pink bg-lightpink asc" id="user_firstname" onClick={handleSort}> Prénom </th>
@@ -249,7 +249,7 @@ const Tables = props => {
                         </td>
                       </tr>
                     );
-                  case "clients":
+                  case "users":
                     return (
                       <tr key={data.user_id}>
                         <td>
@@ -265,7 +265,6 @@ const Tables = props => {
                           <p>{data.user_email}</p>
                         </td>
                         <td className='actionButtons'>
-                          <ButtonModify index={i} onClick={props.onClick} />
                           <ButtonSee index={i} onClickSee={props.onClickSee} />
                           <ButtonDelete deleteData={handleDelete} id={data.user_id} />
                         </td>
