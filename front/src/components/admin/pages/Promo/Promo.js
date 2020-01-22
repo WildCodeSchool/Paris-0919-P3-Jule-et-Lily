@@ -36,6 +36,17 @@ export default function Promo(props) {
   const [pagesNb2, setPagesNb2] = useState(0); //le nombre de pages
   const [activePage2, setActivePage2] = useState(1); // le numéro de la page active
 
+
+  const [ColorPickerDisplay, setColorPickerDisplay] = useState(false);
+
+  const [encartDisplay, setEncartDisplay] = useState({
+    id: "",
+    backgroundColor: "",
+    title: "",
+    url: "",
+    titleColor: ""
+  });
+
   const fetchData = () => {
     axios
       .get("/promo/all") //liste les commandes
@@ -195,6 +206,16 @@ export default function Promo(props) {
   const reloadAddCodePromo = () => {
     setClickAddCodePromo(!clickAddCodePromo);
     fetchData();
+  };
+
+  const handleClickColorPicker = () => {
+    setColorPickerDisplay(!ColorPickerDisplay);
+  };
+ const handleCloseColorPicker = () => {
+    setColorPickerDisplay(false);
+  };
+  const handleChangeTitleColor = color => {
+    setEncartDisplay({ ...encartDisplay, titleColor: color.hex })
   };
 
   // fonction pour ordonnée le tableau

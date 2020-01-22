@@ -56,7 +56,7 @@ export default function FormProducts(props) {
     // modification de la hooks collection avec traitement de la donnée
     const validateNewDataCollection = (e) => {
         // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
-        let newCollection = dataCollection.filter(collection => collection.collection_name.toUpperCase() == e.target.value.toUpperCase())
+        let newCollection = dataCollection.filter(collection => collection.collection_name == e.target.value)
         let newCollectionId = newCollection[0].collection_id
         setNewProduct({ ...newProduct, [e.target.name]: e.target.value })
         setNewProduct({ ...newProduct, product_collection_id: newCollectionId })
@@ -65,7 +65,7 @@ export default function FormProducts(props) {
     // modification de la hooks categorie avec traitement de la donnée
     const validateNewDataCategory = (e) => {
         // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
-        let newCategorie = dataCategories.filter(categorie => categorie.category_name.toUpperCase() == e.target.value.toUpperCase())
+        let newCategorie = dataCategories.filter(categorie => categorie.category_name == e.target.value)
         let newCategorieId = newCategorie[0].category_id
         setNewProduct({ ...newProduct, [e.target.name]: e.target.value })
         setNewProduct({ ...newProduct, product_category_id: newCategorieId })
@@ -90,6 +90,8 @@ export default function FormProducts(props) {
         delete productPut.product_stock
         delete productPut.category_name
         delete productPut.stock_quantity
+        delete productPut.collection_name
+
         delete productPut.collection_name
         console.log('productput', productPut);
         axios     // envoi ds la bdd
@@ -226,7 +228,7 @@ export default function FormProducts(props) {
                     <div className="form-group">
                         <label htmlFor="image">Image</label>
                         <input
-                            name='product_image_id'
+                            name='product_cover_image_id'
                             type="text"
                             onChange={validateNewData}
                             className="form-control text-center"
