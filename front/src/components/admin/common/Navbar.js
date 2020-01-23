@@ -36,7 +36,7 @@ const Navbar = props => {
                     <li className="nav-item">
                         <NavLink to="/profile" className={pathname=='/profile' ? "nav-link bg-gradient-purple active-page" : "nav-link"}>
                         <img className='icons mr-2' src={IconUsers} alt='' />
-                            <span>Profile</span>
+                            <span>Profil</span>
                         </NavLink>
                     </li>
 
@@ -51,7 +51,7 @@ const Navbar = props => {
                     </li>
 
                     <li className="nav-item">
-                        <NavLink to="/clients"  className={pathname=='/clients' ? "nav-link bg-gradient-purple active-page collapsed" : "nav-link collapsed"}  data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                        <NavLink to="/users"  className={pathname=='/users' ? "nav-link bg-gradient-purple active-page collapsed" : "nav-link collapsed"}  data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                         <img className='icons mr-2' src={IconUsers} alt='' />
                             <span className='align-bottom'>Clients</span>
                         </NavLink>
