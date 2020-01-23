@@ -28,7 +28,7 @@ export default (props) => {
               {/* Mettre les routes vers les autres composants ici  */}
               <Switch >
                 <Route exact path ="/" component={Dashboard} />
-                <Route  path="/profil" component={Profile} />
+                <Route  path="/profile" component={Profile} />
                 <Route  path="/orders" component={Orders} />
                 <Route  path="/users" component={Users} />
                 <Route  path="/products" component={Products} />

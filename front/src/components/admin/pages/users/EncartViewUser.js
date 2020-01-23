@@ -8,11 +8,16 @@ export default function EncartViewUser(props) {
     const [shipping, setShipping] = useState()
     const [billing, setBilling] = useState()
     const [order, setOrder] = useState()
+    const [orderPrice, setOrderPrice] = useState()
     console.log('coucou', shipping);
     console.log('cou', billing);
     console.log('c', order);
+    console.log('c1', orderPrice);
 
     const user = props.users
+    const user_birthday = new Date(user.user_date_of_birth);
+    const user_registration = new Date(user.user_registration_date)
+
 
     const fetchShipping = () => {
         Axios
@@ -32,10 +37,17 @@ export default function EncartViewUser(props) {
             .then(res => setOrder(res.data))
     }
 
+    const fetchOrderPrice = () => {
+        Axios
+            .get(`/user/orderprice/${user.user_id}`) // we catch values
+            .then(res => setOrderPrice(res.data))
+    }
+
     useEffect(() => {
         fetchShipping()
         fetchBilling()
         fetchOrder()
+        fetchOrderPrice()
     }, [])
 
     return (
@@ -75,28 +87,28 @@ export default function EncartViewUser(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    {" "}
-                                    <p>{user.user_lastname}</p>
-                                </td>
-                                <td>
-                                    {" "}
-                                    <p>{user.user_firstname}</p>
-                                </td>
-                                <td>
-                                    {" "}
-                                    <p>{user.user_date_of_birth}</p>
-                                </td>
-                                <td>
-                                    {" "}
-                                    <p>{user.user_registration_date}</p>
-                                </td>
-                                <td>
-                                    {" "}
-                                    <p>{user.user_email}</p>
-                                </td>
-                            </tr>
+                                    <tr>
+                                        <td>
+                                            {" "}
+                                            <p>{user.user_lastname}</p>
+                                        </td>
+                                        <td>
+                                            {" "}
+                                            <p>{user.user_firstname}</p>
+                                        </td>
+                                        <td>
+                                            {" "}
+                                            <p>{user_birthday.toLocaleDateString()}</p>
+                                        </td>
+                                        <td>
+                                            {" "}
+                                            <p>{user_registration.toLocaleDateString()}</p>
+                                        </td>
+                                        <td>
+                                            {" "}
+                                            <p>{user.user_email}</p>
+                                        </td>
+                                    </tr>
                         </tbody>
                     </table>
                 </div>
@@ -148,7 +160,7 @@ export default function EncartViewUser(props) {
                                 </td>
                                 <td>
                                     {" "}
-                                    <p>{user.user_phone}</p>
+                                    <p>0{user.user_phone}</p>
                                 </td>
                                 <td>
                                     {" "}
@@ -206,7 +218,7 @@ export default function EncartViewUser(props) {
                                 </td>
                                 <td>
                                     {" "}
-                                    <p>{user.user_phone}</p>
+                                    <p>0{user.user_phone}</p>
                                 </td>
                                 <td>
                                     {" "}
@@ -253,34 +265,33 @@ export default function EncartViewUser(props) {
                             </tr>
                         </thead>
                         <tbody>
-                        {order && order.map((data, i) => {
-                            const order_date = new Date(data.order_date);
-                            const shipped_date = new Date(data.order_shipped_date);
+                            {order && order.map((data, i) => {
+                                const order_date = new Date(data.order_date);
                                 return (
-                                <tr>
-                                    <td>
-                                        {" "}
-                                <p>{data.order_ref}</p>
-                                    </td>
-                                    <td>
-                                        {" "}
-                                        <p>{user.user_lastname} {user.user_firstname}</p>
-                                        {/* <p>{user.user_lastname} {user.user_firstname}</p> */}
-                                    </td>
-                                    <td>
-                                        {" "}
-                                        <p>{data.order_date}</p>
-                                    </td>
-                                    <td>
-                                        {" "}
-                                        <p>{user.user_phone}</p>
-                                    </td>
-                                    <td>
-                                        {" "}
-                                        <p>{shipping && shipping[0].address_company_name}</p>
-                                    </td>
-                                </tr>
-                                )})}
+                                    <tr>
+                                        <td>
+                                            {" "}
+                                            <p>{data.order_ref}</p>
+                                        </td>
+                                        <td>
+                                            {" "}
+                                            <p>{user.user_firstname} {user.user_lastname}</p>
+                                        </td>
+                                        <td>
+                                            {" "}
+                                            <p>{order_date.toLocaleDateString()}</p>
+                                        </td>
+                                        <td>
+                                            {" "}
+                                            <p>{orderPrice && orderPrice[0].total_price} €</p>
+                                        </td>
+                                        <td>
+                                            {" "}
+                                            <p>{data.order_status_name}</p>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
                         </tbody>
                     </table>
                 </div>
