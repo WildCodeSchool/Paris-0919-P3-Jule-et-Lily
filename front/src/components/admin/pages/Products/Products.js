@@ -4,12 +4,12 @@ import {
   ButtonAdd,
   Encarts,
   SearchBar,
-  Tables, 
+  Tables,
   Pagination
 } from "../../common";
 import EncartsViewArticle from "./EncartsViewArticle";
-import FormProducts from './FormProducts'
-import FormAddProduct from './FormAddProduct'
+import FormProducts from "./FormProducts";
+import FormAddProduct from "./FormAddProduct";
 
 export default function Products(props) {
   const [data, setData] = useState([]);
@@ -22,10 +22,10 @@ export default function Products(props) {
   //state pour le nombre de pages du tableau
   const [pagesNb, setPagesNb] = useState(0); //le nombre de pages
   const [activePage, setActivePage] = useState(1); // le numéro de la page active
-  
+
   const picturesProducts = () => {
-    axios.get(``)
-  }
+    axios.get(``);
+  };
   const fetchData = () => {
     axios
       .get("/product/all") //liste les commandes
@@ -37,8 +37,9 @@ export default function Products(props) {
           setPagesNb(1); // il n'y a qu'une page.
           setData([]); // avant de remplir le tableau on le vide
           setDataToShow([]); // idem
-          for (let i = 0; i < res.data.length; i++) { // on boucle pour remplir les deux tableau avec les données
-            setData(data => [...data, res.data[i]]); 
+          for (let i = 0; i < res.data.length; i++) {
+            // on boucle pour remplir les deux tableau avec les données
+            setData(data => [...data, res.data[i]]);
             setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
           }
           //si plus de 10 résultats
@@ -53,7 +54,7 @@ export default function Products(props) {
           }
         } else if (activePage === pagesNb) {
           // si on est sur la dernière page
-          setPagesNb(parseInt(res.data.length / 10 + 1));// on défini le nombre de pages en fonction du nombre de données
+          setPagesNb(parseInt(res.data.length / 10 + 1)); // on défini le nombre de pages en fonction du nombre de données
           setData([]);
           setDataToShow([]);
           for (let i = activePage * 10 - 10; i < res.data.length; i++) {
@@ -62,7 +63,7 @@ export default function Products(props) {
           }
         } else {
           // si on est sur une autre page
-          setPagesNb(parseInt(res.data.length / 10 + 1));// on défini le nombre de pages en fonction du nombre de données
+          setPagesNb(parseInt(res.data.length / 10 + 1)); // on défini le nombre de pages en fonction du nombre de données
           setData([]);
           setDataToShow([]);
           for (let i = activePage * 10 - 10; i < activePage * 10; i++) {
@@ -74,17 +75,21 @@ export default function Products(props) {
   };
 
   const deleteData = (page, id) => {
-    axios.delete(`product/${id}`)
-      .then(fetchData())
-    alert('Le produit à été supprimé avec succès')
-  }
+    if (window.confirm("Voulez vous vraiment supprimer le produit ?")) {
+      axios.delete(`product/${id}`);
+      alert("Le produit à été supprimé avec succès");
+    } else {
+      alert("Suppression annulée");
+    }
+    fetchData();
+  };
 
   const isClickedModidy = index => {
     // console.log("click!");
     setClick(!click);
     setProductClick(data[index]);
   };
-  
+
   const isClickedSee = index => {
     setclickView(!clickView);
     // console.log('data[index]',data[index])
@@ -92,7 +97,7 @@ export default function Products(props) {
   };
   const isClickedAddProduct = () => {
     setClickAdd(!clickAdd);
-  }
+  };
 
   useEffect(() => {
     fetchData();
@@ -102,17 +107,18 @@ export default function Products(props) {
   const reload = () => {
     setClick(!click);
     fetchData();
-  }
+  };
   const reloadAdd = () => {
-    setClickAdd(!clickAdd)
+    setClickAdd(!clickAdd);
     fetchData();
-  }
- 
+  };
+
   // fonction pour ordonnée le tableau
   const orderBy = (type, order) => {
     let theData = dataToShow; //on copie les données dans un nouveau tableau
     setDataToShow([]); // on vide le tableau à afficher pour pouvoi le re-remplir plus tard
-    theData.sort((a, b) => { // on utilise la méthode sort pour trier
+    theData.sort((a, b) => {
+      // on utilise la méthode sort pour trier
       //si on veut trier des nombres
       if (typeof a[type] == "number") {
         if (order === "desc") return b[type] - a[type];
@@ -130,7 +136,7 @@ export default function Products(props) {
           return 0;
         }
       }
-      return null
+      return null;
     });
     //on met les données triées dans le tableau à afficher
     setDataToShow(dataToShow => [...dataToShow, ...theData]);
@@ -161,57 +167,56 @@ export default function Products(props) {
 
   // fonction pour aller une page en arière
   const changePageMoins = () => {
-    setActivePage(activePage - 1);//on retire 1 à la page active
+    setActivePage(activePage - 1); //on retire 1 à la page active
   };
 
   return (
     <div className="products">
-      {clickAdd ?
-        (<FormAddProduct onClick={isClickedAddProduct} reloadAdd={reloadAdd} />) :
-
-        clickView ? (
-          <EncartsViewArticle
-            title=" Fiche produit"
-            onClickSee={isClickedSee}
+      {clickAdd ? (
+        <FormAddProduct onClick={isClickedAddProduct} reloadAdd={reloadAdd} />
+      ) : clickView ? (
+        <EncartsViewArticle
+          title=" Fiche produit"
+          onClickSee={isClickedSee}
+          donneesProducts={productClick}
+        />
+      ) : click ? (
+        <div>
+          <FormProducts
+            onClick={isClickedModidy}
             donneesProducts={productClick}
+            donnesStock={productClick} // add a new function for add a stock name id
+            reload={reload}
           />
-        ) : click ? (
-          <div>
-            <FormProducts
-              onClick={isClickedModidy}
-              donneesProducts={productClick}
-              donnesStock={productClick} // add a new function for add a stock name id 
-              reload={reload}
-            />
+        </div>
+      ) : (
+        <Encarts title="Liste des Produits">
+          <div className="tableActions border-gray">
+            <SearchBar search={search} table="product" />
+            <div className="addDiv">
+              Ajouter <ButtonAdd onClick={isClickedAddProduct} />
+            </div>
           </div>
-        ) : (
-              <Encarts title="Liste des Produits">
-                <div className="tableActions border-gray">
-                  <SearchBar search={search} table="product" />
-                  <div className="addDiv">
-                    Ajouter <ButtonAdd onClick={isClickedAddProduct} />
-                  </div>
-                </div>
-                <Tables
-                  deleteData={deleteData}
-                  page="products"
-                  onClickSee={isClickedSee}
-                  onClick={isClickedModidy}
-                  donnees={dataToShow ? dataToShow : "loading"}
-                  orderBy={orderBy}
-                  pictures={picturesProducts}
-                />
+          <Tables
+            deleteData={deleteData}
+            page="products"
+            onClickSee={isClickedSee}
+            onClick={isClickedModidy}
+            donnees={dataToShow ? dataToShow : "loading"}
+            orderBy={orderBy}
+            pictures={picturesProducts}
+          />
 
-                <Pagination
-                  nbPages={pagesNb}
-                  activePage={activePage}
-                  changePagePlus={changePagePlus}
-                  changePageMoins={changePageMoins}
-                  setActivePage={setActivePage}
-                  table="products"
-                />
-              </Encarts>
-            )}
+          <Pagination
+            nbPages={pagesNb}
+            activePage={activePage}
+            changePagePlus={changePagePlus}
+            changePageMoins={changePageMoins}
+            setActivePage={setActivePage}
+            table="products"
+          />
+        </Encarts>
+      )}
     </div>
   );
 }
