@@ -55,3 +55,11 @@
   padding-top:18px;
   display:inline-block;
 }
+
+
+.uploadForm {
+  background-color:#fff;
+  border: 1px solid#d1d3e2;
+  border-radius: .35rem;
+  padding:3em;
+}

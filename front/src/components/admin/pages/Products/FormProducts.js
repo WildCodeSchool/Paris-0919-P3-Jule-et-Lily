@@ -4,10 +4,15 @@ import ButtonConfirm from '../../common/ButtonConfirm'
 import ButtonCancel from '../../common/ButtonCancel'
 import Encarts from '../../common/Encarts'
 import ReturnButton from '../../common/ReturnButton'
+import UploadImageProduct from './UploadImageProduct'
+import ImageProduct from './ImageProduct'
+
 export default function FormProducts(props) {
   const [productModify, setProductModify] = useState(props.donneesProducts)
   const [dataCollection, setDataCollection] = useState()
   const [dataCategories, setDataCategories] = useState()
+  const [dataImage, setDataImage] = useState([]);
+  const [dataCoverImage, setDataCoverImage] = useState([]);
   const [productStockModify, setProductStockModify] = useState({}) // changement state stock pour le produit
   console.log('productStock', productStockModify);
   console.log('dataCategories', dataCategories);
@@ -15,7 +20,6 @@ export default function FormProducts(props) {
   // récupération des noms de collections
   const fetchCollection = () => {
     axios.get('/collection/all/asc')
-      //  .then(res => console.log(res.data[0]))
       .then(res => setDataCollection(res.data));
   }
 
@@ -24,6 +28,31 @@ export default function FormProducts(props) {
     axios.get('/category/all/asc')
       .then(res => setDataCategories(res.data));
   }
+
+  // récupération des images
+  const fetchDataImage = () => {
+    axios
+      .get(`/product/image/${props.donneesProducts.product_id}`)
+      .then(
+        res => (setDataImage(res.data))
+      );
+  };
+
+  // // récupération de l'image de couverture
+  // const fetchDataCoverImage = () => {
+  //   axios
+  //     .get(`/product/image-cover/${props.donneesProducts.product_id}`)
+  //     .then(
+  //       res => (setDataCoverImage(res.data))
+  //     );
+  // };
+
+ 
+
+  const reloadUpload = () => {
+    fetchDataImage();
+  }
+
   // récupération des id de stocks
   const fetchStock = () => {
     axios.get(`/product/stock/${props.donneesProducts.product_id}`)
@@ -36,7 +65,6 @@ export default function FormProducts(props) {
 
   // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
   const validateNewData = (e) => {
-
     setProductModify({ ...productModify, [e.target.name]: e.target.value })
   }
 
@@ -75,9 +103,10 @@ export default function FormProducts(props) {
     setProductModify({ ...productModify, product_category_id: newCategorieId })
   }
 
-  // fetch ds un hooks pour maper les noms des catégories etc ...
 
-  // fonction pour envoyer les informations du form à jours
+
+
+  // fonction pour envoyer les informations du form à jour
   let handleSubmit = e => {
     e.preventDefault();
     const productPut = productModify
@@ -112,11 +141,57 @@ export default function FormProducts(props) {
   }
 
 
+   // envoi de l'image choisie en couverture
+
+   const ChooseCoverImage = (id) => {
+    axios
+    .put(`/product/image-cover/${id}/${props.donneesProducts.product_id}`)
+    console.log('axios imageid', id)
+    console.log('axios productid', props.donneesProducts.product_id)
+    .then(res => {
+      if (res.err) {
+        alert(res.err);
+      } else {
+        alert(`l'image de couverture de ${productModify.product_name} a été modifié avec succès!`)
+      }
+    }).catch(e => {
+      console.error(e);
+      alert(`Erreur lors de la modification de ${productModify.product_name}`)
+    });
+  }
+
+
+
+  ////////////////////////// deleteImage //////////////////////////
+
+  const handleDelete = id => {
+    if (dataImage.length > 1) {
+    axios
+      .delete(`/product/image/${id}`)
+      .then(res => {
+        console.log('suppression image',res)
+        if (res.error) {
+          alert("Erreur lors de la suppression de l'image du produit", res.error);
+        } else {
+          alert(`l'image du produit a été supprimée avec succès!`);
+        }
+      })
+      // .catch(e => {
+      //   console.error(e);
+      // });
+    reloadUpload()
+  } else {
+    alert ("Attention il faut garder au moins une image par produit");
+  }
+}
+
   useEffect(() => {
     fetchCollection()
     fetchCategories()
     fetchStock()
-  }, [] )
+    fetchDataImage()
+    // fetchDataCoverImage()
+  }, [dataImage] )
 
 
   return (
@@ -124,22 +199,19 @@ export default function FormProducts(props) {
 
       <ReturnButton onClickSee={props.onClick} />
       <Encarts title="Ajouter / Modifier les informations">
-
-        <form className='form-group text-center '>
+        <form className="form-group text-center ">
           <div className="form-group">
             <label htmlFor="designation"> Désignation</label>
             <input
-              name='product_name'
+              name="product_name"
               onChange={validateNewData}
               type="text"
               className="form-control text-center"
               id="designationid"
               placeholder={productModify.product_name}
               value={productModify.product_name}
-
             />
           </div>
-
 
           <div className="form-group">
             <label htmlFor="prix">Prix</label>
@@ -149,7 +221,7 @@ export default function FormProducts(props) {
               step="0.01"
               className="form-control text-center"
               id="examprixid"
-              name='product_price'
+              name="product_price"
               placeholder={productModify.product_price}
               value={productModify.product_price}
             />
@@ -163,7 +235,7 @@ export default function FormProducts(props) {
               type="number"
               className="form-control text-center"
               id="examprixid"
-              name='stock_quantity'
+              name="stock_quantity"
               placeholder={productModify.product_stock}
               value={productStockModify.stock_quantity}
             />
@@ -177,7 +249,7 @@ export default function FormProducts(props) {
               type="number"
               className="form-control text-center"
               id="examprixid"
-              name='stock_min'
+              name="stock_min"
               placeholder={productModify.stock_min}
               value={productStockModify.stock_min}
             />
@@ -185,8 +257,11 @@ export default function FormProducts(props) {
 
           <div className="form-group">
             <label htmlFor="Description">Description</label>
-            <textarea rows="15" cols="33" onChange={validateNewData}
-              name='product_description'
+            <textarea
+              rows="8"
+              cols="33"
+              onChange={validateNewData}
+              name="product_description"
               type="text"
               className="form-control text-center"
               id="exampleInputEmail1"
@@ -195,63 +270,102 @@ export default function FormProducts(props) {
             />
           </div>
           <div className="form-group ">
-            <label htmlFor="product_custom">Personalisable ?</label>
-            <input onChange={validateNewDatacustom}
-            className=" form ml-3 "
-              name='product_custom'
+            <label htmlFor="product_custom">Personnalisable ?</label>
+            <input
+              onChange={validateNewDatacustom}
+              className=" form ml-3 "
+              name="product_custom"
               type="checkbox"
               id="product_custom"
-
             />
           </div>
 
           <div className="form-group ">
             <label htmlFor="category_name">Catégorie</label>
-            <select className="custom-select  text-center" name='category_name' id="inputGroupSelect01" onChange={validateNewDataCategory}>
-              <option selected>{productModify.category_name} {productModify.category_id}</option>
+            <select
+              className="custom-select  text-center"
+              name="category_name"
+              id="inputGroupSelect01"
+              onChange={validateNewDataCategory}
+            >
+              <option selected>
+                {productModify.category_name} {productModify.category_id}
+              </option>
               {dataCategories &&
-                dataCategories.map((data) => {
-                  return (
-                    <option >{data.category_name} </option>
-                  )
+                dataCategories.map(data => {
+                  return <option>{data.category_name} </option>;
                 })}
             </select>
           </div>
 
           <div className="form-group">
             <label htmlFor="collection_name">Collection</label>
-            <select className="custom-select  text-center" name='collection_name' id="inputGroupSelect02" onChange={validateNewDataCollection}>
+            <select
+              className="custom-select  text-center"
+              name="collection_name"
+              id="inputGroupSelect02"
+              onChange={validateNewDataCollection}
+            >
               <option selected> {productModify.collection_name}</option>
               {dataCollection &&
-                dataCollection.map((data) => {
-                  return (
-                    <option > {data.collection_name}</option>
-                  )
+                dataCollection.map(data => {
+                  return <option> {data.collection_name}</option>;
                 })}
             </select>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="image">Image</label>
-            <input
-            name="product_cover_image_id"
-              type="text"
-              className="form-control text-center"
-              id="imageid"
-              placeholder={productModify.product_cover_image_id}
-            />
-          </div>
+          <div className="form m-auto">
+            <label htmlFor="image">Choix des Images</label>
+            <div className="sliderBlock m-auto sliderBlockResponsive uploadForm">
+              
+              {dataImage &&
+                dataImage.map(item => (
+                  <ImageProduct
+                    src={item.image_name}
+                    alt={item.image_name}
+                    key={item.image_id}
+                    id={item.image_id}
+                    onClick={() => handleDelete(item.image_id)}
+                    // onChoose={() => ChooseCoverImage(item.image_id)}
+                  />
+                ))}
+              <div className="container ">
+                <UploadImageProduct ProductId = {props.donneesProducts.product_id} reloadUpload={reloadUpload}/>
+              </div>
+              {/* {dataCoverImage[0] &&
+                  <ImageProduct
+                    src={dataCoverImage[0].image_name}
+                    alt={dataCoverImage[0].image_name}
+                    key={dataCoverImage[0].image_id}
+                    id={dataCoverImage[0].image_id}
+                    onClick={null}
+                  />
+                } */}
+              </div>    
+            </div>
+              {/* <label htmlFor="coverImage">Choix de l'image de couverture</label>
+              <select
+              className="custom-select  text-center"
+              name="image_name"
+              id="inputGroupSelect02"
+              onChange={validateNewCoverImage}
+              >
+              <option selected> {dataCoverImage[0] && dataCoverImage[0].image_name}</option>
+              {dataImage &&
+                dataImage.map(data => (
+                  <option>{data.image_name}</option>
+                ))}
+            </select>
+            {console.log ("image cover temporaire", dataCoverImageModify)} */}
+       
 
-          <div className='text-left'>
-            <ButtonCancel onClick={props.onClick} color='#234eb7' />
-            <ButtonConfirm color='#234eb7' onClick={handleSubmit} />
+
+          <div className="ButtonsGroup">
+            <ButtonCancel onClick={props.onClick} color="#234eb7" />
+            <ButtonConfirm color="#234eb7" onClick={handleSubmit} />
           </div>
         </form>
-
-
       </Encarts>
-
     </>
-
   );
 }

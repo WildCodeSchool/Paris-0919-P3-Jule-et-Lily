@@ -103,6 +103,7 @@ export default function Products(props) {
     setClick(!click);
     fetchData();
   }
+
   const reloadAdd = () => {
     setClickAdd(!clickAdd)
     fetchData();
