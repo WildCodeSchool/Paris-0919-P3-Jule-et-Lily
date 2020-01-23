@@ -286,7 +286,7 @@ const Tables = props => {
                           {" "}
                           <p>
                             { data.promo_sticker_text != 'NULL' ?
-                            <b class={`sticker-promo`} style={{backgroundColor:data.promo_sticker_color}}>{data.promo_sticker_text}</b>
+                            <b className={`sticker-promo`} style={{backgroundColor:data.promo_sticker_color}}>{data.promo_sticker_text}</b>
                             :
                             'pas de sticker'  
                             }

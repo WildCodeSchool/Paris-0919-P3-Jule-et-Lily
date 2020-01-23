@@ -12,7 +12,6 @@ export default function FormPromo(props) {
 
 const [ColorPickerDisplay, setColorPickerDisplay] = useState(false);
 const [encartDisplay, setEncartDisplay] = useState({
-  id: "",
   backgroundColor: promoModify.promo_sticker_color
 });
 
@@ -26,7 +25,6 @@ const [encartDisplay, setEncartDisplay] = useState({
   };
   
   const handleChangeColor = (color) => {
-
     setEncartDisplay({ ...encartDisplay, backgroundColor: color.hex });
     setPromoModify({ ...promoModify, promo_sticker_color: color.hex });
   };
@@ -100,7 +98,7 @@ const [encartDisplay, setEncartDisplay] = useState({
               type="text"
               className="form-control text-center"
               id="imageid"
-              maxlength="10"
+              maxLength="10"
               placeholder={promoModify.promo_sticker_text}
               value={promoModify.promo_sticker_text}
             />
@@ -134,9 +132,7 @@ const [encartDisplay, setEncartDisplay] = useState({
           </div>
         </form>
 
-
       </Encarts>
-
     </>
 
   );
