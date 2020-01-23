@@ -41,18 +41,12 @@ const Tables = props => {
             {props.page === "order" ? (
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="order_ref" onClick={handleSort}> Ref </th>
+                <th className="th-order pink bg-lightpink asc" id="order_name" onClick={handleSort}> Client </th>
                 <th className="th-order pink bg-lightpink asc" id="order_date" onClick={handleSort}>
                   {" "}
                   Date de commande{" "}
                 </th>
                 <th className="th-order pink bg-lightpink asc" id="order_status" onClick={handleSort}> Status </th>
-                <th className="th-order pink bg-lightpink desc" id="order_shipped_date" onClick={handleSort}> Date d'envoi </th>
-                <th className="th-order pink bg-lightpink desc" id="order_tracking_number" onClick={handleSort}> N° de suivi </th>
-                <th className="th-order pink bg-lightpink desc" id="order_user_id" onClick={handleSort}> Id Client </th>
-                <th className="th-order pink bg-lightpink desc" id="order_shipping_method_id" onClick={handleSort}>
-                  {" "}
-                  Méthode d'envoi{" "}
-                </th>
                 <th className="gray bg-lightpink">
                   <strong>Action </strong>
                 </th>
@@ -136,35 +130,16 @@ const Tables = props => {
                         </td>
                         <td>
                           {" "}
+                          <p>{data.user_firstname} {data.user_lastname}</p>
+                        </td>
+                        <td>
+                          {" "}
                           <p>{order_date.toLocaleDateString()}</p>
                         </td>
                         <td>
                           <p>{data.order_status_name}</p>
                         </td>
-                        <td>
-                          <p>
-                            {data.order_shipped_date != null
-                              ? shipped_date.toLocaleDateString()
-                              : "Envoi en attente"}
-                          </p>
-                        </td>
-                        <td>
-                          <p>
-                            {data.order_tracking_number != null
-                              ? data.order_tracking_number
-                              : "N/A"}
-                          </p>
-                        </td>
-                        <td>
-                          <p>{data.order_user_id}</p>
-                        </td>
-                        <td>
-                          <p>
-                            {data.order_shipping_method_id != null
-                              ? data.order_shipping_method_id
-                              : "N/A"}
-                          </p>
-                        </td>
+
                         <td className='actionButtons'>
                           <ButtonSee index={i} onClickSee={props.onClickSee} />
                           <ButtonModify index={i} onClick={props.onClick} />

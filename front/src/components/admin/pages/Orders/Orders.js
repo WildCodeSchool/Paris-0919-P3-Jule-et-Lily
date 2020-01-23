@@ -9,6 +9,7 @@ import {
   ReturnButton
 } from "../../common/";
 import FormOrder from './FormOrder'
+import EncartViewOrder from './EncartViewOrder'
 export default function Orders() {
   //state des données
   const [data, setData] = useState([]); //le tableau qui contiendra les données récupérées par axios
@@ -21,11 +22,23 @@ export default function Orders() {
 
   const [clickModify, setClickModify] = useState(false);
   const [orderClick, setOrderClick] = useState([]);
+  const [clickView, setclickView] = useState(false);
 
   const isClickedModify = (index) => {
     setClickModify(!clickModify);
     setOrderClick(data[index]);
+
   }
+
+  const isClickedSee = index => {
+    setclickView(!clickView);
+    setOrderClick(data[index]);
+    
+    
+
+    // console.log('data[index]',data[index])
+  };
+
   // fonction pour récupérer les données de la BDD
   const fetchData = () => {
     axios
@@ -78,9 +91,9 @@ export default function Orders() {
   //fonction pour supprimer des données dans la BDD
   const deleteData = (page, id) => {
     if (window.confirm("Voulez vous vraiment supprimer la commande ?")) {
-    let path =`order/${id}`; // la route avec l'id de l'objet à supprimmer 
-    axios.delete(path) // axios delete sur la route
-    alert('La commande à bien été supprimée')
+      let path = `order/${id}`; // la route avec l'id de l'objet à supprimmer 
+      axios.delete(path) // axios delete sur la route
+      alert('La commande à bien été supprimée')
     }
     else {
       alert("Suppression annulée")
@@ -145,44 +158,47 @@ export default function Orders() {
     else setDataToShow(data); //si la recherche est vide on veut afficher toutes les données dans le tableau
   };
 
-  // const reload = () => {
-  //   setClick(!click);
-  //   fetchData();
-  // }
+  const reload = () => {
+    setClickModify(!clickModify);
+    fetchData();
+  };
 
   return (
     <div>
-      {clickModify ? <> <FormOrder onClick={isClickedModify}  donneesOrder={orderClick}  /> 
-     
+      {clickView ? <EncartViewOrder onClickSee={isClickedSee}  donneesOrder={orderClick}/> :
       
-      </> 
-                           : (
+      clickModify ? <> <FormOrder onClick={isClickedModify} reload={reload} donneesOrder={orderClick} />
+
+
+      </>
+      : (
 
         <>
 
-          <Encarts title="LISTE DES COMMANDES">
-            <div className="tableActions border-gray">
-              <SearchBar search={search} table="orders" />
+        <Encarts title="LISTE DES COMMANDES">
+          <div className="tableActions border-gray">
+            <SearchBar search={search} table="orders" />
 
-            </div>
-            <Tables
-              page="order"
-              donnees={dataToShow ? dataToShow : "loading"}
-              orderBy={orderBy}
-              deleteData={deleteData}
-              onClick={isClickedModify}
-            />
-            <Pagination
-              nbPages={pagesNb}
-              activePage={activePage}
-              changePagePlus={changePagePlus}
-              changePageMoins={changePageMoins}
-              setActivePage={setActivePage}
-              table="order"
-            />
-          </Encarts>
+          </div>
+          <Tables
+            page="order"
+            donnees={dataToShow ? dataToShow : "loading"}
+            orderBy={orderBy}
+            deleteData={deleteData}
+            onClick={isClickedModify}
+            onClickSee={isClickedSee}
+          />
+          <Pagination
+            nbPages={pagesNb}
+            activePage={activePage}
+            changePagePlus={changePagePlus}
+            changePageMoins={changePageMoins}
+            setActivePage={setActivePage}
+            table="order"
+          />
+        </Encarts>
 
-        </>)}
+      </>)}
     </div>
 
   );

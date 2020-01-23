@@ -11,17 +11,10 @@ import {
     Tables,
 } from "../../common";
 
-
-
 export default (props) => {
     const [orders, setOrder] = useState();
     const [orderModify, setOrderModify] = useState(props.donneesOrder);
     const [status_orders, setStatusOrder] = useState();
-    // axios vers les /:id/items pour remplir le 2 tab'
-    console.log('ici la data order', props.donneesOrder);
-    console.log('status_orders', status_orders);
-    console.log('orderModify', orderModify);
-
 
     const order = props.donneesOrder;
 
@@ -30,6 +23,7 @@ export default (props) => {
             .get(`/order/${order.order_id}/items`)
             .then(res => {
                 // modifyOrderDate()
+                modifyFormDate()
                 setOrder(res.data);
             })
         axios
@@ -39,10 +33,9 @@ export default (props) => {
             })
     }
 
-
     const validateNewOrder = (e) => {
         setOrderModify({ ...orderModify, [e.target.name]: e.target.value })
-        
+
     }
 
     // modification de la hooks collection avec traitement de la donnée
@@ -55,32 +48,29 @@ export default (props) => {
         console.log('newStatusOrder', newStatusOrder);
     }
 
-    // const modifyOrderDate = (e) =>{
-    //     let newFormatDate= orderModify.order_date = new Date(order.order_date)
+   const modifyFormDate = (e) =>{ // necessaire pour retransformer comme il faut la date de la hooksorderModify
+        let newFormatDate= orderModify.order_shipped_date = new Date(order.order_shipped_date)
+        let dateOrder = newFormatDate;
+        let date_order_month = '';
+        let date_order_day = '';
+        /// mois
+        if (dateOrder.getUTCMonth() < 10) {
+            date_order_month = `0${dateOrder.getUTCMonth() + 1}`
+        }
+        else { date_order_month= dateOrder.getUTCMonth() + 1 }
 
-    //     let dateOrder = newFormatDate;
-    //     let date_order_month = '';
-    //     let date_order_day = '';
-    //     /// mois
-    //     if (dateOrder.getUTCMonth() < 10) {
-    //         date_order_month = `0${dateOrder.getUTCMonth() + 1}`
-    //     }
-    //     else { date_order_month= dateOrder.getUTCMonth() + 1 }
-    
-    //     /// pour le jour 
-    
-    //     if (dateOrder.getDate() < 10) {
-    //         date_order_day= `0${dateOrder.getDate()}`
-    //     }
-    //     else { date_order_day= dateOrder.getDate() }
-    //     console.log('newFormatDate 1 ',newFormatDate);
-        
-    //     newFormatDate=`${dateOrder.getUTCFullYear()}-${date_order_month}-${date_order_day}`
-    //     console.log('newFormatDate 2 ',newFormatDate);
-    //     setOrderModify({ ...orderModify, order_date: newFormatDate })
-    // }
+        /// pour le jour 
+        if (dateOrder.getDate() < 10) {
+            date_order_day= `0${dateOrder.getDate()}`
+        }
+        else { date_order_day= dateOrder.getDate() }
+        console.log('newFormatDate 1 ',newFormatDate);
 
-    // fonction pour envoyer les informations du form à jours
+        newFormatDate=`${dateOrder.getUTCFullYear()}-${date_order_month}-${date_order_day}`
+        console.log('newFormatDate 2 ',newFormatDate);
+        setOrderModify({ ...orderModify, order_shipped_date: newFormatDate })
+    }
+
     let handleSubmit = e => {
         e.preventDefault();
         const OrderModifyPut = orderModify
@@ -90,7 +80,7 @@ export default (props) => {
         delete OrderModifyPut.number_of_products
         delete OrderModifyPut.order_status_name
         delete OrderModifyPut.order_date
-        console.log('OrderModifyPut',OrderModifyPut);
+        console.log('OrderModifyPut', OrderModifyPut);
 
         axios     // récupération des données produit et envoi ds la bdd
             .put(`/order/order/${orderModify.order_id}`, OrderModifyPut)
@@ -99,14 +89,13 @@ export default (props) => {
                     alert(res.err);
                 } else {
                     alert(` La commande n°: ${orderModify.order_ref} a été modifié avec succès!`)
+                    props.reload()
                 }
             }).catch(e => {
                 console.error(e);
                 alert(`Erreur lors de la modification de  la commande n°:${orderModify.order_ref}`)
             });
     }
-
-    
 
 
     const handleSort = (e) => {
@@ -124,8 +113,6 @@ export default (props) => {
         }
         props.orderBy(e.target.id, order, props.page)
     }
-
-    const orderView = props.donneesOrder
 
     const orderLocal = new Date(order.order_date)
     const orderShip = new Date(orderModify.order_shipped_date)
@@ -169,14 +156,14 @@ export default (props) => {
                         <thead>
 
                             <tr>
-                                <th className=" pink bg-lightpink asc" id="order_ref" > Ref </th>
-                                <th className=" pink bg-lightpink " id="order_tracking_number" > Client</th>
-                                <th className=" pink bg-lightpink asc" id="order_date" >
+                                <th className=" pink bg-lightpink asc" id="order_ref" onClick={handleSort} > Ref </th>
+                                <th className=" pink bg-lightpink asc" id="order_tracking_number" onClick={handleSort}> Client</th>
+                                <th className=" pink bg-lightpink asc" id="order_date" onClick={handleSort} >
                                     {" "}
                                     Date de commande{" "}
                                 </th>
                                 <th className=" pink bg-lightpink asc" id="order_status" > Prix Total </th>
-                                <th className=" pink bg-lightpink asc" id="order_status" > Status </th>
+                                <th className=" pink bg-lightpink asc" id="order_status" onClick={handleSort}> Status </th>
                             </tr>
                         </thead>
 
@@ -278,15 +265,15 @@ export default (props) => {
 
                                 </td>
                                 <td>
-                                    
-                                        <input
-                                            name='order_shipped_date'
-                                            onChange={validateNewOrder}
-                                            type="date"
-                                            className="form-control text-center"
-                                            id="orderdate"
-                                            value={`${date.getUTCFullYear()}-${date_month}-${date_day}`}
-                                        />
+
+                                    <input
+                                        name='order_shipped_date'
+                                        onChange={validateNewOrder}
+                                        type="date"
+                                        className="form-control text-center"
+                                        id="orderdate"
+                                        value={`${date.getUTCFullYear()}-${date_month}-${date_day}`}
+                                    />
 
                                 </td>
                             </tr>
