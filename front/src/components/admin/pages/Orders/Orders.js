@@ -5,18 +5,39 @@ import {
   Encarts,
   Pagination,
   SearchBar,
-  Tables
-} from "../common/";
-
+  Tables,
+  ReturnButton
+} from "../../common/";
+import FormOrder from './FormOrder'
+import EncartViewOrder from './EncartViewOrder'
 export default function Orders() {
   //state des données
   const [data, setData] = useState([]); //le tableau qui contiendra les données récupérées par axios
   const [dataToShow, setDataToShow] = useState([]); // une copie du premier tableau qui va servir à afficher les données et sur lequel on va executer les fonctions (filter, sort, etc...)
-  const [fullData, setFullData]= useState([])
+  const [fullData, setFullData] = useState([])
 
   //state pour le nombre de pages du tableau
   const [pagesNb, setPagesNb] = useState(0); //le nombre de pages
   const [activePage, setActivePage] = useState(1); // le numéro de la page active
+
+  const [clickModify, setClickModify] = useState(false);
+  const [orderClick, setOrderClick] = useState([]);
+  const [clickView, setclickView] = useState(false);
+
+  const isClickedModify = (index) => {
+    setClickModify(!clickModify);
+    setOrderClick(data[index]);
+
+  }
+
+  const isClickedSee = index => {
+    setclickView(!clickView);
+    setOrderClick(data[index]);
+    
+    
+
+    // console.log('data[index]',data[index])
+  };
 
   // fonction pour récupérer les données de la BDD
   const fetchData = () => {
@@ -31,7 +52,7 @@ export default function Orders() {
           setData([]); // avant de remplir le tableau on le vide
           setDataToShow([]); // idem
           for (let i = 0; i < res.data.length; i++) { // on boucle pour remplir les deux tableau avec les données
-            setData(data => [...data, res.data[i]]); 
+            setData(data => [...data, res.data[i]]);
             setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
           }
           //si plus de 10 résultats
@@ -70,9 +91,9 @@ export default function Orders() {
   //fonction pour supprimer des données dans la BDD
   const deleteData = (page, id) => {
     if (window.confirm("Voulez vous vraiment supprimer la commande ?")) {
-    let path =`order/${id}`; // la route avec l'id de l'objet à supprimmer 
-    axios.delete(path) // axios delete sur la route
-    alert('La commande à bien été supprimée')
+      let path = `order/${id}`; // la route avec l'id de l'objet à supprimmer 
+      axios.delete(path) // axios delete sur la route
+      alert('La commande à bien été supprimée')
     }
     else {
       alert("Suppression annulée")
@@ -86,7 +107,7 @@ export default function Orders() {
     fetchData();
   }, [activePage]);
 
-   // fonction pour aller une page en avant
+  // fonction pour aller une page en avant
   const changePagePlus = () => {
     setActivePage(activePage + 1); //on ajoute 1 à la page active
   };
@@ -133,39 +154,53 @@ export default function Orders() {
         line => line.order_status_name.toUpperCase().match(`.*${word.toUpperCase()}.*`) // on compare les deux chaine mises en majuscules(pour que l'on soit sur de toujours comparer des chaines de meme type)
       );
       setDataToShow(dataToShow => [...dataToShow, ...result]); //on rempli le tableau avec le resultat du filter
-    } 
+    }
     else setDataToShow(data); //si la recherche est vide on veut afficher toutes les données dans le tableau
   };
 
-  // const reload = () => {
-  //   setClick(!click);
-  //   fetchData();
-  // }
+  const reload = () => {
+    setClickModify(!clickModify);
+    fetchData();
+  };
 
   return (
     <div>
-      <Encarts title="LISTE DES COMMANDES">
-        <div className="tableActions border-gray">
-          <SearchBar search={search} table="orders" />
-          {/* <div className="addDiv">
-            Ajouter <ButtonAdd />
-          </div> */}
-        </div>
-        <Tables
-          page="order"
-          donnees={dataToShow ? dataToShow : "loading"}
-          orderBy={orderBy}
-          deleteData={deleteData}
-        />
-        <Pagination
-          nbPages={pagesNb}
-          activePage={activePage}
-          changePagePlus={changePagePlus}
-          changePageMoins={changePageMoins}
-          setActivePage={setActivePage}
-          table="order"
-        />
-      </Encarts>
+      {clickView ? <EncartViewOrder onClickSee={isClickedSee}  donneesOrder={orderClick}/> :
+      
+      clickModify ? <> <FormOrder onClick={isClickedModify} reload={reload} donneesOrder={orderClick} />
+
+
+      </>
+      : (
+
+        <>
+
+        <Encarts title="LISTE DES COMMANDES">
+          <div className="tableActions border-gray">
+            <SearchBar search={search} table="orders" />
+
+          </div>
+          <Tables
+            page="order"
+            donnees={dataToShow ? dataToShow : "loading"}
+            orderBy={orderBy}
+            deleteData={deleteData}
+            onClick={isClickedModify}
+            onClickSee={isClickedSee}
+          />
+          <Pagination
+            nbPages={pagesNb}
+            activePage={activePage}
+            changePagePlus={changePagePlus}
+            changePageMoins={changePageMoins}
+            setActivePage={setActivePage}
+            table="order"
+          />
+        </Encarts>
+
+      </>)}
     </div>
+
   );
 }
+
