@@ -65,7 +65,6 @@ export default (props) => {
               {console.log('promo',promo[0])}
               <p className="gray">  Promotion du produit : {promo[0] && promo[0].promo_id !== 1 ? <span>{promo[0].promo_name}, {promo[0].promo_value}%  , sticker : <b className={`sticker-promo`} style={{backgroundColor: promo[0].promo_sticker_color}}>{ promo[0].promo_sticker_text}</b></span> : 'pas de promotion'} </p>
             </div>
-
           </div>
         </div>
 
