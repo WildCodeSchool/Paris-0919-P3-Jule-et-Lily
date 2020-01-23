@@ -22,6 +22,34 @@ router.post('/', (req, res) => {
 })
 
 
+///////////////////////// Order modify by number id /////////////////////////////////
+  router.route(['/order/:id'])
+  .get(function (req, res) { //récup un produit
+    connection.query(`SELECT * FROM orders WHERE order_id=${req.params.id}`, (err, results) => {
+      if (err) {
+        console.log(err);
+        res.send('Erreur lors de la récupération de la commande').status(500);
+      } else {
+        console.log(results)
+        res.json(results);
+      }
+    });
+  })
+  .put(function (req, res) { // modifier un produit
+    const requestOrderPut = req.params.id;
+    const formData = req.body;
+    connection.query('UPDATE orders SET ? WHERE order_id=?', [formData, requestOrderPut], (err, results) => {
+      if (err) {
+        console.log('erreur back', err);
+        res.status(500).send("Erreur lors de la modification de la commande");
+      } else {
+        console.log('res back', res);
+        console.log(results)
+        res.sendStatus(200);
+      }
+    });
+  })
+
 
 router.route(['/order_status'])
   .get(function (req, res) {
@@ -96,7 +124,7 @@ router.get("/all", (req, res) => {
     (err, results) => {
       if (err) {
         console.log(err);
-        
+
         res.status(500).send('Erreur lors de la récupération des commandes du mois');
       } else {
         res.json(results);

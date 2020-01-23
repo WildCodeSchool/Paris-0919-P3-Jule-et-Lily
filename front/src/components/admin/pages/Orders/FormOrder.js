@@ -19,8 +19,8 @@ export default (props) => {
     const [status_orders, setStatusOrder] = useState();
     // axios vers les /:id/items pour remplir le 2 tab'
     console.log('ici la data order', props.donneesOrder);
-    console.log('orderModify', orderModify);
     console.log('status_orders', status_orders);
+    console.log('orderModify', orderModify);
 
 
     const order = props.donneesOrder;
@@ -29,6 +29,7 @@ export default (props) => {
         axios
             .get(`/order/${order.order_id}/items`)
             .then(res => {
+                // modifyOrderDate()
                 setOrder(res.data);
             })
         axios
@@ -41,6 +42,7 @@ export default (props) => {
 
     const validateNewOrder = (e) => {
         setOrderModify({ ...orderModify, [e.target.name]: e.target.value })
+        
     }
 
     // modification de la hooks collection avec traitement de la donnée
@@ -52,6 +54,59 @@ export default (props) => {
         setOrderModify({ ...orderModify, order_status: newStatusOrderId })
         console.log('newStatusOrder', newStatusOrder);
     }
+
+    // const modifyOrderDate = (e) =>{
+    //     let newFormatDate= orderModify.order_date = new Date(order.order_date)
+
+    //     let dateOrder = newFormatDate;
+    //     let date_order_month = '';
+    //     let date_order_day = '';
+    //     /// mois
+    //     if (dateOrder.getUTCMonth() < 10) {
+    //         date_order_month = `0${dateOrder.getUTCMonth() + 1}`
+    //     }
+    //     else { date_order_month= dateOrder.getUTCMonth() + 1 }
+    
+    //     /// pour le jour 
+    
+    //     if (dateOrder.getDate() < 10) {
+    //         date_order_day= `0${dateOrder.getDate()}`
+    //     }
+    //     else { date_order_day= dateOrder.getDate() }
+    //     console.log('newFormatDate 1 ',newFormatDate);
+        
+    //     newFormatDate=`${dateOrder.getUTCFullYear()}-${date_order_month}-${date_order_day}`
+    //     console.log('newFormatDate 2 ',newFormatDate);
+    //     setOrderModify({ ...orderModify, order_date: newFormatDate })
+    // }
+
+    // fonction pour envoyer les informations du form à jours
+    let handleSubmit = e => {
+        e.preventDefault();
+        const OrderModifyPut = orderModify
+        delete OrderModifyPut.user_firstname
+        delete OrderModifyPut.user_lastname
+        delete OrderModifyPut.total_price
+        delete OrderModifyPut.number_of_products
+        delete OrderModifyPut.order_status_name
+        delete OrderModifyPut.order_date
+        console.log('OrderModifyPut',OrderModifyPut);
+
+        axios     // récupération des données produit et envoi ds la bdd
+            .put(`/order/order/${orderModify.order_id}`, OrderModifyPut)
+            .then(res => {
+                if (res.err) {
+                    alert(res.err);
+                } else {
+                    alert(` La commande n°: ${orderModify.order_ref} a été modifié avec succès!`)
+                }
+            }).catch(e => {
+                console.error(e);
+                alert(`Erreur lors de la modification de  la commande n°:${orderModify.order_ref}`)
+            });
+    }
+
+    
 
 
     const handleSort = (e) => {
@@ -76,23 +131,23 @@ export default (props) => {
     const orderShip = new Date(orderModify.order_shipped_date)
 
     let date = orderShip;
-    let date_month= '';
+    let date_month = '';
     let date_day = '';
-    
+
     /// mois
-    if (date.getUTCMonth() < 10 ) {
-      date_month = `0${date.getUTCMonth()+1}`
+    if (date.getUTCMonth() < 10) {
+        date_month = `0${date.getUTCMonth() + 1}`
     }
-    else {date_month = date.getUTCMonth()+1}
+    else { date_month = date.getUTCMonth() + 1 }
 
     /// pour le jour 
 
-    if (date.getDate() < 10 ) {
-      date_day = `0${date.getDate()}`
+    if (date.getDate() < 10) {
+        date_day = `0${date.getDate()}`
     }
-    else {date_day = date.getDate()}
+    else { date_day = date.getDate() }
 
-console.log('orderShip',orderShip.toLocaleDateString());
+    console.log('orderShip', orderShip.toLocaleDateString());
 
 
     useEffect(() => {
@@ -222,30 +277,27 @@ console.log('orderShip',orderShip.toLocaleDateString());
                                     />
 
                                 </td>
-
-
                                 <td>
-                                    <div className="form-group ">
+                                    
                                         <input
                                             name='order_shipped_date'
                                             onChange={validateNewOrder}
                                             type="date"
                                             className="form-control text-center"
-                                            id="orderdate"                         
-                                            value={`${date.getUTCFullYear()}-${date_month}-${date_day}`}     
+                                            id="orderdate"
+                                            value={`${date.getUTCFullYear()}-${date_month}-${date_day}`}
                                         />
-                                    
-                                    </div>
+
                                 </td>
                             </tr>
-                        
+
                         </tbody>
                     </table>
                 </div>
 
                 <div className='text-right'>
                     <ButtonCancel onClick={props.onClick} color='#dd73da' />
-                    <ButtonConfirm color='#dd73da' />
+                    <ButtonConfirm onClick={handleSubmit} color='#dd73da' />
                 </div>
 
             </Encarts>
