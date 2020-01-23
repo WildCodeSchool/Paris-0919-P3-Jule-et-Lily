@@ -163,9 +163,7 @@ export default function Orders() {
           <Encarts title="LISTE DES COMMANDES">
             <div className="tableActions border-gray">
               <SearchBar search={search} table="orders" />
-              <div className="addDiv">
-                Ajouter <ButtonAdd />
-              </div>
+
             </div>
             <Tables
               page="order"

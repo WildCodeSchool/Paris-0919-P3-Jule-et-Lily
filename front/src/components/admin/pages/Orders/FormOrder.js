@@ -49,10 +49,10 @@ export default (props) => {
         let newStatusOrder = status_orders.filter(status => status.order_status_name === e.target.value)
         let newStatusOrderId = newStatusOrder[0].order_status_id
         setOrderModify({ ...orderModify, [e.target.name]: e.target.value })
-        setOrderModify({...orderModify, order_status: newStatusOrderId })
+        setOrderModify({ ...orderModify, order_status: newStatusOrderId })
         console.log('newStatusOrder', newStatusOrder);
     }
-    
+
 
     const handleSort = (e) => {
         //console.log(e.target)
@@ -73,8 +73,26 @@ export default (props) => {
     const orderView = props.donneesOrder
 
     const orderLocal = new Date(order.order_date)
-    const orderShip = new Date(order.order_shipped_date)
+    const orderShip = new Date(orderModify.order_shipped_date)
 
+    let date = orderShip;
+    let date_month= '';
+    let date_day = '';
+    
+    /// mois
+    if (date.getUTCMonth() < 10 ) {
+      date_month = `0${date.getUTCMonth()+1}`
+    }
+    else {date_month = date.getUTCMonth()+1}
+
+    /// pour le jour 
+
+    if (date.getDate() < 10 ) {
+      date_day = `0${date.getDate()}`
+    }
+    else {date_day = date.getDate()}
+
+console.log('orderShip',orderShip.toLocaleDateString());
 
 
     useEffect(() => {
@@ -204,10 +222,23 @@ export default (props) => {
                                     />
 
                                 </td>
+
+
                                 <td>
-                                    <p>{orderShip.toLocaleDateString()}</p>
+                                    <div className="form-group ">
+                                        <input
+                                            name='order_shipped_date'
+                                            onChange={validateNewOrder}
+                                            type="date"
+                                            className="form-control text-center"
+                                            id="orderdate"                         
+                                            value={`${date.getUTCFullYear()}-${date_month}-${date_day}`}     
+                                        />
+                                    
+                                    </div>
                                 </td>
                             </tr>
+                        
                         </tbody>
                     </table>
                 </div>
