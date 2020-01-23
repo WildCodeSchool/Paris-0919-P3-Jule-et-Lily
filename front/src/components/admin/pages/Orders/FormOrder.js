@@ -15,19 +15,44 @@ import {
 
 export default (props) => {
     const [orders, setOrder] = useState();
+    const [orderModify, setOrderModify] = useState(props.donneesOrder);
+    const [status_orders, setStatusOrder] = useState();
     // axios vers les /:id/items pour remplir le 2 tab'
     console.log('ici la data order', props.donneesOrder);
-    console.log('order', orders);
+    console.log('orderModify', orderModify);
+    console.log('status_orders', status_orders);
+
 
     const order = props.donneesOrder;
 
     const fetchOrders = () => {
         axios
-            .get(`/order/${order.order_id}/items`) //liste les commandes
+            .get(`/order/${order.order_id}/items`)
             .then(res => {
                 setOrder(res.data);
             })
+        axios
+            .get(`/order/order_status`)
+            .then(res => {
+                setStatusOrder(res.data);
+            })
     }
+
+
+    const validateNewOrder = (e) => {
+        setOrderModify({ ...orderModify, [e.target.name]: e.target.value })
+    }
+
+    // modification de la hooks collection avec traitement de la donnée
+    const validateNewDataStatusOrder = (e) => {
+        // création d'une variable qui vas filtrer datacollection pour transformer collection name en collection id
+        let newStatusOrder = status_orders.filter(status => status.order_status_name === e.target.value)
+        let newStatusOrderId = newStatusOrder[0].order_status_id
+        setOrderModify({ ...orderModify, [e.target.name]: e.target.value })
+        setOrderModify({...orderModify, order_status: newStatusOrderId })
+        console.log('newStatusOrder', newStatusOrder);
+    }
+    
 
     const handleSort = (e) => {
         //console.log(e.target)
@@ -97,8 +122,20 @@ export default (props) => {
                                 <td>
                                     <p>{order.total_price}</p>
                                 </td>
+
                                 <td>
-                                    <p>{order.order_status_name}</p>
+                                    <div className="form-group ">
+
+                                        <select className="custom-select  text-center" name='order_status_name' id="inputGroupSelect01" onChange={validateNewDataStatusOrder}>
+                                            <option selected>{order.order_status_name} </option>
+                                            {status_orders &&
+                                                status_orders.map((data) => {
+                                                    return (
+                                                        <option >{data.order_status_name} </option>
+                                                    )
+                                                })}
+                                        </select>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -155,14 +192,15 @@ export default (props) => {
                         <tbody>
                             <tr >
                                 <td>
+
                                     <input
-                                        name='product_name'
+                                        name='order_tracking_number'
+                                        onChange={validateNewOrder}
                                         type="text"
                                         className="form-control text-center"
                                         id="designationid"
                                         placeholder={order.order_tracking_number}
-                                        value={order.order_tracking_number}
-
+                                        value={orderModify.order_tracking_number}
                                     />
 
                                 </td>
