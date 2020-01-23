@@ -29,7 +29,13 @@ export default props => {
             <h3 className="card-title text-center gray">
               Sticker :
             </h3>
-            <p><b class={`sticker-promo`} style={{backgroundColor:promoModify.promo_sticker_color}}>{promoModify.promo_sticker_text}</b></p>
+            <p>
+              { promoModify.promo_sticker_text != 'NULL' ?
+              <b class={`sticker-promo`} style={{backgroundColor:promoModify.promo_sticker_color}}>{promoModify.promo_sticker_text}
+              </b>
+                 :
+                 'pas de sticker'
+              }</p>
           </div>
         </div>
 
