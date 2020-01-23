@@ -9,7 +9,6 @@ export default function Users() {
   const [dataToShow, setDataToShow] = useState([]);
   const [usersClick, setUsersClick] = useState([]);
   const [clickView, setclickView] = useState(false);
-  const [click, setClick] = useState(false);
 
   const [pagesNb, setPagesNb] = useState(0); //pages number
   const [activePage, setActivePage] = useState(1); // number of active page
@@ -66,19 +65,41 @@ export default function Users() {
   useEffect(() => {
     fetchData()
     console.log('ici', data)
-  }, [])
+  }, [activePage]) // Mettre en commentaire pour recharger les bonnes données à chaque page
 
   const isClickedSee = index => {
     setclickView(!clickView);
-    // console.log('data[index]',data[index])
     setUsersClick(data[index]);
   };
 
-  //fonction pour remettre le state click a false puis recharger les données quand on clique sur le bouton
-  const reload = () => {
-    setClick(!click);
-    fetchData();
-  }
+   // fonction pour ordonnée le tableau
+   const orderBy = (type, order) => {
+    let theData = dataToShow; //on copie les données dans un nouveau tableau
+    setDataToShow([]); // on vide le tableau à afficher pour pouvoi le re-remplir plus tard
+    theData.sort((a, b) => { // on utilise la méthode sort pour trier
+      //si on veut trier des nombres
+      if (typeof a[type] == "number") {
+        if (order === "desc") return b[type] - a[type];
+        else return a[type] - b[type];
+      }
+      //si on veut trier des chaines de caractères
+      if (typeof a[type] == "string") {
+        if (order === "desc") {
+          if (a[type] < b[type]) return -1;
+          if (a[type] > b[type]) return 1;
+          return 0;
+        } else {
+          if (a[type] > b[type]) return -1;
+          if (a[type] < b[type]) return 1;
+          return 0;
+        }
+      }
+      return null
+    });
+    //on met les données triées dans le tableau à afficher
+    setDataToShow(dataToShow => [...dataToShow, ...theData]);
+  };
+
 
   const deleteData = (page, id) => {
     axios.delete(`/user/${id}`)
@@ -124,10 +145,11 @@ export default function Users() {
             <Encarts title="Liste des clients">
               <SearchBar search={search} table="product" />
               <Tables
+                deleteData={deleteData}
                 page="users"
                 onClickSee={isClickedSee}
                 donnees={dataToShow ? dataToShow : "loading"}
-                delete={deleteData}
+                // orderBy={orderBy}
               />
               <Pagination
                 nbPages={pagesNb}
