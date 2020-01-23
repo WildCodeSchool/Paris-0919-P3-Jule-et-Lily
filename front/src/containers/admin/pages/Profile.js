@@ -28,7 +28,6 @@ function Profile(props) {
         setProfileModifying({ user_email: res.user_email, user_login: res.user_login })
       })
       .catch();
-    console.log(profile, profileModifying);
   }, [setProfileModifying]);
 
 
