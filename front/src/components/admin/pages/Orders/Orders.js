@@ -19,8 +19,6 @@ export default function Orders() {
   const [pagesNb, setPagesNb] = useState(0); //le nombre de pages
   const [activePage, setActivePage] = useState(1); // le numéro de la page active
 
-
-
   const [clickModify, setClickModify] = useState(false);
   const [orderClick, setOrderClick] = useState([]);
 

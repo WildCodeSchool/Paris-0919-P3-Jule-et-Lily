@@ -21,6 +21,19 @@ router.post('/', (req, res) => {
   })
 })
 
+
+
+router.route(['/order_status'])
+  .get(function (req, res) {
+    connection.query(`SELECT * from order_status`, (err, results) => {
+      if (err) {
+        res.status(500).send('Erreur lors de la récupération des order status');
+      } else {
+        res.json(results);
+      }
+    });
+  })
+
 // Ajoute l'order item correspondant  TESTE OK
 router.post('/item', (req, res) => {
   const formData = req.body;

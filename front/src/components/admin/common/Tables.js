@@ -166,9 +166,8 @@ const Tables = props => {
                           </p>
                         </td>
                         <td className='actionButtons'>
-                          <ButtonModify index={i} onClick={props.onClick} />
                           <ButtonSee index={i} onClickSee={props.onClickSee} />
-                          <ButtonDelete deleteData={handleDelete} id={data.order_id} />
+                          <ButtonModify index={i} onClick={props.onClick} />
                         </td>
                       </tr>
                     );

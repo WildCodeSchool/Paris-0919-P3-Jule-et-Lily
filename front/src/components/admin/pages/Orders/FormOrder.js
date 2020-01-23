@@ -45,10 +45,6 @@ export default (props) => {
         props.orderBy(e.target.id, order, props.page)
     }
 
-    const handleDelete = (id) => {
-        props.deleteData(props.page, id)
-    }
-
     const orderView = props.donneesOrder
 
     const orderLocal = new Date(order.order_date)
@@ -124,15 +120,21 @@ export default (props) => {
                         </thead>
 
                         <tbody>
+                            {orders &&
+                                orders.map((data) => {
+                                    return (
+                                        <tr >
+                                            <td>
+                                                <p> {data.product_name} </p>
+                                            </td>
+                                            <td>
+                                                <p>{data.product_price}</p>
+                                            </td>
+                                        </tr>
 
-                            <tr >
-                                <td>
-                                    <p> nom du produit</p>
-                                </td>
-                                <td>
-                                    <p>prix du produit</p>
-                                </td>
-                            </tr>
+                                    )
+                                })}
+
                         </tbody>
                     </table>
                 </div>
@@ -155,7 +157,6 @@ export default (props) => {
                                 <td>
                                     <input
                                         name='product_name'
-                                        
                                         type="text"
                                         className="form-control text-center"
                                         id="designationid"
@@ -163,7 +164,7 @@ export default (props) => {
                                         value={order.order_tracking_number}
 
                                     />
-                                   
+
                                 </td>
                                 <td>
                                     <p>{orderShip.toLocaleDateString()}</p>
