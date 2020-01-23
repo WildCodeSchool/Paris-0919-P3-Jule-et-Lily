@@ -198,7 +198,7 @@ const Tables = props => {
                           <p>{data.category_name}</p>
                         </td>
                         <td>
-                          <p className={data.product_stock <= data.product_stock_min ? "badge badge-pill bg-pink lightpink" : null} >{data.product_stock}</p>
+                          <p className={data.product_stock <= data.product_stock_min ? "badge badge-pill bg-pink lightpink " : null} >{data.product_stock}</p>
                         </td>
                         <td className='actionButtons'>
                           <ButtonModify index={i} onClick={props.onClick} />
