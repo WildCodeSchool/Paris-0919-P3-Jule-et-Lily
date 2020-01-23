@@ -157,27 +157,6 @@ router.route(['/:id', '/'])
   });
 
 
-
-/////////////// Images des produits ///////////
-///////////////////////////////////////////////
-
-// router.route(['/image/:id', '/image'])
-//   .get(function (req, res) { //récup un produit
-//     connection.query(
-//       `SELECT * FROM image WHERE image_product_id = ${req.params.id} ORDER BY image_id ASC`,
-//       (err, results) => {
-//         if (err) {
-//           res
-//             .status(500)
-//             .send("Erreur lors de la récupération des images du produit");
-//             console.log("erreur  recup image", err)
-//         } else {
-//           res.json(results);
-//         }
-//       }
-//     );
-//   })   
-
 /////////////// Récupérer les images du produit sauf l'image en cover ///////////
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -269,22 +248,7 @@ router.route(['/image-cover/:id', '/image-cover/:id/:productId'])
     });
   })  
 
-  // // image associée à un produit set à NULL 
-  // .put(function (req, res) {
-  //   const requestProduct = req.params.id;
-  //   const formData = req.body;
-  //   connection.query('UPDATE product SET product_image_id = 0 WHERE product_id = ?', [requestProduct], err => {
-  //     if (err) {
-  //       res.status(500).send("Erreur lors de la modification du produit" + err);
-  //     } else {
-  //       res.sendStatus(200);
-  //     }
-  //   });
-  // })
   
- 
-
-
   ///////// ajout image produit
 router.post("/image/:id", upload.array("file"), (req, res, next) => {
   let error =  false;

@@ -2,7 +2,7 @@ import React from "react";
 
 const Image = (props) => {
     return (  
-      <div className="sliderImage mr-auto ml-auto mb-4 mt-4">
+      <div className={props.onClick == null ? 'sliderImageClean mr-auto ml-auto mb-4 mt-4' : 'sliderImage mr-auto ml-auto mb-4 mt-4'}>
         <input
         type="button"
         value="X"
@@ -13,8 +13,7 @@ const Image = (props) => {
         <img
         src= {props.src}
         alt= {props.alt}/>
-        <input value = "Choisir comme image de couverture" onClick={() => props.onChoose(props.id)} className="btn textCover"  style={ props.onClick == null ? {display : 'none'} : {display : 'block'}}/>
-        {props.onClick == null ? <p>Image de Couverture</p> : <p>Image Courante</p>}
+        <button  onClick={() => props.onChoose(props.id)} className={props.onClick == null ? 'btn' : 'btn textCover'}  type="button" style={ props.onClick == null ? {display : 'none'} : {display : 'inline-block'}}>Choisir comme image de couverture</button>
         
       </div>
     );

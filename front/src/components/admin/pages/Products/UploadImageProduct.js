@@ -36,6 +36,7 @@ const onChangeFile = (e) => {
           } else {
             alert(`l'image a été ajoutée avec succès!`);
             props.fetchDataImage()
+            setFiles([])
           }
         })
     };

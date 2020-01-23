@@ -48,9 +48,9 @@ export default function FormProducts(props) {
   };
 
 
-  const reloadUpload = () => {
-    fetchDataImage();
-  }
+  // const reloadUpload = () => {
+  //   fetchDataImage();
+  // }
 
   // récupération des id de stocks
   const fetchStock = () => {
@@ -112,6 +112,7 @@ export default function FormProducts(props) {
     delete productPut.product_stock
     delete productPut.category_name
     delete productPut.collection_name
+    delete productPut.product_cover_image_id
     delete productPut.image_name
     delete productPut.product_stock_min
     console.log('productput', productPut);
@@ -319,11 +320,23 @@ export default function FormProducts(props) {
                 })}
             </select>
           </div>
-
+{/* /////////////upload d'image */}
           <div className="form m-auto">
             <label htmlFor="image">Choix des Images</label>
             <div className="sliderBlock m-auto sliderBlockResponsive uploadForm">
-              
+            <div className="m-auto bg-middlegray coverImageBlock w-100">
+              <p className="text-center">Image de Couverture</p>
+              {dataCoverImage[0] &&
+                  <ImageProduct
+                    src={dataCoverImage[0].image_name}
+                    alt={dataCoverImage[0].image_name}
+                    key={dataCoverImage[0].image_id}
+                    id={dataCoverImage[0].image_id}
+                    onClick={null}
+                    />
+                  }
+              </div>
+              <div className="ml-auto mr-auto mt-5 w-100 row">
               {dataImage &&
                 dataImage.map(item => (
                   <ImageProduct
@@ -335,40 +348,13 @@ export default function FormProducts(props) {
                     onChoose={() => chooseCoverImage(item.image_id)}
                   />
                 ))}
-               <div className="form m-auto bg-middlegray coverImageBlock">
-              {dataCoverImage[0] &&
-                  <ImageProduct
-                    src={dataCoverImage[0].image_name}
-                    alt={dataCoverImage[0].image_name}
-                    key={dataCoverImage[0].image_id}
-                    id={dataCoverImage[0].image_id}
-                    onClick={null}
-                    />
-                  }
               </div>
               <div className="container ">
                 <UploadImageProduct ProductId = {props.donneesProducts.product_id} fetchDataImage={fetchDataImage}/>
               </div>
               </div>    
             </div>
-              {/* <label htmlFor="coverImage">Choix de l'image de couverture</label>
-              <select
-              className="custom-select  text-center"
-              name="image_name"
-              id="inputGroupSelect02"
-              onChange={validateNewCoverImage}
-              >
-              <option selected> {dataCoverImage[0] && dataCoverImage[0].image_name}</option>
-              {dataImage &&
-                dataImage.map(data => (
-                  <option>{data.image_name}</option>
-                ))}
-            </select>
-            {console.log ("image cover temporaire", dataCoverImageModify)} */}
-       
-
-
-          <div className="ButtonsGroup">
+          <div className="ButtonsGroup text-right">
             <ButtonCancel onClick={props.onClick} color="#234eb7" />
             <ButtonConfirm color="#234eb7" onClick={handleSubmit} />
           </div>
