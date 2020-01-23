@@ -8,6 +8,7 @@ export default function FormProducts(props) {
   const [productModify, setProductModify] = useState(props.donneesProducts)
   const [dataCollection, setDataCollection] = useState()
   const [dataCategories, setDataCategories] = useState()
+  const [dataPromo, setDataPromo] = useState()
   const [productStockModify, setProductStockModify] = useState({}) // changement state stock pour le produit
   console.log('productStock', productStockModify);
   console.log('dataCategories', dataCategories);
@@ -28,6 +29,10 @@ export default function FormProducts(props) {
   const fetchStock = () => {
     axios.get(`/product/stock/${props.donneesProducts.product_id}`)
       .then(res => setProductStockModify(...res.data));
+  }
+  const fetchPromo = () => {
+    axios.get('/promo/all')
+      .then(res => setDataPromo(res.data));
   }
   // modification de la hooks stock en fonction des changements du form 
   const validateNewDataStock = (e) => {
@@ -116,6 +121,7 @@ export default function FormProducts(props) {
     fetchCollection()
     fetchCategories()
     fetchStock()
+    fetchPromo()
   }, [] )
 
 
@@ -240,6 +246,20 @@ export default function FormProducts(props) {
               id="imageid"
               placeholder={productModify.product_cover_image_id}
             />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="promo">Promo</label>
+            <select className="custom-select  text-center" name='product_promo_id' id="inputGroupSelect02" onChange={validateNewData}>
+              {dataPromo &&
+                dataPromo.map((data) => {
+                 return( productModify.product_promo_id === data.promo_id 
+                    ?     
+                  <option selected value={data.promo_id}> {data.promo_name}</option> 
+                  :             
+                    <option value={data.promo_id} >{data.promo_name}</option>
+                )})}
+            </select>
           </div>
 
           <div className='text-left'>

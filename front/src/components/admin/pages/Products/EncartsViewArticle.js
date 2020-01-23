@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../../../../assets/css/admin/global.css'
 import '../../../../assets/css/admin/cards.css'
 import {
@@ -11,7 +12,7 @@ export default (props) => {
 
 
   const productModify = props.donneesProducts
-
+  const [promo, setPromo] = useState([])
 
   let Iscustom = (bool) => {
     if (bool == 1) {
@@ -23,7 +24,16 @@ export default (props) => {
   }
   let valueCustom = Iscustom(productModify.product_custom)
 
+  const fetchPromo = () => {
+    axios
+    .get(`/product/${productModify.product_id}/promo`) //liste les commandes
+    .then(res => { 
+      setPromo([res.data[0]])
+    })
+  }
+
   useEffect(() => {
+    fetchPromo();
   }, [valueCustom])
 
   return (
@@ -52,6 +62,8 @@ export default (props) => {
               <p className="gray">  Catégorie : {productModify.category_name} </p>
               <p className="gray"> Collection : {productModify.collection_name}</p>
               <p className="gray">  {valueCustom !== '' ? valueCustom : ''}</p>
+              {console.log('promo',promo[0])}
+              <p className="gray">  Promotion du produit : {promo[0] && promo[0].promo_id !== 1 ? <span>{promo[0].promo_name}, {promo[0].promo_value}%  , sticker : <b className={`sticker-promo`} style={{backgroundColor: promo[0].promo_sticker_color}}>{ promo[0].promo_sticker_text}</b></span> : 'pas de promotion'} </p>
             </div>
 
           </div>
