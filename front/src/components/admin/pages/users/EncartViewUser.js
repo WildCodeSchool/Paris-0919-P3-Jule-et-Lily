@@ -31,6 +31,7 @@ export default function EncartViewUser(props) {
         Axios
             .get(`/user/order/${user.user_id}`) // we catch values
             .then(res => setOrder(res.data))
+            fetchOrderPrice()
     }
 
     const fetchOrderPrice = () => {
@@ -43,7 +44,7 @@ export default function EncartViewUser(props) {
         fetchShipping()
         fetchBilling()
         fetchOrder()
-        fetchOrderPrice()
+       
     }, [])
 
     return (
@@ -279,8 +280,8 @@ export default function EncartViewUser(props) {
                                                 <p>{order_date.toLocaleDateString()}</p>
                                             </td>
                                             <td>
-                                                {" "}
-                                                <p>{orderPrice && orderPrice[0].total_price} €</p>
+                                                {" ", orderPrice && console.log(orderPrice[i])}
+                                                <p>{orderPrice && orderPrice[i] && orderPrice[i].total_price} €</p>
                                             </td>
                                             <td>
                                                 {" "}
