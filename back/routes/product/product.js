@@ -93,6 +93,18 @@ router.route(['/all'])
     });
   })
 
+  router.route(['/:id/promo'])
+  .get(function (req, res) { //récup la promo d'un produit
+    connection.query('SELECT p.product_id, pr.* FROM product as p JOIN promo as pr ON p.product_promo_id = pr.promo_id WHERE product_id = ?', req.params.id, (err, results) => {
+      if (err) {
+        console.log(err);
+        res.send('Erreur lors de la récupération des produits').status(500);
+      } else {
+        res.json(results);
+      }
+    });
+  })
+
 router.route(['/:id', '/'])
   .get(function (req, res) { //récup un produit
     connection.query('SELECT * FROM product WHERE product_id = ?', req.params.id, (err, results) => {

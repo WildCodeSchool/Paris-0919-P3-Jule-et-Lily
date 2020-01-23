@@ -76,13 +76,24 @@ export default function Collections(props) {
 
   const deleteData = (page, id) => {
     let path = "";
-    if (page === "collections")
+    let text ="";
+    if (page === "collections") {
       path = `collection/${id}`
-    else
+      text= 'collection'
+    }
+    else {
       path = `category/${id}`
+      text='catégorie'
+    }
 
-    axios.delete(path)
-      .then(fetchData())
+    if (window.confirm(`Voulez vous vraiment supprimer la ${text} ?`)) {
+        axios.delete(path)
+        alert(`${text} bien supprimée`)
+    }
+    else {
+      alert('Suppression annulée') 
+    }
+     fetchData()
   }
 
   const fetchData = () => {
@@ -255,7 +266,7 @@ export default function Collections(props) {
       else setDataToShow(data);
     }
     if (table === "categories") {
-      let theData = data2;
+      let theData = fullData2;
       if (word !== "") {
         setDataToShow2([]);
         let result = theData.filter(line =>

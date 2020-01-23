@@ -13,6 +13,7 @@ import FormPromo from "./FormPromo";
 import FormCodePromo from "./FormCodePromo";
 import FormAddPromo from "./FormAddPromo";
 import FormAddCodePromo from "./FormAddCodePromo";
+import "../../../../assets/css/admin/Promo.css"
 
 export default function Promo(props) {
   const [data, setData] = useState([]);
@@ -36,16 +37,6 @@ export default function Promo(props) {
   const [pagesNb2, setPagesNb2] = useState(0); //le nombre de pages
   const [activePage2, setActivePage2] = useState(1); // le numéro de la page active
 
-
-  const [ColorPickerDisplay, setColorPickerDisplay] = useState(false);
-
-  const [encartDisplay, setEncartDisplay] = useState({
-    id: "",
-    backgroundColor: "",
-    title: "",
-    url: "",
-    titleColor: ""
-  });
 
   const fetchData = () => {
     axios
@@ -141,8 +132,13 @@ export default function Promo(props) {
   };
 
   const deleteData = (page, id) => {
-    axios.delete(`promo/${id}`).then(fetchData());
-    alert("La promo à été supprimé avec succès");
+    if (window.confirm("Voulez vous vraiment supprimer la promo ?")) {
+      axios.delete(`promo/${id}`);
+      alert("La promo à été supprimé avec succès");
+    } else {
+      alert("Vous avez annuler la suppression ");
+    } 
+    fetchData();
   };
 
   const isClickedModidy = index => {
@@ -177,8 +173,14 @@ export default function Promo(props) {
   };
 
   const deleteData2 = (page, id) => {
-    axios.delete(`code-promo/${id}`).then(fetchData());
+    if (window.confirm("Voulez vous vraiment supprimer le code promo ?")) {
+    axios.delete(`code-promo/${id}`);
     alert("Le code promo à été supprimé avec succès");
+    }
+    else {
+      alert("Suppression annulée");
+    }
+    fetchData();
   };
 
   const isClickedModifyCodePromo = index => {
@@ -208,15 +210,7 @@ export default function Promo(props) {
     fetchData();
   };
 
-  const handleClickColorPicker = () => {
-    setColorPickerDisplay(!ColorPickerDisplay);
-  };
- const handleCloseColorPicker = () => {
-    setColorPickerDisplay(false);
-  };
-  const handleChangeTitleColor = color => {
-    setEncartDisplay({ ...encartDisplay, titleColor: color.hex })
-  };
+
 
   // fonction pour ordonnée le tableau
   const orderBy = (type, order) => {

@@ -283,7 +283,14 @@ const Tables = props => {
                         </td>
                         <td>
                           {" "}
-                          <p><b class={`sticker-promo`} style={{backgroundColor:data.promo_sticker_color}}>{data.promo_sticker_text}</b></p>
+                          <p>
+                            { data.promo_sticker_text != 'NULL' ?
+                            <b className={`sticker-promo`} style={{backgroundColor:data.promo_sticker_color}}>{data.promo_sticker_text}</b>
+                            :
+                            'pas de sticker'  
+                            }
+                            
+                            </p>
                         </td>
                         <td className='actionButtons'>
                           <ButtonModify index={i} onClick={props.onClick} />

@@ -57,7 +57,7 @@ const FormColorCustom = (props) => {
             onChange = {props.onChangeForm}
           />
           <div>   
-            <div className = "Swatch" onClick={props.onClickColorBackground}>
+            <div className="Swatch" onClick={props.onClickColorBackground}>
               <div style={{backgroundColor: `${props.backgroundColor}`}} className="backgroundCSS"/>
             </div>
             { props.stateColorPickerBackgroundDisplay ? <div className = "Popover">

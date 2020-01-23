@@ -8,13 +8,26 @@ import { ChromePicker } from 'react-color'
 
 export default function FormPromo(props) {
   const [promoModify, setPromoModify] = useState(props.donneesPromo)
-console.log('props.donneesPromo',props.donneesPromo)
+// console.log('props.donneesPromo',props.donneesPromo)
+
+const [ColorPickerDisplay, setColorPickerDisplay] = useState(false);
+const [encartDisplay, setEncartDisplay] = useState({
+  backgroundColor: promoModify.promo_sticker_color
+});
 
   // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
   const validateNewData = (e) => {
     setPromoModify({ ...promoModify, [e.target.name]: e.target.value }, console.log(promoModify))
-    
   }
+
+  const handleClickColorPicker = () => {
+    setColorPickerDisplay(!ColorPickerDisplay);
+  };
+  
+  const handleChangeColor = (color) => {
+    setEncartDisplay({ ...encartDisplay, backgroundColor: color.hex });
+    setPromoModify({ ...promoModify, promo_sticker_color: color.hex });
+  };
 
   // fonction pour envoyer les informations du form à jours
   let handleSubmit = e => {
@@ -85,7 +98,7 @@ console.log('props.donneesPromo',props.donneesPromo)
               type="text"
               className="form-control text-center"
               id="imageid"
-              maxlength="10"
+              maxLength="10"
               placeholder={promoModify.promo_sticker_text}
               value={promoModify.promo_sticker_text}
             />
@@ -96,19 +109,20 @@ console.log('props.donneesPromo',props.donneesPromo)
             <label htmlFor="image">Couleur sticker</label>
             <input
              onChange={validateNewData}
+             onClick={handleClickColorPicker}
               name="promo_sticker_color"
               type="text"
               className="form-control text-center"
               id="imageid"
-              placeholder={promoModify.promo_sticker_color}
-              value={promoModify.promo_sticker_color}
+              placeholder={encartDisplay.backgroundColor}
+              value={encartDisplay.backgroundColor}
             />
-            <div className="Swatch" onClick={props.onClickColorTitle}>
-              <div style={{backgroundColor: `${props.titleColor}`}} className="titleCSS"/>
+            <div className="Swatch" onClick={handleClickColorPicker}>
+              <div style={{backgroundColor: `${encartDisplay.backgroundColor}`}} className="titleCSS"/>
             </div>
-            { props.stateColorPickerTitleDisplay ? <div className = "Popover" >
-              <div className="Cover" onClick={promoModify.promo_sticker_color}/>
-              <ChromePicker color={promoModify.promo_sticker_color} onChange={props.onChangeTitleColor} />
+            { ColorPickerDisplay ? <div className = "Popover" >
+              <div className="Cover" onClick={handleClickColorPicker}/>
+              <ChromePicker color={promoModify.promo_sticker_color} onChange={handleChangeColor} />
             </div> : null }
           </div>    
 
@@ -118,9 +132,7 @@ console.log('props.donneesPromo',props.donneesPromo)
           </div>
         </form>
 
-
       </Encarts>
-
     </>
 
   );

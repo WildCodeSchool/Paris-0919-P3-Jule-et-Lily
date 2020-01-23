@@ -19,7 +19,7 @@ export default (props) => {
       <div id="wrapper">
         {/* mettre la navbar/sidebar ici */}
         <Navbar />
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" className="d-flex flex-column">
           <div id="content">
             {/* Mettre la login bar ici  */}
             <LoginBar dispatch={props.dispatch}
