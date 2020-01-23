@@ -146,40 +146,74 @@ router.route(['/:id', '/'])
     });
   })
   .delete(function (req, res) { // supprimer un produit penser à supprimer dans la bdd la connection avec le stock id
-    connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
-      if (err) {
-        console.log(err);
-        res.send("Erreur lors de la suppression du produit").status(500);
-      } else {
-        res.sendStatus(200);
-      }
-    });
-  });
-
-
+  connection.query('SET FOREIGN_KEY_CHECKS=0', (err, results) => { //ajouter un produit
+    if (err) {
+      console.log(`ici l'erreur `, err);
+      res.send("Erreur lors de la suppression du produit.").status(500);
+    } else {
+      connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
+        if (err) {
+          console.log(err);
+          res.send("Erreur lors de la suppression du produit").status(500);
+        } else {
+          connection.query('SET FOREIGN_KEY_CHECKS=1', (err, results) => {
+            if (err) {
+              console.log(`ici l'erreur `, err);
+              res.send("Erreur lors de la suppression du produit.").status(500);
+            }
+            else {
+              res.sendStatus(200);
+            }
+          })
+        }
+      })
+    }
+  })
+})
 /////////////// Récupérer les images du produit sauf l'image en cover ///////////
 /////////////////////////////////////////////////////////////////////////////////
 
-  router.route(['/image/:id', '/image'])
-  .get(function (req, res) { //récup un produit
-    connection.query(
-      `SELECT image_id FROM image JOIN product ON image_id = product_cover_image_id WHERE product_id= ${req.params.id}`,
+  router
+    .route(["/image/:id", "/image"])
+    .get(function(req, res) {
+      //récup un produit
+      connection.query(
+        `SELECT image_id FROM image JOIN product ON image_id = product_cover_image_id WHERE product_id= ${req.params.id}`,
         (err1, res1) => {
           if (err1) {
             res
               .status(500)
-              .send("Erreur lors de la récupération de l'image de couverture du produit");
-              console.log("erreur  recup image", err)
+              .send(
+                "Erreur lors de la récupération de l'image de couverture du produit"
+              );
+            console.log("erreur  recup image", err);
+          } else if (!res1[0]) {
+            connection.query(
+              `SELECT * FROM image WHERE image_product_id = ${req.params.id} ORDER BY image_id ASC`,
+              (err, results) => {
+                if (err) {
+                  res
+                    .status(500)
+                    .send(
+                      "Erreur lors de la récupération des images du produit"
+                    );
+                } else {
+                  res.json(results);
+                }
+              }
+            );
           } else {
-            const coverImageId= res1[0].image_id;
+            const coverImageId = res1[0].image_id;
             connection.query(
               `SELECT * FROM image WHERE image_product_id = ${req.params.id}  AND image_id != ${coverImageId} ORDER BY image_id ASC`,
               (err, results) => {
                 if (err) {
                   res
                     .status(500)
-                    .send("Erreur lors de la récupération des images du produit");
-                    console.log("erreur  recup image", err)
+                    .send(
+                      "Erreur lors de la récupération des images du produit"
+                    );
+                  console.log("erreur  recup image", err);
                 } else {
                   res.json(results);
                 }
@@ -187,33 +221,49 @@ router.route(['/:id', '/'])
             );
           }
         }
-      );  
-  })
-   ////// SUPPRIMER UNE IMAGE BDD ET SERVEUR
-   .delete(function(req, res) {
-    connection.query(`SELECT image_name FROM image WHERE image_id = ${req.params.id}`, (err, result) => {
-        if (err) {
-          res.send("Erreur lors de la recuperation du nom d'image").status(500);
-        } else {
-          const path = result[0].image_name;
-          console.log("image name", path);
-          try {
-            fs.unlinkSync(path);
-            connection.query(`DELETE FROM image WHERE image_id=${req.params.id}`, (err, result) => {
-                if (err) {
-                  res.status(500).send("Erreur lors de la suppression d'une image dans la bdd");
-                } else {
-                  res.send("image bien supprimée").status(200);
+      );
+    })
+
+    ////// SUPPRIMER UNE IMAGE BDD ET SERVEUR
+    .delete(function(req, res) {
+      connection.query(
+        `SELECT image_name FROM image WHERE image_id = ${req.params.id}`,
+        (err, result) => {
+          if (err) {
+            res
+              .send("Erreur lors de la recuperation du nom d'image")
+              .status(500);
+          } else {
+            const path = result[0].image_name;
+            console.log("image name", path);
+            try {
+              fs.unlinkSync(path);
+              connection.query(
+                `DELETE FROM image WHERE image_id=${req.params.id}`,
+                (err, result) => {
+                  if (err) {
+                    res
+                      .status(500)
+                      .send(
+                        "Erreur lors de la suppression d'une image dans la bdd"
+                      );
+                  } else {
+                    res.send("image bien supprimée").status(200);
+                  }
                 }
-              });
-          } catch (err) {
-            res.status(500).send("Erreur lors de la suppression d'une image dans le serveur public");
-            console.error(err);
+              );
+            } catch (err) {
+              res
+                .status(500)
+                .send(
+                  "Erreur lors de la suppression d'une image dans le serveur public"
+                );
+              console.error(err);
+            }
           }
         }
-      }
-    );
-  });
+      );
+    });
 
 // Gestion Image de couverture du produit
 router.route(['/image-cover/:id', '/image-cover/:id/:productId'])
