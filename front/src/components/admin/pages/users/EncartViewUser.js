@@ -50,12 +50,12 @@ export default function EncartViewUser(props) {
         <>
             <ReturnButton onClickSee={props.onClickSee} />
             <Encarts title="Fiche client">
+                <div className="table-responsive">
                 <div className="media-text">
                     <h1 className="card-title text-center middlepurple">{user.user_firstname} {user.user_lastname}</h1>
                 </div>
-                <div className="table-responsive">
-                    {/* <div class="media" style={{ width: "100%" }} > */}
-                        <table className="table table-bordered"
+                    <div class="media" style={{ width: "100%" }} >
+                        <table className="table table-bordered text-center"
                             id="dataTable"
                             width="100%"
                             cellSpacing="0">
@@ -110,7 +110,7 @@ export default function EncartViewUser(props) {
                         </table>
                     </div>
                     <div className="media-text">
-                        <p className="card-text gray text-center">Adresse de facturation</p>
+                        <p className="font-weight-bold text-uppercase gray text-center">Adresse de facturation</p>
                     </div>
                     <div class="media" style={{ width: "100%" }} >
                         <table className="table table-bordered text-center "
@@ -168,7 +168,7 @@ export default function EncartViewUser(props) {
                         </table>
                     </div>
                     <div className="media-text">
-                        <p className="card-text gray text-center">Adresse de livraison</p>
+                        <p className="font-weight-bold text-uppercase gray text-center">Adresse de livraison</p>
                     </div>
                     <div class="media" style={{ width: "100%" }} >
                         <table className="table table-bordered text-center "
@@ -226,10 +226,10 @@ export default function EncartViewUser(props) {
                         </table>
                     </div>
                     <div className="media-text">
-                        <p className="card-text gray text-center">Historique des commandes</p>
+                        <p className="font-weight-bold text-uppercase gray text-center">Historique des commandes</p>
                     </div>
                     <div class="media" style={{ width: "100%" }}>
-                        <table className="table table-bordered text-center "
+                        <table className="table table-bordered text-center"
                             id="dataTable"
                             width="100%"
                             cellSpacing="0">
@@ -255,7 +255,7 @@ export default function EncartViewUser(props) {
                                         {" "}
                                         <p>Statut</p>
                                     </th>
-                                    <th className="gray bg-lightpink">
+                                    <th className="gray bg-lightgray">
                                         {" "}
                                         <p>Facture</p>
                                     </th>
@@ -286,13 +286,17 @@ export default function EncartViewUser(props) {
                                                 {" "}
                                                 <p>{data.order_status_name}</p>
                                             </td>
+                                            <td>
+                                                {" "}
+                                                <p>Facture</p>
+                                            </td>
                                         </tr>
                                     )
                                 })}
                             </tbody>
                         </table>
                     </div>
-                {/* </div> */}
+                </div>
             </Encarts>
         </>
     )

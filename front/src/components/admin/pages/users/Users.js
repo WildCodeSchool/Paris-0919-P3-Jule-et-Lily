@@ -72,8 +72,8 @@ export default function Users() {
     setUsersClick(data[index]);
   };
 
-   // fonction pour ordonnée le tableau
-   const orderBy = (type, order) => {
+  // fonction pour ordonnée le tableau
+  const orderBy = (type, order) => {
     let theData = dataToShow; //on copie les données dans un nouveau tableau
     setDataToShow([]); // on vide le tableau à afficher pour pouvoi le re-remplir plus tard
     theData.sort((a, b) => { // on utilise la méthode sort pour trier
@@ -142,25 +142,27 @@ export default function Users() {
           users={usersClick}
         />
       ) : (
-            <Encarts title="Liste des clients">
+          <Encarts title="Liste des clients">
+            <div className="tableActions border-gray">
               <SearchBar search={search} table="product" />
-              <Tables
-                deleteData={deleteData}
-                page="users"
-                onClickSee={isClickedSee}
-                donnees={dataToShow ? dataToShow : "loading"}
-                // orderBy={orderBy}
-              />
-              <Pagination
-                nbPages={pagesNb}
-                activePage={activePage}
-                changePagePlus={changePagePlus}
-                changePageMoins={changePageMoins}
-                setActivePage={setActivePage}
-                table="users"
-              />
-            </Encarts>
-          )}
+            </div>
+            <Tables
+              deleteData={deleteData}
+              page="users"
+              onClickSee={isClickedSee}
+              donnees={dataToShow ? dataToShow : "loading"}
+              orderBy={orderBy}
+            />
+            <Pagination
+              nbPages={pagesNb}
+              activePage={activePage}
+              changePagePlus={changePagePlus}
+              changePageMoins={changePageMoins}
+              setActivePage={setActivePage}
+              table="users"
+            />
+          </Encarts>
+        )}
     </div>
   );
 }
