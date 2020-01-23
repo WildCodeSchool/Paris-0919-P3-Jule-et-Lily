@@ -208,9 +208,33 @@ router.route(['/:id', '/'])
             );
           }
         }
-      );
-    
+      );  
   })
+   ////// SUPPRIMER UNE IMAGE BDD ET SERVEUR
+   .delete(function(req, res) {
+    connection.query(`SELECT image_name FROM image WHERE image_id = ${req.params.id}`, (err, result) => {
+        if (err) {
+          res.send("Erreur lors de la recuperation du nom d'image").status(500);
+        } else {
+          const path = result[0].image_name;
+          console.log("image name", path);
+          try {
+            fs.unlinkSync(path);
+            connection.query(`DELETE FROM image WHERE image_id=${req.params.id}`, (err, result) => {
+                if (err) {
+                  res.status(500).send("Erreur lors de la suppression d'une image dans la bdd");
+                } else {
+                  res.send("image bien supprimée").status(200);
+                }
+              });
+          } catch (err) {
+            res.status(500).send("Erreur lors de la suppression d'une image dans le serveur public");
+            console.error(err);
+          }
+        }
+      }
+    );
+  });
 
 // Gestion Image de couverture du produit
 router.route(['/image-cover/:id', '/image-cover/:id/:productId'])
@@ -229,9 +253,11 @@ router.route(['/image-cover/:id', '/image-cover/:id/:productId'])
       }
     );
   }) 
-  .put(function (req, res) { // modifier un produit
+  .put(function (req, res) { // modifier image produit
     const ImageId = req.params.id;
     const ProductId = req.params.productId;
+    console.log('imageid',ImageId)
+    console.log('productid',ProductId)
     connection.query(`UPDATE product SET product_cover_image_id=${ImageId} WHERE product_id=${ProductId}`, (err, results) => {
       if (err) {
         console.log('erreur back', err);
@@ -256,31 +282,7 @@ router.route(['/image-cover/:id', '/image-cover/:id/:productId'])
   //   });
   // })
   
-  ////// SUPPRIMER UNE IMAGE BDD ET SERVEUR
-  .delete(function(req, res) {
-    connection.query(`SELECT image_name FROM image WHERE image_id = ${req.params.id}`, (err, result) => {
-        if (err) {
-          res.send("Erreur lors de la recuperation du nom d'image").status(500);
-        } else {
-          const path = result[0].image_name;
-          console.log("image name", path);
-          try {
-            fs.unlinkSync(path);
-            connection.query(`DELETE FROM image WHERE image_id=${req.params.id}`, (err, result) => {
-                if (err) {
-                  res.status(500).send("Erreur lors de la suppression d'une image dans la bdd");
-                } else {
-                  res.send("image bien supprimée").status(200);
-                }
-              });
-          } catch (err) {
-            res.status(500).send("Erreur lors de la suppression d'une image dans le serveur public");
-            console.error(err);
-          }
-        }
-      }
-    );
-  });
+ 
 
 
   ///////// ajout image produit

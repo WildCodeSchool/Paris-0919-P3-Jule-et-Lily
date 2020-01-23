@@ -38,16 +38,15 @@ export default function FormProducts(props) {
       );
   };
 
-  // // récupération de l'image de couverture
-  // const fetchDataCoverImage = () => {
-  //   axios
-  //     .get(`/product/image-cover/${props.donneesProducts.product_id}`)
-  //     .then(
-  //       res => (setDataCoverImage(res.data))
-  //     );
-  // };
+  // récupération de l'image de couverture
+  const fetchDataCoverImage = () => {
+    axios
+      .get(`/product/image-cover/${props.donneesProducts.product_id}`)
+      .then(
+        res => (setDataCoverImage(res.data))
+      );
+  };
 
- 
 
   const reloadUpload = () => {
     fetchDataImage();
@@ -143,18 +142,19 @@ export default function FormProducts(props) {
 
    // envoi de l'image choisie en couverture
 
-   const ChooseCoverImage = (id) => {
+   const chooseCoverImage = (id) => {
     axios
     .put(`/product/image-cover/${id}/${props.donneesProducts.product_id}`)
-    console.log('axios imageid', id)
-    console.log('axios productid', props.donneesProducts.product_id)
     .then(res => {
       if (res.err) {
         alert(res.err);
       } else {
         alert(`l'image de couverture de ${productModify.product_name} a été modifié avec succès!`)
+        fetchDataCoverImage()
+        fetchDataImage()
       }
-    }).catch(e => {
+    })
+    .catch(e => {
       console.error(e);
       alert(`Erreur lors de la modification de ${productModify.product_name}`)
     });
@@ -174,12 +174,12 @@ export default function FormProducts(props) {
           alert("Erreur lors de la suppression de l'image du produit", res.error);
         } else {
           alert(`l'image du produit a été supprimée avec succès!`);
+          fetchDataImage()
         }
       })
       // .catch(e => {
       //   console.error(e);
       // });
-    reloadUpload()
   } else {
     alert ("Attention il faut garder au moins une image par produit");
   }
@@ -190,8 +190,14 @@ export default function FormProducts(props) {
     fetchCategories()
     fetchStock()
     fetchDataImage()
-    // fetchDataCoverImage()
-  }, [dataImage] )
+    fetchDataCoverImage()
+  }, [] )
+
+  // useEffect(() => {
+    
+  //   // fetchDataCoverImage()
+  // }, [dataImage] )
+
 
 
   return (
@@ -326,21 +332,23 @@ export default function FormProducts(props) {
                     key={item.image_id}
                     id={item.image_id}
                     onClick={() => handleDelete(item.image_id)}
-                    // onChoose={() => ChooseCoverImage(item.image_id)}
+                    onChoose={() => chooseCoverImage(item.image_id)}
                   />
                 ))}
-              <div className="container ">
-                <UploadImageProduct ProductId = {props.donneesProducts.product_id} reloadUpload={reloadUpload}/>
-              </div>
-              {/* {dataCoverImage[0] &&
+               <div className="form m-auto bg-middlegray coverImageBlock">
+              {dataCoverImage[0] &&
                   <ImageProduct
                     src={dataCoverImage[0].image_name}
                     alt={dataCoverImage[0].image_name}
                     key={dataCoverImage[0].image_id}
                     id={dataCoverImage[0].image_id}
                     onClick={null}
-                  />
-                } */}
+                    />
+                  }
+              </div>
+              <div className="container ">
+                <UploadImageProduct ProductId = {props.donneesProducts.product_id} fetchDataImage={fetchDataImage}/>
+              </div>
               </div>    
             </div>
               {/* <label htmlFor="coverImage">Choix de l'image de couverture</label>

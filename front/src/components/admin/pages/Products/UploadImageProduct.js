@@ -22,24 +22,23 @@ const onChangeFile = (e) => {
 
 
     const onClickHandler = e => {
-        e.preventDefault();
-        const formFiles = new FormData();
-        for (const key of Object.keys(files)) { 
-            formFiles.append('file', files[key])
-        }
+      e.preventDefault();
+      const formFiles = new FormData();
+      for (const key of Object.keys(files)) {
+        formFiles.append("file", files[key]);
+      }
 
-        axios
-            .post(`/product/image/${props.ProductId}`, formFiles)
-            .then(res => {
-                if (res.error) {
-                    alert("Erreur lors de l'upload de l'image", res.error);
-                } else {
-                            alert(`l'image a été ajoutée avec succès!`);
-                        }
-                    })
-
-         props.reloadUpload();
-      };
+      axios
+        .post(`/product/image/${props.ProductId}`, formFiles)
+        .then(res => {
+          if (res.error) {
+            alert("Erreur lors de l'upload de l'image", res.error);
+          } else {
+            alert(`l'image a été ajoutée avec succès!`);
+            props.fetchDataImage()
+          }
+        })
+    };
  
 
    

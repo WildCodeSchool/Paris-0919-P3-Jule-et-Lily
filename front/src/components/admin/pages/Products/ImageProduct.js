@@ -13,8 +13,8 @@ const Image = (props) => {
         <img
         src= {props.src}
         alt= {props.alt}/>
-        {/* <button onClick={() => props.onChoose(props.id)} className="btn textCover"  style={ props.onClick == null ? {display : 'none'} : {display : 'block'}}>Choisir comme image de couverture</button>
-        {props.onClick == null ? <p>Image de Couverture</p> : <p>Image Courante</p>} */}
+        <input value = "Choisir comme image de couverture" onClick={() => props.onChoose(props.id)} className="btn textCover"  style={ props.onClick == null ? {display : 'none'} : {display : 'block'}}/>
+        {props.onClick == null ? <p>Image de Couverture</p> : <p>Image Courante</p>}
         
       </div>
     );

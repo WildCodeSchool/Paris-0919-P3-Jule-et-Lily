@@ -144,7 +144,7 @@
     height:150px;
     position:relative;
 }
-/* .sliderImage:hover  .textCover{
+.sliderImage:hover  .textCover{
   position:absolute;
   top:40px;
   opacity:1;
@@ -158,12 +158,12 @@
 
 .sliderImage:hover{
   cursor:pointer;
-} */
+}
 
-/* .sliderImage .textCover{
+.sliderImage .textCover{
   opacity:0;
   position:absolute;
-} */
+}
 
 
 .sliderImage img {
@@ -184,6 +184,9 @@
     font-size: 0.7em;
 }
 
+.coverImageBlock {
+  padding:2em;
+}
 
 
 .CarouselImage{
