@@ -37,4 +37,4 @@ npm start
 - Gaëtan Basset https://github.com/gbasset
 - Louis Cascio https://github.com/dolfant
 - Paul-Arnaud Lacroix https://github.com/Paul-Arnaud
-- ??? Steven Pigère https://github.com/Venesto ???
+- ~~Steven Pigère https://github.com/Venesto~~
