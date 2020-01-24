@@ -22,7 +22,7 @@ DB_HOST=your database host \
 DB_PORT=your database port \
 DB_USER=your database user \
 DB_PASS=your database password \
-DB_DB=your database name \  
+DB_DB=your database name 
 
 
 ## Usage
