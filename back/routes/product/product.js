@@ -1,11 +1,12 @@
 const express = require("express")
 const connection = require('../../conf')
-
 const router = express.Router()
+const multer = require("multer");
+const upload = multer({ dest: "public/" });
+const fs = require("fs");
 
 /////////////// stock des produits ///////////
 /////////////////////////////////////////////
-
 
 router.get('/', (req, res) => {
   res.send("je suis sur la route /product").status(200)
@@ -75,6 +76,10 @@ router.route(['/stock/:id','/stock/:stock_quantity/and/:stock_min'])
     });
   })
 
+
+/////////////// les produits ///////////
+////////////////////////////////////////
+
 router.route(['/all'])
   .get(function (req, res) { //récup un produit
     connection.query('SELECT p.*, i.image_name, s.stock_quantity as product_stock, s.stock_min as product_stock_min, c.collection_name, k.category_name FROM product as p LEFT OUTER JOIN stock as s ON s.stock_product_id = p.product_id LEFT OUTER JOIN collection as c on c.collection_id = p.product_collection_id LEFT OUTER JOIN category as k ON k.category_id = p.product_category_id LEFT JOIN image as i ON i.image_id=p.product_cover_image_id', (err, results) => {
@@ -83,6 +88,18 @@ router.route(['/all'])
         res.send('Erreur lors de la récupération des produits').status(500);
       } else {
         // console.log(results)
+        res.json(results);
+      }
+    });
+  })
+
+  router.route(['/:id/promo'])
+  .get(function (req, res) { //récup la promo d'un produit
+    connection.query('SELECT p.product_id, pr.* FROM product as p JOIN promo as pr ON p.product_promo_id = pr.promo_id WHERE product_id = ?', req.params.id, (err, results) => {
+      if (err) {
+        console.log(err);
+        res.send('Erreur lors de la récupération des produits').status(500);
+      } else {
         res.json(results);
       }
     });
@@ -141,28 +158,196 @@ router.route(['/:id', '/'])
     });
   })
   .delete(function (req, res) { // supprimer un produit penser à supprimer dans la bdd la connection avec le stock id
-    connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
+  connection.query('SET FOREIGN_KEY_CHECKS=0', (err, results) => { //ajouter un produit
+    if (err) {
+      console.log(`ici l'erreur `, err);
+      res.send("Erreur lors de la suppression du produit.").status(500);
+    } else {
+      connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
+        if (err) {
+          console.log(err);
+          res.send("Erreur lors de la suppression du produit").status(500);
+        } else {
+          connection.query('SET FOREIGN_KEY_CHECKS=1', (err, results) => {
+            if (err) {
+              console.log(`ici l'erreur `, err);
+              res.send("Erreur lors de la suppression du produit.").status(500);
+            }
+            else {
+              res.sendStatus(200);
+            }
+          })
+        }
+      })
+    }
+  })
+})
+/////////////// Récupérer les images du produit sauf l'image en cover ///////////
+/////////////////////////////////////////////////////////////////////////////////
+
+  router
+    .route(["/image/:id", "/image"])
+    .get(function(req, res) {
+      //récup un produit
+      connection.query(
+        `SELECT image_id FROM image JOIN product ON image_id = product_cover_image_id WHERE product_id= ${req.params.id}`,
+        (err1, res1) => {
+          if (err1) {
+            res
+              .status(500)
+              .send(
+                "Erreur lors de la récupération de l'image de couverture du produit"
+              );
+            console.log("erreur  recup image", err);
+          } else if (!res1[0]) {
+            connection.query(
+              `SELECT * FROM image WHERE image_product_id = ${req.params.id} ORDER BY image_id ASC`,
+              (err, results) => {
+                if (err) {
+                  res
+                    .status(500)
+                    .send(
+                      "Erreur lors de la récupération des images du produit"
+                    );
+                } else {
+                  res.json(results);
+                }
+              }
+            );
+          } else {
+            const coverImageId = res1[0].image_id;
+            connection.query(
+              `SELECT * FROM image WHERE image_product_id = ${req.params.id}  AND image_id != ${coverImageId} ORDER BY image_id ASC`,
+              (err, results) => {
+                if (err) {
+                  res
+                    .status(500)
+                    .send(
+                      "Erreur lors de la récupération des images du produit"
+                    );
+                  console.log("erreur  recup image", err);
+                } else {
+                  res.json(results);
+                }
+              }
+            );
+          }
+        }
+      );
+    })
+
+    ////// SUPPRIMER UNE IMAGE BDD ET SERVEUR
+    .delete(function(req, res) {
+      connection.query(
+        `SELECT image_name FROM image WHERE image_id = ${req.params.id}`,
+        (err, result) => {
+          if (err) {
+            res
+              .send("Erreur lors de la recuperation du nom d'image")
+              .status(500);
+          } else {
+            const path = result[0].image_name;
+            console.log("image name", path);
+            try {
+              fs.unlinkSync(path);
+              connection.query(
+                `DELETE FROM image WHERE image_id=${req.params.id}`,
+                (err, result) => {
+                  if (err) {
+                    res
+                      .status(500)
+                      .send(
+                        "Erreur lors de la suppression d'une image dans la bdd"
+                      );
+                  } else {
+                    res.send("image bien supprimée").status(200);
+                  }
+                }
+              );
+            } catch (err) {
+              res
+                .status(500)
+                .send(
+                  "Erreur lors de la suppression d'une image dans le serveur public"
+                );
+              console.error(err);
+            }
+          }
+        }
+      );
+    });
+
+// Gestion Image de couverture du produit
+router.route(['/image-cover/:id', '/image-cover/:id/:productId'])
+  .get(function (req, res) { //récup un produit
+    connection.query(
+    `SELECT * FROM image JOIN product ON image_id = product_cover_image_id WHERE product_id= ${req.params.id}`,
+      (err, results) => {
+        if (err) {
+          res
+            .status(500)
+            .send("Erreur lors de la récupération de l'image de couverture du produit");
+            console.log("erreur  recup image", err)
+        } else {
+          res.json(results);
+        }
+      }
+    );
+  }) 
+  .put(function (req, res) { // modifier image produit
+    const ImageId = req.params.id;
+    const ProductId = req.params.productId;
+    console.log('imageid',ImageId)
+    console.log('productid',ProductId)
+    connection.query(`UPDATE product SET product_cover_image_id=${ImageId} WHERE product_id=${ProductId}`, (err, results) => {
       if (err) {
-        console.log(err);
-        res.send("Erreur lors de la suppression du produit").status(500);
+        console.log('erreur back', err);
+        res.status(500).send("Erreur lors de la modification de l'image de couverture du produit");
       } else {
+        console.log(results)
         res.sendStatus(200);
       }
     });
-  });
+  })  
 
-// image associée à un produit set à NULL 
-router.put('/image/:id', (req, res) => {
-  const requestProduct = req.params.id;
-  const formData = req.body;
-  connection.query('UPDATE product SET product_image_id = 0 WHERE product_id = ?', [requestProduct], err => {
-    if (err) {
-      res.status(500).send("Erreur lors de la modification du produit" + err);
-    } else {
-      res.sendStatus(200);
-    }
-  });
+  
+  ///////// ajout image produit
+router.post("/image/:id", upload.array("file"), (req, res, next) => {
+  let error =  false;
+
+  console.log("file cote back",req.files)
+  req.files.map(file => {
+
+    let Timestamp = Math.round(new Date().getTime() / 1000)
+    let FileName = file.originalname
+    let regex1 = /\’\”\;\,\*\./gi;
+    let NewFileName = FileName.replace(regex1,"").split(" ").join("").toLowerCase()
+
+    fs.rename(file.path, `public/${Timestamp}${NewFileName}`, err => {
+      if (err) {
+        error=true;
+      } else {
+        const objectFile = {
+          image_name : `public/${Timestamp}${NewFileName}`,
+          is_slider_image : 0,
+          image_url : `public/${Timestamp}${NewFileName}`,
+          image_product_id: `${req.params.id}` 
+        }
+        connection.query("INSERT INTO image SET ?", objectFile, err2 => {
+          if (err2) {
+            error=true;
+          } 
+        })
+      }
+    })
+  }) 
+  if (error) {
+    res.send("Problem when uploading files").status(500);
+  } else
+  return res.send("Files uploaded sucessfully").status(200);
 });
+
+
 
 
 

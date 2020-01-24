@@ -9,6 +9,7 @@ import "../src/assets/css/admin/sb-admin-2.min.css";
 import "../src/assets/css/admin/buttons-actions.css";
 import "../src/assets/css/admin/global.css";
 import "../src/assets/css/admin/FrontCustom.css";
+import "../src/assets/css/admin/Upload.css";
 
 
 export default (props) => {
@@ -18,7 +19,7 @@ export default (props) => {
       <div id="wrapper">
         {/* mettre la navbar/sidebar ici */}
         <Navbar />
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" className="d-flex flex-column">
           <div id="content">
             {/* Mettre la login bar ici  */}
             <LoginBar dispatch={props.dispatch}

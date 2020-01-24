@@ -266,7 +266,7 @@ export default function Collections(props) {
       else setDataToShow(data);
     }
     if (table === "categories") {
-      let theData = data2;
+      let theData = fullData2;
       if (word !== "") {
         setDataToShow2([]);
         let result = theData.filter(line =>

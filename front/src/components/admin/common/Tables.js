@@ -54,7 +54,7 @@ const Tables = props => {
             ) : props.page === "products" ? (
               <tr>
                 <th className="th-order pink bg-lightpink asc" id="product_name" onClick={handleSort}> Désignation</th>
-                <th className="th-order pink bg-lightpink asc" id="product_image_id" onClick={handleSort}> Image de produit </th>
+                <th className="pink bg-lightpink asc" id="product_image_id" onClick={handleSort}> Image Produit </th>
                 <th className="th-order pink bg-lightpink desc" id="product_price" onClick={handleSort}> Prix </th>
                 <th className="pink bg-lightpink asc" id="product_description" onClick={handleSort}> Description </th>
                 <th className="pink bg-lightpink asc" id="collection_name" onClick={handleSort}> Collection </th>
@@ -148,15 +148,14 @@ const Tables = props => {
                     );
                   case "products":
                     return (
-                      // console.log(props.donnees)
                       <tr key={data.product_id}>
                         <td>
                           {" "}
                           <p>{data.product_name}</p>
                         </td>
                         <td>
-                          {" "}
-                          <p><img src={data.image_name} alt="cover" width="80" height="80" /><br />{data.image_name}</p>
+                         
+                          <p><img src={data.image_name} alt="image de couverture" width="80" height="100" /><br />{data.image_name}</p>
                         </td>
                         <td>
                           {" "}
@@ -172,7 +171,7 @@ const Tables = props => {
                           <p>{data.category_name}</p>
                         </td>
                         <td>
-                          <p className={data.product_stock <= data.product_stock_min ? "badge badge-pill bg-pink lightpink" : null} >{data.product_stock}</p>
+                          <p className={data.product_stock <= data.product_stock_min ? "badge badge-pill bg-pink lightpink " : null} >{data.product_stock}</p>
                         </td>
                         <td className='actionButtons'>
                           <ButtonModify index={i} onClick={props.onClick} />
@@ -259,7 +258,7 @@ const Tables = props => {
                           {" "}
                           <p>
                             { data.promo_sticker_text != 'NULL' ?
-                            <b class={`sticker-promo`} style={{backgroundColor:data.promo_sticker_color}}>{data.promo_sticker_text}</b>
+                            <b className={`sticker-promo`} style={{backgroundColor:data.promo_sticker_color}}>{data.promo_sticker_text}</b>
                             :
                             'pas de sticker'  
                             }

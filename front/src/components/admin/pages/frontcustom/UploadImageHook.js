@@ -93,7 +93,7 @@ const onChangeUrl = (e) => {
   
           <div className="row">
             <div className="col-12 text-center my-3">
-              <h1 className="">Uploader les images ici</h1>
+              <h4 className="">Uploader les images ici</h4>
             </div>
           </div>
           <div className="input-group">

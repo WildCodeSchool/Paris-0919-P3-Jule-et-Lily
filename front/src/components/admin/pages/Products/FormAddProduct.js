@@ -110,18 +110,16 @@ export default function FormProducts(props) {
                                 alert(` Le stock a bien été modifié`);
                             }
                         }
-                        )
+                    )
                     props.reloadAdd();
                 }
             })
-
     }
 
     useEffect(() => {
         fetchCollection()
         fetchCategories()
         fetchStock()
-
     }, [])
     return (
         <>
