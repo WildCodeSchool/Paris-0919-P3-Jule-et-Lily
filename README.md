@@ -30,3 +30,11 @@ run start script in ./back then ./front folders
 ```bash
 npm start
 ```
+
+## THE TEAM
+- Fanny Bouffier https://github.com/fanya3
+- Charlotte Leconte https://github.com/charlottel91
+- Gaëtan Basset https://github.com/gbasset
+- Louis Cascio https://github.com/dolfant
+- Paul-Arnaud Lacroix https://github.com/Paul-Arnaud
+- ??? Steven Pigère https://github.com/Venesto ???
