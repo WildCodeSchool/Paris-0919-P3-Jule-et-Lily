@@ -3,6 +3,10 @@
 ## Project overview
 Recast of https://juleetlily.com/ administration back-office
 
+---- screnshots ----
+![Dashboard](https://github.com/WildCodeSchool/Paris-0919-P3-Jule-et-Lily/screenshots/dashboard_jule_et_lily.png)
+----
+
 ## Technologies used 
 - REACT.JS & BOOTSTRAP for the admin dashboard
 - Node.JS for creating the server routes
