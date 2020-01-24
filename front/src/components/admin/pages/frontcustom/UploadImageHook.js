@@ -22,7 +22,7 @@ const onChangeFile = (e) => {
         }
        setFiles([...files], fileList)
        setUrls([...urls], fileUrl)
-       console.log('state files', files)
+      //  console.log('state files', files)
        
     } else {
         alert ("Attention il n'est pas possible d'avoir plus de 5 images dans le slider");
@@ -35,8 +35,8 @@ const onChangeUrl = (e) => {
         let fileUrl = urls;   
         fileUrl[i] = e.target.value;
         setUrls([...urls], fileUrl)
-        console.log('state urls', urls)
-        console.log('state files', files)
+        // console.log('state urls', urls)
+        // console.log('state files', files)
 }
     const onClickHandler = e => {
         e.preventDefault();
@@ -131,7 +131,6 @@ const onChangeUrl = (e) => {
                         placeholder="Renseigner l'url du lien"
                         onChange={onChangeUrl}
                       />
-                      {console.log("item.name",item.name)}
                     </li>
                   ))}
               </ul>

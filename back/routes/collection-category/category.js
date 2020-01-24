@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 router.get('/all/:request', (req, res) => {
   connection.query(`SELECT c.*, COUNT(p.product_id) as nb_items FROM category  as c LEFT OUTER JOIN product as p ON p.product_category_id = c.category_id GROUP BY c.category_id ORDER BY category_name ${req.params.request}`, (err, results) => {
       if (err) {
-        console.log(err)
+        // console.log(err)
         res.status(500).send('Erreur lors de la récupération des categories');
       } else {
         res.json(results).status(200);
@@ -32,7 +32,7 @@ router.route(['/:id', '/',])
     const formData = req.body;
     connection.query('INSERT INTO category SET ?', formData, (err, results) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         
         res.status(500).send("Erreur lors de l'ajout d'une categorie");
       } else {
@@ -53,7 +53,7 @@ router.route(['/:id', '/',])
 .delete(function (req, res) {
   connection.query(`DELETE FROM category WHERE category_id = ${req.params.id}`, err => {
     if (err) {
-      console.log(err)
+      // console.log(err)
       res.send("Erreur lors de la suppression d'une categorie").status(500);
     } else {
       res.sendStatus(200);

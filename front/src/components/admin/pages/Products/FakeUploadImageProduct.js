@@ -9,37 +9,23 @@ const [files, setFiles] = useState([])
 
 
 const onChangeFile = (e) => {
-  
         let fileList = files;
         for (var i = 0; i < e.target.files.length; i++) {
             if (!e.target.files[i]) return
-            fileList.push(e.target.files[i])
+            const blob = URL.createObjectURL(e.target.files[i])
+            fileList.push(e.target.files[i], blob)
+            console.log('filelist', fileList)
+            
+            // const NewFileList = [...fileList.File, blob]
+            // console.log('NewFileListNew', FileList)
+            setFiles([...files], fileList)
         }
-       setFiles([...files], fileList)
-      //  console.log('state files', files)
+       
+       props.setFakeDataImage(files)
+       console.log('state files', files)
        
 }
 
-
-    const onClickHandler = e => {
-      e.preventDefault();
-      const formFiles = new FormData();
-      for (const key of Object.keys(files)) {
-        formFiles.append("file", files[key]);
-      }
-
-      axios
-        .post(`/product/image/${props.ProductId}`, formFiles)
-        .then(res => {
-          if (res.error) {
-            alert("Erreur lors de l'upload de l'image", res.error);
-          } else {
-            alert(`l'image a été ajoutée avec succès!`);
-            props.fetchDataImage()
-            setFiles([])
-          }
-        })
-    };
  
 
    
@@ -48,7 +34,7 @@ const onChangeFile = (e) => {
   
           <div className="row">
             <div className="col-12 text-center my-3">
-              <h4 className="">Uploader les images ici</h4>
+              <h4 className="">Choisir les images ici</h4>
             </div>
           </div>
           <div className="input-group">
@@ -79,15 +65,6 @@ const onChangeFile = (e) => {
                     </li>
                   ))}
               </ul>
-            </div>
-            <div className="input-group">
-              <button
-                type="submit"
-                className="btn btn-primary btn-block my-4 blue mb-5"
-                onClick={onClickHandler}
-              >
-                Upload
-              </button>
             </div>
           </div>
       </>

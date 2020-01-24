@@ -18,7 +18,7 @@ export default function FormAddPromo(props) {
     let handleSubmitPromo = e => {
         e.preventDefault();
         const PromoPut = newPromo
-        console.log('Promoput', PromoPut);
+        // console.log('Promoput', PromoPut);
         axios     // envoi ds la bdd
             .post(`Promo/`, PromoPut)
             .then(res => {

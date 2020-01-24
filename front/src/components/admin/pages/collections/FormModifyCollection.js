@@ -35,7 +35,7 @@ export default function FormProducts(props) {
 
   }
 
-  console.log('CollectionModify', CollectionModify)
+  // console.log('CollectionModify', CollectionModify)
   return (
     <>
       <Encarts title="Ajouter / Modifier les informations">

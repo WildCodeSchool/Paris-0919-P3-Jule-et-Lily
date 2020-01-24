@@ -10,7 +10,7 @@ function Profile(props) {
 
   const validateNewProfile = (e) => {
     setProfileModifying({ ...profileModifying, [e.target.name]: e.target.value })
-    console.log('caca', profileModifying);
+    // console.log('caca', profileModifying);
   }
 
 
@@ -28,13 +28,13 @@ function Profile(props) {
         setProfileModifying({ user_email: res.user_email, user_login: res.user_login })
       })
       .catch();
-    console.log(profile, profileModifying);
+    // console.log(profile, profileModifying);
   }, [setProfileModifying]);
 
 
   const handleSubmit = (e) => {
-    console.log('profileModifying', profileModifying)
-    console.log(props.userEmail);
+    // console.log('profileModifying', profileModifying)
+    // console.log(props.userEmail);
     fetch(`/profile/1`,
       {
         method: 'POST',
@@ -59,7 +59,7 @@ function Profile(props) {
       )
     props.reload()
     e.preventDefault()
-    console.log(profileModifying);
+    // console.log(profileModifying);
   }
 
 

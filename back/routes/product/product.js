@@ -6,7 +6,7 @@ const upload = multer({ dest: "public/" });
 const fs = require("fs");
 
 /////////////// stock des produits ///////////
-/////////////////////////////////////////////
+/////////////////////////////////////////////result.insertId
 
 router.get('/', (req, res) => {
   res.send("je suis sur la route /product").status(200)

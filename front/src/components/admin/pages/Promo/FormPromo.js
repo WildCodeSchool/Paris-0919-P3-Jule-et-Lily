@@ -8,7 +8,7 @@ import { ChromePicker } from 'react-color'
 
 export default function FormPromo(props) {
   const [promoModify, setPromoModify] = useState(props.donneesPromo)
-console.log('props.donneesPromo',props.donneesPromo)
+// console.log('props.donneesPromo',props.donneesPromo)
 
   // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
   const validateNewData = (e) => {
@@ -21,7 +21,7 @@ console.log('props.donneesPromo',props.donneesPromo)
     e.preventDefault();
     const promoPut = promoModify
     delete promoPut.image_name
-    console.log('promoput2', promoPut);
+    // console.log('promoput2', promoPut);
     axios   
       .put(`promo/${promoModify.promo_id}`, promoPut)
       .then(res => {
@@ -32,7 +32,7 @@ console.log('props.donneesPromo',props.donneesPromo)
           props.reload(); // au lieu de recharger complètement la page on execute la fonction reload du composant parent
         }
       }).catch(e => {
-        console.error(e);
+        // console.error(e);
         alert(`Erreur lors de la modification de ${promoModify.promo_name}`)
       })
     }

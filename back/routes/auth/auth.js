@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 
 router.post('/', function(req, res) {
     passport.authenticate('local',(err, user, info) => { 
-      console.log('user',user);
+      // console.log('user',user);
       const token = jwt.sign(Object.assign({}, user), 'your_jwt_secret')
       if(err) return res.status(500).json({flash: 'Erreur de connexion'})
       if (!user) return res.status(400).json({flash: 'Login ou mot de passe incorrect'})
