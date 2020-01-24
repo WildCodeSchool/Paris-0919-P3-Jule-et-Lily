@@ -8,8 +8,8 @@ Recast of https://juleetlily.com/ administration back-office
 ----
 
 ## Technologies used 
-- REACT.JS & BOOTSTRAP for the admin dashboard
-- Node.JS for creating the server routes
+- REACT.JS & BOOTSTRAP to devellop the admin dashboard
+- Node.JS to create the server routes and database requests
 - MYSQL for the database
 
 ## Installation
