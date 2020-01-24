@@ -70,7 +70,7 @@ router.route('/shipping/:id')
 // To have information of history of order
   router.route('/order/:id')
   .get(function (req, res, next) {
-    connection.query(`SELECT s.*, o.order_ref, o.order_id, o.order_date, SUM(p.product_price) as total_price FROM order_status as s JOIN orders as o ON o.order_status = s.order_status_id JOIN order_items as i ON o.order_id = i.order_item_order_id JOIN product as p on p.product_id = i.order_item_product_id WHERE order_user_id= ${req.params.id} GROUP BY o.order_id`, [req.params.id], (err, results) => {
+    connection.query(`SELECT s.*, o.*, SUM(p.product_price) as total_price FROM order_status as s JOIN orders as o ON o.order_status = s.order_status_id JOIN order_items as i ON o.order_id = i.order_item_order_id JOIN product as p on p.product_id = i.order_item_product_id WHERE order_user_id= ${req.params.id} GROUP BY o.order_id`, [req.params.id], (err, results) => {
       if (err) {
         console.log(err)
         res.status(500).send(`Erreur lors de la récupération des informations de l'historique de commande`);
