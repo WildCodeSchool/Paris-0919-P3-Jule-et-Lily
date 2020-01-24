@@ -3,7 +3,7 @@ import '../../../assets/css/admin/pagination.css'
 
 const Pagination = (props) => {
   const [pagesNb, setPagesNb] = useState(props.nbPages);
-  const [activePage, setActivePage] = useState(1);
+  const [activePage, setActivePage] = useState(props.activePage);
 
   const createPagination = () => {
     // console.log(pagesNb)

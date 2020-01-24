@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { Encarts, SearchBar, Tables, Pagination } from "../../common";
 import EncartViewUser from "./EncartViewUser";
 // import FormUsers from './FormUsers'
@@ -13,7 +13,7 @@ export default function Users() {
   const [pagesNb, setPagesNb] = useState(0); //pages number
   const [activePage, setActivePage] = useState(1); // number of active page
 
-  const fetchData = (props) => {
+  const fetchData = props => {
     axios
       .get("/user/role/1") //users list
       .then(res => {
@@ -24,7 +24,8 @@ export default function Users() {
           setPagesNb(1); // il n'y a qu'une page.
           setData([]); // avant de remplir le tableau on le vide
           setDataToShow([]); // idem
-          for (let i = 0; i < res.data.length; i++) { // on boucle pour remplir les deux tableau avec les données
+          for (let i = 0; i < res.data.length; i++) {
+            // on boucle pour remplir les deux tableau avec les données
             setData(data => [...data, res.data[i]]);
             setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
           }
@@ -40,7 +41,7 @@ export default function Users() {
           }
         } else if (activePage === pagesNb) {
           // si on est sur la dernière page
-          setPagesNb(parseInt(res.data.length / 10 + 1));// on défini le nombre de pages en fonction du nombre de données
+          setPagesNb(parseInt(res.data.length / 10 + 1)); // on défini le nombre de pages en fonction du nombre de données
           setData([]);
           setDataToShow([]);
           for (let i = activePage * 10 - 10; i < res.data.length; i++) {
@@ -49,7 +50,7 @@ export default function Users() {
           }
         } else {
           // si on est sur une autre page
-          setPagesNb(parseInt(res.data.length / 10 + 1));// on défini le nombre de pages en fonction du nombre de données
+          setPagesNb(parseInt(res.data.length / 10 + 1)); // on défini le nombre de pages en fonction du nombre de données
           setData([]);
           setDataToShow([]);
           for (let i = activePage * 10 - 10; i < activePage * 10; i++) {
@@ -58,14 +59,12 @@ export default function Users() {
           }
         }
       });
-
-
   };
 
   useEffect(() => {
-    fetchData()
-    console.log('ici', data)
-  }, [activePage]) // Mettre en commentaire pour recharger les bonnes données à chaque page
+    fetchData();
+    console.log("ici", data);
+  }, [activePage]); // Mettre en commentaire pour recharger les bonnes données à chaque page
 
   const isClickedSee = index => {
     setclickView(!clickView);
@@ -76,7 +75,8 @@ export default function Users() {
   const orderBy = (type, order) => {
     let theData = dataToShow; //on copie les données dans un nouveau tableau
     setDataToShow([]); // on vide le tableau à afficher pour pouvoi le re-remplir plus tard
-    theData.sort((a, b) => { // on utilise la méthode sort pour trier
+    theData.sort((a, b) => {
+      // on utilise la méthode sort pour trier
       //si on veut trier des nombres
       if (typeof a[type] == "number") {
         if (order === "desc") return b[type] - a[type];
@@ -94,18 +94,21 @@ export default function Users() {
           return 0;
         }
       }
-      return null
+      return null;
     });
     //on met les données triées dans le tableau à afficher
     setDataToShow(dataToShow => [...dataToShow, ...theData]);
   };
 
-
   const deleteData = (page, id) => {
-    axios.delete(`/user/${id}`)
-      .then(fetchData())
-    alert('Le client à été supprimé avec succès')
-  }
+    if (window.confirm("Voulez-vous vraiment supprimer ce client ?")) {
+      axios.delete(`/user/${id}`);
+      alert("Le client à été supprimé avec succès");
+    } else {
+      alert("Suppression annulée");
+    }
+    fetchData();
+  };
 
   // fonction pour aller une page en avant
   const changePagePlus = () => {
@@ -114,7 +117,7 @@ export default function Users() {
 
   // fonction pour aller une page en arière
   const changePageMoins = () => {
-    setActivePage(activePage - 1);//on retire 1 à la page active
+    setActivePage(activePage - 1); //on retire 1 à la page active
   };
 
   // fonction de recherche dans le tableau
@@ -132,37 +135,37 @@ export default function Users() {
     } else setDataToShow(data); //si la recherche est vide on veut afficher toutes les données dans le tableau
   };
 
-  console.log('ici', data);
+  console.log("ici", data);
   return (
     <div className="users">
       {clickView ? (
         <EncartViewUser
-          title='Fiche client'
+          title="Fiche client"
           onClickSee={isClickedSee}
           users={usersClick}
         />
       ) : (
-          <Encarts title="Liste des clients">
-            <div className="tableActions border-gray">
-              <SearchBar search={search} table="product" />
-            </div>
-            <Tables
-              deleteData={deleteData}
-              page="users"
-              onClickSee={isClickedSee}
-              donnees={dataToShow ? dataToShow : "loading"}
-              orderBy={orderBy}
-            />
-            <Pagination
-              nbPages={pagesNb}
-              activePage={activePage}
-              changePagePlus={changePagePlus}
-              changePageMoins={changePageMoins}
-              setActivePage={setActivePage}
-              table="users"
-            />
-          </Encarts>
-        )}
+        <Encarts title="Liste des clients">
+          <div className="tableActions border-gray">
+            <SearchBar search={search} table="product" />
+          </div>
+          <Tables
+            deleteData={deleteData}
+            page="users"
+            onClickSee={isClickedSee}
+            donnees={dataToShow ? dataToShow : "loading"}
+            orderBy={orderBy}
+          />
+          <Pagination
+            nbPages={pagesNb}
+            activePage={activePage}
+            changePagePlus={changePagePlus}
+            changePageMoins={changePageMoins}
+            setActivePage={setActivePage}
+            table="users"
+          />
+        </Encarts>
+      )}
     </div>
   );
 }

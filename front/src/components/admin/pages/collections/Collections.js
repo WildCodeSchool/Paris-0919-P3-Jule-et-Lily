@@ -280,7 +280,7 @@ export default function Collections(props) {
 
   return (
     <>
-
+{console.log(activePage)}
       {clickAdd ? (<FormAddCollection onClick={isClickedAddCollection} reloadAdd={reloadAdd} />) :
 
         clickView ? (<> <ReturnButton onClickSee={isClickedSee} /> <CollectionViewArticle donneesCollection={collectionClick} /> </>) :
