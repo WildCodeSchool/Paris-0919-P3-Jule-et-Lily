@@ -8,7 +8,6 @@ export default function EncartViewUser(props) {
     const [shipping, setShipping] = useState()
     const [billing, setBilling] = useState()
     const [order, setOrder] = useState()
-    const [orderPrice, setOrderPrice] = useState()
 
     const user = props.users
     const user_birthday = new Date(user.user_date_of_birth); // good format of date
@@ -31,13 +30,6 @@ export default function EncartViewUser(props) {
         Axios
             .get(`/user/order/${user.user_id}`) // we catch values
             .then(res => setOrder(res.data))
-            fetchOrderPrice()
-    }
-
-    const fetchOrderPrice = () => {
-        Axios
-            .get(`/user/orderprice/${user.user_id}`) // we catch values
-            .then(res => setOrderPrice(res.data))
     }
 
     useEffect(() => {
@@ -265,6 +257,7 @@ export default function EncartViewUser(props) {
                             <tbody>
                                 {order && order.map((data, i) => {
                                     const order_date = new Date(data.order_date);
+                                    console.log('data',data)
                                     return (
                                         <tr>
                                             <td>
@@ -280,8 +273,8 @@ export default function EncartViewUser(props) {
                                                 <p>{order_date.toLocaleDateString()}</p>
                                             </td>
                                             <td>
-                                                {" ", orderPrice && console.log(orderPrice[i])}
-                                                <p>{orderPrice && orderPrice[i] && orderPrice[i].total_price} €</p>
+                                                {" "}
+                                                <p>{data.total_price}</p>
                                             </td>
                                             <td>
                                                 {" "}
