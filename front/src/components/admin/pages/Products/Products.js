@@ -14,6 +14,7 @@ import FormAddProduct from "./FormAddProduct";
 export default function Products(props) {
   const [data, setData] = useState([]);
   const [dataToShow, setDataToShow] = useState([]);
+  const [fullData, setFullData] = useState([])
   const [click, setClick] = useState(false);
   const [productClick, setProductClick] = useState([]);
   const [clickView, setclickView] = useState(false);
@@ -71,6 +72,7 @@ export default function Products(props) {
             setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
           }
         }
+        setFullData(res.data);
       });
   };
 
@@ -144,7 +146,7 @@ export default function Products(props) {
 
   // fonction de recherche dans le tableau
   const search = (table, word) => {
-    let theData = data;
+    let theData = fullData;
     if (word !== "") {
       // si le mot recherché n'est pas une chaine vide
       setDataToShow([]); // on vide le tableau à afficher

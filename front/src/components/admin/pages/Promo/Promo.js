@@ -18,6 +18,7 @@ import "../../../../assets/css/admin/Promo.css"
 export default function Promo(props) {
   const [data, setData] = useState([]);
   const [dataToShow, setDataToShow] = useState([]);
+  const [fullData, setFullData] = useState([]);
   const [click, setClick] = useState(false);
   const [clickAdd, setClickAdd] = useState(false);
   const [clickView, setClickView] = useState(false);
@@ -25,6 +26,7 @@ export default function Promo(props) {
 
   const [data2, setData2] = useState([]);
   const [dataToShow2, setDataToShow2] = useState([]);
+  const [fullData2, setFullData2] = useState([]);
   const [clickCodePromo, setClickCodePromo] = useState(false);
   const [clickAddCodePromo, setClickAddCodePromo] = useState(false);
   const [clickViewCodePromo, setClickViewCodePromo] = useState(false);
@@ -83,6 +85,7 @@ export default function Promo(props) {
             setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
           }
         }
+        setFullData(res.data);
       });
     axios
       .get("/code-promo/all") //liste les commandes
@@ -128,6 +131,7 @@ export default function Promo(props) {
             setDataToShow2(dataToShow2 => [...dataToShow2, res.data[i]]);
           }
         }
+        setFullData2(res.data);
       });
   };
 
@@ -244,7 +248,7 @@ export default function Promo(props) {
   // fonction de recherche dans le tableau
   const search = (table, word) => {
     if (table === "promo") {
-      let theData = data;
+      let theData = fullData;
       if (word !== "") {
         // si le mot recherché n'est pas une chaine vide
         setDataToShow([]); // on vide le tableau à afficher
@@ -257,7 +261,7 @@ export default function Promo(props) {
       } else setDataToShow(data); //si la recherche est vide on veut afficher toutes les données dans le tableau
 
     } else if (table === "code-promo") {
-      let theData = data2;
+      let theData = fullData2;
       if (word !== "") {
         // si le mot recherché n'est pas une chaine vide
         setDataToShow2([]); // on vide le tableau à afficher
