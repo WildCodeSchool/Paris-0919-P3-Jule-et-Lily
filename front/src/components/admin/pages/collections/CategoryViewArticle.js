@@ -9,7 +9,7 @@ import {
 function CategoryViewArticle(props) {
 
     const donneesCategory = props.donneesCategory
-    console.log('props.donneesCategory', props.donneesCategory);
+    // console.log('props.donneesCategory', props.donneesCategory);
 
     return (
         <>

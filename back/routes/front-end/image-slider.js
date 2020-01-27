@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 router.post("/image", upload.array("file"), (req, res, next) => {
   let error =  false;
 
-  console.log("file cote back",req.files)
+  // console.log("file cote back",req.files)
   req.files.map(file => {
 
     let Timestamp = Math.round(new Date().getTime() / 1000)
@@ -53,7 +53,7 @@ router.post("/image", upload.array("file"), (req, res, next) => {
 ///////// Route ajout url
 router.put("/url", (req, res) => {
   let error =  false;
-  console.log("url cote back", req.body)
+  // console.log("url cote back", req.body)
  const size = req.body.length
   req.body.map((item,i) => {
     const formdata = {
@@ -61,7 +61,7 @@ router.put("/url", (req, res) => {
     }
     connection.query(`SELECT image_id FROM image ORDER by image_id DESC LIMIT 1 OFFSET ${(size-1)-i}`, (err, result) => {
       let dataId = result[0].image_id
-      console.log("image_id",dataId)
+      // console.log("image_id",dataId)
       if (err) {
         error=true;
       } else {
@@ -138,7 +138,7 @@ router.route(["/all", "/", "/:id"])
           res.send("Erreur lors de la recuperation du nom d'image").status(500);
         } else {
           const path = result[0].image_name;
-          console.log("image name", path);
+          // console.log("image name", path);
           try {
             fs.unlinkSync(path);
             connection.query(`DELETE FROM image WHERE image_id=${req.params.id}`, (err, result) => {
@@ -150,7 +150,7 @@ router.route(["/all", "/", "/:id"])
               });
           } catch (err) {
             res.status(500).send("Erreur lors de la suppression d'une image dans le serveur public");
-            console.error(err);
+            // console.error(err);
           }
         }
       }
