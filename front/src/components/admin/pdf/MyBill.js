@@ -5,21 +5,39 @@ import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
-    family: 'Arial',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    family: 'Montserrat',
+    marginTop: 30,
+    padding: 10
   },
   sectionUser: {
-    margin: 10,
-    padding: 2,
+    margin: 20,
+    padding: 10,
     flexGrow: 1,
     fontSize: 14,
-    alignContent: 'right',
+    fontWeight: 'bold',
+    textAlign: "justify",
+    alignItems: 'right',
   },
   sectionNumber: {
     margin: 10,
     padding: 2,
+    width: '45%',
     flexGrow: 1,
     fontSize: 13,
+    fontWeight: 'bold',
     alignSelf: 'left',
+    backgroundColor: '#E7DFDF'
+  },
+  sectionBill: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    paddingTop: 35,
+  },
+  sectionMiddle: {
+    bottom: 20,
   },
   table: {
     display: "table",
@@ -29,11 +47,12 @@ const styles = StyleSheet.create({
     height: '70px',
     borderStyle: "solid",
     border: 1,
+    alignItems: 'center',
   },
   tableRowTop: {
     height: '20px',
     margin: 0,
-    backgroundColor: '#B3ABAB',
+    backgroundColor: '#E7DFDF',
     flexDirection: "row",
   },
   tableRow: {
@@ -46,25 +65,55 @@ const styles = StyleSheet.create({
     margin: 0,
     border: 1,
     borderStyle: "solid",
-    textAlign: 'center'
+    textAlign: 'center',
   },
   tableCell: {
-    // border: 1,
-    // borderBottom: 0,
-    // borderTop: 0,
-    // borderRight: 0,
     width: '100%',
     height: '100%',
     margin: 0,
-    fontSize: 11
+    fontSize: 11,
+    alignItems: 'center',
   },
   sectionShipping: {
+    paddingLeft: 50,
+    paddingRight: 15,
+    paddingTop: 5,
+    fontSize: 12,
     flexDirection: 'row',
-    // fontSize: '11px'
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    lineHeight: 2,
+  },
+  sectionTVA: {
+    paddingLeft: 40,
+    paddingRight: 15,
+    paddingTop: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    fontSize: 12,
+    borderStyle: 'solid',
+    borderBottom: 2,
+    borderBottomColor: '#000',
+    lineHeight: 2,
   },
   sectionTotalPrice: {
-    flexDirection: 'row', 
-    // fontSize: '13px'
+    paddingLeft: 50,
+    paddingRight: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    fontSize: 14,
+    fontWeight: 'bold',
+    lineHeight: 3,
+  },
+  sectionFooter: {
+    justifyContent: 'center',
+    fontSize: 10,
+    bottom: 40,
+    margin: 'auto',
+    position: 'absolute',
+    textAlign: 'center',
   }
 });
 
@@ -78,51 +127,67 @@ const MyBill = () => (
           <Text>Coucou LAPRALINE</Text>
           <Text>11 rue de Poissy</Text>
           <Text>75 005 Paris</Text>
-
         </View>
         <View style={styles.sectionNumber}>
-          <Text>Facture</Text>
-          <Text>Numéro de facture: 24-01-2020-000001</Text>
-          <Text>Date de facture: 24-01-2020</Text>
+          <Text>Numéro de facture : 24-01-2020-000001</Text>
+          <Text>Date de facture : 24-01-2020</Text>
         </View>
       </View>
-      <View style={styles.table}>
-        <View style={styles.tableRowTop}>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>Description</Text>
+      <View style={styles.sectionMiddle}>
+        <View style={styles.sectionBill}>
+          <Text>Facture : 24-01-2020-000001</Text>
+        </View>
+        <View style={styles.table}>
+          <View style={styles.tableRowTop}>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>Description</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>Quantité</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>Prix à l'unité</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>Montant</Text>
+            </View>
           </View>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>Quantité</Text>
-          </View>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>Prix à l'unité</Text>
-          </View>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>Montant</Text>
+          <View style={styles.tableRow}>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>Bijoux fantaisie, boucles d'oreilles</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>2</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>20 €</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>40 €</Text>
+            </View>
           </View>
         </View>
-        <View style={styles.tableRow}>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>Bijoux fantaisie, boucles d'oreilles</Text>
-          </View>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>2</Text>
-          </View>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>20 €</Text>
-          </View>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>40 €</Text>
-          </View>
+        <View style={styles.sectionShipping}>
+          <Text>Livraison : </Text>
+          <Text>6.50 €</Text>
+        </View>
+        <View style={styles.sectionShipping}>
+          <Text>Total Brut :</Text>
+          <Text>46.50 €</Text>
+        </View>
+        <View style={styles.sectionTVA}>
+          <Text>TVA (TVA non applicable, article 293B du Code Général des Impôts.) :</Text>
+          <Text>0 €</Text>
+        </View>
+        <View style={styles.sectionTotalPrice}>
+          <Text>Montant total :</Text>
+          <Text>46.50 €</Text>
         </View>
       </View>
-      <View style={styles.sectionShipping}>
-        <Text>Livraison : </Text>
-        <Text>6.50 €</Text>
-      </View>
-      <View style={styles.sectionTotalPrice}>
-        <Text>Montant total :</Text>
-        <Text>46.50 €</Text>
+      <View style={styles.sectionFooter}>
+        <Text>Numéro Siret : 81000765800018</Text>
+        <Text>Société Jule et Lily - 56 Rue Gambetta 92 800 PUTEAUX</Text>
+        <Text>Contact : Email : juleetlily@gmail.com - Téléphone : 01 00 00 00 00</Text>
       </View>
     </Page>
   </Document>
