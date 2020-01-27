@@ -82,6 +82,7 @@ export default function Products(props) {
     if (window.confirm("Voulez vous vraiment supprimer le produit ?")) {
       axios.delete(`product/${id}`);
       alert("Le produit à été supprimé avec succès");
+      fetchData();
     } else {
       alert("Suppression annulée");
     }
