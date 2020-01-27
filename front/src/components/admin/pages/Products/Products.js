@@ -159,9 +159,6 @@ export default function Products(props) {
     } else setDataToShow(data); //si la recherche est vide on veut afficher toutes les données dans le tableau
   };
 
-  // passer la props à table ici
-  console.log("dataproducts", data);
-
   // fonction pour aller une page en avant
   const changePagePlus = () => {
     setActivePage(activePage + 1); //on ajoute 1 à la page active

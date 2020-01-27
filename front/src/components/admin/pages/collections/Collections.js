@@ -31,7 +31,7 @@ export default function Collections(props) {
   const [fullData2, setFullData2] = useState([])
 
 
-  console.log('collectionClick', collectionClick);
+  console.log('data', data);
 
   // pages du deuxième tableau
   const [pagesNb2, setPagesNb2] = useState(0);

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import "../../../../assets/css/admin/global.css"
 import "../../../../assets/css/admin/cards.css"
-import "../../../../assets/css/admin/EncartsViewArticle.css"
 import {
   Encarts,
   ReturnButton,
@@ -44,9 +43,6 @@ export default (props) => {
     fetchImages();
   }, [valueCustom])
 
-console.log('imagesArticles',imagesArticle);
-
-
   return (
     <>
       <ReturnButton onClickSee={props.onClickSee} />
@@ -77,7 +73,7 @@ console.log('imagesArticles',imagesArticle);
             </div>
 
             <div className="col-md-6 col-xs-3 mb-4 mt-2">
-              <h3 className="card-title text-left gray  " > Description</h3>
+              <h3 className="card-title text-center gray  " > Description</h3>
               <p className="text-justify gray "> {productModify.product_description}</p>
               <div className="text-left">
                 <h6 className="card-title gray"> Prix : {productModify.product_price} €</h6>

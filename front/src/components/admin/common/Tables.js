@@ -53,22 +53,22 @@ const Tables = props => {
               </tr>
             ) : props.page === "products" ? (
               <tr>
-                <th className="th-order pink bg-lightpink asc" id="product_name" onClick={handleSort}> Désignation</th>
-                <th className="pink bg-lightpink asc" id="product_image_id" onClick={handleSort}> Image Produit </th>
-                <th className="th-order pink bg-lightpink desc" id="product_price" onClick={handleSort}> Prix </th>
-                <th className="pink bg-lightpink asc" id="product_description" onClick={handleSort}> Description </th>
-                <th className="pink bg-lightpink asc" id="collection_name" onClick={handleSort}> Collection </th>
-                <th className="pink bg-lightpink asc" id="category_name" onClick={handleSort}> Catégorie </th>
-                <th className="pink bg-lightpink desc" id="product_stock" onClick={handleSort}> Stock </th>
-                <th className="gray bg-lightpink">
-                  <strong>Action </strong>
+                <th className="th-order pink bg-lightblue blue asc" id="product_name" onClick={handleSort}> Désignation</th>
+                <th className="pink bg-lightblue blue asc" id="product_image_id" onClick={handleSort}> Image Produit </th>
+                <th className="th-order pink bg-lightblue blue desc" id="product_price" onClick={handleSort}> Prix </th>
+                <th className="pink bg-lightblue blue asc" id="product_description" onClick={handleSort}> Description </th>
+                <th className="pink bg-lightblue blue asc" id="collection_name" onClick={handleSort}> Collection </th>
+                <th className="pink bg-lightblue blue asc" id="category_name" onClick={handleSort}> Catégorie </th>
+                <th className="pink bg-lightblue blue desc" id="product_stock" onClick={handleSort}> Stock </th>
+                <th className="gray bg-lightblue blue">
+                  <strong className="blue"> Action </strong>
                 </th>
               </tr>
             ) : props.page === "categories" ? (
               <tr>
-                <th className="th-order pink bg-lightpink asc " id="category_name" onClick={handleSort}> Désignation </th>
-                <th className="th-order pink bg-lightpink desc" id="nb_items" onClick={handleSort}> Nombre de références </th>
-                <th className="gray bg-lightpink">
+                <th className="th-order pink bg-lightblue blue asc " id="category_name" onClick={handleSort}> Désignation </th>
+                <th className="th-order pink bg-lightblue blue desc" id="nb_items" onClick={handleSort}> Nombre de références </th>
+                <th className=" bg-lightblue blue">
                   <strong>Action </strong>
                 </th>
               </tr>
@@ -148,10 +148,10 @@ const Tables = props => {
                     );
                   case "products":
                     return (
-                      <tr key={data.product_id}>
+                      <tr key={data.product_id} >
                         <td>
                           {" "}
-                          <p>{data.product_name}</p>
+                          <p>{data.product_name} </p>
                         </td>
                         <td>
                          
