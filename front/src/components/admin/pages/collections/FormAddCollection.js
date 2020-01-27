@@ -151,7 +151,7 @@ export default function FormAddCollection(props) {
             </div>
           </div>
 
-                    <div className='text-left'>
+                    <div className='ButtonsGroup text-right'>
                         <ButtonCancel onClick={props.onClick} color='#234eb7' />
                         <ButtonConfirm onClick={handleSubmitCollection} color='#234eb7' />
                     </div>

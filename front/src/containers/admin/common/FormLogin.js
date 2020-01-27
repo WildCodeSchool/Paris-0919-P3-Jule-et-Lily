@@ -12,10 +12,10 @@ export default function FormLogin(props) {
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Login"
-            onChange={ props.onChangeLogin }
+            onChange={props.onChangeLogin}
           />
           <small id="emailHelp" className="form-text text-muted">
-           Nous ne partagerons jamais votre email
+            Nous ne partagerons jamais votre email
           </small>
         </div>
         <div className="form-group">
@@ -25,12 +25,18 @@ export default function FormLogin(props) {
             className="form-control"
             id="exampleInputPassword1"
             placeholder="Mot de passe"
-            onChange={ props.onChangePassword }
+            onChange={props.onChangePassword}
           />
         </div>
-        <button type="submit" className="btn btn-primary" onClick={ props.onClick }>
-         Envoyer
-        </button>
+        <div className="text-right">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={props.onClick}
+          >
+            Envoyer
+          </button>
+        </div>
       </form>
     </div>
   );

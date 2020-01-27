@@ -89,11 +89,12 @@ export default function Collections(props) {
     if (window.confirm(`Voulez vous vraiment supprimer la ${text} ?`)) {
         axios.delete(path)
         alert(`${text} bien supprimée`)
+        fetchData();
     }
     else {
       alert('Suppression annulée') 
     }
-     fetchData()
+     fetchData();
   }
 
   const fetchData = () => {
@@ -241,11 +242,11 @@ export default function Collections(props) {
   }
   const reloadAdd = () => {
     setClickAdd(!clickAdd)
-    
+    fetchData();
   }
   const reloadAdd2 = () => {
-    
     setclickAddCat(!clickAddCat)
+    fetchData();
   }
 
   // useEffect(() => {

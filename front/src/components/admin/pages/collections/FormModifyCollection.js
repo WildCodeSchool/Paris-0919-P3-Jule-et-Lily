@@ -40,7 +40,7 @@ export default function FormProducts(props) {
   };
 
   const handleDelete = id => {
-    if (dataImage.length > 1) {
+    if (dataImage.length+dataCoverImage.length > 1) {
     axios
       .delete(`/collection/image/${id}`)
       .then(res => {
