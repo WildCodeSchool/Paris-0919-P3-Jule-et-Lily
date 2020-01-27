@@ -94,7 +94,7 @@ export default function FormAddPromo(props) {
             />
           </div>
 
-          <div className='text-left'>
+          <div className='text-right'>
             <ButtonCancel onClick={props.onClick} color='#234eb7' />
             <ButtonConfirm color='#234eb7' onClick={handleSubmitPromo} />
           </div>

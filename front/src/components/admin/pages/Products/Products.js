@@ -19,6 +19,7 @@ export default function Products(props) {
   const [productClick, setProductClick] = useState([]);
   const [clickView, setclickView] = useState(false);
   const [clickAdd, setClickAdd] = useState(false);
+  const [stockFilter, setStockFilter] = useState(false);
 
   //state pour le nombre de pages du tableau
   const [pagesNb, setPagesNb] = useState(0); //le nombre de pages
@@ -82,6 +83,7 @@ export default function Products(props) {
     if (window.confirm("Voulez vous vraiment supprimer le produit ?")) {
       axios.delete(`product/${id}`);
       alert("Le produit à été supprimé avec succès");
+      fetchData();
     } else {
       alert("Suppression annulée");
     }
@@ -161,6 +163,25 @@ export default function Products(props) {
     } else setDataToShow(data); //si la recherche est vide on veut afficher toutes les données dans le tableau
   };
 
+    // fonction pour filtrer les produits dont le stock est sous le minimun
+    const filterByStock = (e) => {
+      e.preventDefault();
+      setStockFilter(!stockFilter)
+    };
+    useEffect(() => {
+      let theData = fullData;
+      if (stockFilter) {
+        // si le mot recherché n'est pas une chaine vide
+        setDataToShow([]); // on vide le tableau à afficher
+        let result = theData.filter(
+          // on fait un filter et on met le résultat dans la variable result
+          line =>
+            line.product_stock <= line.product_stock_min // on compare les deux chaine mises en majuscules(pour que l'on soit sur de toujours comparer des chaines de meme type)
+        );
+        setDataToShow(dataToShow => [...dataToShow, ...result]); //on rempli le tableau avec le resultat du filter
+      } else setDataToShow(data); //si la recherche est vide on veut afficher toutes les données dans le tableau
+    }, [stockFilter])
+
   // fonction pour aller une page en avant
   const changePagePlus = () => {
     setActivePage(activePage + 1); //on ajoute 1 à la page active
@@ -193,6 +214,7 @@ export default function Products(props) {
       ) : (
         <Encarts title="Liste des Produits">
           <div className="tableActions border-gray">
+            <button className="btn btn-outline-m-2 bg-pink" style={{backgroundColor : `#dd73da`, color: `white`, fontWeight:`bold`}} onClick={filterByStock}>Voir les produits bientôt épuisés</button>
             <SearchBar search={search} table="product" />
             <div className="addDiv">
               Ajouter <ButtonAdd onClick={isClickedAddProduct} />
