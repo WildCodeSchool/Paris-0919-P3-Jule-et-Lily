@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Encarts, ReturnButton } from "../../common";
 import Axios from 'axios'
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import MyBill from '../../pdf/MyBill'
 import '../../../../assets/css/admin/global.css'
 import '../../../../assets/css/admin/cards.css'
 
@@ -44,9 +46,9 @@ export default function EncartViewUser(props) {
             <ReturnButton onClickSee={props.onClickSee} />
             <Encarts title="Fiche client">
                 <div className="table-responsive">
-                <div className="media-text">
-                    <h1 className="card-title text-center middlepurple">{user.user_firstname} {user.user_lastname}</h1>
-                </div>
+                    <div className="media-text">
+                        <h1 className="card-title text-center middlepurple">{user.user_firstname} {user.user_lastname}</h1>
+                    </div>
                     <div class="media" style={{ width: "100%" }} >
                         <table className="table table-bordered text-center"
                             id="dataTable"
@@ -282,7 +284,15 @@ export default function EncartViewUser(props) {
                                             </td>
                                             <td>
                                                 {" "}
-                                                <p>Facture</p>
+                                                <PDFDownloadLink
+                                                    document={<MyBill
+                                                        data={user} />}
+                                                    fileName='facture.pdf'
+                                                >
+                                                    {({loading}) =>
+                                                        loading ? "Loading document..." : "Pdf"
+                                                    }
+                                                </PDFDownloadLink>
                                             </td>
                                         </tr>
                                     )
