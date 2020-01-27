@@ -74,6 +74,8 @@ export default function Products(props) {
       });
   };
 
+  
+
   const deleteData = (page, id) => {
     if (window.confirm("Voulez vous vraiment supprimer le produit ?")) {
       axios.delete(`product/${id}`);
