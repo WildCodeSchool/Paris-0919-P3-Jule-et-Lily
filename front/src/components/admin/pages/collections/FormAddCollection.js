@@ -17,7 +17,7 @@ export default function FormProducts(props) {
     // modification de la hooks NewProduct entière
     const validateNewCollection = (e) => {
         setnewCollection({ ...newCollection, [e.target.name]: e.target.value })
-        console.log('newCollection', newCollection);
+        // console.log('newCollection', newCollection);
     }
   
     let handleSubmitCollection = e => {
@@ -36,7 +36,7 @@ export default function FormProducts(props) {
                 }
             })
             .catch(e => {
-                console.error(e);
+                // console.error(e);
                 alert(`Erreur lors l'ajout de la collection ${newCollection.collection_name}`)
               });
 

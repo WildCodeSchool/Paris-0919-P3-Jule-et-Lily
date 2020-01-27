@@ -51,7 +51,7 @@ router
           console.log(err);
           res.status(500).send("Erreur lors de l'ajout d'une collection");
         } else {
-          res.sendStatus(200);
+          res.status(200);
         }
       }
     );
@@ -69,7 +69,7 @@ router
             .status(500)
             .send("Erreur lors de la modification d'une collection");
         } else {
-          res.sendStatus(200);
+          res.status(200);
         }
       }
     );
@@ -79,8 +79,9 @@ router
     connection.query("SET FOREIGN_KEY_CHECKS=0",(err, results) => {
       //ajouter un produit
       if (err) {
-        console.log(`ici l'erreur `, err);
-        res.send("Erreur lors de la suppression de la collection.").status(500);
+        // console.log(err);
+        
+        res.status(500).send("Erreur lors de la modification d'une collection");
       } else {
         connection.query(
           `DELETE FROM collection WHERE collection_id=${req.params.id}`,

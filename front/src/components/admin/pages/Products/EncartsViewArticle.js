@@ -8,7 +8,7 @@ import {
 } from "../../common";
 export default (props) => {
 
-  console.log('ici la data dans le encart view', props.donneesProducts);
+  // console.log('ici la data dans le encart view', props.donneesProducts);
 
 
   const productModify = props.donneesProducts

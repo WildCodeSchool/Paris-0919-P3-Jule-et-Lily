@@ -8,7 +8,7 @@ export default function FormModifyCategory(props) {
 
   const [CategoryModify, setCategoryModify] = useState(props.donneesCategory)
 
-  console.log('CategoryModify', CategoryModify);
+  // console.log('CategoryModify', CategoryModify);
 
   // modification de la hooks stock en fonction des changements du form 
   const validateNewCategory = (e) => {

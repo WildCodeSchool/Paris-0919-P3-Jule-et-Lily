@@ -34,7 +34,7 @@ const [encartDisplay, setEncartDisplay] = useState({
     e.preventDefault();
     const promoPut = promoModify
     delete promoPut.image_name
-    console.log('promoput2', promoPut);
+    // console.log('promoput2', promoPut);
     axios   
       .put(`promo/${promoModify.promo_id}`, promoPut)
       .then(res => {
@@ -45,7 +45,7 @@ const [encartDisplay, setEncartDisplay] = useState({
           props.reload(); // au lieu de recharger complètement la page on execute la fonction reload du composant parent
         }
       }).catch(e => {
-        console.error(e);
+        // console.error(e);
         alert(`Erreur lors de la modification de ${promoModify.promo_name}`)
       })
     }
