@@ -69,7 +69,7 @@ router.route(['/stock/:id','/stock/:stock_quantity/and/:stock_min'])
           if (err) {
             res.send("Erreur lors de l'ajout du NewStock").status(500);
           } else {
-            res.status(200);
+            res.send('stock bien ajouté').status(200);
           }
         });
         res.status(200);
@@ -231,31 +231,7 @@ router.route(['/:id', '/'])
       }
     });
   });
-//   .delete(function (req, res) { // supprimer un produit penser à supprimer dans la bdd la connection avec le stock id
-//   connection.query('SET FOREIGN_KEY_CHECKS=0', (err, results) => { //ajouter un produit
-//     if (err) {
-//       console.log(`ici l'erreur `, err);
-//       res.send("Erreur lors de la suppression du produit.").status(500);
-//     } else {
-//       connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
-//         if (err) {
-//           console.log(err);
-//           res.send("Erreur lors de la suppression du produit").status(500);
-//         } else {
-//           connection.query('SET FOREIGN_KEY_CHECKS=1', (err, results) => {
-//             if (err) {
-//               console.log(`ici l'erreur `, err);
-//               res.send("Erreur lors de la suppression du produit.").status(500);
-//             }
-//             else {
-//               res.sendStatus(200);
-//             }
-//           })
-//         }
-//       })
-//     }
-//   })
-// })
+
 /////////////// Récupérer les images du produit sauf l'image en cover ///////////
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -379,7 +355,7 @@ router.route(['/image-cover/:id', '/image-cover/:id/:productId'])
         res.status(500).send("Erreur lors de la modification de l'image de couverture du produit");
       } else {
         console.log(results)
-        res.sendStatus(200);
+        res.send('ok').Status(200);
       }
     });
   })  
@@ -456,7 +432,7 @@ router.post("/add/image/", upload.array("file"), (req, res, next) => {
               connection.query("INSERT INTO image SET ?", objectFile, err2 => {
                 if (err2) {
                   error = true;
-                  res.send("Problem when uploading files").status(500);
+                  res.status(500).send("Problem when uploading files");
                 } else {
                   //// récupération de l'id de l'image de couverture
                   connection.query(
@@ -471,10 +447,9 @@ router.post("/add/image/", upload.array("file"), (req, res, next) => {
                           (err, results) => {
                             if (err) {
                               console.log("erreur back", err);
-                              res.status(500).send("Erreur lors de la modification de l'image de couverture du produit");
+                              res.status(500).end("Erreur lors de la modification de l'image de couverture du produit");
                             } else {
-                              //console.log(results);
-                              res.status(200);
+                              res.status(200).end('image bien modifiée');
                             }
                           }
                         );

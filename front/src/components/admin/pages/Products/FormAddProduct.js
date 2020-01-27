@@ -129,7 +129,7 @@ export default function FormProducts(props) {
           alert(res.err);
         } else {
           alert(`${newProduct.product_name} a été ajouté avec succès!`);
-         axios // modifier le stock
+          axios // modifier le stock
             .post(
               `/product/stock/${productStockModify.stock_quantity}/and/${productStockModify.stock_min}`,
               productStockModify

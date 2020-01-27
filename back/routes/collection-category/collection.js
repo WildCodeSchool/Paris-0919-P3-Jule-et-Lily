@@ -51,7 +51,7 @@ router
           console.log(err);
           res.status(500).send("Erreur lors de l'ajout d'une collection");
         } else {
-          res.status(200);
+          res.send('collection ajoutée').status(200);
         }
       }
     );
@@ -69,7 +69,7 @@ router
             .status(500)
             .send("Erreur lors de la modification d'une collection");
         } else {
-          res.status(200);
+          res.send('collection modifié').status(200);
         }
       }
     );
@@ -284,7 +284,7 @@ router
             );
         } else {
           console.log(results);
-          res.sendStatus(200);
+          res.send('ok').status(200);
         }
       }
     );
@@ -325,6 +325,73 @@ router.post("/image/:id", upload.array("file"), (req, res, next) => {
   if (error) {
     res.send("Problem when uploading files").status(500);
   } else return res.send("Files uploaded sucessfully").status(200);
+});
+
+
+///// ajout d'image à la création d'un produit
+router.post("/add/image/", upload.array("file"), (req, res, next) => {
+  console.log('post image collection')
+  let error = false;
+  ///// récupération id du produit ajouté
+  connection.query(
+    "SELECT collection_id FROM collection ORDER BY collection_id DESC LIMIT 1",
+    (err, results) => {
+      if (err) {
+        res.status(500).send("Erreur lors de la récupération de l'id de la collection");
+      } else {
+        const recuperationIdCollection = results[0].collection_id;
+        console.log("recuperationIdCollection", recuperationIdCollection)
+
+        req.files.map(file => {
+          let Timestamp = Math.round(new Date().getTime() / 1000);
+          let FileName = file.originalname;
+          let regex1 = /\’\”\;\,\*\./gi;
+          let NewFileName = FileName.replace(regex1, "").split(" ").join("").toLowerCase();
+          fs.rename(file.path, `public/${Timestamp}${NewFileName}`, err => {
+            if (err) {
+              error = true;
+            } else {
+              const objectFile = {
+                image_name: `public/${Timestamp}${NewFileName}`,
+                is_slider_image: 0,
+                image_url: `public/${Timestamp}${NewFileName}`,
+                image_collection_id: recuperationIdCollection
+              };
+              /////// ajout des images dans la bdd
+              connection.query("INSERT INTO image SET ?", objectFile, err2 => {
+                if (err2) {
+                  error = true;
+                  res.send("Problem when uploading files").status(500);
+                } else {
+                  //// récupération de l'id de l'image de couverture
+                  connection.query(
+                    "SELECT image_id FROM image ORDER BY image_id DESC LIMIT 1",
+                    (err, results) => {
+                      if (err) {
+                        res.send("Erreur lors de la récupération de l'id de l'image").status(500);
+                      } else {
+                        const recuperationIdImage = results[0].image_id;
+                        connection.query(
+                          `UPDATE collection SET collection_cover_image_id=${recuperationIdImage} WHERE collection_id=${recuperationIdCollection}`,
+                          (err, results) => {
+                            if (err) {
+                              res.status(500).end("Erreur lors de la modification de l'image de couverture de la collection");
+                            } else {
+                              res.status(200).end('image bien modifiée');
+                            }
+                          }
+                        );
+                      }
+                    }
+                  );
+                }
+              });
+            }
+          });
+        });
+      }
+    }
+  );
 });
 
 module.exports = router;
