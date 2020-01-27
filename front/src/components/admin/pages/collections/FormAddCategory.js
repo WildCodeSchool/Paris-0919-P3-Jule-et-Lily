@@ -15,7 +15,7 @@ export default function FormAddCategory(props) {
 
     const validateNewCategory = (e) => {
         setnewCategory({...newCategory, [e.target.name]: e.target.value })
-        console.log('newCategory', newCategory);
+        // console.log('newCategory', newCategory);
     }
   
     let handleSubmitCategory = e => {

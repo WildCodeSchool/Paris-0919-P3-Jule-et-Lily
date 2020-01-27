@@ -52,7 +52,7 @@ function Login(props) {
                 err => setUser({ error: err.error, flash: err.flash })
             );
         e.preventDefault()
-        console.log(user)
+        // console.log(user)
     }
 
 

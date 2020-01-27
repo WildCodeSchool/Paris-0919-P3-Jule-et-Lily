@@ -47,13 +47,13 @@ passport.use(new LocalStrategy(
     
       connection.query('SELECT user_firstname, user_email, user_lastname, user_login, user_password FROM user WHERE user_login=?', user_login, (err, res) => {
           if (err) {
-              console.log(err)
+              // console.log(err)
               return cb(err);
           } else if (res.length === 0) {
-              console.log('res vide',res);
+              // console.log('res vide',res);
               return cb(null, false, { message: 'Login ou mot de passe incorrect.' });
           } else {
-            console.log('res', res)
+            // console.log('res', res)
               return cb(null, res, {info:user_password});
           }   
           }

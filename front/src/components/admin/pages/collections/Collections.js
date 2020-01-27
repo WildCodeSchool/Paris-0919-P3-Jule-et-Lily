@@ -31,7 +31,7 @@ export default function Collections(props) {
   const [fullData2, setFullData2] = useState([])
 
 
-  console.log('data', data);
+  // console.log('collectionClick', collectionClick);
 
   // pages du deuxième tableau
   const [pagesNb2, setPagesNb2] = useState(0);
@@ -46,7 +46,7 @@ export default function Collections(props) {
 
 
   const isClickedModidy = index => {
-    console.log("click!");
+    // console.log("click!");
     setClick(!click);
     setCollectionClick(data[index]);
   };

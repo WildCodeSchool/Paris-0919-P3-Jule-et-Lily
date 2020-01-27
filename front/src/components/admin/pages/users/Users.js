@@ -7,6 +7,7 @@ import EncartViewUser from "./EncartViewUser";
 export default function Users() {
   const [data, setData] = useState([]);
   const [dataToShow, setDataToShow] = useState([]);
+  const [fullData, setFullData] = useState([]);
   const [usersClick, setUsersClick] = useState([]);
   const [clickView, setclickView] = useState(false);
 
@@ -58,6 +59,7 @@ export default function Users() {
             setDataToShow(dataToShow => [...dataToShow, res.data[i]]);
           }
         }
+        setFullData(res.data);
       });
   };
 
@@ -122,7 +124,7 @@ export default function Users() {
 
   // fonction de recherche dans le tableau
   const search = (table, word) => {
-    let theData = data;
+    let theData = fullData;
     if (word !== "") {
       // si le mot recherché n'est pas une chaine vide
       setDataToShow([]); // on vide le tableau à afficher
