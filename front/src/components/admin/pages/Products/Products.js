@@ -76,6 +76,8 @@ export default function Products(props) {
       });
   };
 
+  
+
   const deleteData = (page, id) => {
     if (window.confirm("Voulez vous vraiment supprimer le produit ?")) {
       axios.delete(`product/${id}`);
@@ -158,9 +160,6 @@ export default function Products(props) {
       setDataToShow(dataToShow => [...dataToShow, ...result]); //on rempli le tableau avec le resultat du filter
     } else setDataToShow(data); //si la recherche est vide on veut afficher toutes les données dans le tableau
   };
-
-  // passer la props à table ici
-  // console.log("dataproducts", data);
 
   // fonction pour aller une page en avant
   const changePagePlus = () => {
