@@ -12,6 +12,20 @@ router.get('/', (req, res) => {
   res.send("je suis sur la route /product").status(200)
 })
 
+
+router.get("/lowstock/" ,function(req,res){
+  connection.query( 
+ "SELECT COUNT(stock_product_id) as count FROM stock WHERE stock_quantity <= stock_min", (err, results) => {
+      if (err) {
+        // console.log(err)
+        res.end("Erreur lors de la récupération des produits bientôt épuisés").status(500);
+      } else {
+        res.json(results)
+      }
+    }
+  )
+})
+
 router.route(['/productstockid']) 
   .get(function (req, res) {
     connection.query('SELECT product_id from product ORDER BY PRODUCT_ID DESC LIMIT 1', (err, results) => {

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import IconJL from '../../../assets/icons/LogoJuleetLily.svg'
 import IconCollections from '../../../assets/icons/IconsCollections.svg'
 import IconDash from '../../../assets/icons/IconDashboard.svg'
@@ -14,11 +15,21 @@ import { NavLink, withRouter } from 'react-router-dom';
 
 const Navbar = props => {
 
+    const[lowStock, setLowStock] = useState(0)
     const {pathname} = props.location; // la route de la page active
-    console.log('path : ',pathname)
+    // console.log('path : ',pathname)
+
+    useEffect(() => {
+        axios
+        .get("/product/lowstock/") // liste les stock faible
+        .then(res => {
+            setLowStock(res.data[0].count)
+        })
+    },[pathname,])
     
         return (
             <div>
+                {/* {console.log(lowStock, 'lowStock')} */}
                 <ul className="navbar-nav bg-gradient-purple sidebar cssNavbar sidebar-dark accordion" id="accordionSidebar">
 
                     <a href="/#" className="sidebar-brand d-flex align-items-center justify-content-center">
@@ -60,7 +71,7 @@ const Navbar = props => {
                     <li className="nav-item">
                         <NavLink to="/products"  className={pathname=='/products' ? "nav-link bg-gradient-purple active-page collapsed" : "nav-link collapsed"}  data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                         <img className='icons mr-2' src={IconProducts} alt='' />
-                            <span>Produits</span>
+        <span>Produits {lowStock > 0 ? <span style={{backgroundColor: 'red', color:'white', borderRadius:'50%', height:'20px', width:'20px',display: 'inline-block',paddingLeft:'6px', fontWeight:'bold'}}>{lowStock}</span> : null}</span>
                         </NavLink>
                     </li>
 
