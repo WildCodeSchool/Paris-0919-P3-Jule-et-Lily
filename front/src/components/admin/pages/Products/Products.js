@@ -153,7 +153,7 @@ export default function Products(props) {
   };
 
   // passer la props à table ici
-  console.log("dataproducts", data);
+  // console.log("dataproducts", data);
 
   // fonction pour aller une page en avant
   const changePagePlus = () => {

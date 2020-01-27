@@ -26,14 +26,13 @@ export default function FormProducts(props) {
   });
 
   const [fakeDataImage, setFakeDataImage] = useState([]);
-  const [fakeDataCoverImage, setfakeDataCoverImage] = useState([]);
+  const [fakeDataCoverImage, setFakeDataCoverImage] = useState([]);
 
   ////////////////// récupération des données ////////////////////
   // récupération des noms de collections
   const fetchCollection = () => {
     axios
       .get("/collection/all/asc")
-      //  .then(res => console.log(res.data[0]))
       .then(res => setDataCollection(res.data));
   };
 
@@ -92,7 +91,10 @@ export default function FormProducts(props) {
       setNewProduct({ ...newProduct, product_custom: 0 });
     }
   };
-  ////////////////////////      submitNewProduct   ////////////////////////
+
+
+
+  ////////////////////////submitNewProduct////////////////////////
   // fonction pour envoyer les informations du form à jours
   let handleSubmitProduct = e => {
     e.preventDefault();
@@ -101,9 +103,27 @@ export default function FormProducts(props) {
     delete productPut.category_name;
     delete productPut.stock_quantity;
     delete productPut.collection_name;
-
     delete productPut.collection_name;
-    console.log("productput", productPut);
+
+
+     /// nettoyage des states image et coverimage et préparation des images
+    let NewTableImage=[];
+    fakeDataImage.map(item => 
+    NewTableImage.push(item.file))
+
+    let NewTableCoverImage=[];
+    fakeDataCoverImage.map(item => 
+    NewTableCoverImage.push(item.file))
+
+    let NewTableFiles = NewTableCoverImage.concat(NewTableImage)
+
+    const formFiles = new FormData();
+    for (const key of Object.keys(NewTableFiles)) { 
+        formFiles.append('file', NewTableFiles[key])
+    }
+
+
+
     axios // envoi ds la bdd
       .post(`product/`, productPut)
       .then(res => {
@@ -121,6 +141,15 @@ export default function FormProducts(props) {
                 alert(`Le stock n'a pas été modifié`);
               } else {
                 alert(` Le stock a bien été modifié`);
+                axios // ajouter les images 
+                  .post("/product/image", formFiles)
+                  .then(res => {
+                      if (res.error) {
+                          alert("Erreur lors de l'upload de l'image", res.error);
+                      } else {
+                          alert(`l'image a été ajoutée avec succès!`);
+                      }
+                  })
               }
             });
           props.reloadAdd();
@@ -128,24 +157,45 @@ export default function FormProducts(props) {
       });
   };
 
-  // envoi de l'image choisie en couverture
+//////////////// envoi de l'image choisie en couverture //////////////
 
-  const chooseCoverImage = id => {
+  const chooseCoverImage = (i) => {
+
+    if (fakeDataCoverImage.length === 0) {
+      setFakeDataCoverImage([fakeDataImage[i]])
+      const temporaryDataImage = [...fakeDataImage]// nécessaire de destructurer pour mettre dans une constante sinon c un lien vers le tableau d'origine 
+      temporaryDataImage.splice(i,1) // enlever l'image d'index i
+      setFakeDataImage(temporaryDataImage)
+    } else {
+      const temporaryDataCoverImage = [...fakeDataCoverImage] // constante pour stocker le state coverimage
+      const temporaryDataImage2 = [...fakeDataImage]
+      temporaryDataImage2.push(...temporaryDataCoverImage)
+      temporaryDataImage2.splice(i,1) // enlever l'image d'index i
+      setFakeDataImage(temporaryDataImage2) // remettre l'image dans le state image
+      setFakeDataCoverImage([fakeDataImage[i]])// mettre l'image dans le state coverimage
+    }
+
   };
 
-  ////////////////////////// deleteImage //////////////////////////
+////////////////////////// deleteImage //////////////////////////
 
-  const handleDelete = id => {
-      //supprimer image dans le state
+  const handleDelete = (i) => {
+    const temporaryDataImage = [...fakeDataImage]
+    temporaryDataImage.splice(i,1)
+    setFakeDataImage(temporaryDataImage)
   };
 
   useEffect(() => {
     fetchCollection();
     fetchCategories();
     fetchStock();
+
   }, []);
+
+
   return (
     <>
+    {console.log(fakeDataImage)}
       <ReturnButton onClickSee={props.onClick} />
       <Encarts title="Ajouter un produit">
         <form className="form-group text-center">
@@ -261,32 +311,30 @@ export default function FormProducts(props) {
                 <p className="text-center">Image de Couverture</p>
                 {fakeDataCoverImage[0] ? (
                   <ImageProduct
-                    src={fakeDataCoverImage[0].image_name}
-                    alt={fakeDataCoverImage[0].image_name}
-                    key={fakeDataCoverImage[0].image_id}
-                    id={fakeDataCoverImage[0].image_id}
+                    src={fakeDataCoverImage[0].link}
+                    alt={fakeDataCoverImage[0].file.image_name}
                     onClick={null}
                   /> 
-                ) : (<p className="text-center m-auto">en attente d'une image de couverture</p>)}
+                ) : ("")}
               </div>
               <div className="ml-auto mr-auto mt-5 w-100 row">
-                {fakeDataImage[0] ?
-                  (fakeDataImage.map(item => (
+                {fakeDataImage.length > 0 ?
+                  (fakeDataImage.map((item,i) => (
                     <ImageProduct
-                      src={item.image_name}
-                      alt={item.image_name}
-                      key={item.image_id}
-                      id={item.image_id}
-                      onClick={() => handleDelete(item.image_id)}
-                      onChoose={() => chooseCoverImage(item.image_id)}
+                      src={item.link}
+                      alt={item.file.image_name}
+                      key={item.file.image_id}
+                      id={i}
+                      onClick={() => handleDelete(i)}
+                      onChoose={() => chooseCoverImage(i)}
                     />
                   ))) : (<p className="text-center m-auto">en attente d'images du produit</p>)}
               </div>
               <div className="container ">
                 <FakeUploadImageProduct
-                //   ProductId={null}
                 setFakeDataImage ={setFakeDataImage}
-                
+                fakeDataImage ={fakeDataImage}
+                fakeDataCoverImage ={fakeDataCoverImage}
                 />
               </div>
             </div>

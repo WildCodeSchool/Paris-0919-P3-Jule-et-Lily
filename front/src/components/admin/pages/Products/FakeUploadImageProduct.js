@@ -1,6 +1,5 @@
 
 import React, { useState } from "react";
-import axios from "axios"
 
 
 const UploadImage = (props) => {
@@ -8,25 +7,39 @@ const UploadImage = (props) => {
 const [files, setFiles] = useState([])
 
 
-const onChangeFile = (e) => {
-        let fileList = files;
-        for (var i = 0; i < e.target.files.length; i++) {
-            if (!e.target.files[i]) return
-            const blob = URL.createObjectURL(e.target.files[i])
-            fileList.push(e.target.files[i], blob)
-            console.log('filelist', fileList)
-            
-            // const NewFileList = [...fileList.File, blob]
-            // console.log('NewFileListNew', FileList)
-            setFiles([...files], fileList)
-        }
-       
-       props.setFakeDataImage(files)
-       console.log('state files', files)
-       
-}
+// const onChangeFile = (e) => {
 
- 
+//         setFiles([])
+//         let fileList = files;
+//         for (var i = 0; i < e.target.files.length; i++) {
+//             if (!e.target.files[i]) return
+//             const file = e.target.files[i]
+//             const link = URL.createObjectURL(e.target.files[i])
+//             fileList.push({file,link})
+//             setFiles([...files], fileList)   
+//         }
+//         const temporaryDataImage = [...props.fakeDataImage] 
+//         temporaryDataImage.push(...files)
+//         props.setFakeDataImage(temporaryDataImage)    
+//         setFiles([])
+// }
+
+const onChangeFile = (e) => {
+
+
+  let fileList = files
+  for (var i = 0; i < e.target.files.length; i++) {
+      if (!e.target.files[i]) return
+      const file = e.target.files[i]
+      const link = URL.createObjectURL(e.target.files[i])
+      fileList.push({file,link})
+    }
+  setFiles(fileList)   
+  const temporaryDataImage = [...props.fakeDataImage] 
+  temporaryDataImage.push(...files)
+  props.setFakeDataImage(temporaryDataImage)    
+  setFiles([])
+}
 
    
     return (
@@ -58,10 +71,16 @@ const onChangeFile = (e) => {
           <div>
             <div>
               <ul className="mt-3 mr-auto ml-auto w-100">
-                {files &&
-                  files.map((item, i) => (
+                {props.fakeDataCoverImage &&
+                props.fakeDataCoverImage.map((item, i) => (
+                  <li className="w-100 m-auto text-center" key={i}>
+                    {item.file.name}
+                  </li>
+                ))}
+                {props.fakeDataImage &&
+                  props.fakeDataImage.map((item, i) => (
                     <li className="w-100 m-auto text-center" key={i}>
-                      {item.name}
+                      {item.file.name}
                     </li>
                   ))}
               </ul>

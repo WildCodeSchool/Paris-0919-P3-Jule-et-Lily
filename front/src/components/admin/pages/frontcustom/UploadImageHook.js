@@ -22,7 +22,7 @@ const onChangeFile = (e) => {
         }
        setFiles([...files], fileList)
        setUrls([...urls], fileUrl)
-      //  console.log('state files', files)
+       console.log('state files', files)
        
     } else {
         alert ("Attention il n'est pas possible d'avoir plus de 5 images dans le slider");

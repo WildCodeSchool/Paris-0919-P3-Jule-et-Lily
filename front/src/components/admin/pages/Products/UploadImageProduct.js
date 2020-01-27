@@ -9,7 +9,7 @@ const [files, setFiles] = useState([])
 
 
 const onChangeFile = (e) => {
-  
+        setFiles ([])
         let fileList = files;
         for (var i = 0; i < e.target.files.length; i++) {
             if (!e.target.files[i]) return

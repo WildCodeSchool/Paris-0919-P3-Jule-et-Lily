@@ -291,20 +291,6 @@ const FrontCustom = () => {
                   <span className="sr-only">Next</span>
                 </a>
             </div>
-
-            {/* <Carousel autoPlay showArrows={true}>   
-            {dataImage &&
-              dataImage.map(item => (
-                <div className= "CarouselImage" key={item.image_id}>
-                  <a href={item.image_url} target="_blank">
-                    <div>
-                      <img src={item.image_name} alt={item.image_name}/>
-                      <p className="legend">{item.image_name}</p>
-                    </div>
-                  </a>
-                </div>
-              ))}
-              </Carousel> */}
           </div>
           </div>
         </Encarts>
