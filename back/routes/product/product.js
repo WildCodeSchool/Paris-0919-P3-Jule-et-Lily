@@ -157,31 +157,103 @@ router.route(['/:id', '/'])
       }
     });
   })
-  .delete(function (req, res) { // supprimer un produit penser à supprimer dans la bdd la connection avec le stock id
-  connection.query('SET FOREIGN_KEY_CHECKS=0', (err, results) => { //ajouter un produit
-    if (err) {
-      console.log(`ici l'erreur `, err);
-      res.send("Erreur lors de la suppression du produit.").status(500);
-    } else {
-      connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
-        if (err) {
-          console.log(err);
-          res.send("Erreur lors de la suppression du produit").status(500);
-        } else {
-          connection.query('SET FOREIGN_KEY_CHECKS=1', (err, results) => {
-            if (err) {
-              console.log(`ici l'erreur `, err);
-              res.send("Erreur lors de la suppression du produit.").status(500);
+  .delete(function(req, res) {
+    const id = req.params.id
+    connection.query("SET FOREIGN_KEY_CHECKS=0",(err, results) => {
+      //ajouter un produit
+      if (err) {
+        console.log(`ici l'erreur `, err);
+        res.send("Erreur lors de la suppression de la collection.").status(500);
+      } else {
+        connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
+          if (err) {
+            console.log(err);
+            res.send("Erreur lors de la suppression du produit").status(500);
+          } else {
+              console.log(req.params)
+              connection.query(
+                `SELECT image_name FROM image WHERE image_product_id = ${id}`,
+                (err, result) => {
+                  if (err) {
+                    console.log("selectImage err", err);
+                    res
+                      .send("Erreur lors de la recuperation du nom d'image")
+                      .status(500);
+                  } else {    
+                    try {
+                      for (let i = 0; i < result.length; i++){
+                        const path = result[i].image_name;
+                        console.log("image name", path);
+                        fs.unlinkSync(path);
+                      }
+                      connection.query(
+                        `DELETE FROM image WHERE image_product_id=${id}`,
+                        (err, result) => {
+                          if (err) {
+                            console.log("deleteImage err", err);
+                            res
+                              .status(500)
+                              .send(
+                                "Erreur lors de la suppression d'une image dans la bdd"
+                              );
+                            connection.query(
+                              "SET FOREIGN_KEY_CHECKS=1",
+                              (err, results) => {
+                                if (err) {
+                                  console.log(`ici l'erreur `, err);
+                                  res
+                                    .send("Erreur lors de l'ajout du produit.")
+                                    .status(500);
+                                } else {
+                                  res.send("image bien supprimée.").Status(200);
+                                }
+                              }
+                            );
+                          }
+                        }
+                      );
+                    } catch (err) {
+                      res
+                        .status(500)
+                        .send(
+                          "Erreur lors de la suppression d'une image dans le serveur public"
+                        );
+                      console.error(err);
+                    }
+                  }
+                }
+              );
             }
-            else {
-              res.sendStatus(200);
-            }
-          })
-        }
-      })
-    }
-  })
-})
+          }
+        );
+      }
+    });
+  });
+//   .delete(function (req, res) { // supprimer un produit penser à supprimer dans la bdd la connection avec le stock id
+//   connection.query('SET FOREIGN_KEY_CHECKS=0', (err, results) => { //ajouter un produit
+//     if (err) {
+//       console.log(`ici l'erreur `, err);
+//       res.send("Erreur lors de la suppression du produit.").status(500);
+//     } else {
+//       connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
+//         if (err) {
+//           console.log(err);
+//           res.send("Erreur lors de la suppression du produit").status(500);
+//         } else {
+//           connection.query('SET FOREIGN_KEY_CHECKS=1', (err, results) => {
+//             if (err) {
+//               console.log(`ici l'erreur `, err);
+//               res.send("Erreur lors de la suppression du produit.").status(500);
+//             }
+//             else {
+//               res.sendStatus(200);
+//             }
+//           })
+//         }
+//       })
+//     }
+//   })
+// })
 /////////////// Récupérer les images du produit sauf l'image en cover ///////////
 /////////////////////////////////////////////////////////////////////////////////
 
