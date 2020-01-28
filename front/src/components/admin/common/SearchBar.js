@@ -10,7 +10,7 @@ const SearchBar = (props) => {
   return (
     <div className=" searchEnd">
       <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-        <input type="text" className="form-control bg-light small border-gray" placeholder="Rechercher..." aria-label="Search" aria-describedby="basic-addon2" onChange={handleChange} />
+        <input type="text" className="form-control bg-light small border-gray" placeholder={props.table === "orders" ?"Rechercher par status..." : props.table === "users" ? "Rechercher par nom..." : "Rechercher..."}  aria-label="Search" aria-describedby="basic-addon2" onChange={handleChange} />
       </form>
     </div>
   )

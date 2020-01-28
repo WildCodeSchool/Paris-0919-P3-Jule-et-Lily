@@ -48,11 +48,11 @@ export default function Collections(props) {
   const isClickedModidy = index => {
     // console.log("click!");
     setClick(!click);
-    setCollectionClick(data[index]);
+    setCollectionClick(dataToShow[index]);
   };
   const isClickedSee = index => {
     setclickView(!clickView);
-    setCollectionClick(data[index]);
+    setCollectionClick(dataToShow[index]);
     
   };
 
@@ -65,12 +65,12 @@ export default function Collections(props) {
   const isClickedSeeCategory = index => {
     // console.log("click!");
     setClickedViewCategory(!clickedViewCategory);
-    setCollectionClick(data[index]);
-    setcategoryClick(data2[index]);
+    setCollectionClick(dataToShow[index]);
+    setcategoryClick(dataToShow2[index]);
   };
   const isClickedCategory = (index) => {
     setClickedCategory(!clickedCategory);
-    setcategoryClick(data2[index]);
+    setcategoryClick(dataToShow2[index]);
     fetchData();
   };
 

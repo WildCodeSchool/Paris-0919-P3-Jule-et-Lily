@@ -70,7 +70,7 @@ export default function Users() {
 
   const isClickedSee = index => {
     setclickView(!clickView);
-    setUsersClick(data[index]);
+    setUsersClick(dataToShow[index]);
   };
 
   // fonction pour ordonnée le tableau
@@ -149,7 +149,7 @@ export default function Users() {
       ) : (
         <Encarts title="Liste des clients">
           <div className="tableActions border-gray">
-            <SearchBar search={search} table="product" />
+            <SearchBar search={search} table="users" />
           </div>
           <Tables
             deleteData={deleteData}

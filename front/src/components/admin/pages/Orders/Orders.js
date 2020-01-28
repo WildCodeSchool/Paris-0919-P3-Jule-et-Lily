@@ -26,13 +26,13 @@ export default function Orders() {
 
   const isClickedModify = (index) => {
     setClickModify(!clickModify);
-    setOrderClick(data[index]);
+    setOrderClick(dataToShow[index]);
 
   }
 
   const isClickedSee = index => {
     setclickView(!clickView);
-    setOrderClick(data[index]);
+    setOrderClick(dataToShow[index]);
     
     
 
