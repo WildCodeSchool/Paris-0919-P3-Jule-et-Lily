@@ -91,15 +91,15 @@ export default function Products(props) {
   };
 
   const isClickedModidy = index => {
-    // console.log("click!");
+    console.log("[index]",index);
     setClick(!click);
-    setProductClick(data[index]);
+    setProductClick(dataToShow[index]);
   };
 
   const isClickedSee = index => {
     setclickView(!clickView);
     // console.log('data[index]',data[index])
-    setProductClick(data[index]);
+    setProductClick(dataToShow[index]);
   };
   const isClickedAddProduct = () => {
     setClickAdd(!clickAdd);

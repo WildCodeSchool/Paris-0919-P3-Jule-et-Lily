@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
 router.get("/lowstock/" ,function(req,res){
   connection.query( 
- "SELECT COUNT(stock_product_id) as count FROM stock WHERE stock_quantity <= stock_min", (err, results) => {
+ "SELECT COUNT(p.product_id) as count FROM product as p JOIN stock as s ON s.stock_product_id = p.product_id WHERE s.stock_quantity <= stock_min", (err, results) => {
       if (err) {
         // console.log(err)
         res.end("Erreur lors de la récupération des produits bientôt épuisés").status(500);

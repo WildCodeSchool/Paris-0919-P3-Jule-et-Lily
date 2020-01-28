@@ -1,23 +1,29 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Jan 24, 2020 at 03:05 PM
--- Server version: 5.7.26
--- PHP Version: 7.3.8
+-- Client :  localhost:3306
+-- Généré le :  Lun 27 Janvier 2020 à 19:38
+-- Version du serveur :  5.7.28-0ubuntu0.19.04.2
+-- Version de PHP :  7.2.24-0ubuntu0.19.04.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Database: `jule_et_lily_bdd_72`
+-- Base de données :  `jule_et_lily_bdd_27`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `address`
+-- Structure de la table `address`
 --
 
 CREATE TABLE `address` (
@@ -35,7 +41,7 @@ CREATE TABLE `address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `address`
+-- Contenu de la table `address`
 --
 
 INSERT INTO `address` (`address_id`, `address_firstname`, `address_lastname`, `address_street`, `address_city`, `address_country`, `address_zip_code`, `address_company_name`, `is_shipping_address`, `is_billing_address`, `address_user_id`) VALUES
@@ -51,7 +57,7 @@ INSERT INTO `address` (`address_id`, `address_firstname`, `address_lastname`, `a
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Structure de la table `category`
 --
 
 CREATE TABLE `category` (
@@ -60,7 +66,7 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `category`
+-- Contenu de la table `category`
 --
 
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
@@ -86,7 +92,7 @@ INSERT INTO `category` (`category_id`, `category_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `code_promo`
+-- Structure de la table `code_promo`
 --
 
 CREATE TABLE `code_promo` (
@@ -98,7 +104,7 @@ CREATE TABLE `code_promo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `code_promo`
+-- Contenu de la table `code_promo`
 --
 
 INSERT INTO `code_promo` (`code_promo_id`, `code_promo_name`, `code_promo_value`, `code_promo_date_start`, `code_promo_date_end`) VALUES
@@ -108,7 +114,7 @@ INSERT INTO `code_promo` (`code_promo_id`, `code_promo_name`, `code_promo_value`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `collection`
+-- Structure de la table `collection`
 --
 
 CREATE TABLE `collection` (
@@ -118,17 +124,17 @@ CREATE TABLE `collection` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `collection`
+-- Contenu de la table `collection`
 --
 
 INSERT INTO `collection` (`collection_id`, `collection_name`, `collection_cover_image_id`) VALUES
-(1, 'DISCO LADY', 33),
+(1, 'DISCO LADY', 110),
 (2, 'DIA DE LOS MUERTOS', 31),
 (3, '90\'S', 28),
-(4, 'FLOWER POWER', 38),
+(4, 'FLOWER POWER', 104),
 (5, 'WOMAN', 53),
 (6, 'MINIMAL', 47),
-(7, 'FÊTE FORAINE', 35),
+(7, 'FÊTE FORAINE', 108),
 (8, 'UNDER THE OCEAN', 51),
 (9, 'GRAND CANYON', 42),
 (10, 'COSMIC', 29),
@@ -142,7 +148,7 @@ INSERT INTO `collection` (`collection_id`, `collection_name`, `collection_cover_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `header_collection_menu`
+-- Structure de la table `header_collection_menu`
 --
 
 CREATE TABLE `header_collection_menu` (
@@ -154,7 +160,7 @@ CREATE TABLE `header_collection_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `header_collection_menu`
+-- Contenu de la table `header_collection_menu`
 --
 
 INSERT INTO `header_collection_menu` (`collection_menu_id`, `collection_menu_background_color`, `collection_menu_title`, `collection_menu_url`, `collection_menu_title_color`) VALUES
@@ -165,7 +171,7 @@ INSERT INTO `header_collection_menu` (`collection_menu_id`, `collection_menu_bac
 -- --------------------------------------------------------
 
 --
--- Table structure for table `image`
+-- Structure de la table `image`
 --
 
 CREATE TABLE `image` (
@@ -178,35 +184,20 @@ CREATE TABLE `image` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `image`
+-- Contenu de la table `image`
 --
 
 INSERT INTO `image` (`image_id`, `image_name`, `is_slider_image`, `image_url`, `image_product_id`, `image_collection_id`) VALUES
-(1, 'https://juleetlily.com/wp-content/uploads/2019/11/Disco-Lady-02-05.jpg', 0, 'https://juleetlily.com/wp-content/uploads/2019/11/Disco-Lady-02-05.jpg', NULL, 1),
 (5, 'public/1579792181e_e_gun__idle_008.png', 0, 'public/1579792181e_e_gun__idle_008.png', 7, NULL),
 (6, 'public/1579792196image.png', 0, 'public/1579792196image.png', 7, NULL),
-(19, 'public/1579872808diapo-soldes-2020.jpg', 1, '', NULL, NULL),
-(21, 'public/1579872911diapo-disco-lady-site-web-02.jpg', 1, 'https://juleetlily.com/collection-ice-queen/', NULL, NULL),
 (22, 'public/1579872911diapo-ice-queen-2.jpg', 1, 'https://juleetlily.com/collection_disco_lady/', NULL, NULL),
-(23, 'public/1579872911fond-final.gif', 1, 'https://juleetlily.com/collection-dia-de-los-muertos/', NULL, NULL),
 (24, 'public/1579872911diapo-dia-de-los-muertos.jpg', 1, 'https://juleetlily.com/personnaliser/', NULL, NULL),
 (25, 'public/157987312380s-fresh-vignette.jpg', 0, 'public/157987312380s-fresh-vignette.jpg', NULL, 12),
-(26, 'public/1579873197credits-80s-fresh.jpg', 0, 'public/1579873197credits-80s-fresh.jpg', NULL, 12),
-(27, 'public/1579873301nineties-02.jpg', 0, 'public/1579873301nineties-02.jpg', NULL, 3),
 (28, 'public/1579873301nineties-08.jpg', 0, 'public/1579873301nineties-08.jpg', NULL, 3),
 (29, 'public/1579873357jule_et_lily_galaxy2403.jpg', 0, 'public/1579873357jule_et_lily_galaxy2403.jpg', NULL, 10),
-(30, 'public/1579873380crédits-cosmic.jpg', 0, 'public/1579873380crédits-cosmic.jpg', NULL, 10),
 (31, 'public/1579873421los-muertos-04-web.jpg', 0, 'public/1579873421los-muertos-04-web.jpg', NULL, 2),
 (32, 'public/1579873445crédits-muertos-1.jpg', 0, 'public/1579873445crédits-muertos-1.jpg', NULL, 2),
-(33, 'public/1579873503disco-lady-06-03.jpg', 0, 'public/1579873503disco-lady-06-03.jpg', NULL, 1),
-(34, 'public/1579873503crédits-disco-lady.jpg', 0, 'public/1579873503crédits-disco-lady.jpg', NULL, 1),
-(35, 'public/1579873604jules-et-lily1637-2.jpg', 0, 'public/1579873604jules-et-lily1637-2.jpg', NULL, 7),
-(36, 'public/1579873604crédits-fête-foraine.jpg', 0, 'public/1579873604crédits-fête-foraine.jpg', NULL, 7),
-(37, 'public/1579873710crédits-flower-power.jpg', 0, 'public/1579873710crédits-flower-power.jpg', NULL, 4),
-(38, 'public/1579873710broche-peacock-modif-01.jpg', 0, 'public/1579873710broche-peacock-modif-01.jpg', NULL, 4),
-(39, 'public/1579873779credits-gipsy-queen.jpg', 0, 'public/1579873779credits-gipsy-queen.jpg', NULL, 13),
-(40, 'public/1579873779robe-plastron-menthe-carre.jpg', 0, 'public/1579873779robe-plastron-menthe-carre.jpg', NULL, 13),
-(41, 'public/1579873832crédits-grd-canyon.jpg', 0, 'public/1579873832crédits-grd-canyon.jpg', NULL, 9),
+(40, 'public/1579873779robe-plastron-menthe-carre.jpg', 0, 'public/1579873779robe-plastron-menthe-carre.jpg', NULL, 12),
 (42, 'public/1579873832close-up-01.jpg', 0, 'public/1579873832close-up-01.jpg', NULL, 9),
 (43, 'public/1579873894jule_et_lily_happy_days-duo-h-01.jpg', 0, 'public/1579873894jule_et_lily_happy_days-duo-h-01.jpg', NULL, 11),
 (44, 'public/1579873894credits-happy-days.jpg', 0, 'public/1579873894credits-happy-days.jpg', NULL, 11),
@@ -222,10 +213,6 @@ INSERT INTO `image` (`image_id`, `image_name`, `is_slider_image`, `image_url`, `
 (55, 'public/1579874293crédits-ice-queen.jpg', 0, 'public/1579874293crédits-ice-queen.jpg', NULL, 15),
 (56, 'public/1579874383jule_et_lily_egypt0477.jpg', 0, 'public/1579874383jule_et_lily_egypt0477.jpg', NULL, 16),
 (57, 'public/1579874383crédits-osiris.jpg', 0, 'public/1579874383crédits-osiris.jpg', NULL, 16),
-(58, 'public/1579874644collier-daisy.jpg', 0, 'public/1579874644collier-daisy.jpg', 1, NULL),
-(59, 'public/1579874849daisy-modif-03.jpg', 0, 'public/1579874849daisy-modif-03.jpg', 1, NULL),
-(60, 'public/1579875012img_1714.jpg', 0, 'public/1579875012img_1714.jpg', 8, NULL),
-(61, 'public/1579875012img_1714-1.jpg', 0, 'public/1579875012img_1714-1.jpg', 8, NULL),
 (62, 'public/1579875137disco-lady-02-05.jpg', 0, 'public/1579875137disco-lady-02-05.jpg', 9, NULL),
 (63, 'public/1579875137boucles-doreilles-storm-3.jpg', 0, 'public/1579875137boucles-doreilles-storm-3.jpg', 9, NULL),
 (64, 'public/1579875286broche-crâne-2.jpg', 0, 'public/1579875286broche-crâne-2.jpg', 10, NULL),
@@ -242,12 +229,37 @@ INSERT INTO `image` (`image_id`, `image_name`, `is_slider_image`, `image_url`, `
 (75, 'public/1579877004sweat-poodle-bleu.jpg', 0, 'public/1579877004sweat-poodle-bleu.jpg', 19, NULL),
 (76, 'public/1579877188broche-fresh-prince.jpg', 0, 'public/1579877188broche-fresh-prince.jpg', 20, NULL),
 (77, 'public/1579877325boucles-gipsy-cat-blanc.jpg', 0, 'public/1579877325boucles-gipsy-cat-blanc.jpg', 21, NULL),
-(78, 'public/1579877471petit-crab-face2.jpg', 0, 'public/1579877471petit-crab-face2.jpg', 22, NULL);
+(78, 'public/1579877471petit-crab-face2.jpg', 0, 'public/1579877471petit-crab-face2.jpg', 22, NULL),
+(90, 'public/1580145473pomme-damour-boucles.jpg', 0, 'public/1580145473pomme-damour-boucles.jpg', 23, NULL),
+(91, 'public/1580145473pomme-damour-45.jpg', 0, 'public/1580145473pomme-damour-45.jpg', 23, NULL),
+(92, 'public/1580145473jules-et-lily1677-2.jpg', 0, 'public/1580145473jules-et-lily1677-2.jpg', 23, NULL),
+(93, 'public/1580145473jules-et-lily1688.jpg', 0, 'public/1580145473jules-et-lily1688.jpg', 23, NULL),
+(94, 'public/1580145825plastron-daisy.jpg', 0, 'public/1580145825plastron-daisy.jpg', 1, NULL),
+(96, 'public/1580145997plastron-daisy.jpg', 0, 'public/1580145997plastron-daisy.jpg', 1, NULL),
+(97, 'public/1580145997collier-daisy2.jpg', 0, 'public/1580145997collier-daisy2.jpg', 1, NULL),
+(98, 'public/1580145997boucles-daisy-540x540.jpg', 0, 'public/1580145997boucles-daisy-540x540.jpg', 1, NULL),
+(99, 'public/1580146168pomme-damour-boucles.jpg', 0, 'public/1580146168pomme-damour-boucles.jpg', 24, NULL),
+(100, 'public/1580146168pomme-damour-45.jpg', 0, 'public/1580146168pomme-damour-45.jpg', 24, NULL),
+(101, 'public/1580146168jules-et-lily1677-2.jpg', 0, 'public/1580146168jules-et-lily1677-2.jpg', 24, NULL),
+(102, 'public/1580146168jules-et-lily1688.jpg', 0, 'public/1580146168jules-et-lily1688.jpg', 24, NULL),
+(103, 'public/1580146503crédits-flower-power.jpg', 0, 'public/1580146503crédits-flower-power.jpg', NULL, 4),
+(104, 'public/1580146503boucles-doreilles-collier-peacelove-dore.jpg', 0, 'public/1580146503boucles-doreilles-collier-peacelove-dore.jpg', NULL, 4),
+(105, 'public/1580146503boucles-doreilles-collier-peacock.jpg', 0, 'public/1580146503boucles-doreilles-collier-peacock.jpg', NULL, 4),
+(106, 'public/1580146503broche-peacock.jpg', 0, 'public/1580146503broche-peacock.jpg', NULL, 4),
+(107, 'public/1580146503boucles-plastron-daisy.jpg', 0, 'public/1580146503boucles-plastron-daisy.jpg', NULL, 4),
+(108, 'public/1580146689feteforaineslanelle-égérie.jpg', 0, 'public/1580146689feteforaineslanelle-égérie.jpg', NULL, 7),
+(109, 'public/1580146689fetefor2vignette-ff.jpg', 0, 'public/1580146689fetefor2vignette-ff.jpg', NULL, 7),
+(110, 'public/1580147175disco-lady-07-04.jpg', 0, 'public/1580147175disco-lady-07-04.jpg', NULL, 1),
+(111, 'public/1580147175disco-lady-09-01.jpg', 0, 'public/1580147175disco-lady-09-01.jpg', NULL, 1),
+(112, 'public/1580147175boucles-doreilles-disco-lady-star.jpg', 0, 'public/1580147175boucles-doreilles-disco-lady-star.jpg', NULL, 1),
+(113, 'public/1580147229boucledisco-lady-03-03.jpg', 0, 'public/1580147229boucledisco-lady-03-03.jpg', 9, NULL),
+(114, 'public/1580147476boucles-crâne.jpg', 0, 'public/1580147476boucles-crâne.jpg', 10, NULL),
+(115, 'public/1580147476bague-crâne.jpg', 0, 'public/1580147476bague-crâne.jpg', 10, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `invoice`
+-- Structure de la table `invoice`
 --
 
 CREATE TABLE `invoice` (
@@ -260,7 +272,7 @@ CREATE TABLE `invoice` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `invoice`
+-- Contenu de la table `invoice`
 --
 
 INSERT INTO `invoice` (`invoice_id`, `invoice_ref`, `invoice_date`, `invoice_order_id`, `invoice_promo_code_id`, `invoice_tva`) VALUES
@@ -269,7 +281,7 @@ INSERT INTO `invoice` (`invoice_id`, `invoice_ref`, `invoice_date`, `invoice_ord
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Structure de la table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -284,22 +296,90 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `orders`
+-- Contenu de la table `orders`
 --
 
 INSERT INTO `orders` (`order_id`, `order_ref`, `order_date`, `order_status`, `order_shipped_date`, `order_tracking_number`, `order_user_id`, `order_shipping_method_id`) VALUES
-(1, '2019-12-29-00001', '2019-12-29 00:00:00.000546', 1, NULL, NULL, 2, 0),
+(1, '2019-12-29-00001', '2019-12-29 00:00:00.000546', 1, '1970-01-01', 'fsfdfdsdfdfsdf', 2, 0),
 (2, '2020-01-02-00001', '2020-01-02 00:00:00.000546', 1, NULL, NULL, 2, 0),
-(3, '2020-01-03-00001', '2020-01-02 00:00:00.000546', 0, NULL, NULL, 2, 0),
+(3, '2020-01-03-00001', '2020-01-02 00:00:00.000546', 1, '2020-01-13', 'ffgbgffgfgb', 2, 0),
 (4, '2020-01-09-00001', '2020-01-09 00:00:00.000546', 2, NULL, NULL, 2, 0),
 (5, '2019-02-29-00001', '2019-11-29 00:00:00.000546', 1, NULL, NULL, 2, 0),
 (6, '2019-03-19-00001', '2019-11-29 00:00:00.000546', 2, NULL, NULL, 2, 0),
-(133, '2020-01-24-00001', '2020-01-24 00:00:00.000000', 0, NULL, NULL, 5, 0);
+(133, '2020-01-24-00001', '2020-01-24 00:00:00.000000', 0, NULL, NULL, 5, 0),
+(134, '2019-01-22-00001', '2019-01-22 00:00:00.000000', 2, '2019-01-25', 'AC009BF32', 6, 0),
+(171, '2020-01-10-00001', '2020-01-10 00:00:00.000000', 2, NULL, NULL, 1, 0),
+(172, '2020-01-10-00002', '2020-01-10 00:00:00.000000', 2, NULL, NULL, 8, 0),
+(173, '2020-01-11-00001', '2020-01-11 00:00:00.000000', 2, NULL, NULL, 2, 0),
+(174, '2020-01-12-00001', '2020-01-12 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(175, '2020-01-13-00001', '2020-01-13 00:00:00.000000', 2, NULL, NULL, 11, 0),
+(176, '2020-01-15-00001', '2020-01-15 00:00:00.000000', 2, NULL, NULL, 4, 0),
+(177, '2020-01-15-00002', '2020-01-15 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(178, '2020-01-17-00001', '2020-01-17 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(179, '2020-01-18-00001', '2020-01-18 00:00:00.000000', 2, NULL, NULL, 8, 0),
+(180, '2020-01-18-00002', '2020-01-18 00:00:00.000000', 2, NULL, NULL, 2, 0),
+(181, '2020-01-19-00001', '2020-01-19 00:00:00.000000', 2, NULL, NULL, 7, 0),
+(182, '2020-01-20-00001', '2020-01-20 00:00:00.000000', 2, NULL, NULL, 3, 0),
+(183, '2020-01-20-00002', '2020-01-20 00:00:00.000000', 2, NULL, NULL, 9, 0),
+(184, '2020-01-26-00001', '2020-01-26 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(185, '2020-01-27-00001', '2020-01-27 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(186, '2020-01-27-00002', '2020-01-27 00:00:00.000000', 2, NULL, NULL, 9, 0),
+(187, '2020-01-28-00001', '2020-01-28 00:00:00.000000', 2, NULL, NULL, 2, 0),
+(188, '2020-01-28-00002', '2020-01-28 00:00:00.000000', 2, NULL, NULL, 7, 0),
+(189, '2020-01-29-00001', '2020-01-29 00:00:00.000000', 2, NULL, NULL, 6, 0),
+(190, '2020-01-29-00002', '2020-01-29 00:00:00.000000', 2, NULL, NULL, 6, 0),
+(191, '2020-01-30-00001', '2020-01-30 00:00:00.000000', 1, NULL, NULL, 10, 0),
+(192, '2020-01-30-00002', '2020-01-30 00:00:00.000000', 1, NULL, NULL, 1, 0),
+(193, '2020-01-31-00001', '2020-01-31 00:00:00.000000', 1, NULL, NULL, 2, 0),
+(194, '2020-02-01-00001', '2020-02-01 00:00:00.000000', 1, NULL, NULL, 1, 0),
+(195, '2020-02-01-00002', '2020-02-01 00:00:00.000000', 1, NULL, NULL, 1, 0),
+(196, '2020-02-01-00003', '2020-02-01 00:00:00.000000', 1, NULL, NULL, 2, 0),
+(197, '2020-02-02-00001', '2020-02-02 00:00:00.000000', 1, NULL, NULL, 4, 0),
+(198, '2020-02-02-00002', '2020-02-02 00:00:00.000000', 1, NULL, NULL, 11, 0),
+(199, '2020-02-03-00001', '2020-02-03 00:00:00.000000', 2, NULL, NULL, 7, 0),
+(200, '2020-02-03-00002', '2020-02-03 00:00:00.000000', 0, NULL, NULL, 5, 0),
+(201, '2020-02-04-00001', '2020-02-04 00:00:00.000000', 0, NULL, NULL, 3, 0),
+(202, '2020-02-04-00002', '2020-02-04 00:00:00.000000', 0, NULL, NULL, 4, 0),
+(203, '2020-02-05-00001', '2020-02-05 00:00:00.000000', 0, NULL, NULL, 11, 0),
+(204, '2020-02-05-00002', '2020-02-05 00:00:00.000000', 1, NULL, NULL, 10, 0),
+(205, '2020-02-06-00001', '2020-02-06 00:00:00.000000', 0, NULL, NULL, 3, 0),
+(206, '2020-02-06-00002', '2020-02-06 00:00:00.000000', 2, NULL, NULL, 6, 0),
+(231, '2020-01-20-00003', '2020-01-20 00:00:00.000000', 2, NULL, NULL, 9, 0),
+(232, '2020-01-21-00001', '2020-01-21 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(233, '2020-01-22-00001', '2020-01-22 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(234, '2020-01-22-00002', '2020-01-22 00:00:00.000000', 2, NULL, NULL, 9, 0),
+(235, '2020-01-23-00001', '2020-01-23 00:00:00.000000', 2, NULL, NULL, 2, 0),
+(236, '2020-01-23-00002', '2020-01-23 00:00:00.000000', 2, NULL, NULL, 7, 0),
+(237, '2020-01-24-00005', '2020-01-24 00:00:00.000000', 2, NULL, NULL, 2, 0),
+(238, '2020-01-24-00006', '2020-01-24 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(261, '2019-12-10-00001', '2019-12-10 00:00:00.000000', 2, NULL, NULL, 1, 0),
+(262, '2019-12-10-00002', '2019-12-10 00:00:00.000000', 2, NULL, NULL, 8, 0),
+(263, '2019-12-11-00001', '2019-12-11 00:00:00.000000', 2, NULL, NULL, 2, 0),
+(264, '2019-12-12-00001', '2019-12-12 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(265, '2019-12-13-00001', '2019-12-13 00:00:00.000000', 2, NULL, NULL, 11, 0),
+(266, '2019-12-15-00001', '2019-12-15 00:00:00.000000', 2, NULL, NULL, 4, 0),
+(267, '2019-12-15-00002', '2019-12-15 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(268, '2019-12-17-00001', '2019-12-17 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(269, '2019-12-18-00001', '2019-12-18 00:00:00.000000', 2, NULL, NULL, 8, 0),
+(270, '2019-12-18-00002', '2019-12-18 00:00:00.000000', 2, NULL, NULL, 2, 0),
+(271, '2019-12-19-00001', '2019-12-19 00:00:00.000000', 2, NULL, NULL, 7, 0),
+(272, '2019-12-20-00001', '2019-12-20 00:00:00.000000', 2, NULL, NULL, 3, 0),
+(273, '2019-12-25-00003', '2019-12-20 00:00:00.000000', 2, NULL, NULL, 9, 0),
+(274, '2019-12-26-00001', '2019-12-26 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(275, '2019-12-27-00001', '2019-12-27 00:00:00.000000', 2, NULL, NULL, 5, 0),
+(276, '2019-12-27-00002', '2019-12-27 00:00:00.000000', 2, NULL, NULL, 9, 0),
+(277, '2019-12-28-00001', '2019-12-28 00:00:00.000000', 2, NULL, NULL, 2, 0),
+(278, '2019-12-28-00002', '2019-12-28 00:00:00.000000', 2, NULL, NULL, 7, 0),
+(279, '2019-12-29-00008', '2019-12-29 00:00:00.000000', 2, NULL, NULL, 6, 0),
+(280, '2019-12-29-00009', '2019-12-29 00:00:00.000000', 2, NULL, NULL, 6, 0),
+(281, '2019-12-30-00001', '2019-12-30 00:00:00.000000', 1, NULL, NULL, 10, 0),
+(282, '2019-12-30-00002', '2019-12-30 00:00:00.000000', 1, NULL, NULL, 1, 0),
+(283, '2019-01-12-00002', '2019-01-12 00:00:00.000000', 2, NULL, NULL, 12, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_items`
+-- Structure de la table `order_items`
 --
 
 CREATE TABLE `order_items` (
@@ -308,7 +388,7 @@ CREATE TABLE `order_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `order_items`
+-- Contenu de la table `order_items`
 --
 
 INSERT INTO `order_items` (`order_item_order_id`, `order_item_product_id`) VALUES
@@ -331,12 +411,204 @@ INSERT INTO `order_items` (`order_item_order_id`, `order_item_product_id`) VALUE
 (133, 8),
 (133, 1),
 (133, 15),
-(133, 20);
+(133, 20),
+(134, 8),
+(134, 6),
+(171, 8),
+(171, 10),
+(172, 15),
+(172, 12),
+(173, 8),
+(174, 22),
+(175, 5),
+(176, 6),
+(176, 5),
+(177, 8),
+(177, 8),
+(178, 8),
+(179, 9),
+(180, 9),
+(181, 10),
+(182, 14),
+(182, 10),
+(183, 26),
+(184, 9),
+(185, 17),
+(186, 17),
+(187, 9),
+(188, 8),
+(188, 16),
+(189, 14),
+(189, 8),
+(190, 11),
+(190, 20),
+(190, 20),
+(191, 22),
+(192, 9),
+(192, 10),
+(193, 10),
+(193, 16),
+(194, 16),
+(195, 15),
+(195, 8),
+(196, 18),
+(197, 18),
+(198, 18),
+(199, 15),
+(200, 15),
+(200, 15),
+(201, 11),
+(201, 16),
+(200, 18),
+(202, 11),
+(202, 17),
+(202, 14),
+(203, 14),
+(204, 16),
+(205, 15),
+(205, 18),
+(206, 19),
+(207, 18),
+(208, 18),
+(209, 18),
+(209, 18),
+(210, 16),
+(210, 16),
+(211, 16),
+(211, 18),
+(212, 18),
+(212, 17),
+(213, 19),
+(213, 19),
+(214, 16),
+(214, 16),
+(214, 12),
+(215, 12),
+(216, 11),
+(217, 11),
+(217, 12),
+(218, 10),
+(219, 10),
+(219, 12),
+(214, 9),
+(214, 16),
+(214, 16),
+(215, 8),
+(216, 8),
+(217, 17),
+(217, 17),
+(218, 17),
+(219, 15),
+(219, 14),
+(214, 17),
+(214, 16),
+(214, 17),
+(215, 13),
+(216, 13),
+(217, 13),
+(217, 15),
+(218, 13),
+(219, 14),
+(219, 11),
+(220, 12),
+(221, 13),
+(222, 16),
+(223, 13),
+(224, 17),
+(224, 14),
+(225, 17),
+(226, 8),
+(227, 9),
+(227, 10),
+(228, 18),
+(228, 9),
+(229, 10),
+(230, 10),
+(231, 8),
+(232, 15),
+(232, 14),
+(233, 11),
+(233, 8),
+(234, 9),
+(235, 17),
+(236, 12),
+(237, 10),
+(237, 16),
+(238, 19),
+(238, 9),
+(238, 22),
+(239, 15),
+(240, 14),
+(241, 17),
+(242, 16),
+(243, 17),
+(244, 13),
+(245, 13),
+(246, 13),
+(247, 15),
+(247, 13),
+(248, 14),
+(248, 11),
+(248, 12),
+(249, 13),
+(249, 16),
+(250, 13),
+(250, 17),
+(251, 14),
+(252, 17),
+(253, 8),
+(253, 9),
+(254, 10),
+(255, 18),
+(254, 9),
+(256, 10),
+(258, 10),
+(257, 8),
+(259, 15),
+(260, 14),
+(261, 11),
+(261, 8),
+(262, 9),
+(262, 17),
+(262, 12),
+(263, 10),
+(264, 16),
+(264, 19),
+(265, 9),
+(266, 15),
+(267, 14),
+(267, 17),
+(268, 16),
+(268, 17),
+(269, 13),
+(269, 13),
+(270, 13),
+(271, 15),
+(272, 13),
+(273, 14),
+(274, 11),
+(275, 12),
+(275, 13),
+(276, 16),
+(276, 13),
+(277, 17),
+(278, 14),
+(278, 17),
+(279, 8),
+(280, 9),
+(281, 10),
+(281, 18),
+(281, 9),
+(282, 10),
+(282, 10),
+(282, 22),
+(283, 10),
+(283, 16);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_status`
+-- Structure de la table `order_status`
 --
 
 CREATE TABLE `order_status` (
@@ -345,7 +617,7 @@ CREATE TABLE `order_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `order_status`
+-- Contenu de la table `order_status`
 --
 
 INSERT INTO `order_status` (`order_status_id`, `order_status_name`) VALUES
@@ -356,7 +628,7 @@ INSERT INTO `order_status` (`order_status_id`, `order_status_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Structure de la table `product`
 --
 
 CREATE TABLE `product` (
@@ -372,12 +644,11 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `product`
+-- Contenu de la table `product`
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_description`, `product_custom`, `product_collection_id`, `product_category_id`, `product_cover_image_id`, `product_promo_id`) VALUES
-(1, 'Collier daisy', '29.00', 'Joli collier Daisy cherche Flower Child pour le porter fièrement…\n \nNos créations sont conçues et confectionnées avec amour dans notre atelier à Paris.\n\nNos matières premières viennent d’ U.E \n\nNous produisons nos bijoux à la commande et nous recyclons nos chutes.\n\nNos bijoux sont livrés dans une jolie boîte colorée en carton recyclé.\n\nMatière : acrylique brillant fabriqué en Espagne / jolie chaîne en laiton doré\n\nCouleur : Blanc / Jaune pastel\n\nTaille pendentif :  5 cm\n\nLongueur chaîne : 60 cm', 0, 4, 33, 58, 1),
-(8, 'Banane GRL PWR', '39.00', 'Cette banane GRL PWR , ultra pop sera ton accessoire phare pour tout l’hiver ! \n\nUltra pratique elle prend peu de place, elle se porte en bandoulière et tu peux y ranger toutes tes petites affaires du quotidien. \n\nUltra douce tu as une poche pour y mettre tes mains et les garder bien au chaud. \n\nLe bijou GRL PWR est brodé à la main.\n\nMatière :fausse fourure / doublure satin \n\nCouleur : bleu électrique  / bijou corail et blanc\n\nTaille unique\n\nÉpaisseur pins : 6 mm\n\nEntretien : Nous conseillons de laver cette banane en machine sur cycle délicat ', 0, 15, 26, 61, 1),
+(1, 'Collier daisy', '29.00', 'Joli collier Daisy cherche Flower Child pour le porter fièrement…\n \nNos créations sont conçues et confectionnées avec amour dans notre atelier à Paris.\n\nNos matières premières viennent d’ U.E \n\nNous produisons nos bijoux à la commande et nous recyclons nos chutes.\n\nNos bijoux sont livrés dans une jolie boîte colorée en carton recyclé.\n\nMatière : acrylique brillant fabriqué en Espagne / jolie chaîne en laiton doré\n\nCouleur : Blanc / Jaune pastel\n\nTaille pendentif :  5 cm\n\nLongueur chaîne : 60 cm', 0, 4, 33, 94, 1),
 (9, 'Boucles d’oreilles Storm', '29.00', '\nPour les fêtes de fin d’années on voulait réveiller la Disco Lady qui sommeille en toi ! Sublime la avec l’un de nos bijoux de la collection.\n\nLes boucles d’oreilles Storm légères et graphiques seront du plus bel effet pour les fêtes de fin d’année !\n\nAttention on te promet que tu ne passeras pas inaperçue avec elles !!! \n\nNos bijoux sont fabriqués avec amour dans notre atelier à Paris.\n\nNos matières premières viennent d’ U.E \n\nNous produisons nos bijoux à la commande et nous recyclons nos chutes.\n\nNos bijoux sont livrés dans une jolie boîte colorée en carton recyclé. \n\nMatière : acrylique brillant fabriqué en Espagne / attache en laiton sans nickel antiallergique\n\nCouleur : Doré miroir / Bleu électrique\n\nHauteur boucle  :  8 cm\n\nTaille pendentif : 8 cm / 2,5 cm\n\nÉpaisseur : 6 mm\n\nEntretien : Nous conseillons d’éviter le parfum sur les matières miroir', 0, 1, 28, 63, 1),
 (10, 'Broche Calavera', '45.00', 'Broche Calavera, ces crânes colorés sont les emblèmes du jour des morts au Mexique.\n\nNos créations sont conçues et confectionnées avec amour dans notre atelier à Paris.\n\nNos matières premières viennent d’ U.E \n\nNous produisons nos bijoux à la commande et nous recyclons nos chutes.\n\nNos bijoux sont livrés dans une jolie boîte colorée en carton recyclé.\n\nMatière : acrylique brillant fabriqué en Espagne / broche en laiton argenté sans nickel\n\nCouleur : blanc / Rose / bleu / violet / vert\n\nTaille pendentif  :  6 cm / 5 cm\n\nLongueur broche : 3 cm\n\nÉpaisseur : 6 mm', 0, 2, 29, 64, 1),
 (11, 'Bague Memphis 90’s', '25.00', 'Cette jolie bague réglable ultra graphique sera du plus bel effet pour parfaire ton look 90’s !\n\nQuelle sera ta couleur préférée? Noir, Mint ou les deux ?\n\nNos créations sont conçues et confectionnées avec amour dans notre atelier à Paris.\n\nNos matières premières viennent d’ U.E\n\nNous produisons nos bijoux à la commande et nous recyclons nos chutes.\n\nNos bijoux sont livrés dans une jolie boîte colorée en carton recyclé.\n\nMatière : acrylique brillant fabriqué en Espagne / anneau réglable en laiton doré sans nickel\n\nCouleur : Mint, Jaune, Rose  / Noir, Blanc, Rose\n\nTaille pendentif : 3 cm de diamètre\n\nÉpaisseur : 6 mm ', 1, 3, 35, 67, 1),
@@ -387,16 +658,14 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_d
 (15, 'Collier Hippocampe', '30.00', 'Série Limitée!\n\nCet été Jule et Lily vous plonge sous l’océan! On craque pour cet adorable collier des hippocampes amoureux!\n\nNos créations sont conçues et confectionnées avec amour, artisanalement, dans notre atelier à Paris .\n\nMade in France Garanti !\nNos bijoux sont livrés dans une jolie boîte colorée en carton recyclé', 0, 8, 33, 71, 1),
 (16, 'Boucles d’oreilles Loup Doré', '25.00', 'On craque pour ces boucles d’oreilles Loup en doré miroir ! Parfait pour un look graphique et girly…\n\nNos créations sont conçues et confectionnées avec amour, artisanalement, dans notre atelier à Paris .\n\nMade in France Garanti !\nNos bijoux sont livrés dans une jolie boîte éditée en série limitée.\n\nMatière : acrylique miroir fabriqué en Espagne\nCouleur : Doré\nTaille pendentif : 4 cm / 3 cm\nAttaches dormeuses : dorées en alu sans nickel (anti-allergique)\n\nPs : Évitez l’alcool avec l’acrylique miroir, pensez à vous parfumer avant de mettre vos boucles.', 0, 9, 28, 72, 1),
 (17, 'Broche Extra Terrestre', '35.00', '\nOn adore la broche Extra Terrestre, en acrylique doré et son coeur en miroir rose. Parfait pour un look fun et girly \n\nNos créations, sont conçues et confectionnées avec amour, artisanalement, dans notre atelier à Paris .\nMade in France Garanti !\n\nNos bijoux sont livrés dans une jolie boîte éditée en série limitée.', 0, 10, 29, 73, 1),
-(18, 'Boucles d’oreilles Bastet', '30.00', 'description du produit\n\nOn adore cette magnifique paire de boucles d’oreilles en hommage à Bastet, déesse de la féminité représentée sous la forme d’un chat. Le pendentif est une silhouette de chat noir avec son collier gravé surmonté d’un lotus gravé en doré miroir.\n\nNos créations, sont conçues et confectionnées avec amour, artisanalement, dans notre atelier à Paris .\n\nMade in France Garanti !\nNos bijoux sont livrés dans une jolie boîte éditée en série limitée.\n\nMatière : acrylique fabriqué en Espagne / studs en alu sans nickel\nCouleur : Doré miroir / Noir brillant\nTaille pendentif (une boucle) : 2,6 cm / 6,7 cm\n', 0, 16, 28, 74, 1),
-(19, 'Sweat Poodle Bleu', '35.00', 'description du produit', 0, 11, 37, 75, 1),
-(20, 'Broche Fresh Prince', '45.00', 'On ne pouvait pas faire une collection 90’s sans créer la broche Will dans le prince de bel air !\n\nNos créations sont conçues et confectionnées avec amour dans notre atelier à Paris.\n\nNos matières premières viennent d’ U.E \n\nNous produisons nos bijoux à la commande et nous recyclons nos chutes.\n\nNos bijoux sont livrés dans une jolie boîte colorée en carton recyclé.\n\nMatière : acrylique brillant fabriqué en Espagne / broche en laiton argenté sans nickel\n\nCouleur : Doré / Noir / blanc \n\nTaille pendentif  à plat :  8 cm\n\nLongueur broche : 3 mm\n\nEpaisseur : 6 mm\n', 0, 12, 29, 76, 1),
 (21, 'Boucles d’oreilles  » Gipsy Cat  » Blanc', '29.00', 'Boucles d’oreilles  » Gispy Cat  » Blanc, en acrylique finition brillante, découpé au laser, monté sur des supports en laiton argenté.\n\nNos bijoux sont conçus et confectionnés par nos soins, de manière artisanale, dans notre atelier.\n\nTous nos bijoux sont livrés dans une jolie boîte en kraft recyclé, que nous imprimons en sérigraphie.\n\nMatière : Acrylique d’Italie / support en laiton argenté\nCouleur : Blanc / Doré\nHauteur Boucle : 5,5 cm\nTaille Pendentif : 4 cm / 4 cm\nDétail : Logo gravé au dos\ndescription du produit', 0, 13, 28, 77, 1),
-(22, 'Petit Collier Crabe rouge', '19.00', 'Petit Collier Crabe rouge en acrylique, pendentif découpé au laser, monté sur une fine chaîne en laiton doré\n\nCréation Made in France\n', 0, 14, 33, 78, 1);
+(22, 'Petit Collier Crabe rouge', '19.00', 'Petit Collier Crabe rouge en acrylique, pendentif découpé au laser, monté sur une fine chaîne en laiton doré\n\nCréation Made in France\n', 0, 14, 33, 78, 1),
+(24, 'Broche Pomme d’Amour', '25.00', '\n\nOn craque pour cette jolie broche Pomme d’Amour gourmande à souhait !\n\nMade in France Garanti ! Nos créations sont conçues et confectionnées avec amour, artisanalement, dans notre atelier à Paris .\n\nNos matières premières viennent d’Espagne, d’Italie et du Royaume Uni.\n\nNos bijoux sont livrés dans une jolie boîte colorée en carton recyclé afin de les protéger et de les conserver.\n\nMatière : acrylique opaque satiné fabriqué en Espagne \nCouleur : doré / rose miroir \nTaille pendentif : 4 cm / 3 cm\nLongueur Broche : 2,5 cm\n', 1, 7, 29, 101, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `promo`
+-- Structure de la table `promo`
 --
 
 CREATE TABLE `promo` (
@@ -409,18 +678,19 @@ CREATE TABLE `promo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `promo`
+-- Contenu de la table `promo`
 --
 
 INSERT INTO `promo` (`promo_id`, `promo_name`, `promo_value`, `promo_is_active`, `promo_sticker_color`, `promo_sticker_text`) VALUES
 (1, 'Prix Normal', 0, 1, 'NULL', 'NULL'),
 (2, 'Noel', 25, 0, '#af7474', 'NOEL'),
-(3, 'Hiver 2019-2020', 40, NULL, '#0d9be3', '40%');
+(3, 'Hiver 2019-2020', 40, NULL, '#0d9be3', '40%'),
+(4, 'je suis une promo', 55, NULL, '#350dff', 'hehe');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role`
+-- Structure de la table `role`
 --
 
 CREATE TABLE `role` (
@@ -429,7 +699,7 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `role`
+-- Contenu de la table `role`
 --
 
 INSERT INTO `role` (`role_id`, `role_name`) VALUES
@@ -439,7 +709,7 @@ INSERT INTO `role` (`role_id`, `role_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shipping_methods`
+-- Structure de la table `shipping_methods`
 --
 
 CREATE TABLE `shipping_methods` (
@@ -449,7 +719,7 @@ CREATE TABLE `shipping_methods` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `shipping_methods`
+-- Contenu de la table `shipping_methods`
 --
 
 INSERT INTO `shipping_methods` (`shipping_id`, `shipping_type`, `shipping_price`) VALUES
@@ -460,7 +730,7 @@ INSERT INTO `shipping_methods` (`shipping_id`, `shipping_type`, `shipping_price`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stock`
+-- Structure de la table `stock`
 --
 
 CREATE TABLE `stock` (
@@ -471,7 +741,7 @@ CREATE TABLE `stock` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `stock`
+-- Contenu de la table `stock`
 --
 
 INSERT INTO `stock` (`stock_id`, `stock_quantity`, `stock_min`, `stock_product_id`) VALUES
@@ -493,12 +763,14 @@ INSERT INTO `stock` (`stock_id`, `stock_quantity`, `stock_min`, `stock_product_i
 (26, 2, 2, 19),
 (27, 8, 2, 20),
 (28, 12, 4, 21),
-(29, 14, 6, 22);
+(29, 14, 6, 22),
+(30, 2, 5, 23),
+(32, 2, 2, 24);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Structure de la table `user`
 --
 
 CREATE TABLE `user` (
@@ -517,11 +789,11 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user`
+-- Contenu de la table `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_firstname`, `user_lastname`, `user_email`, `user_password`, `user_role`, `user_login`, `user_date_of_birth`, `user_phone`, `user_email_verified`, `user_registration_date`, `user_company_name`) VALUES
-(1, 'lily', 'lily', 'lili@juleetlily.fr', '$2b$10$NHdR2/pjkN7aACjJrAxhkuVm1YW88F17M6hjedOwHnAmEwiGzmP4K', 0, 'lily', '1991-11-22', 637124403, 1, '2019-11-28 00:00:00.000000', 'jule et lily'),
+(1, 'lily', 'lily', 'lili@juleetlily.fr', '$2b$10$dEzO2wYNpNP0lqdPVbMCKOuXmHWEl5X5lEUM8A3iMMumMuKlwcLYS', 0, 'lily', '1991-11-22', 637124403, 1, '2019-11-28 00:00:00.000000', 'jule et lily'),
 (2, 'louis', 'cascio', 'casciolouis@gmail.com', 'juleetlili', 1, 'louis', '1991-11-22', 637124402, 1, '2019-11-28 00:00:00.000000', 'perso'),
 (5, 'Carrie', 'Dent', 'cd@gmail.com', 'cd', 1, 'cd', '2020-01-01', 600000000, NULL, '2019-11-28 00:00:00.000000', 'Cabinet Dentaire C.DENT'),
 (6, 'Eddy', 'Malou', 'eddymalou@gmail.com', 'ef', 1, 'ef', '2020-01-01', 600000000, NULL, '2019-11-28 00:00:00.000000', 'ef'),
@@ -531,43 +803,43 @@ INSERT INTO `user` (`user_id`, `user_firstname`, `user_lastname`, `user_email`, 
 (11, 'Ophélie', 'Poulet', 'op@gmail.com', 'mn', 1, 'op', '2020-01-09', 600000000, NULL, '2020-01-30 00:00:00.000000', 'op');
 
 --
--- Indexes for dumped tables
+-- Index pour les tables exportées
 --
 
 --
--- Indexes for table `address`
+-- Index pour la table `address`
 --
 ALTER TABLE `address`
   ADD PRIMARY KEY (`address_id`),
   ADD KEY `address_user_id` (`address_user_id`);
 
 --
--- Indexes for table `category`
+-- Index pour la table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- Indexes for table `code_promo`
+-- Index pour la table `code_promo`
 --
 ALTER TABLE `code_promo`
   ADD PRIMARY KEY (`code_promo_id`);
 
 --
--- Indexes for table `collection`
+-- Index pour la table `collection`
 --
 ALTER TABLE `collection`
   ADD PRIMARY KEY (`collection_id`),
   ADD KEY `collection_image_id` (`collection_cover_image_id`);
 
 --
--- Indexes for table `header_collection_menu`
+-- Index pour la table `header_collection_menu`
 --
 ALTER TABLE `header_collection_menu`
   ADD PRIMARY KEY (`collection_menu_id`);
 
 --
--- Indexes for table `image`
+-- Index pour la table `image`
 --
 ALTER TABLE `image`
   ADD PRIMARY KEY (`image_id`),
@@ -575,7 +847,7 @@ ALTER TABLE `image`
   ADD KEY `image_product_id` (`image_product_id`);
 
 --
--- Indexes for table `invoice`
+-- Index pour la table `invoice`
 --
 ALTER TABLE `invoice`
   ADD PRIMARY KEY (`invoice_id`),
@@ -583,7 +855,7 @@ ALTER TABLE `invoice`
   ADD KEY `invoice_promo_code_id` (`invoice_promo_code_id`);
 
 --
--- Indexes for table `orders`
+-- Index pour la table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
@@ -593,20 +865,20 @@ ALTER TABLE `orders`
   ADD KEY `order_shipping_method_id` (`order_shipping_method_id`);
 
 --
--- Indexes for table `order_items`
+-- Index pour la table `order_items`
 --
 ALTER TABLE `order_items`
   ADD KEY `order_item_order_ref` (`order_item_order_id`),
   ADD KEY `order_item_product_id` (`order_item_product_id`);
 
 --
--- Indexes for table `order_status`
+-- Index pour la table `order_status`
 --
 ALTER TABLE `order_status`
   ADD PRIMARY KEY (`order_status_id`);
 
 --
--- Indexes for table `product`
+-- Index pour la table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`),
@@ -616,153 +888,145 @@ ALTER TABLE `product`
   ADD KEY `product_promo_id` (`product_promo_id`);
 
 --
--- Indexes for table `promo`
+-- Index pour la table `promo`
 --
 ALTER TABLE `promo`
   ADD PRIMARY KEY (`promo_id`) USING BTREE;
 
 --
--- Indexes for table `role`
+-- Index pour la table `role`
 --
 ALTER TABLE `role`
   ADD PRIMARY KEY (`role_id`);
 
 --
--- Indexes for table `shipping_methods`
+-- Index pour la table `shipping_methods`
 --
 ALTER TABLE `shipping_methods`
   ADD PRIMARY KEY (`shipping_id`);
 
 --
--- Indexes for table `stock`
+-- Index pour la table `stock`
 --
 ALTER TABLE `stock`
   ADD PRIMARY KEY (`stock_id`),
   ADD UNIQUE KEY `stock_product_id` (`stock_product_id`) USING BTREE;
 
 --
--- Indexes for table `user`
+-- Index pour la table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`),
   ADD KEY `user_role` (`user_role`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables exportées
 --
 
 --
--- AUTO_INCREMENT for table `address`
+-- AUTO_INCREMENT pour la table `address`
 --
 ALTER TABLE `address`
   MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT pour la table `category`
 --
 ALTER TABLE `category`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
-
 --
--- AUTO_INCREMENT for table `code_promo`
+-- AUTO_INCREMENT pour la table `code_promo`
 --
 ALTER TABLE `code_promo`
   MODIFY `code_promo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
--- AUTO_INCREMENT for table `collection`
+-- AUTO_INCREMENT pour la table `collection`
 --
 ALTER TABLE `collection`
   MODIFY `collection_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
 --
--- AUTO_INCREMENT for table `header_collection_menu`
+-- AUTO_INCREMENT pour la table `header_collection_menu`
 --
 ALTER TABLE `header_collection_menu`
   MODIFY `collection_menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
--- AUTO_INCREMENT for table `image`
+-- AUTO_INCREMENT pour la table `image`
 --
 ALTER TABLE `image`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
-
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 --
--- AUTO_INCREMENT for table `invoice`
+-- AUTO_INCREMENT pour la table `invoice`
 --
 ALTER TABLE `invoice`
   MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT pour la table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
-
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=284;
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT pour la table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
--- AUTO_INCREMENT for table `promo`
+-- AUTO_INCREMENT pour la table `promo`
 --
 ALTER TABLE `promo`
-  MODIFY `promo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `promo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `stock`
+-- AUTO_INCREMENT pour la table `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
+  MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- Contraintes pour les tables exportées
+--
 
 --
--- Constraints for dumped tables
---
-
---
--- Constraints for table `address`
+-- Contraintes pour la table `address`
 --
 ALTER TABLE `address`
   ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`address_user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `collection`
+-- Contraintes pour la table `collection`
 --
 ALTER TABLE `collection`
   ADD CONSTRAINT `collection_ibfk_1` FOREIGN KEY (`collection_cover_image_id`) REFERENCES `image` (`image_id`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `image`
+-- Contraintes pour la table `image`
 --
 ALTER TABLE `image`
-  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`image_collection_id`) REFERENCES `collection` (`collection_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `image_ibfk_2` FOREIGN KEY (`image_product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`image_collection_id`) REFERENCES `collection` (`collection_id`),
+  ADD CONSTRAINT `image_ibfk_2` FOREIGN KEY (`image_product_id`) REFERENCES `product` (`product_id`);
 
 --
--- Constraints for table `product`
+-- Contraintes pour la table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`product_category_id`) REFERENCES `category` (`category_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`product_collection_id`) REFERENCES `collection` (`collection_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `product_ibfk_3` FOREIGN KEY (`product_cover_image_id`) REFERENCES `image` (`image_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `product_ibfk_4` FOREIGN KEY (`product_promo_id`) REFERENCES `promo` (`promo_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`product_category_id`) REFERENCES `category` (`category_id`),
+  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`product_collection_id`) REFERENCES `collection` (`collection_id`),
+  ADD CONSTRAINT `product_ibfk_3` FOREIGN KEY (`product_cover_image_id`) REFERENCES `image` (`image_id`),
+  ADD CONSTRAINT `product_ibfk_4` FOREIGN KEY (`product_promo_id`) REFERENCES `promo` (`promo_id`);
 
 --
--- Constraints for table `stock`
+-- Contraintes pour la table `stock`
 --
 ALTER TABLE `stock`
   ADD CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`stock_product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `user`
+-- Contraintes pour la table `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`user_role`) REFERENCES `role` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
