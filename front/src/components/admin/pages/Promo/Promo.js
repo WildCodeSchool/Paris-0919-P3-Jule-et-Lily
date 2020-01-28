@@ -148,13 +148,13 @@ export default function Promo(props) {
   const isClickedModidy = index => {
     // console.log("click!");
     setClick(!click);
-    setPromoClick(data[index]);
+    setPromoClick(dataToShow[index]);
   };
 
   const isClickedSee = index => {
     // console.log("click!");
     setClickView(!clickView);
-    setPromoClick(data[index]);
+    setPromoClick(dataToShow[index]);
   };
 
   const isClickedAddPromo = () => {
@@ -190,13 +190,13 @@ export default function Promo(props) {
   const isClickedModifyCodePromo = index => {
     // console.log("click!");
     setClickCodePromo(!clickCodePromo);
-    setCodePromoClick(data2[index]);
+    setCodePromoClick(dataToShow2[index]);
   };
 
   const isClickedSeeCodePromo = index => {
     // console.log("click!");
     setClickViewCodePromo(!clickViewCodePromo);
-    setCodePromoClick(data2[index]);
+    setCodePromoClick(dataToShow2[index]);
   };
 
   const isClickedAddCodePromo = () => {
