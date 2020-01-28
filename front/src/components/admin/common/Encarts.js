@@ -6,9 +6,9 @@ export default (props) => {
 
   return (
     <>
-      <div className="card shadow mb-4">
+      <div className="card shadow mb-4 h-100">
         <div className="card-header py-3 d-flex flex-row align-items-center justify-content-center bg-lightgray">
-          <h6 className="font-weight-bold text-uppercase gray">Statistiques des ventes</h6>
+          <h6 className="font-weight-bold text-uppercase gray">{props.title}</h6>
         </div>
         <div className="card-body">
           <div className="column encartContent">

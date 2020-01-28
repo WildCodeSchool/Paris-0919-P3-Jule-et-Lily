@@ -27,20 +27,52 @@
 
 #dataTable th,
 #dataTable td {
-  min-width: 120px;
-  max-width: 400px;
+  min-width: 80px;
+  max-width: 200px;
   vertical-align: middle;
 }
 
+
 #dataTable td p {
- max-height:50px;
- overflow:auto;
+  max-height: 60px;
+  overflow: auto;
 }
 
-.table .actionButtons, .table .actionButtons div{
+#dataTable .actionButtons {
+min-width: 120px;
+}
+
+.table .actionButtons,
+.table .actionButtons div {
   padding: 2px;
 }
 
-.table .actionButtons a  {
+.table .actionButtons i {
+  margin: 0;
+}
+
+.sticker-promo {
+  border-radius: 50%;
+  width:60px;
+  height:60px;
+  background-color: #370991;
+  color:white;
+  padding-top:22px;
+  display:inline-block;
+  font-size:12.5px;
+  text-align:center;
+}
+
+
+.uploadForm {
+  background-color:#fff;
+  border: 1px solid#d1d3e2;
+  border-radius: .35rem;
+  padding:3em;
+}
+
+
+.table p {
+  font-size:0.8em;
   margin:0;
 }
