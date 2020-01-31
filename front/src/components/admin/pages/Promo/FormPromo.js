@@ -120,7 +120,7 @@ const [encartDisplay, setEncartDisplay] = useState({
             <div className="Swatch" onClick={handleClickColorPicker}>
               <div style={{backgroundColor: `${encartDisplay.backgroundColor}`}} className="titleCSS"/>
             </div>
-            { ColorPickerDisplay ? <div className = "Popover" >
+            { ColorPickerDisplay ? <div className = "popover-promo" >
               <div className="Cover" onClick={handleClickColorPicker}/>
               <ChromePicker color={promoModify.promo_sticker_color} onChange={handleChangeColor} />
             </div> : null }

@@ -1,4 +1,6 @@
-.Popover {
+.popover-promo {
     top: 15vh;
     left: 40%;
+    position: absolute;
+    z-index: 2;
 }
