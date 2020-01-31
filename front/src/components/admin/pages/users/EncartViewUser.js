@@ -42,24 +42,22 @@ export default function EncartViewUser(props) {
             .get(`/user/order/${user.user_id}`) // we catch values
             .then(res => setOrder(res.data))
     }
-    const fetchOrderForBill = () => {
+    const fetchOrderForBill = (id) => {
         Axios
-            .get(`/order/order/${user.user_id}`)
-            .then(res => setOrderBill(res.data))
-    }
-
-    const fetchOrderProduct = () => {
+          .get(`/order/order/${id}`)
+          .then(res => setOrderBill(res.data))
+      }
+    
+      const fetchProductBill = (id) => {
         Axios
-            .get(`/order/${user.user_id}/items`)
-            .then(res => setProductBill(res.data))
-    }
+          .get(`/order/order/${id}/items`)
+          .then(res => setProductBill(res.data))
+      }
 
     useEffect(() => {
         fetchShipping()
         fetchBilling()
         fetchOrder()
-        fetchOrderForBill()
-        fetchOrderProduct()
     }, [])
 
     return (
@@ -311,7 +309,11 @@ export default function EncartViewUser(props) {
                                             </td>
                                             <td>
                                                 {" "}
-                                                <PDFDownloadLink
+                                                <MyBill
+                                                    data = {data}
+                                                    data1 = {shipping}
+                                                 />
+                                                {/* <PDFDownloadLink
                                                     document={<MyBill
                                                     data = {data}
                                                     data1 = {shipping}
@@ -321,7 +323,7 @@ export default function EncartViewUser(props) {
                                                     {({ loading }) =>
                                                         loading ? "Loading document..." : "Pdf"
                                                     }
-                                                </PDFDownloadLink>
+                                                </PDFDownloadLink> */}
                                             </td>
                                         </tr>
                                     )

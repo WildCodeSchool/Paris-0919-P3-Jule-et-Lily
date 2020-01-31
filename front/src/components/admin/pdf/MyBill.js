@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import Axios from 'axios'
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -122,14 +123,15 @@ const styles = StyleSheet.create({
 // Create Document Component
 const MyBill = (props) => {
 
-  const [orderBill, setOrderBill] = useState()
-  const [productBill, setProductBill] = useState()
+  const [orderBill, setOrderBill] = useState([])
+  const [productBill, setProductBill] = useState([])
   const data = props.data
   const data1 = props.data1
-  console.log('ici', data);
-  console.log('shipping', data1);
-  console.log('product', productBill);
-  console.log('order', orderBill);
+  const data3 = props.data3 ? props.data3 : []
+  // console.log('ici', data);
+  // console.log('shipping', data1);
+  // console.log('product', productBill);
+  // console.log('order', orderBill);
 
   const data_date = new Date(data.order_date)
 
@@ -148,9 +150,10 @@ const MyBill = (props) => {
   useEffect(() => {
     fetchOrderForBill()
     fetchProductBill()
-  }, [data])
+  }, [])
 
   return (
+    props.data3 ?
     <Document>
       <Page size="A4" style={styles.page}>
         <View>
@@ -203,11 +206,11 @@ const MyBill = (props) => {
           </View>
           <View style={styles.sectionShipping}>
             <Text>Livraison :  </Text>
-            <Text>{orderBill && orderBill.shipping_price} €</Text>
+            <Text>{orderBill ? orderBill.shipping_price : data3 ? data3.shipping_price : '/'} €</Text>
           </View>
           <View style={styles.sectionShipping}>
             <Text>Total Brut : {data.total_price} €</Text>
-            <Text>{orderBill && data.total_price + orderBill[0].shipping_price}</Text>
+            <Text>{orderBill ? data.total_price + orderBill.shipping_price : data3 ? data.total_price + data3.shipping_price : '/'}</Text>
           </View>
           <View style={styles.sectionTVA}>
             <Text>TVA (TVA non applicable, article 293B du Code Général des Impôts.) :</Text>
@@ -225,6 +228,20 @@ const MyBill = (props) => {
         </View>
       </Page>
     </Document>
+    : 
+    <PDFDownloadLink
+    document={<MyBill
+    data = {props.data}
+    data1 = {props.shipping}
+    data3 = {orderBill}
+    data4 = {productBill}
+    />}
+    fileName='facture.pdf'
+>
+    {({ loading }) =>
+        loading ? "Loading document..." : "Pdf"
+    }
+  </PDFDownloadLink>
   );
 }
 
