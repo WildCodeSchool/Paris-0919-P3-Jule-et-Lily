@@ -23,9 +23,22 @@ router.post('/', (req, res) => {
 
 
 ///////////////////////// Order modify by number id /////////////////////////////////
+  router.route(['/order/:id/items/'])
+  .get(function (req, res) { //récup un produit
+    connection.query(`SELECT product.product_name, product.product_price FROM product JOIN order_items as o ON o.order_item_product_id = product.product_id WHERE o.order_item_order_id = ${req.params.id}`, (err, results) => {
+      if (err) {
+        console.log(err);
+        res.send('Erreur lors de la récupération de la commande').status(500);
+      } else {
+        console.log(results)
+        res.json(results);
+      }
+    });
+  })
+
   router.route(['/order/:id'])
   .get(function (req, res) { //récup un produit
-    connection.query(`SELECT * FROM orders WHERE order_id=${req.params.id}`, (err, results) => {
+    connection.query(`SELECT  o.* ,SUM(p.product_price) as total_price, COUNT(i.order_item_product_id) as number_of_products, s.order_status_name, sh.* FROM product as p JOIN order_items as i ON p.product_id = i.order_item_product_id JOIN orders as o ON o.order_id = i.order_item_order_id JOIN order_status as s ON s.order_status_id = o.order_status JOIN shipping_methods as sh ON sh.shipping_id = o.order_shipping_method_id WHERE o.order_id = ${req.params.id} GROUP BY o.order_id`, (err, results) => {
       if (err) {
         console.log(err);
         res.send('Erreur lors de la récupération de la commande').status(500);

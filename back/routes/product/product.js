@@ -42,7 +42,7 @@ router.route(['/stock/:id','/stock/:stock_quantity/and/:stock_min'])
     connection.query('SELECT * from stock WHERE stock_product_id = ?', req.params.id, (err, results) => {
       if (err) {
         // console.log(err);
-        res.send('Erreur lors de la récupération du stock').status(500);
+        res.status(500).send('Erreur lors de la récupération du stock');
       } else {
         // console.log(results)
         res.json(results);
@@ -81,9 +81,9 @@ router.route(['/stock/:id','/stock/:stock_quantity/and/:stock_min'])
         // console.log('newStock', newStock);
         connection.query('INSERT INTO stock SET ?', newStock, (err, results) => {
           if (err) {
-            res.send("Erreur lors de l'ajout du NewStock").status(500);
+            res.status(500).send("Erreur lors de l'ajout du NewStock");
           } else {
-            res.send('stock bien ajouté').status(200);
+            res.status(200).send('stock bien ajouté');
           }
         });
         res.status(200);
@@ -100,7 +100,7 @@ router.route(['/all'])
     connection.query('SELECT p.*, i.image_name, s.stock_quantity as product_stock, s.stock_min as product_stock_min, c.collection_name, k.category_name FROM product as p LEFT OUTER JOIN stock as s ON s.stock_product_id = p.product_id LEFT OUTER JOIN collection as c on c.collection_id = p.product_collection_id LEFT OUTER JOIN category as k ON k.category_id = p.product_category_id LEFT JOIN image as i ON i.image_id=p.product_cover_image_id', (err, results) => {
       if (err) {
         // console.log(err);
-        res.send('Erreur lors de la récupération des produits').status(500);
+        res.status(500).send('Erreur lors de la récupération des produits');
       } else {
         // console.log(results)
         res.json(results);
@@ -113,7 +113,7 @@ router.route(['/all'])
     connection.query('SELECT p.product_id, pr.* FROM product as p JOIN promo as pr ON p.product_promo_id = pr.promo_id WHERE product_id = ?', req.params.id, (err, results) => {
       if (err) {
         console.log(err);
-        res.send('Erreur lors de la récupération des produits').status(500);
+        res.status(500).send('Erreur lors de la récupération des produits');
       } else {
         res.json(results);
       }
@@ -125,7 +125,7 @@ router.route(['/:id', '/'])
     connection.query('SELECT * FROM product WHERE product_id = ?', req.params.id, (err, results) => {
       if (err) {
         // console.log(err);
-        res.send('Erreur lors de la récupération des produits').status(500);
+        res.status(500).send('Erreur lors de la récupération des produits');
       } else {
         res.json(results);
       }
@@ -138,17 +138,17 @@ router.route(['/:id', '/'])
     connection.query('SET FOREIGN_KEY_CHECKS=0', formData, (err, results) => { //ajouter un produit
       if (err) {
         // console.log(`ici l'erreur `, err);
-        res.send("Erreur lors de l'ajout du produit.").status(500);
+        res.status(500).send("Erreur lors de l'ajout du produit.");
       } else {
         connection.query('INSERT INTO product SET ?', formData, (err, results) => { //ajouter un produit
           if (err) {
             // console.log(`ici l'erreur `, err);
-            res.send("Erreur lors de l'ajout du produit.").status(500);
+            res.status(500).send("Erreur lors de l'ajout du produit.");
           } else {
             connection.query('SET FOREIGN_KEY_CHECKS=1', formData, (err, results) => {
               if (err) {
                 // console.log(`ici l'erreur `, err);
-                res.send("Erreur lors de l'ajout du produit.").status(500);
+                res.status(500).send("Erreur lors de l'ajout du produit.");
               }
               else {
                 res.sendStatus(200);
@@ -179,12 +179,12 @@ router.route(['/:id', '/'])
       //ajouter un produit
       if (err) {
         console.log(`ici l'erreur `, err);
-        res.send("Erreur lors de la suppression de la collection.").status(500);
+        res.status(500).send("Erreur lors de la suppression de la collection.");
       } else {
         connection.query(`DELETE FROM product WHERE product_id=${req.params.id}`, err => {
           if (err) {
             console.log(err);
-            res.send("Erreur lors de la suppression du produit").status(500);
+            res.status(500).send("Erreur lors de la suppression du produit");
           } else {
               console.log(req.params)
               connection.query(
@@ -192,9 +192,7 @@ router.route(['/:id', '/'])
                 (err, result) => {
                   if (err) {
                     console.log("selectImage err", err);
-                    res
-                      .send("Erreur lors de la recuperation du nom d'image")
-                      .status(500);
+                    res.status(500).send("Erreur lors de la recuperation du nom d'image");
                   } else {    
                     try {
                       for (let i = 0; i < result.length; i++){
@@ -221,7 +219,7 @@ router.route(['/:id', '/'])
                                     .send("Erreur lors de l'ajout du produit.")
                                     .status(500);
                                 } else {
-                                  res.send("image bien supprimée.").Status(200);
+                                  res.Status(200).send("image bien supprimée.");
                                 }
                               }
                             );
@@ -369,7 +367,7 @@ router.route(['/image-cover/:id', '/image-cover/:id/:productId'])
         res.status(500).send("Erreur lors de la modification de l'image de couverture du produit");
       } else {
         console.log(results)
-        res.send('ok').Status(200);
+        res.status(200).send('ok');
       }
     });
   })  
