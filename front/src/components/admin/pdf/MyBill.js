@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import Axios from 'axios'
 
 // Create styles
 const styles = StyleSheet.create({
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginRight: 15,
     marginLeft: 15,
-    height: '70px',
+    height: '300px',
     borderStyle: "solid",
     border: 1,
     alignItems: 'center',
@@ -119,78 +120,112 @@ const styles = StyleSheet.create({
 
 
 // Create Document Component
-const MyBill = () => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View>
-        <View style={styles.sectionUser}>
-          <Text>Coucou LAPRALINE</Text>
-          <Text>11 rue de Poissy</Text>
-          <Text>75 005 Paris</Text>
-        </View>
-        <View style={styles.sectionNumber}>
-          <Text>Numéro de facture : 24-01-2020-000001</Text>
-          <Text>Date de facture : 24-01-2020</Text>
-        </View>
-      </View>
-      <View style={styles.sectionMiddle}>
-        <View style={styles.sectionBill}>
-          <Text>Facture : 24-01-2020-000001</Text>
-        </View>
-        <View style={styles.table}>
-          <View style={styles.tableRowTop}>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>Description</Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>Quantité</Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>Prix à l'unité</Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>Montant</Text>
-            </View>
+const MyBill = (props) => {
+
+  const [orderBill, setOrderBill] = useState()
+  const [productBill, setProductBill] = useState()
+  const data = props.data
+  const data1 = props.data1
+  console.log('ici', data);
+  console.log('shipping', data1);
+  console.log('product', productBill);
+  console.log('order', orderBill);
+
+  const data_date = new Date(data.order_date)
+
+  const fetchOrderForBill = () => {
+    Axios
+      .get(`/order/order/${data.order_id}`)
+      .then(res => setOrderBill(res.data))
+  }
+
+  const fetchProductBill = () => {
+    Axios
+      .get(`/order/order/${data.order_id}/items`)
+      .then(res => setProductBill(res.data))
+  }
+
+  useEffect(() => {
+    fetchOrderForBill()
+    fetchProductBill()
+  }, [data])
+
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View>
+          <View style={styles.sectionUser}>
+            <Text>{data1 && data1[0].address_firstname} {data1 && data1[0].address_lastname}</Text>
+            <Text>{data1 && data1[0].address_street}</Text>
+            <Text>{data1 && data1[0].address_zip_code} {data1 && data1[0].address_city}</Text>
           </View>
-          <View style={styles.tableRow}>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>Bijoux fantaisie, boucles d'oreilles</Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>2</Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>20 €</Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>40 €</Text>
-            </View>
+          <View style={styles.sectionNumber}>
+            <Text>Numéro de facture : {data.order_ref}</Text>
+            <Text>Date de facture : {data_date.toLocaleDateString()}</Text>
           </View>
         </View>
-        <View style={styles.sectionShipping}>
-          <Text>Livraison : </Text>
-          <Text>6.50 €</Text>
+        <View style={styles.sectionMiddle}>
+          <View style={styles.sectionBill}>
+            <Text>Facture : {data.order_ref}</Text>
+          </View>
+          <View style={styles.table}>
+            <View style={styles.tableRowTop}>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>Description</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>Quantité</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>Prix à l'unité</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>Montant</Text>
+              </View>
+            </View>
+            {productBill && productBill.map((datas, i) => {
+              return(
+              <View style={styles.tableRow}>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>{datas.product_name}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}></Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>{datas.product_price}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>{data.total_price}</Text>
+                </View>
+              </View>)
+            })}
+          </View>
+          <View style={styles.sectionShipping}>
+            <Text>Livraison :  </Text>
+            <Text>{orderBill && orderBill.shipping_price} €</Text>
+          </View>
+          <View style={styles.sectionShipping}>
+            <Text>Total Brut : {data.total_price} €</Text>
+            <Text>{orderBill && data.total_price + orderBill[0].shipping_price}</Text>
+          </View>
+          <View style={styles.sectionTVA}>
+            <Text>TVA (TVA non applicable, article 293B du Code Général des Impôts.) :</Text>
+            <Text>0 €</Text>
+          </View>
+          <View style={styles.sectionTotalPrice}>
+            <Text>Montant total :</Text>
+            <Text>46.50 €</Text>
+          </View>
         </View>
-        <View style={styles.sectionShipping}>
-          <Text>Total Brut :</Text>
-          <Text>46.50 €</Text>
+        <View style={styles.sectionFooter}>
+          <Text>Numéro Siret : 81000765800018</Text>
+          <Text>Société Jule et Lily - 56 Rue Gambetta 92 800 PUTEAUX</Text>
+          <Text>Contact : Email : juleetlily@gmail.com - Téléphone : 01 00 00 00 00</Text>
         </View>
-        <View style={styles.sectionTVA}>
-          <Text>TVA (TVA non applicable, article 293B du Code Général des Impôts.) :</Text>
-          <Text>0 €</Text>
-        </View>
-        <View style={styles.sectionTotalPrice}>
-          <Text>Montant total :</Text>
-          <Text>46.50 €</Text>
-        </View>
-      </View>
-      <View style={styles.sectionFooter}>
-        <Text>Numéro Siret : 81000765800018</Text>
-        <Text>Société Jule et Lily - 56 Rue Gambetta 92 800 PUTEAUX</Text>
-        <Text>Contact : Email : juleetlily@gmail.com - Téléphone : 01 00 00 00 00</Text>
-      </View>
-    </Page>
-  </Document>
-);
+      </Page>
+    </Document>
+  );
+}
 
 export default MyBill

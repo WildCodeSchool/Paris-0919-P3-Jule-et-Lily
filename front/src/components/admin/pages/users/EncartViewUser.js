@@ -10,6 +10,15 @@ export default function EncartViewUser(props) {
     const [shipping, setShipping] = useState()
     const [billing, setBilling] = useState()
     const [order, setOrder] = useState()
+    const [orderBill, setOrderBill] = useState()
+    const [productBill, setProductBill] = useState()
+    // console.log('shipping', shipping);
+    // console.log('billing', billing);
+    // console.log('order', order);
+    // console.log('orderBill', orderBill);
+    // console.log('productBill', productBill);
+
+
 
     const user = props.users
     const user_birthday = new Date(user.user_date_of_birth); // good format of date
@@ -33,12 +42,24 @@ export default function EncartViewUser(props) {
             .get(`/user/order/${user.user_id}`) // we catch values
             .then(res => setOrder(res.data))
     }
+    const fetchOrderForBill = () => {
+        Axios
+            .get(`/order/order/${user.user_id}`)
+            .then(res => setOrderBill(res.data))
+    }
+
+    const fetchOrderProduct = () => {
+        Axios
+            .get(`/order/${user.user_id}/items`)
+            .then(res => setProductBill(res.data))
+    }
 
     useEffect(() => {
         fetchShipping()
         fetchBilling()
         fetchOrder()
-       
+        fetchOrderForBill()
+        fetchOrderProduct()
     }, [])
 
     return (
@@ -259,7 +280,6 @@ export default function EncartViewUser(props) {
                             <tbody>
                                 {order && order.map((data, i) => {
                                     const order_date = new Date(data.order_date);
-                                    console.log('data',data)
                                     return (
                                         <tr>
                                             <td>
@@ -276,7 +296,14 @@ export default function EncartViewUser(props) {
                                             </td>
                                             <td>
                                                 {" "}
-                                                <p>{data.total_price}</p>
+                                                
+                                                {data && orderBill && orderBill.map((res, i) => {
+                                                    console.log('ici', data.order_id, res.order_id);
+                                                    
+                                                    if (data.order_id === res.order_id) {
+                                                       return data.total_price + res.shipping_price
+                                                    }
+                                                })}
                                             </td>
                                             <td>
                                                 {" "}
@@ -286,10 +313,12 @@ export default function EncartViewUser(props) {
                                                 {" "}
                                                 <PDFDownloadLink
                                                     document={<MyBill
-                                                        data={user} />}
+                                                    data = {data}
+                                                    data1 = {shipping}
+                                                    />}
                                                     fileName='facture.pdf'
                                                 >
-                                                    {({loading}) =>
+                                                    {({ loading }) =>
                                                         loading ? "Loading document..." : "Pdf"
                                                     }
                                                 </PDFDownloadLink>

@@ -65,7 +65,6 @@ export default function Users() {
 
   useEffect(() => {
     fetchData();
-    console.log("ici", data);
   }, [activePage]); // Mettre en commentaire pour recharger les bonnes données à chaque page
 
   const isClickedSee = index => {
@@ -137,7 +136,6 @@ export default function Users() {
     } else setDataToShow(data); //si la recherche est vide on veut afficher toutes les données dans le tableau
   };
 
-  console.log("ici", data);
   return (
     <div className="users">
       {clickView ? (

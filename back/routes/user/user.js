@@ -46,7 +46,7 @@ router.route('/billing/:id')
   .get(function (req, res, next) {
     connection.query(`SELECT address_firstname, address_lastname, is_shipping_address, is_billing_address, address_street, address_city, address_country, address_zip_code, address_company_name, u.user_phone FROM address JOIN user AS u on u.user_id=address.address_user_id WHERE u.user_id=${req.params.id} AND address.is_billing_address=1`, [req.params.id], (err, results) => {
       if (err) {
-        res.status(500).send('Erreur lors de la récupération du client');
+        res.status(500).send(`Erreur lors de la récupération de l'adresse de livraison`);
       } else {
         res.json(results);
       }
@@ -59,7 +59,7 @@ router.route('/shipping/:id')
   .get(function (req, res, next) {
     connection.query(`SELECT address_firstname, address_lastname, is_shipping_address, is_billing_address, address_street, address_city, address_country, address_zip_code, address_company_name, u.user_phone FROM address JOIN user AS u on u.user_id=address.address_user_id WHERE u.user_id=${req.params.id} AND address.is_shipping_address=1`, [req.params.id], (err, results) => {
       if (err) {
-        res.status(500).send('Erreur lors de la récupération du client');
+        res.status(500).send(`Erreur lors de la récupération de l'adresse de facturation`);
       } else {
         res.json(results);
       }
