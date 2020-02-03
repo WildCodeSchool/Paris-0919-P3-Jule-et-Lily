@@ -25,7 +25,7 @@ router.post('/', (req, res) => {
 ///////////////////////// Order modify by number id /////////////////////////////////
   router.route(['/order/:id/items/'])
   .get(function (req, res) { //récup un produit
-    connection.query(`SELECT product.product_name, product.product_price FROM product JOIN order_items as o ON o.order_item_product_id = product.product_id WHERE o.order_item_order_id = ${req.params.id}`, (err, results) => {
+    connection.query(`SELECT p.product_name, p.product_price, o.order_item_product_id FROM order_items as o JOIN product as p ON o.order_item_product_id = p.product_id WHERE o.order_item_order_id = ${req.params.id}`, (err, results) => {
       if (err) {
         console.log(err);
         res.send('Erreur lors de la récupération de la commande').status(500);
