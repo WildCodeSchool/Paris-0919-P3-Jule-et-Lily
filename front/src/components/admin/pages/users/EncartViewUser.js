@@ -12,6 +12,7 @@ export default function EncartViewUser(props) {
     const [order, setOrder] = useState()
     const [orderBill, setOrderBill] = useState()
     const [productBill, setProductBill] = useState()
+    const [shippingMethod, setShippingMethod] = useState()
     // console.log('shipping', shipping);
     // console.log('billing', billing);
     // console.log('order', order);
@@ -53,6 +54,8 @@ export default function EncartViewUser(props) {
           .get(`/order/order/${id}/items`)
           .then(res => setProductBill(res.data))
       }
+
+
 
     useEffect(() => {
         fetchShipping()
@@ -294,14 +297,7 @@ export default function EncartViewUser(props) {
                                             </td>
                                             <td>
                                                 {" "}
-                                                
-                                                {data && orderBill && orderBill.map((res, i) => {
-                                                    console.log('ici', data.order_id, res.order_id);
-                                                    
-                                                    if (data.order_id === res.order_id) {
-                                                       return data.total_price + res.shipping_price
-                                                    }
-                                                })}
+                                                <p>{data.total_price + data.shipping_price}</p>
                                             </td>
                                             <td>
                                                 {" "}
