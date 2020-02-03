@@ -10,6 +10,7 @@ import "../src/assets/css/admin/buttons-actions.css";
 import "../src/assets/css/admin/global.css";
 import "../src/assets/css/admin/FrontCustom.css";
 import "../src/assets/css/admin/Upload.css";
+import MyBill from './components/admin/pdf/MyBill';
 
 
 export default (props) => {
@@ -36,6 +37,7 @@ export default (props) => {
                 <Route  path="/collections" component={Collections} />
                 <Route  path="/promo" component={Promo} />
                 <Route  path="/frontcustom" component={FrontCustom} />
+                <Route  path="/facture" component={MyBill} />
               </Switch>
             </div>
           </div>
