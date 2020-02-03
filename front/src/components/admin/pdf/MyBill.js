@@ -46,9 +46,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginRight: 15,
     marginLeft: 15,
-    height: '300px',
-    borderStyle: "solid",
-    border: 1,
+    height: 'auto',
     alignItems: 'center',
   },
   tableRowTop: {
@@ -127,11 +125,12 @@ const MyBill = (props) => {
   const [productBill, setProductBill] = useState([])
   const data = props.data
   const data1 = props.data1
-  const data3 = props.data3 ? props.data3 : []
-  // console.log('ici', data);
-  // console.log('shipping', data1);
-  // console.log('product', productBill);
-  // console.log('order', orderBill);
+  const data3 = props.data3 ? props.data3[0] : null
+  console.log('ici', data);
+  console.log('data3', data3);
+  console.log('shipping', data1);
+  console.log('product', productBill);
+  console.log('order', orderBill);
 
   const data_date = new Date(data.order_date)
 
@@ -199,18 +198,18 @@ const MyBill = (props) => {
                   <Text style={styles.tableCell}>{datas.product_price}</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{data.total_price}</Text>
+                  <Text style={styles.tableCell}>{datas.product_price}</Text>
                 </View>
               </View>)
             })}
           </View>
           <View style={styles.sectionShipping}>
-            <Text>Livraison :  </Text>
-            <Text>{orderBill ? orderBill.shipping_price : data3 ? data3.shipping_price : '/'} €</Text>
+            <Text>Livraison : </Text>
+            <Text>{data3 ? data3.shipping_price : '/'} €</Text>
           </View>
           <View style={styles.sectionShipping}>
-            <Text>Total Brut : {data.total_price} €</Text>
-            <Text>{orderBill ? data.total_price + orderBill.shipping_price : data3 ? data.total_price + data3.shipping_price : '/'}</Text>
+            <Text>Total Brut :</Text>
+            <Text>{data3 ? data.total_price + data3.shipping_price : '/'} €</Text>
           </View>
           <View style={styles.sectionTVA}>
             <Text>TVA (TVA non applicable, article 293B du Code Général des Impôts.) :</Text>
@@ -218,7 +217,7 @@ const MyBill = (props) => {
           </View>
           <View style={styles.sectionTotalPrice}>
             <Text>Montant total :</Text>
-            <Text>46.50 €</Text>
+            <Text>{data3 ? data.total_price + data3.shipping_price : '/'} €</Text>
           </View>
         </View>
         <View style={styles.sectionFooter}>
@@ -232,7 +231,7 @@ const MyBill = (props) => {
     <PDFDownloadLink
     document={<MyBill
     data = {props.data}
-    data1 = {props.shipping}
+    data1 = {props.data1}
     data3 = {orderBill}
     data4 = {productBill}
     />}
