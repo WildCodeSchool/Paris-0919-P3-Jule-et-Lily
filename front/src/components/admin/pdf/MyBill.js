@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     fontSize: 14,
     fontWeight: 'bold',
-    textAlign: "justify",
     alignItems: 'right',
   },
   sectionNumber: {
@@ -151,96 +150,116 @@ const MyBill = (props) => {
     fetchProductBill()
   }, [])
 
+  // useEffect(() => {
+  //   removeDuplicates()
+  // }, [productBill])
+
+  //cleanArray removes all duplicated elements
+  // function removeDuplicates(productBill) {
+  //   let unique = [];
+  //   let(i=0, i<productBill.length, i++){
+  //     if (product.product_name != unique[i]) {
+  //       unique.push(productBill[i].product_name);
+  //     }
+  //   });
+  //   return unique;
+  // }
+  // console.log('unique', removeDuplicates(productBill));
+  
+
+
   return (
     props.data3 ?
-    <Document>
-      <Page size="A4" style={styles.page}>
-        <View>
-          <View style={styles.sectionUser}>
-            <Text>{data1 && data1[0].address_firstname} {data1 && data1[0].address_lastname}</Text>
-            <Text>{data1 && data1[0].address_street}</Text>
-            <Text>{data1 && data1[0].address_zip_code} {data1 && data1[0].address_city}</Text>
-          </View>
-          <View style={styles.sectionNumber}>
-            <Text>Numéro de facture : {data.order_ref}</Text>
-            <Text>Date de facture : {data_date.toLocaleDateString()}</Text>
-          </View>
-        </View>
-        <View style={styles.sectionMiddle}>
-          <View style={styles.sectionBill}>
-            <Text>Facture : {data.order_ref}</Text>
-          </View>
-          <View style={styles.table}>
-            <View style={styles.tableRowTop}>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Description</Text>
-              </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Quantité</Text>
-              </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Prix à l'unité</Text>
-              </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Montant</Text>
-              </View>
+      <Document>
+        <Page size="A4" style={styles.page}>
+          <View>
+            <View style={styles.sectionUser}>
+              <Text>{data1 && data1[0].address_firstname} {data1 && data1[0].address_lastname}</Text>
+              <Text>{data1 && data1[0].address_street}</Text>
+              <Text>{data1 && data1[0].address_zip_code} {data1 && data1[0].address_city}</Text>
             </View>
-            {productBill && productBill.map((datas, i) => {
-              return(
-              <View style={styles.tableRow}>
+            <View style={styles.sectionNumber}>
+              <Text>Numéro de facture : {data.order_ref}</Text>
+              <Text>Date de facture : {data_date.toLocaleDateString()}</Text>
+            </View>
+          </View>
+          <View style={styles.sectionMiddle}>
+            <View style={styles.sectionBill}>
+              <Text>Facture : {data.order_ref}</Text>
+            </View>
+            <View style={styles.table}>
+              <View style={styles.tableRowTop}>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{datas.product_name}</Text>
+                  <Text style={styles.tableCell}>Description</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}></Text>
+                  <Text style={styles.tableCell}>Quantité</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{datas.product_price}</Text>
+                  <Text style={styles.tableCell}>Prix à l'unité</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{datas.product_price}</Text>
+                  <Text style={styles.tableCell}>Montant</Text>
                 </View>
-              </View>)
-            })}
+              </View>
+              {productBill && productBill.map((datas, i) => {
+                let count = 0;
+                productBill.forEach(product => { if (product.product_name == datas.product_name) count += 1})
+                  return (
+                    <View style={styles.tableRow}>
+                      <View style={styles.tableCol}>
+                        <Text style={styles.tableCell}>{datas.product_name}</Text>
+                      </View>
+                      <View style={styles.tableCol}>
+                        <Text style={styles.tableCell}>{count}</Text>
+                      </View>
+                      <View style={styles.tableCol}>
+                        <Text style={styles.tableCell}>{datas.product_price}</Text>
+                      </View>
+                      <View style={styles.tableCol}>
+                        <Text style={styles.tableCell}>{datas.product_price * count}</Text>
+                      </View>
+                    </View>)
+              })}
+            </View>
+            <View style={styles.sectionShipping}>
+              <Text>Livraison : </Text>
+              <Text>{data3 ? data3.shipping_price : '/'} €</Text>
+            </View>
+            <View style={styles.sectionShipping}>
+              <Text>Total Brut :</Text>
+              <Text>{data3 ? data.total_price + data3.shipping_price : '/'} €</Text>
+            </View>
+            <View style={styles.sectionTVA}>
+              <Text>TVA (TVA non applicable, article 293B du Code Général des Impôts.) :</Text>
+              <Text>0 €</Text>
+            </View> 
+            <View style={styles.sectionTotalPrice}>
+              <Text>Montant total :</Text>
+              <Text>{data3 ? data.total_price + data3.shipping_price  : '/'} €</Text>
+            </View>
           </View>
-          <View style={styles.sectionShipping}>
-            <Text>Livraison : </Text>
-            <Text>{data3 ? data3.shipping_price : '/'} €</Text>
+          <View style={styles.sectionFooter}>
+            <Text>Numéro Siret : 81000765800018</Text>
+            <Text>Société Jule et Lily - 56 Rue Gambetta 92 800 PUTEAUX</Text>
+            <Text>Contact : Email : juleetlily@gmail.com - Téléphone : 01 00 00 00 00</Text>
           </View>
-          <View style={styles.sectionShipping}>
-            <Text>Total Brut :</Text>
-            <Text>{data3 ? data.total_price + data3.shipping_price : '/'} €</Text>
-          </View>
-          <View style={styles.sectionTVA}>
-            <Text>TVA (TVA non applicable, article 293B du Code Général des Impôts.) :</Text>
-            <Text>0 €</Text>
-          </View>
-          <View style={styles.sectionTotalPrice}>
-            <Text>Montant total :</Text>
-            <Text>{data3 ? data.total_price + data3.shipping_price : '/'} €</Text>
-          </View>
-        </View>
-        <View style={styles.sectionFooter}>
-          <Text>Numéro Siret : 81000765800018</Text>
-          <Text>Société Jule et Lily - 56 Rue Gambetta 92 800 PUTEAUX</Text>
-          <Text>Contact : Email : juleetlily@gmail.com - Téléphone : 01 00 00 00 00</Text>
-        </View>
-      </Page>
-    </Document>
-    : 
-    <PDFDownloadLink
-    document={<MyBill
-    data = {props.data}
-    data1 = {props.data1}
-    data3 = {orderBill}
-    data4 = {productBill}
-    />}
-    fileName='facture.pdf'
->
-    {({ loading }) =>
-        loading ? "Loading document..." : "Pdf"
-    }
-  </PDFDownloadLink>
+        </Page>
+      </Document>
+      :
+      <PDFDownloadLink
+        document={<MyBill
+          data={props.data}
+          data1={props.data1}
+          data3={orderBill}
+          data4={productBill}
+        />}
+        fileName='facture.pdf'
+      >
+        {({ loading }) =>
+          loading ? "Loading document..." : "Pdf"
+        }
+      </PDFDownloadLink>
   );
 }
 
