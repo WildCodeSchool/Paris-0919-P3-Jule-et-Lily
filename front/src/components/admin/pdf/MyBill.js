@@ -18,9 +18,8 @@ const styles = StyleSheet.create({
     padding: 10,
     flexGrow: 1,
     fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "justify",
-    alignItems: "right"
+    fontWeight: 'bold',
+    alignItems: 'right',
   },
   sectionNumber: {
     margin: 10,
@@ -46,10 +45,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginRight: 15,
     marginLeft: 15,
-    height: "300px",
-    borderStyle: "solid",
-    border: 1,
-    alignItems: "center"
+    height: 'auto',
+    alignItems: 'center',
   },
   tableRowTop: {
     height: "20px",
@@ -127,10 +124,6 @@ const MyBill = props => {
   const data1 = props.data1;
   const data3 = props.data3 ? props.data3[0] : null;
   const data4 = props.data4 ? props.data4 : null;
-  // console.log('ici', data);
-  // console.log('shipping', data1);
-  // console.log('product', productBill);
-  // console.log('order', orderBill);
 
   const removeDouble = () => {
     let newTable = [];
@@ -188,21 +181,20 @@ const MyBill = props => {
           <View style={styles.sectionBill}>
             <Text>Facture : {data.order_ref}</Text>
           </View>
-          <View style={styles.table}>
-            <View style={styles.tableRowTop}>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Description</Text>
+          <View style={styles.tableRowTop}>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>Description</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>Quantité</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>Prix à l'unité</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>Montant</Text>
+                </View>
               </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Quantité</Text>
-              </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Prix à l'unité</Text>
-              </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Montant</Text>
-              </View>
-            </View>
             {uniqueDatas &&
               uniqueDatas.map((datas, i) => {
                 let count = 0;
@@ -223,32 +215,33 @@ const MyBill = props => {
                       </Text>
                     </View>
                     <View style={styles.tableCol}>
-                      <Text style={styles.tableCell}>{data.total_price}</Text>
+                    <Text style={styles.tableCell}>{datas.product_price * count}</Text>
                     </View>
                   </View>
                 );
               })}
           </View>
           <View style={styles.sectionShipping}>
+            <Text>Total hors livraison : </Text>
+            <Text>{data.total_price} €</Text>
+          </View>
+          <View style={styles.sectionShipping}>
             <Text>Livraison : </Text>
             <Text>{data3 ? data3.shipping_price : "/"} €</Text>
           </View>
           <View style={styles.sectionShipping}>
-            <Text>Total Brut : {data.total_price} €</Text>
-            <Text>{data3 ? data.total_price + data3.shipping_price : "/"}</Text>
-          </View>
-          <View style={styles.sectionTVA}>
-            <Text>
-              TVA (TVA non applicable, article 293B du Code Général des Impôts.)
-              :
-            </Text>
-            <Text>0 €</Text>
-          </View>
-          <View style={styles.sectionTotalPrice}>
-            <Text>Montant total :</Text>
-            <Text>46.50 €</Text>
-          </View>
-        </View>
+              <Text>Total Brut :</Text>
+              <Text>{data3 ? data.total_price + data3.shipping_price : '/'} €</Text>
+            </View>
+            <View style={styles.sectionTVA}>
+              <Text>TVA (TVA non applicable, article 293B du Code Général des Impôts.) :</Text>
+              <Text>0 €</Text>
+            </View> 
+            <View style={styles.sectionTotalPrice}>
+              <Text>Montant total :</Text>
+              <Text>{data3 ? data.total_price + data3.shipping_price  : '/'} €</Text>
+            </View>
+       
         <View style={styles.sectionFooter}>
           <Text>Numéro Siret : 81000765800018</Text>
           <Text>Société Jule et Lily - 56 Rue Gambetta 92 800 PUTEAUX</Text>

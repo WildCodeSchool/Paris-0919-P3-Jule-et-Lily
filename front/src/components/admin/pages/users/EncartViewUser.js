@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Encarts, ReturnButton } from "../../common";
 import Axios from 'axios'
-import { PDFDownloadLink } from "@react-pdf/renderer";
 import MyBill from '../../pdf/MyBill'
 import '../../../../assets/css/admin/global.css'
 import '../../../../assets/css/admin/cards.css'
@@ -12,12 +11,6 @@ export default function EncartViewUser(props) {
     const [order, setOrder] = useState()
     const [orderBill, setOrderBill] = useState()
     const [productBill, setProductBill] = useState()
-    const [shippingMethod, setShippingMethod] = useState()
-    // console.log('shipping', shipping);
-    // console.log('billing', billing);
-    // console.log('order', order);
-    // console.log('orderBill', orderBill);
-    // console.log('productBill', productBill);
 
 
 
@@ -43,17 +36,17 @@ export default function EncartViewUser(props) {
             .get(`/user/order/${user.user_id}`) // we catch values
             .then(res => setOrder(res.data))
     }
-    const fetchOrderForBill = (id) => {
-        Axios
-          .get(`/order/order/${id}`)
-          .then(res => setOrderBill(res.data))
-      }
+    // const fetchOrderForBill = (id) => {
+    //     Axios
+    //       .get(`/order/order/${id}`)
+    //       .then(res => setOrderBill(res.data))
+    //   }
     
-      const fetchProductBill = (id) => {
-        Axios
-          .get(`/order/order/${id}/items`)
-          .then(res => setProductBill(res.data))
-      }
+    //   const fetchProductBill = (id) => {
+    //     Axios
+    //       .get(`/order/order/${id}/items`)
+    //       .then(res => setProductBill(res.data))
+    //   }
 
 
 
@@ -309,17 +302,6 @@ export default function EncartViewUser(props) {
                                                     data = {data}
                                                     data1 = {shipping}
                                                  />
-                                                {/* <PDFDownloadLink
-                                                    document={<MyBill
-                                                    data = {data}
-                                                    data1 = {shipping}
-                                                    />}
-                                                    fileName='facture.pdf'
-                                                >
-                                                    {({ loading }) =>
-                                                        loading ? "Loading document..." : "Pdf"
-                                                    }
-                                                </PDFDownloadLink> */}
                                             </td>
                                         </tr>
                                     )
