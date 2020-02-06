@@ -8,7 +8,6 @@ import ButtonSee from "./ButtonSee";
 const Tables = props => {
 
   const handleSort = (e) => {
-    //console.log(e.target)
     let order = '';
     if (e.target.classList.contains('asc')) {
       order = 'asc'
@@ -181,7 +180,6 @@ const Tables = props => {
                       </tr>
                     );
                   case "collections":
-                    // console.log('table data', data);
                     return (
                       <tr key={data.collection_id}>
                         <td>
@@ -192,9 +190,6 @@ const Tables = props => {
                           {" "}
                           <p><img src={data.image_name} alt="aucune image de couverture" width="80" height="80" /><br />{data.collection_cover_image_url}</p>
                         </td>
-                        {/* <td>
-                          <p><img src={data.image_url} alt="collection" width="80" height="80" /><br />{data.image_url}</p>
-                        </td> */}
                         <td>
                           <p>{data.nb_items}</p>
                         </td>

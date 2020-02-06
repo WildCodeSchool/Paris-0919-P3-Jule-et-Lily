@@ -7,7 +7,6 @@ import ReturnButton from '../../common/ReturnButton'
 
 export default function FormPromo(props) {
   const [promoModify, setPromoModify] = useState(props.donneesPromo)
-  // console.log('props.donneesPromo',props.donneesPromo)
 
   const start_date = new Date(promoModify.code_promo_date_start);
   const end_date = new Date(promoModify.code_promo_date_end);
@@ -36,7 +35,6 @@ export default function FormPromo(props) {
 
   // modification de la hooks en fonction des changements du form où la donnée ne doit ps être retraitée
   const validateNewData = (e) => {
-    // console.log('e.target.value', e.target.value, 'e.taget.name',e.target.name)
     setPromoModify({ ...promoModify, [e.target.name]: e.target.value })
     
   }
@@ -46,7 +44,6 @@ export default function FormPromo(props) {
     e.preventDefault();
     const promoPut = promoModify
 
-    // console.log('promoput', promoPut);
     axios   
       .put(`code-promo/${promoModify.code_promo_id}`, promoPut)
       .then(res => {
@@ -57,7 +54,6 @@ export default function FormPromo(props) {
           props.reload(); // au lieu de recharger complètement la page on execute la fonction reload du composant parent
         }
       }).catch(e => {
-        // console.error(e);
         alert(`Erreur lors de la modification de ${promoModify.code_promo_name}`)
       })
     }
@@ -110,7 +106,6 @@ export default function FormPromo(props) {
               type="date"
               className="form-control text-center"
               id="imageid"
-              // placeholder={`${date_start.getUTCFullYear()}/${date_start.getUTCMonth()+1}/${date_start.getDate()}`}
               value={`${start_date.getUTCFullYear()}-${start_month}-${start_day}`}
             />
           </div>

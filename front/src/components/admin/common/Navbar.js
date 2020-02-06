@@ -17,7 +17,6 @@ const Navbar = props => {
 
     const[lowStock, setLowStock] = useState(0)
     const {pathname} = props.location; // la route de la page active
-    // console.log('path : ',pathname)
 
     useEffect(() => {
         axios
@@ -29,7 +28,6 @@ const Navbar = props => {
     
         return (
             <div>
-                {/* {console.log(lowStock, 'lowStock')} */}
                 <ul className="navbar-nav bg-gradient-purple sidebar cssNavbar sidebar-dark accordion" id="accordionSidebar">
 
                     <a href="/#" className="sidebar-brand d-flex align-items-center justify-content-center">

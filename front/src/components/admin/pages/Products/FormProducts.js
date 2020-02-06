@@ -15,8 +15,6 @@ export default function FormProducts(props) {
   const [dataCoverImage, setDataCoverImage] = useState([]);
   const [dataPromo, setDataPromo] = useState()
   const [productStockModify, setProductStockModify] = useState({}) // changement state stock pour le produit
-  console.log('productStock', productStockModify);
-  console.log('dataCategories', dataCategories);
 
   // récupération des noms de collections
   const fetchCollection = () => {
@@ -100,10 +98,6 @@ export default function FormProducts(props) {
     let newCategorie = dataCategories.filter(categorie => categorie.category_name.toUpperCase() === e.target.value.toUpperCase())
     let newCategorieId = newCategorie[0].category_id
     setProductModify({ ...productModify, [e.target.name]: e.target.value })
-    console.log('newcollection', newCategorie);
-    console.log('-------');
-    console.log('e target', e.target.value);
-    console.log('newcollectionid', newCategorieId);
     setProductModify({ ...productModify, product_category_id: newCategorieId })
   }
 
@@ -120,7 +114,6 @@ export default function FormProducts(props) {
     delete productPut.product_cover_image_id
     delete productPut.image_name
     delete productPut.product_stock_min
-    console.log('productput', productPut);
     axios     // récupération des données produit et envoi ds la bdd
       .put(`product/${productModify.product_id}`, productPut)
       .then(res => {
@@ -130,7 +123,6 @@ export default function FormProducts(props) {
           alert(` ${productModify.product_name} a été modifié avec succès!`)
         }
       }).catch(e => {
-        console.error(e);
         alert(`Erreur lors de la modification de ${productModify.product_name}`)
       });
     axios // modifier le stock
@@ -161,7 +153,6 @@ export default function FormProducts(props) {
       }
     })
     .catch(e => {
-      console.error(e);
       alert(`Erreur lors de la modification de ${productModify.product_name}`)
     });
   }
@@ -175,7 +166,6 @@ export default function FormProducts(props) {
     axios
       .delete(`/product/image/${id}`)
       .then(res => {
-        console.log('suppression image',res)
         if (res.error) {
           alert("Erreur lors de la suppression de l'image du produit", res.error);
         } else {
@@ -183,9 +173,6 @@ export default function FormProducts(props) {
           fetchDataImage()
         }
       })
-      // .catch(e => {
-      //   console.error(e);
-      // });
   } else {
     alert ("Attention il faut garder au moins une image par produit");
   }
@@ -199,13 +186,6 @@ export default function FormProducts(props) {
     fetchDataCoverImage()
     fetchPromo()
   }, [] )
-
-  // useEffect(() => {
-    
-  //   // fetchDataCoverImage()
-  // }, [dataImage] )
-
-
 
   return (
     <>

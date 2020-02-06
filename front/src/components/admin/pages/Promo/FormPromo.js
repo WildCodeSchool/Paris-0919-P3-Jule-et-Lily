@@ -8,7 +8,6 @@ import { ChromePicker } from 'react-color'
 
 export default function FormPromo(props) {
   const [promoModify, setPromoModify] = useState(props.donneesPromo)
-// console.log('props.donneesPromo',props.donneesPromo)
 
 const [ColorPickerDisplay, setColorPickerDisplay] = useState(false);
 const [encartDisplay, setEncartDisplay] = useState({
@@ -34,7 +33,6 @@ const [encartDisplay, setEncartDisplay] = useState({
     e.preventDefault();
     const promoPut = promoModify
     delete promoPut.image_name
-    // console.log('promoput2', promoPut);
     axios   
       .put(`promo/${promoModify.promo_id}`, promoPut)
       .then(res => {
@@ -45,7 +43,6 @@ const [encartDisplay, setEncartDisplay] = useState({
           props.reload(); // au lieu de recharger complètement la page on execute la fonction reload du composant parent
         }
       }).catch(e => {
-        // console.error(e);
         alert(`Erreur lors de la modification de ${promoModify.promo_name}`)
       })
     }

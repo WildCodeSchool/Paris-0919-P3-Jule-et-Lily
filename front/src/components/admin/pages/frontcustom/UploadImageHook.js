@@ -1,8 +1,6 @@
 
 import React, { useState } from "react";
 import axios from "axios"
-// import DragAndDrop from './DragAndDrop'
-
 
 
 const UploadImage = (props) => {
@@ -22,8 +20,6 @@ const onChangeFile = (e) => {
         }
        setFiles([...files], fileList)
        setUrls([...urls], fileUrl)
-       console.log('state files', files)
-       
     } else {
         alert ("Attention il n'est pas possible d'avoir plus de 5 images dans le slider");
     }   
@@ -35,8 +31,6 @@ const onChangeUrl = (e) => {
         let fileUrl = urls;   
         fileUrl[i] = e.target.value;
         setUrls([...urls], fileUrl)
-        // console.log('state urls', urls)
-        // console.log('state files', files)
 }
     const onClickHandler = e => {
         e.preventDefault();
@@ -44,13 +38,6 @@ const onChangeUrl = (e) => {
         for (const key of Object.keys(files)) { 
             formFiles.append('file', files[key])
         }
-
-
-        // const formUrls = new FormData();
-        // for (const key of Object.keys(urls)) {
-        //     formUrls.append('file', urls[key])
-        // }
-
 
         axios
             .post("/image-slider/image", formFiles)
@@ -69,24 +56,8 @@ const onChangeUrl = (e) => {
                     })
                 }
             })
-      
- 
-          // .catch(e => {
-          //   console.error(e);
-          // });
         setTimeout(() => window.location.reload(), 2000);
       };
- 
-
-    // handleDrop = (files) => {
-    //     let fileList = files
-    //     for (var i = 0; i < files.length; i++) {
-    //       if (!files[i]) return
-    //       fileList.push(files[i])
-    //     }
-    //     setFiles(fileList, () => console.log(this.state))
-    // }
-
 
     return (
       <>
@@ -145,11 +116,6 @@ const onChangeUrl = (e) => {
               </button>
             </div>
           </div>
-          {/* <div>
-                <DragAndDrop handleDrop={this.handleDrop}>
-                    <div className="content-dd"></div>
-                </DragAndDrop>
-            </div> */}
       </>
     );
 }

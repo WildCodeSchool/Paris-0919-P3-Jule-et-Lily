@@ -44,7 +44,6 @@ export default function FormProducts(props) {
     axios
       .delete(`/collection/image/${id}`)
       .then(res => {
-        console.log('suppression image',res)
         if (res.error) {
           alert("Erreur lors de la suppression de l'image du produit", res.error);
         } else {
@@ -52,9 +51,6 @@ export default function FormProducts(props) {
           fetchDataImage()
         }
       })
-      // .catch(e => {
-      //   console.error(e);
-      // });
   } else {
     alert ("Attention il faut garder au moins une image par produit");
   }
@@ -91,7 +87,7 @@ useEffect(() => {
     delete newValueCollection.image_name
     delete newValueCollection.nb_items
     delete newValueCollection.collection_cover_image_id
-    axios     // envoi ds la bdd
+    axios     // envoi dans la bdd
       .put(`collection/${props.donneesCollection.collection_id}`, newValueCollection)
       .then(res => {
         if (res.err) {
@@ -104,7 +100,6 @@ useEffect(() => {
 
   }
 
-  // console.log('CollectionModify', CollectionModify)
   return (
     <>
       <Encarts title="Ajouter / Modifier les informations">
@@ -120,7 +115,6 @@ useEffect(() => {
               id="collection_name"
               placeholder={props.donneesCollection.collection_name}
               value={CollectionModify.collection_name}
-
             />
           </div>
 

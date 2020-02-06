@@ -16,8 +16,6 @@ const onChangeFile = (e) => {
             fileList.push(e.target.files[i])
         }
        setFiles([...files], fileList)
-       console.log('state files', files)
-       
 }
 
 
@@ -40,12 +38,9 @@ const onChangeFile = (e) => {
           }
         })
     };
- 
-
    
     return (
-      <>
-  
+      <> 
           <div className="row">
             <div className="col-12 text-center my-3">
               <h4 className="">Uploader les images ici</h4>

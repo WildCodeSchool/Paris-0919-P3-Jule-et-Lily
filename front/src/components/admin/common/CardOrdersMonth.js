@@ -23,9 +23,6 @@ export default (props) => {
             <div style={divStyle}>
               <Icon />
             </div>
-            {/* <div className="col-auto">
-                <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
-              </div> */}
           </div>
         </div>
       </div>

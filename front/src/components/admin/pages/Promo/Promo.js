@@ -146,13 +146,11 @@ export default function Promo(props) {
   };
 
   const isClickedModidy = index => {
-    // console.log("click!");
     setClick(!click);
     setPromoClick(dataToShow[index]);
   };
 
   const isClickedSee = index => {
-    // console.log("click!");
     setClickView(!clickView);
     setPromoClick(dataToShow[index]);
   };
@@ -188,13 +186,11 @@ export default function Promo(props) {
   };
 
   const isClickedModifyCodePromo = index => {
-    // console.log("click!");
     setClickCodePromo(!clickCodePromo);
     setCodePromoClick(dataToShow2[index]);
   };
 
   const isClickedSeeCodePromo = index => {
-    // console.log("click!");
     setClickViewCodePromo(!clickViewCodePromo);
     setCodePromoClick(dataToShow2[index]);
   };
@@ -275,10 +271,6 @@ export default function Promo(props) {
     }
   };
 
-  // passer la props à table ici
-
-  console.log("datapromo", data);
-  // console.log("proctclick", productClick);
   // fonction pour aller une page en avant
   const changePagePlus =  table => {
       table === "promo" ?
@@ -293,8 +285,7 @@ export default function Promo(props) {
     table === "promo" ?
     setActivePage(activePage - 1)
     :
-    setActivePage2(activePage2 - 1) 
-    
+    setActivePage2(activePage2 - 1)   
     //on retire 1 à la page active
   };
 
@@ -345,6 +336,7 @@ export default function Promo(props) {
           </Encarts>
         )}
       </div>
+      
 {/* code-promo */}
       <div className="code-promo">
         {clickAddCodePromo ? (

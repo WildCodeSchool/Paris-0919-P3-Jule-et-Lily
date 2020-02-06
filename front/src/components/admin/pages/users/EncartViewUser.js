@@ -36,19 +36,6 @@ export default function EncartViewUser(props) {
             .get(`/user/order/${user.user_id}`) // we catch values
             .then(res => setOrder(res.data))
     }
-    // const fetchOrderForBill = (id) => {
-    //     Axios
-    //       .get(`/order/order/${id}`)
-    //       .then(res => setOrderBill(res.data))
-    //   }
-    
-    //   const fetchProductBill = (id) => {
-    //     Axios
-    //       .get(`/order/order/${id}/items`)
-    //       .then(res => setProductBill(res.data))
-    //   }
-
-
 
     useEffect(() => {
         fetchShipping()

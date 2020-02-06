@@ -1,11 +1,6 @@
 const express = require("express")
 const connection = require('../../conf')
-
 const router = express.Router()
-
-// router.get('/', (req, res) => {
-//     res.send("je suis sur la route /user ").status(200)
-// })
 
 /////////////////////////////////////// Alert-order /////////////////////////////////////////////
 // TESTE OK
@@ -21,43 +16,35 @@ router.post('/', (req, res) => {
   })
 })
 
-
 ///////////////////////// Order modify by number id /////////////////////////////////
   router.route(['/order/:id/items/'])
-  .get(function (req, res) { //récup un produit
+  .get(function (req, res) { 
     connection.query(`SELECT p.product_name, p.product_price, o.order_item_product_id FROM order_items as o JOIN product as p ON o.order_item_product_id = p.product_id WHERE o.order_item_order_id = ${req.params.id}`, (err, results) => {
       if (err) {
-        console.log(err);
         res.send('Erreur lors de la récupération de la commande').status(500);
       } else {
-        console.log(results)
         res.json(results);
       }
     });
   })
 
   router.route(['/order/:id'])
-  .get(function (req, res) { //récup un produit
+  .get(function (req, res) { 
     connection.query(`SELECT  o.* ,SUM(p.product_price) as total_price, COUNT(i.order_item_product_id) as number_of_products, s.order_status_name, sh.* FROM product as p JOIN order_items as i ON p.product_id = i.order_item_product_id JOIN orders as o ON o.order_id = i.order_item_order_id JOIN order_status as s ON s.order_status_id = o.order_status JOIN shipping_methods as sh ON sh.shipping_id = o.order_shipping_method_id WHERE o.order_id = ${req.params.id} GROUP BY o.order_id`, (err, results) => {
       if (err) {
-        console.log(err);
         res.send('Erreur lors de la récupération de la commande').status(500);
       } else {
-        console.log(results)
         res.json(results);
       }
     });
   })
-  .put(function (req, res) { // modifier un produit
+  .put(function (req, res) { 
     const requestOrderPut = req.params.id;
     const formData = req.body;
     connection.query('UPDATE orders SET ? WHERE order_id=?', [formData, requestOrderPut], (err, results) => {
       if (err) {
-        console.log('erreur back', err);
         res.status(500).send("Erreur lors de la modification de la commande");
       } else {
-        console.log('res back', res);
-        console.log(results)
         res.sendStatus(200);
       }
     });
@@ -112,7 +99,6 @@ router.route(['/stats/:request', '/stats/'])
     });
   })
 
-// 'SELECT SUM(p.product_price) as total_price, COUNT(i.order_item_product_id) as number_of_products, o.* FROM product as p JOIN order_items as i ON p.product_id = i.order_item_product_id JOIN orders as o ON o.order_id = i.order_item_order_id WHERE ${req.params.request}(o.order_date) = ${req.params.request}(CURRENT_DATE) AND YEAR(o.order_date) = YEAR(CURRENT_DATE) GROUP BY o.order_id'
 
 /////////////////////////////////////// Get les orders depuis le début du mois / les orders en cours ou expédiées ////////////////////////////////////////
 
@@ -136,8 +122,6 @@ router.get("/all", (req, res) => {
     `SELECT u.user_firstname, u.user_lastname, SUM(p.product_price) as total_price, COUNT(i.order_item_product_id) as number_of_products, o.*, s.order_status_name FROM product as p JOIN order_items as i ON p.product_id = i.order_item_product_id JOIN orders as o ON o.order_id = i.order_item_order_id JOIN order_status as s ON s.order_status_id = o.order_status LEFT OUTER JOIN user as u ON o.order_user_id=u.user_id GROUP BY o.order_id`,
     (err, results) => {
       if (err) {
-        console.log(err);
-
         res.status(500).send('Erreur lors de la récupération des commandes du mois');
       } else {
         res.json(results);
@@ -145,7 +129,6 @@ router.get("/all", (req, res) => {
     });
 });
 
-// TESTER OK
 router.get('/:number', (req, res) => {
   connection.query(
     `SELECT o.order_ref, st.order_status_name
