@@ -13,7 +13,6 @@ export default function FormAddCollection(props) {
     const [newCollection, setnewCollection] = useState(
         {
             collection_name: '',
-            // collection_cover_image_url: 'https://juleetlily.com/wp-content/uploads/2019/09/Nineties-08.jpg',
         })
 
         const [fakeDataImage, setFakeDataImage] = useState([]);
@@ -22,7 +21,6 @@ export default function FormAddCollection(props) {
     // modification de la hooks NewCollection entière
     const validateNewCollection = (e) => {
         setnewCollection({ ...newCollection, [e.target.name]: e.target.value })
-        // console.log('newCollection', newCollection);
     }
   
     let handleSubmitCollection = e => {
@@ -56,7 +54,6 @@ export default function FormAddCollection(props) {
                     axios // ajouter les images 
                     .post(`/collection/add/image/`, formFiles)
                     .then(res3 => {
-                    console.log('res img',res3)
                     if (res3.err) {
                         alert("Erreur lors de l'upload de l'image", res.error);
                     } else {
@@ -96,7 +93,6 @@ export default function FormAddCollection(props) {
 
     return (
         <>
-
             <ReturnButton onClickSee={props.onClick} />
             <Encarts title="Ajouter une collection">
 

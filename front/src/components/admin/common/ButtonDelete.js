@@ -9,8 +9,6 @@ const ButtonDelete = (props) => {
 
   return (
     <>
-  
-    {/* Button Delete */}
     <div className="btn">
     <i onClick={handleClick} className="bg-gray btn-sm btn-action">
       <i className="fas fa-trash-alt"></i>

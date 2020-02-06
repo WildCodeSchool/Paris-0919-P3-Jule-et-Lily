@@ -13,12 +13,9 @@ router.get('/', (req, res) => {
 })
 
 
-
 ///////// Route ajout image
 router.post("/image", upload.array("file"), (req, res, next) => {
   let error =  false;
-
-  // console.log("file cote back",req.files)
   req.files.map(file => {
 
     let Timestamp = Math.round(new Date().getTime() / 1000)
@@ -53,7 +50,6 @@ router.post("/image", upload.array("file"), (req, res, next) => {
 ///////// Route ajout url
 router.put("/url", (req, res) => {
   let error =  false;
-  // console.log("url cote back", req.body)
  const size = req.body.length
   req.body.map((item,i) => {
     const formdata = {
@@ -61,7 +57,6 @@ router.put("/url", (req, res) => {
     }
     connection.query(`SELECT image_id FROM image ORDER by image_id DESC LIMIT 1 OFFSET ${(size-1)-i}`, (err, result) => {
       let dataId = result[0].image_id
-      // console.log("image_id",dataId)
       if (err) {
         error=true;
       } else {
@@ -85,7 +80,6 @@ return res.send("url uploaded sucessfully").status(200);
 router.route(["/all", "/", "/:id"])
   //////// AFFICHER TOUTES LES IMAGES
   .get(function(req, res, next) {
-    //http://localhost:3000/image-slider/all
     connection.query(
       `SELECT * FROM image WHERE is_slider_image = '1' ORDER BY image_id ASC`,
       (err, results) => {
@@ -100,35 +94,7 @@ router.route(["/all", "/", "/:id"])
     );
   })
 
-  // ////// SUPPRIMER UNE IMAGE SUR BDD (FONCTIONNEL)
-  // .delete(function (req, res) {
-  //   connection.query(`DELETE FROM image WHERE image_id=${req.params.id}`, (err, result) => {
-  //     if (err) {
-  //       res.status(500).send("Erreur lors de la suppression d'une image");
-  //     } else {
-  //       res.sendStatus(200);
-  //     }
-  //   });
-  // })
 
-  // //////// SUPPRIMER IMAGE SUR SERVER (FONCTIONNEL)
-  // .delete(function (req, res) {
-  //     connection.query(`SELECT image_name FROM image WHERE image_id = ${req.params.id}`, (err, result) => {
-  //       if (err) {
-  //         res.send("Erreur lors de la recuperation du nom d'image").status(500)
-  //       } else {
-  //       const path = result[0].image_name;
-  //       console.log("image name", path)
-  //       try {
-  //         fs.unlinkSync(path)
-  //         res.send("image bien supprimée").status(200);
-  //         //file removed
-  //       } catch(err) {
-  //         console.error(err)
-  //       }
-  //     }
-  //   })
-  // })
 
   ////// SUPPRIMER UNE IMAGE BDD ET SERVEUR
 
@@ -138,7 +104,6 @@ router.route(["/all", "/", "/:id"])
           res.send("Erreur lors de la recuperation du nom d'image").status(500);
         } else {
           const path = result[0].image_name;
-          // console.log("image name", path);
           try {
             fs.unlinkSync(path);
             connection.query(`DELETE FROM image WHERE image_id=${req.params.id}`, (err, result) => {
@@ -150,7 +115,6 @@ router.route(["/all", "/", "/:id"])
               });
           } catch (err) {
             res.status(500).send("Erreur lors de la suppression d'une image dans le serveur public");
-            // console.error(err);
           }
         }
       }

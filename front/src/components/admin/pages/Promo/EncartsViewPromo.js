@@ -17,9 +17,6 @@ export default props => {
         </div>
 
         <div className="media" style={{ width: "100%" }}>
-          {/* <div className="media-left">
-            <img className="m-3" src={promoModify.promo_sticker_id} alt="sticker-promo" style={{ width: "250px", height: "250px", }} />
-          </div> */}
 
           <div className="media-body ml-4 mt-2 mx-auto text-center">
             <h3 className="card-title text-center gray">

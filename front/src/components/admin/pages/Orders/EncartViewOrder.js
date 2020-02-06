@@ -6,7 +6,6 @@ import Encarts from '../../common/Encarts'
 import ReturnButton from '../../common/ReturnButton'
 export default function FormProducts(props) {
 
-
     const [orders, setOrder] = useState();
     const donnes = props.donneesOrder;
     const fetchOrders = () => {
@@ -23,7 +22,6 @@ export default function FormProducts(props) {
         fetchOrders()
     }, [])
 
-    console.log('orderClick', props.donneesOrder)
     const orderLocal = new Date(donnes.order_date)
     const orderShip = new Date(donnes.order_shipped_date)
     let date = orderShip;
@@ -43,7 +41,6 @@ export default function FormProducts(props) {
     }
     else { date_day = date.getDate() }
 
-    console.log('orderShip', orderShip.toLocaleDateString());
     return (
 
         <>
@@ -88,8 +85,7 @@ export default function FormProducts(props) {
                                     <p>{donnes.total_price}</p>
                                 </td>
 
-                                <td>
-                                 
+                                <td>   
 
                                         <p className="text-center">
                                             {donnes.order_status_name} 

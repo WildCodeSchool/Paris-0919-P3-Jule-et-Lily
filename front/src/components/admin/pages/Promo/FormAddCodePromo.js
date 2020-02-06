@@ -18,7 +18,6 @@ export default function FormAddPromo(props) {
     let handleSubmitPromo = e => {
         e.preventDefault();
         const PromoPut = newPromo
-        // console.log('Promoput', PromoPut);
         axios     // envoi ds la bdd
             .post(`code-promo/`, PromoPut)
             .then(res => {
@@ -49,7 +48,6 @@ export default function FormAddPromo(props) {
               type="text"
               className="form-control text-center"
               id="designationid"
-              //placeholder={newPromo.promo_name}
               value={newPromo && newPromo.code_promo_name}
             />
           </div>
@@ -63,7 +61,6 @@ export default function FormAddPromo(props) {
               step="0.01"
               className="form-control text-center"
               id="promo_value"
-              //placeholder={newPromo.promo_value}
               value={newPromo && newPromo.code_promo_value}
             />
           </div>
@@ -76,7 +73,6 @@ export default function FormAddPromo(props) {
               type="date"
               className="form-control text-center"
               id="date_start"
-             // placeholder={newPromo.promo_sticker_id}
               value={newPromo && newPromo.code_promo_date_start}
             />
           </div>
@@ -89,7 +85,6 @@ export default function FormAddPromo(props) {
               type="date"
               className="form-control text-center"
               id="date_end"
-             // placeholder={newPromo.promo_sticker_id}
               value={newPromo && newPromo.code_promo_date_end}
             />
           </div>

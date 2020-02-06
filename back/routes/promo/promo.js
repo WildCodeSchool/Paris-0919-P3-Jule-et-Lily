@@ -53,7 +53,6 @@ router
   .put(function(req, res) {
     const idCodePromo = req.params.id;
     const formData = req.body;
-    console.log(formData)
     connection.query(
       "UPDATE promo SET ? WHERE promo_id=?",
       [formData, idCodePromo],
@@ -70,9 +69,7 @@ router
   .delete(function(req, res) {
     const idCodePromo = req.params.id;
     connection.query("SET FOREIGN_KEY_CHECKS=0", (err, results) => {
-      //ajouter un produit
       if (err) {
-        console.log(`ici l'erreur `, err);
         res.send("Erreur lors de l'ajout du produit.").status(500);
       } else {
         connection.query(
@@ -80,12 +77,10 @@ router
           [idCodePromo],
           err => {
             if (err) {
-              console.log(err);
               res.status(500).send("Erreur lors de la suppression de la promo");
             } else {
               connection.query("SET FOREIGN_KEY_CHECKS=1", (err, results) => {
                 if (err) {
-                  console.log(`ici l'erreur `, err);
                   res.send("Erreur lors de l'ajout du produit.").status(500);
                 } else {
                   res.status(200);

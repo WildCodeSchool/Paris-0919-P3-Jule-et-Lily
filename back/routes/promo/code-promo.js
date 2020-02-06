@@ -53,10 +53,8 @@ router.route([`${codePromoRoute}:id`, codePromoRoute])
     date_start = `${date_start.getUTCFullYear()}/${date_start.getUTCMonth()+1}/${date_start.getDate()}`
     let date_end = new Date (req.body.code_promo_date_end)
     date_end = `${date_end.getUTCFullYear()}/${date_end.getUTCMonth()+1}/${date_end.getDate()}`
-    console.log('date_start',date_start)
     connection.query('UPDATE code_promo SET ?, code_promo_date_start= ?, code_promo_date_end = ? WHERE code_promo_id=?', [formData, date_start, date_end, idCodePromo], err => {
       if (err) {
-        console.log(err)
         res.status(500).send("Erreur lors de la modification du code promo");
       } else {
         res.sendStatus(200);

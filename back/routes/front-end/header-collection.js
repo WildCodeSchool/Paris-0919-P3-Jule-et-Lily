@@ -60,12 +60,8 @@ router.route(['/all', '/:request', '/',':id' ])  //  http://localhost:4000/heade
         }
       
         const formData = renameKeys(obj1, newKeys);
-
-        // console.log('state reçu', obj1)
-        // console.log('formData', formData)
         connection.query('UPDATE header_collection_menu  SET ? WHERE collection_menu_id=?', [formData, requestProduct], err => {
           if (err) {
-            console.log(err)
             res.status(500).send("Erreur lors de la modification d'un header collection menu");
           } else {
             res.sendStatus(200);

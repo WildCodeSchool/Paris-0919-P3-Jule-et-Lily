@@ -24,7 +24,6 @@ const LoginBar = (props) => {
         Authorization: "Bearer " + props.token,
         method: 'POST'
       }
-      // body: JSON.stringify(props.user)
     })
       .then(res => res.json())
       .then(res => {

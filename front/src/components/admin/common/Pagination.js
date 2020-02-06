@@ -6,7 +6,6 @@ const Pagination = (props) => {
   const [activePage, setActivePage] = useState(props.activePage);
 
   const createPagination = () => {
-    // console.log(pagesNb)
     let pages = []
     for (let i = 1; i <= pagesNb; i++) {
      pages.push(i);
@@ -43,7 +42,6 @@ const Pagination = (props) => {
 
   const scrollToview = () => {
     const theDiv = document.getElementById(props.table)
-    // console.log('theDiv, props.table',theDiv, props.table)
     theDiv.scrollIntoView();
   }
 
