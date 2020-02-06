@@ -6,24 +6,6 @@ const UploadImage = (props) => {
 
 const [files, setFiles] = useState([])
 
-
-// const onChangeFile = (e) => {
-
-//         setFiles([])
-//         let fileList = files;
-//         for (var i = 0; i < e.target.files.length; i++) {
-//             if (!e.target.files[i]) return
-//             const file = e.target.files[i]
-//             const link = URL.createObjectURL(e.target.files[i])
-//             fileList.push({file,link})
-//             setFiles([...files], fileList)   
-//         }
-//         const temporaryDataImage = [...props.fakeDataImage] 
-//         temporaryDataImage.push(...files)
-//         props.setFakeDataImage(temporaryDataImage)    
-//         setFiles([])
-// }
-
 const onChangeFile = (e) => {
 
 

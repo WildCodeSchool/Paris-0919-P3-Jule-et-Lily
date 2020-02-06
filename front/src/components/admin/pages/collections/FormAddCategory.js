@@ -15,12 +15,11 @@ export default function FormAddCategory(props) {
 
     const validateNewCategory = (e) => {
         setnewCategory({...newCategory, [e.target.name]: e.target.value })
-        // console.log('newCategory', newCategory);
     }
   
     let handleSubmitCategory = e => {
         e.preventDefault();
-        axios     // envoi ds la bdd
+        axios     // envoi dans la bdd
             .post(`category/`, newCategory)
             .then(res => {
                 if (res.err) {

@@ -14,7 +14,6 @@ router.get("/all/:request", (req, res) => {
     `SELECT c.*, i.image_name, COUNT(p.product_id) as nb_items FROM collection as c LEFT OUTER JOIN image as i ON i.image_id = c.collection_cover_image_id LEFT OUTER JOIN product as p ON p.product_collection_id = c.collection_id GROUP BY c.collection_id ORDER BY c.collection_name ${req.params.request}`,
     (err, results) => {
       if (err) {
-        console.log(err);
         res
           .send("Erreur lors de la récupération des collections" + err)
           .status(500);
@@ -48,7 +47,6 @@ router
       formData,
       (err, results) => {
         if (err) {
-          console.log(err);
           res.status(500).send("Erreur lors de l'ajout d'une collection");
         } else {
           res.send('collection ajoutée').status(200);
@@ -63,8 +61,6 @@ router
       [formData],
       err => {
         if (err) {
-          console.log(err);
-
           res
             .status(500)
             .send("Erreur lors de la modification d'une collection");
@@ -77,27 +73,21 @@ router
   .delete(function(req, res) {
     const id = req.params.id
     connection.query("SET FOREIGN_KEY_CHECKS=0",(err, results) => {
-      //ajouter un produit
       if (err) {
-        // console.log(err);
-        
         res.status(500).send("Erreur lors de la modification d'une collection");
       } else {
         connection.query(
           `DELETE FROM collection WHERE collection_id=${req.params.id}`,
           err => {
             if (err) {
-              console.log("err delete coll", err);
               res
                 .status(500)
                 .send("Erreur lors de la suppression d'une collection");
             } else {
-              console.log(req.params)
               connection.query(
                 `SELECT image_name FROM image WHERE image_collection_id = ${id}`,
                 (err, result) => {
                   if (err) {
-                    console.log("selectImage err", err);
                     res
                       .send("Erreur lors de la recuperation du nom d'image")
                       .status(500);
@@ -105,14 +95,12 @@ router
                     try {
                       for (let i = 0; i < result.length; i++){
                         const path = result[i].image_name;
-                        console.log("image name", path);
                         fs.unlinkSync(path);
                       }
                       connection.query(
                         `DELETE FROM image WHERE image_collection_id=${id}`,
                         (err, result) => {
                           if (err) {
-                            console.log("deleteImage err", err);
                             res
                               .status(500)
                               .send(
@@ -122,7 +110,6 @@ router
                               "SET FOREIGN_KEY_CHECKS=1",
                               (err, results) => {
                                 if (err) {
-                                  console.log(`ici l'erreur `, err);
                                   res
                                     .send("Erreur lors de l'ajout du produit.")
                                     .status(500);
@@ -140,7 +127,6 @@ router
                         .send(
                           "Erreur lors de la suppression d'une image dans le serveur public"
                         );
-                      console.error(err);
                     }
                   }
                 }
@@ -158,7 +144,6 @@ router
 router
   .route(["/image/:id", "/image"])
   .get(function(req, res) {
-    //récup un produit
     connection.query(
       `SELECT image_id FROM image JOIN collection ON image_id = collection_cover_image_id WHERE collection_id= ${req.params.id}`,
       (err1, res1) => {
@@ -168,7 +153,6 @@ router
             .send(
               "Erreur lors de la récupération de l'image de couverture de la collections"
             );
-          console.log("erreur recup image", err);
         } else if (!res1[0]) {
           connection.query(
             `SELECT * FROM image WHERE image_collection_id = ${req.params.id} ORDER BY image_id ASC`,
@@ -195,7 +179,6 @@ router
                   .send(
                     "Erreur lors de la récupération des images de la collection"
                   );
-                console.log("erreur  recup image", err);
               } else {
                 res.json(results);
               }
@@ -215,7 +198,6 @@ router
           res.send("Erreur lors de la recuperation du nom d'image").status(500);
         } else {
           const path = result[0].image_name;
-          console.log("image name", path);
           try {
             fs.unlinkSync(path);
             connection.query(
@@ -238,7 +220,6 @@ router
               .send(
                 "Erreur lors de la suppression d'une image dans le serveur public"
               );
-            console.error(err);
           }
         }
       }
@@ -249,7 +230,6 @@ router
 router
   .route(["/image-cover/:id", "/image-cover/:id/:collectionId"])
   .get(function(req, res) {
-    //récup un produit
     connection.query(
       `SELECT * FROM image JOIN collection ON image_id = collection_cover_image_id WHERE collection_id= ${req.params.id}`,
       (err, results) => {
@@ -259,7 +239,6 @@ router
             .send(
               "Erreur lors de la récupération de l'image de couverture de la collection"
             );
-          console.log("erreur  recup image", err);
         } else {
           res.json(results);
         }
@@ -267,23 +246,19 @@ router
     );
   })
   .put(function(req, res) {
-    // modifier image produit
+    // modifier image collection
     const ImageId = req.params.id;
     const collectionId = req.params.collectionId;
-    console.log("imageid", ImageId);
-    console.log("collectionid", collectionId);
     connection.query(
       `UPDATE collection SET collection_cover_image_id=${ImageId} WHERE collection_id=${collectionId}`,
       (err, results) => {
         if (err) {
-          console.log("erreur back", err);
           res
             .status(500)
             .send(
               "Erreur lors de la modification de l'image de couverture de la collection"
             );
         } else {
-          console.log(results);
           res.send('ok').status(200);
         }
       }
@@ -294,7 +269,6 @@ router
 router.post("/image/:id", upload.array("file"), (req, res, next) => {
   let error = false;
 
-  console.log("file cote back", req.files);
   req.files.map(file => {
     let Timestamp = Math.round(new Date().getTime() / 1000);
     let FileName = file.originalname;
@@ -328,11 +302,9 @@ router.post("/image/:id", upload.array("file"), (req, res, next) => {
 });
 
 
-///// ajout d'image à la création d'un produit
+///// ajout d'image à la création d'une collection
 router.post("/add/image/", upload.array("file"), (req, res, next) => {
-  console.log('post image collection')
   let error = false;
-  ///// récupération id du produit ajouté
   connection.query(
     "SELECT collection_id FROM collection ORDER BY collection_id DESC LIMIT 1",
     (err, results) => {
@@ -340,8 +312,6 @@ router.post("/add/image/", upload.array("file"), (req, res, next) => {
         res.status(500).send("Erreur lors de la récupération de l'id de la collection");
       } else {
         const recuperationIdCollection = results[0].collection_id;
-        console.log("recuperationIdCollection", recuperationIdCollection)
-
         req.files.map(file => {
           let Timestamp = Math.round(new Date().getTime() / 1000);
           let FileName = file.originalname;

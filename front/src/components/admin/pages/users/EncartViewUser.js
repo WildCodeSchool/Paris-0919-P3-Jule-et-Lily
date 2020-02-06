@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Encarts, ReturnButton } from "../../common";
 import Axios from 'axios'
-import { PDFDownloadLink } from "@react-pdf/renderer";
 import MyBill from '../../pdf/MyBill'
 import '../../../../assets/css/admin/global.css'
 import '../../../../assets/css/admin/cards.css'
@@ -10,6 +9,10 @@ export default function EncartViewUser(props) {
     const [shipping, setShipping] = useState()
     const [billing, setBilling] = useState()
     const [order, setOrder] = useState()
+    const [orderBill, setOrderBill] = useState()
+    const [productBill, setProductBill] = useState()
+
+
 
     const user = props.users
     const user_birthday = new Date(user.user_date_of_birth); // good format of date
@@ -38,7 +41,6 @@ export default function EncartViewUser(props) {
         fetchShipping()
         fetchBilling()
         fetchOrder()
-       
     }, [])
 
     return (
@@ -259,7 +261,6 @@ export default function EncartViewUser(props) {
                             <tbody>
                                 {order && order.map((data, i) => {
                                     const order_date = new Date(data.order_date);
-                                    console.log('data',data)
                                     return (
                                         <tr>
                                             <td>
@@ -276,7 +277,7 @@ export default function EncartViewUser(props) {
                                             </td>
                                             <td>
                                                 {" "}
-                                                <p>{data.total_price}</p>
+                                                <p>{data.total_price + data.shipping_price}</p>
                                             </td>
                                             <td>
                                                 {" "}
@@ -284,15 +285,10 @@ export default function EncartViewUser(props) {
                                             </td>
                                             <td>
                                                 {" "}
-                                                <PDFDownloadLink
-                                                    document={<MyBill
-                                                        data={user} />}
-                                                    fileName='facture.pdf'
-                                                >
-                                                    {({loading}) =>
-                                                        loading ? "Loading document..." : "Pdf"
-                                                    }
-                                                </PDFDownloadLink>
+                                                <MyBill
+                                                    data = {data}
+                                                    data1 = {shipping}
+                                                 />
                                             </td>
                                         </tr>
                                     )

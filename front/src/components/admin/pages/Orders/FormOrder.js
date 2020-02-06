@@ -45,7 +45,6 @@ export default (props) => {
         let newStatusOrderId = newStatusOrder[0].order_status_id
         setOrderModify({ ...orderModify, [e.target.name]: e.target.value })
         setOrderModify({ ...orderModify, order_status: newStatusOrderId })
-        console.log('newStatusOrder', newStatusOrder);
     }
 
    const modifyFormDate = (e) =>{ // necessaire pour retransformer comme il faut la date de la hooksorderModify
@@ -64,10 +63,8 @@ export default (props) => {
             date_order_day= `0${dateOrder.getDate()}`
         }
         else { date_order_day= dateOrder.getDate() }
-        console.log('newFormatDate 1 ',newFormatDate);
 
         newFormatDate=`${dateOrder.getUTCFullYear()}-${date_order_month}-${date_order_day}`
-        console.log('newFormatDate 2 ',newFormatDate);
         setOrderModify({ ...orderModify, order_shipped_date: newFormatDate })
     }
 
@@ -80,7 +77,6 @@ export default (props) => {
         delete OrderModifyPut.number_of_products
         delete OrderModifyPut.order_status_name
         delete OrderModifyPut.order_date
-        console.log('OrderModifyPut', OrderModifyPut);
 
         axios     // récupération des données produit et envoi ds la bdd
             .put(`/order/order/${orderModify.order_id}`, OrderModifyPut)
@@ -92,14 +88,12 @@ export default (props) => {
                     props.reload()
                 }
             }).catch(e => {
-                console.error(e);
                 alert(`Erreur lors de la modification de  la commande n°:${orderModify.order_ref}`)
             });
     }
 
 
     const handleSort = (e) => {
-        //console.log(e.target)
         let order = '';
         if (e.target.classList.contains('asc')) {
             order = 'asc'
@@ -128,13 +122,10 @@ export default (props) => {
     else { date_month = date.getUTCMonth() + 1 }
 
     /// pour le jour 
-
     if (date.getDate() < 10) {
         date_day = `0${date.getDate()}`
     }
     else { date_day = date.getDate() }
-
-    console.log('orderShip', orderShip.toLocaleDateString());
 
 
     useEffect(() => {

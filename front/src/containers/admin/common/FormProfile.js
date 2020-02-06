@@ -13,7 +13,6 @@ function FormProfile(props) {
             type="login"
             className="form-control text-center"
             id="exampleInputEmail1"
-            // aria-describedby="emailHelp"
             placeholder={props.userValue_login}
             value={props.userValue_login}
           />
@@ -26,7 +25,6 @@ function FormProfile(props) {
             type="email"
             className="form-control text-center"
             id="exampleInputEmail1"
-            // aria-describedby="emailHelp"
             placeholder={props.userValue_email}
             value={props.userValue_email}
           />
@@ -40,7 +38,6 @@ function FormProfile(props) {
             className="form-control text-center"
             id="exampleInputPassword1"
             placeholder=""
-            // value={''}
           />
         </div>
         <div className="form-group">
@@ -66,7 +63,6 @@ function FormProfile(props) {
 }
 
 function mapStateToProps(state) {
-  // console.log(state)
   return { token: state.auth.token, user: state.auth.email };
 }
 

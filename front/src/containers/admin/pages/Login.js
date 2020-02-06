@@ -15,14 +15,6 @@ function Login(props) {
           }
       }, []);
 
-    // const updateLoginField = (e) => {
-    //     setUser({...user, user_login: e.target.value })
-    // }
-
-    // const updatePasswordField = (e) => {
-    //     setUser({...user, user_password: e.target.value })
-    // }
-
     const updateForm = (e) => {
         const  inputLogin= document.getElementById('exampleInputEmail1');
         const inputPassword= document.getElementById('exampleInputPassword1');
@@ -52,7 +44,6 @@ function Login(props) {
                 err => setUser({ error: err.error, flash: err.flash })
             );
         e.preventDefault()
-        // console.log(user)
     }
 
 
@@ -62,8 +53,6 @@ function Login(props) {
             {user.flash ? (alert(user.flash), setUser({...user, flash: null})) : ''}
             <div>
                 <FormLogin 
-                    // onChangeLogin={ updateLoginField }
-                    // onChangePassword={ updatePasswordField }
                     updateForm= { updateForm }
                     onClick={ handleSubmit } />
             </div>

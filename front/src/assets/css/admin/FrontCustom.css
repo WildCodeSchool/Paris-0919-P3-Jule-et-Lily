@@ -149,10 +149,10 @@
     justify-content: center;
 }
 
-.
 
 .CarouselImage{
     height: 300px;
+    object-fit:cover;
 }
 
 .CarouselItem{

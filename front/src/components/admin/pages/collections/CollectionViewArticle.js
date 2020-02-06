@@ -22,7 +22,6 @@ function CollectionViewArticle(props) {
     useEffect(() => {
         fetchImages();
       }, [])
-      console.log(imagesCollection)
     return (
         <>
             <Encarts title="Fiche Collection">

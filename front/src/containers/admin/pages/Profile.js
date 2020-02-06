@@ -10,7 +10,6 @@ function Profile(props) {
 
   const validateNewProfile = (e) => {
     setProfileModifying({ ...profileModifying, [e.target.name]: e.target.value })
-    // console.log('caca', profileModifying);
   }
 
 
@@ -20,7 +19,6 @@ function Profile(props) {
         Authorization: "Bearer " + props.token,
         method: 'POST'
       }
-      // body: JSON.stringify(props.user)
     })
       .then(res => res.json())
       .then(res => {
@@ -32,8 +30,6 @@ function Profile(props) {
 
 
   const handleSubmit = (e) => {
-    // console.log('profileModifying', profileModifying)
-    // console.log(props.userEmail);
     fetch(`/profile/1`,
       {
         method: 'POST',
@@ -58,7 +54,6 @@ function Profile(props) {
       )
     props.reload()
     e.preventDefault()
-    // console.log(profileModifying);
   }
 
 

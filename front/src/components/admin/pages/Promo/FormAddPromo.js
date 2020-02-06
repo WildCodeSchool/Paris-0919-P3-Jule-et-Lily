@@ -34,7 +34,6 @@ export default function FormAddPromo(props) {
   let handleSubmitPromo = e => {
     e.preventDefault();
     const PromoPut = newPromo;
-    console.log("Promoput", PromoPut);
     axios // envoi ds la bdd
       .post(`Promo/`, PromoPut)
       .then(res => {
@@ -61,7 +60,6 @@ export default function FormAddPromo(props) {
               type="text"
               className="form-control text-center"
               id="designationid"
-              //placeholder={newPromo.promo_name}
               value={newPromo && newPromo.promo_name}
             />
           </div>
@@ -75,7 +73,6 @@ export default function FormAddPromo(props) {
               step="0.01"
               className="form-control text-center"
               id="imageid"
-              //placeholder={newPromo.promo_value}
               value={newPromo && newPromo.promo_value}
             />
           </div>
@@ -110,7 +107,7 @@ export default function FormAddPromo(props) {
             <div className="Swatch" onClick={handleClickColorPicker}>
               <div style={{backgroundColor: `${encartDisplay.backgroundColor}`}} className="titleCSS"/>
             </div>
-            { ColorPickerDisplay ? <div className = "Popover" >
+            { ColorPickerDisplay ? <div className = "popover-promo" >
               <div className="Cover" onClick={handleClickColorPicker}/>
               <ChromePicker color={newPromo && newPromo.promo_sticker_color} onChange={handleChangeColor} />
             </div> : null }

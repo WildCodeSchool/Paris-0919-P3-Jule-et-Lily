@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import { Carousel } from 'react-responsive-carousel';
-
 
 import EncartCollection from "./EncartCollection";
 import FormColorCustom from "./FormColorCustom";
@@ -54,37 +52,6 @@ const FrontCustom = () => {
   useEffect(() => {
     fetchData()
   }, []);
-
-  ////////////////////////// Database Send Data //////////////////////////////////
-
-  //const submitForm = e => {
-
-  // const url = `header-collection/${encartDisplay.id}`;
-  // const config = {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(encartDisplay),
-
-  //   };
-  //   {console.log('state brut', encartDisplay)}
-  //   {console.log('state jsonifié', JSON.stringify('JSON : ------------',encartDisplay))}
-
-  // fetch(url, config)
-  //     .then(res => res.json())
-  //     .then(res => {
-  //         if (res.error) {
-  //             alert(res.error);
-  //         } else {
-  //             alert(`l'encart ${encartDisplay.title} a été ajouté avec succès!`);
-  //         }
-  //     }).catch(e => {
-  //     console.error("erreur lors du fetch", e);
-  //     alert("Erreur lors de la modification de l'encart");
-  //     });
-
-  // }
 
   const submitForm = e => {
     e.preventDefault();
@@ -145,9 +112,6 @@ const FrontCustom = () => {
           alert(`l'image a été supprimée avec succès!`);
         }
       })
-      // .catch(e => {
-      //   console.error(e);
-      // });
     setTimeout(() => window.location.reload(), 2000);
     }
     else {

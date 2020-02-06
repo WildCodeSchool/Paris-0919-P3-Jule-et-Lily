@@ -11,7 +11,6 @@ const promoModify = props.donneesPromo
 const start_date = new Date(promoModify.code_promo_date_start);
 const end_date = new Date(promoModify.code_promo_date_end);
 
-
   return (
     <>
       <ReturnButton onClickSee={props.onClickSee} />

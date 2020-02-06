@@ -135,7 +135,6 @@ export default function FormProducts(props) {
               productStockModify
             )
             .then(res2 => {
-              console.log('res stock',res2)
               if (res2.err) {
                 alert(`Le stock n'a pas été modifié`);
               } else {
@@ -198,7 +197,6 @@ export default function FormProducts(props) {
 
   return (
     <>
-    {console.log(fakeDataImage)}
       <ReturnButton onClickSee={props.onClick} />
       <Encarts title="Ajouter un produit">
         <form className="form-group text-center">
