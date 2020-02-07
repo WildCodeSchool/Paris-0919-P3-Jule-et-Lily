@@ -163,7 +163,7 @@ export default function Dashboard() {
           </Encarts>
         </div>
         <div className="col-lg-4 p-4">
-          <Encarts title="CA hebdomadaire">
+          <Encarts title="CA mensuel">
             <CardLastYear title="Ce mois-ci" stats={getTot(getOrderByMonth(allorders, currentMonth, currentYear, 0))} color1="blue" border="border-bottom">
               <IconBlue />
             </CardLastYear>
